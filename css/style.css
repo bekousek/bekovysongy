@@ -525,12 +525,11 @@ a:hover {
 }
 
 .song-text {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  line-height: 1.8;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.9;
   white-space: pre-wrap;
   word-wrap: break-word;
-  tab-size: 4;
 }
 
 .chord {
