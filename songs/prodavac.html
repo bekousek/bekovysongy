@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prodavač - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Prodavač</h1>
+      <p class="song-author">Michal Tučný</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="C">C</span>Pojďte všichni dovnitř, pozvěte si všechny známé,
+my vám dobrou radu dáme, neboť právě otvíráme,
+prodáváme, vyděláváme, co kdo chcete, tak to máme,
+co nemáme objednáme, všechno známe, všechno víme,
+poradíme, posloužíme.
+<span class="chord" data-chord="C">C</span>Stál krámek v naší ulici, v něm <span class="chord" data-chord="F">F</span>párky, buřty s hořčicí
+a <span class="chord" data-chord="G">G</span>bonbóny a sýr a sladký <span class="chord" data-chord="C">C</span>mák <span class="chord" data-chord="G7">G7</span>
+Tam <span class="chord" data-chord="C">C</span>chodíval jsem potají, tak <span class="chord" data-chord="F">F</span>jak to kluci dělají
+a <span class="chord" data-chord="G">G</span>ochutnával od okurek <span class="chord" data-chord="C">C</span>lák
+a <span class="chord" data-chord="F">F</span>pro mou duši nevinnou pan <span class="chord" data-chord="C">C</span>vedoucí byl hrdinou, 
+když <span class="chord" data-chord="D7">D7</span>po obědě začal prodávat <span class="chord" data-chord="G">G</span><span class="chord" data-chord="G7">G7</span>
+Měl <span class="chord" data-chord="C">C</span>jazyk mrštný jako bič a <span class="chord" data-chord="F">F</span>já byl z něho celý pryč
+a <span class="chord" data-chord="G">G</span>toužil jsem se prodavačem <span class="chord" data-chord="C">C</span>stát.
+R: <span class="chord" data-chord="C">C</span>Pět deka, deset deka, dvacet deka, třicet deka, 
+    <span class="chord" data-chord="F">F</span>kilo chleba, kilo cukru, jeden rohlík, jedna veka, 
+    <span class="chord" data-chord="G">G</span>všechno máme, co kdo chcete, obchod kvete, jen si račte <span class="chord" data-chord="C">C</span>říct.
+    Čtyři kila, deset kilo, dvacet kilo, třicet kilo, 
+    navážíme, za balíme, klaníme se, to by bylo, 
+    prosím pěkně, mohu nechat o jedenáct deka víc.
+Já nezapomněl na svůj cíl a záhy jsem se vyučil
+a moh být ze mě prodavačů král.
+Jenomže, jak běžel čas, náhle zaslechl jsem hudby hlas
+a znenadání na jevišti stál.
+I když nejsem králem zpěváků, teď zpívám s partou Fešáků
+a nikdo vlastně neví, co jsem zač
+Mě potlesk hřeje do uší a mnohý divák netuší,
+že mu vlastně zpívá prodavač.
+R: <span class="chord" data-chord="C F G C">C F G C</span>
+<span class="chord" data-chord="C">C</span>Vím, že se život rozletí a <span class="chord" data-chord="F">F</span>sním o konci století,
+kdy <span class="chord" data-chord="G">G</span>nikdo neví, co je chvat a <span class="chord" data-chord="C">C</span>shon <span class="chord" data-chord="G7">G7</span>
+a <span class="chord" data-chord="C">C</span>dětem líčí babička, jak <span class="chord" data-chord="F">F</span>vypadala elpíčka
+a <span class="chord" data-chord="G">G</span>co byl vlastně starý gramo <span class="chord" data-chord="C">C</span>fon.
+I<span class="chord" data-chord="F">F</span>kdyby v roce dva tisíce <span class="chord" data-chord="C">C</span>byla veta po muzice,
+<span class="chord" data-chord="D7">D7</span>obchod je věc stále kvetoucí. <span class="chord" data-chord="G">G</span><span class="chord" data-chord="G7">G7</span>
+<span class="chord" data-chord="C">C</span>Už se vidím, je to krása, <span class="chord" data-chord="F">F</span>ve výloze nápis hlásá:
+<span class="chord" data-chord="G">G</span>MICHAL TUČNÝ: odpovědný vedoucí. <span class="chord" data-chord="C">C</span>
+
+R: <span class="chord" data-chord="C F G C">C F G C</span>
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Prodavač" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poruba - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Poruba</h1>
+      <p class="song-author">Jaromír Nohavica</p>
+      
+    </div>
+    <pre class="song-text">R: //:<span class="chord" data-chord="C">C</span>Poruba po ránu je plná malých pionýrů,
+    <span class="chord" data-chord="G">G</span>Poruba po ránu je plná malých pionýrů,
+    <span class="chord" data-chord="Ami">Ami</span>Poruba po ránu je plná malých pionýrů. <span class="chord" data-chord="F">F</span>://
+<span class="chord" data-chord="C">C</span>Tady tobylo, kde jsem poprvé ji viděl,
+<span class="chord" data-chord="Ami">Ami</span>tady to bylo, kde jsem poprvé se styděl,
+<span class="chord" data-chord="F">F</span>tady to bylo, kde mě políbila na rty,
+<span class="chord" data-chord="G">G</span>tady to bylo, kde mi poznačili moje karty.
+Tady to bylo, kde mi prohrabali kapsy saka,
+nenašli svině nic a zavolali Esebáka,
+tady to bylo, kde mě dohnali mé pochybnosti,
+na úsvitu dospělosti.
+R: <span class="chord" data-chord="C G Ami F">C G Ami F</span>
+<span class="chord" data-chord="C">C</span>Tady to bylo, kde mě učili azbuku,
+<span class="chord" data-chord="Ami">Ami</span>a dole na nábřeží, skřivan sedl mi na ruku,
+<span class="chord" data-chord="F">F</span>a dřív než odletěl, tak mrkl na mě spiklenecky,
+<span class="chord" data-chord="G">G</span>tady to bylo, kde přečetl jsem knížky všecky.
+Tady to bylo, kde mi uvázali šátek,
+a já měl ruce otlačené od mávátek,
+a žluté lampióny, svítili jak bludičky,
+a vedly do chaloupky, kouzelné babičky.
+R: <span class="chord" data-chord="C G Ami F">C G Ami F</span>
+
+Práškující <span class="chord" data-chord="C">C</span>letadlo, klesá <span class="chord" data-chord="G">G</span>nad leninku,
+včera mě <span class="chord" data-chord="Ami">Ami</span>napadlo, otevřít <span class="chord" data-chord="F">F</span>černou skříňku.
+<span class="chord" data-chord="C">C</span>Všechno co najdeš ve své paměti,
+<span class="chord" data-chord="Ami">Ami</span>je vyzobané zrní, ptáků kteří v zimě odletí,
+<span class="chord" data-chord="F">F</span>na jaře se vrací, na Horní dvůr,
+<span class="chord" data-chord="G">G</span>sednout si na klepáč a poslechnout si náhrobní kámen,
+<span class="chord" data-chord="C">C</span>v D dur.
+<span class="chord" data-chord="Ami">Ami</span>Tady to bylo,
+<span class="chord" data-chord="F">F</span>tady to bylo,
+<span class="chord" data-chord="G">G</span>tady to bylo.
+R: <span class="chord" data-chord="C G Ami F">C G Ami F</span>
+
+<span class="chord" data-chord="C">C</span>Tady to bylo, kdy jsme poprvé šli vedle sebe,
+<span class="chord" data-chord="Ami">Ami</span>já se tě letmo dotkl a hvězda padla z nebe,
+<span class="chord" data-chord="F">F</span>a jak tak padala, země se chvěla,
+<span class="chord" data-chord="G">G</span>tramvaje cinkali a Poruba se probouzela.
+Tady to bylo a jinde nemohlo být,
+těžko si vybrat místo, kde by ses chtěl narodit,
+pod jakou vlajkou, komu a proč,
+tady to bylo, kde se roztočil můj kolotoč.
+<span class="chord" data-chord="C">C</span>Tady to <span class="chord" data-chord="G">G</span>bylo, tady to <span class="chord" data-chord="Ami">Ami</span>bylo, tady to <span class="chord" data-chord="F">F</span>bylo...
+R: <span class="chord" data-chord="C G Ami F">C G Ami F</span>
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Poruba" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

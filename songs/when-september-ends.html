@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When September ends - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>When September ends</h1>
+      <p class="song-author">Green Day</p>
+      
+    </div>
+    <pre class="song-text">S1: <span class="chord" data-chord="G">G</span>Summer has <span class="chord" data-chord="D">D</span>come and passed.
+     The <span class="chord" data-chord="Emi">Emi</span>innocent can <span class="chord" data-chord="D">D</span>never last.
+     <span class="chord" data-chord="C">C</span>Wake me up <span class="chord" data-chord="Cmi">Cmi</span>when September <span class="chord" data-chord="G">G</span>ends. <span class="chord" data-chord="D">D</span>
+S2: <span class="chord" data-chord="G">G</span>Like my father's <span class="chord" data-chord="D">D</span>come to pass.
+<span class="chord" data-chord="Emi">Emi</span>Seven years has <span class="chord" data-chord="D">D</span>gone so fast.
+<span class="chord" data-chord="C">C</span>Wake me up <span class="chord" data-chord="Cmi">Cmi</span>when September <span class="chord" data-chord="G">G</span>ends. <span class="chord" data-chord="D">D</span>
+S3:<span class="chord" data-chord="Emi">Emi</span>Here comes the <span class="chord" data-chord="Hmi">Hmi</span>rain again.
+<span class="chord" data-chord="C">C</span>Falling from the <span class="chord" data-chord="G">G</span>stars. <span class="chord" data-chord="D">D</span>
+<span class="chord" data-chord="Emi">Emi</span>Drenched in my <span class="chord" data-chord="Hmi">Hmi</span> pain again.
+<span class="chord" data-chord="C">C</span>Becoming who we <span class="chord" data-chord="D">D</span>are.
+S4: <span class="chord" data-chord="G">G</span>As my memo <span class="chord" data-chord="D">D</span>ry rests.
+      But <span class="chord" data-chord="Emi">Emi</span>never forgets <span class="chord" data-chord="D">D</span>what I lost.
+      <span class="chord" data-chord="C">C</span>Wake me up <span class="chord" data-chord="Cmi">Cmi</span>when September <span class="chord" data-chord="G">G</span>ends. <span class="chord" data-chord="D">D</span>
+S1:
+<span class="chord" data-chord="G">G</span>Ring out the <span class="chord" data-chord="D">D</span>bells again.
+Like <span class="chord" data-chord="Emi">Emi</span>we did when <span class="chord" data-chord="D">D</span>spring began.
+<span class="chord" data-chord="C">C</span>Wake me up <span class="chord" data-chord="Cmi">Cmi</span>when September <span class="chord" data-chord="G">G</span>ends. <span class="chord" data-chord="D">D</span>
+S3:
+S4:
+
+S1:
+S2:</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: When September ends" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

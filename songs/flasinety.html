@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flašinety - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Flašinety</h1>
+      <p class="song-author">Poletíme?</p>
+      
+    </div>
+    <pre class="song-text">Můj <span class="chord" data-chord="Ami">Ami</span>prapraprapraděda vyráběl flašine <span class="chord" data-chord="C">C</span>ty,
+<span class="chord" data-chord="Ami">Ami</span>chlapům, kteří nemě <span class="chord" data-chord="C">C</span> li
+<span class="chord" data-chord="F">F</span> ruku nebo <span class="chord" data-chord="Emi">Emi</span>nohu, <span class="chord" data-chord="Ami">Ami</span>a tak stáli na rohu,
+<span class="chord" data-chord="F">F</span> první svě <span class="chord" data-chord="Emi">Emi</span>tová <span class="chord" data-chord="Ami">Ami</span>poslala je domů.
+<span class="chord" data-chord="F">F</span>Málem <span class="chord" data-chord="Emi">Emi</span>nebyli <span class="chord" data-chord="Ami">Ami</span>tak klikou toči <span class="chord" data-chord="F">F</span>li. <span class="chord" data-chord="F G Ami">F G Ami</span>
+
+Můj prapraprapraděda to dělal zadarmo,
+takový malý dřevěný válečky,
+který se dovnitř dali a tam brnkaly
+a píšťalky vevnitř se rozeznívaly,
+a když jsi na to hrál, někdo ti něco dal.
+
+Mýho prapraprapradědu měl každej rád,
+měl ženu, domek, dílnu a jabloňovej sad.
+A v neděli po obědě kouřil dýmku na verandě,
+i kočky si s klubkem hráli vnoučata se na něj smály,
+přesně takto si to vždycky představoval.
+
+Můj prapraprapraděda vyráběl flašinety,
+chlapům, kteří neměli
+žádný doma, žádný čekám na tebe,
+žádný mám tě ráda, žádný lásko chci tě.
+Přežili svůj život a je jim jedno, co bude dál.
+
+Můj prapraprapraděda vyráběl flašinety,
+chlapům, kteří neměli
+ruku nebo nohu, a tak stáli na rohu,
+první světová poslala je domů.
+Málem nebyli tak klikou točili. 
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Flašinety" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

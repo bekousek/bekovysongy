@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Małomiasteczkowy - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Małomiasteczkowy</h1>
+      <p class="song-author">Dawid Podsiadło</p>
+      
+    </div>
+    <pre class="song-text">Małomiastecz <span class="chord" data-chord="A">A</span>kowa twarz, 
+małomiastecz <span class="chord" data-chord="D">D</span> kowa głowa
+Małomiastecz <span class="chord" data-chord="A">A</span> kowy styl, 
+małomiastecz <span class="chord" data-chord="D">D</span> kowo kocham
+Z <span class="chord" data-chord="Hmi">Hmi</span>małego miasta wielkie sny, 
+atakują <span class="chord" data-chord="D">D</span>twoje ulice
+Wyśniłem <span class="chord" data-chord="Hmi">Hmi</span>sobie ciebie, gdy 
+śpiewałem <span class="chord" data-chord="E">E</span>głośno pod prysznicem
+Ten mój małomiasteczkowy hit 
+i małomiasteczkowe słowa
+Ten małomiasteczkowy rytm, 
+melodia małomiasteczkowa
+Z małego miasta wielkie sny 
+gromadzą się na twoich ulicach
+Pamiętam, bardzo chciałem tu być, 
+na pewno dużo bardziej niż dzisiaj
+R: 2x: <span class="chord" data-chord="F#m">F#m</span> Znowu jadę <span class="chord" data-chord="E">E</span> do ciebie <span class="chord" data-chord="A">A</span> sam <span class="chord" data-chord="Hmi">Hmi</span>
+          <span class="chord" data-chord="A">A</span> Znowu jadę <span class="chord" data-chord="Hmi">Hmi</span> do ciebie <span class="chord" data-chord="C#m">C#m</span> <span class="chord" data-chord="E">E</span>
+          Znowu jadę do ciebie sam
+          Znowu jadę do ciebie
+Przez chwilę czułem się jak Bóg
+Przez chwilę byłem królem w mieście
+Wybrałem na siłownie strój 
+i wtedy zrozumiałem wreszcie
+Że z mojego miasta moje sny, 
+budują twoje ulice
+Że ciebie nie zachwyca tu nic
+Ale smuci mnie, że nadal nie krzyczę
+Gdy wielkomiejski piękny świat
+Na każdym kroku sypie kreski
+Uściski i klepnięcia w bark
+Płynące ze wzruszenia łezki
+Dlaczego wszystko sztuczne, aż tak?
+Że napromieniowane i świeci
+Trzeba stąd wyjechać, bo strach
+Że wszystko przejdzie na moje dzieci
+R:</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Małomiasteczkowy" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anděl - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Anděl</h1>
+      <p class="song-author">Xindl-X</p>
+      
+    </div>
+    <pre class="song-text">R: Jsem anděl <span class="chord" data-chord="Dmi">Dmi</span>, co tě dostal na povel <span class="chord" data-chord="B">B</span>,
+    ale mám-li tě <span class="chord" data-chord="C">C</span>vzít do nebe,
+    chci z toho <span class="chord" data-chord="Dmi">Dmi</span> něco pro sebe.
+    Mám rád řeč těl a v kapse <span class="chord" data-chord="B">B</span> lubrikační gel.
+    Tak mi <span class="chord" data-chord="C">C</span> namaž perutě,
+    a já do <span class="chord" data-chord="Dmi">Dmi</span> nebe vemu tě.
+
+Svět je <span class="chord" data-chord="Dmi">Dmi</span> pochybný místo a je <span class="chord" data-chord="B">B</span>snadný se v něm ztratit,
+Obzvlášť <span class="chord" data-chord="C">C</span>pro ty, co něvěděj, komu <span class="chord" data-chord="Dmi">Dmi</span> za ochranu platit.
+S tebou je to jiný - ty máš <span class="chord" data-chord="B">B</span> mě
+A já ti řeknu, <span class="chord" data-chord="C">C</span> o co tady jde. <span class="chord" data-chord="Dmi">Dmi</span>
+Poslali <span class="chord" data-chord="Dmi">Dmi</span> mě ze shora, abych ti dal <span class="chord" data-chord="B">B</span> do života radu,
+jasně, <span class="chord" data-chord="C">C</span> že ne za dáčo, ty káčo, <span class="chord" data-chord="Dmi">Dmi</span> to myslíš, že kradu?
+Tak cáluj a neříkej, žes žádnou <span class="chord" data-chord="B">B</span>pomoc nechtěla
+To se <span class="chord" data-chord="C">C</span> přece nedělá, držet si <span class="chord" data-chord="Dmi">Dmi</span> od těla
+svýho strážnýho <span class="chord" data-chord="Dmi">Dmi</span> anděla.
+
+Vždyť já vím, co je v nebi in,
+Já znám číslo na boha, já znám i jeho pin,
+Když chceš v nebi uspět, řeknu ti s kým chrápat
+A co se stvoření světa týče, čí si myslíš, že to byl nápad?
+
+Jó, mě je prostě dobrý znát,
+Tak mě holka nechtěj štvát
+a nezkoušej si stěžovat,
+Tobě zřejmě ještě nedošlo, jak je to s tebou vážný,
+když jsem zrovna já tvůj anděl strážný.
+
+R:
+Jsi holka divoká
+a padla jsi mi do oka
+A orgasmy předstíráš, že bys měla dostat cenu Alfréda Radoka
+A ne za vedlejší roli,
+když jde o akt pohlavní,
+jsou tu jenom role hlavní.
+Takovýmu éru jako ty,
+můžu zařídit kariéru, když nebude dělat drahoty,
+Jasně že to bude něco stát,
+ale můžem se domluvit i jinak když mi bude stát.
+Cože, jaká morálka?
+Tohle je normálka!
+I anděl potřebuje prachy na kafe a cigárka
+a ňáký to povyražení,
+protože v nebi ho moc není.
+Možná, že vážně není v mý pravomoci,
+na svý klientky uplatňovat právo první noci.
+Já chci jen to co všichni andělové
+give me some LOVE a dej mi nějaký love.
+
+R: 2x
+Jsem anděl, <span class="chord" data-chord="Dmi">Dmi</span> co tě dostal na povel <span class="chord" data-chord="B">B</span>,
+<span class="chord" data-chord="C">C</span>Ú-JÉÉ, <span class="chord" data-chord="Dmi">Dmi</span> Ú-JEÉ!
+Jsem anděl, co tě dostal na pove <span class="chord" data-chord="B">B</span> -e-e-e-e-e- <span class="chord" data-chord="C">C</span> ééél! <span class="chord" data-chord="Dmi">Dmi</span>
+
+R: 2x</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Anděl" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

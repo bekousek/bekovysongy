@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burlaci - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Burlaci</h1>
+      <p class="song-author">Kabát</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Ami">Ami</span> Konopný lana, tak ty už něco vydr <span class="chord" data-chord="Emi">Emi</span> ží,
+zkaženej dech a čtyry deci pod ků <span class="chord" data-chord="Ami">Ami</span> ží,
+nebe rudý, břízy brzo pokve <span class="chord" data-chord="Emi">Emi</span> tou
+a chlapi z nudy baví se ruskou rule <span class="chord" data-chord="F">F</span> tou,
+když svoje lodě proti proudu tá <span class="chord" data-chord="Ami">Ami</span> hnou,
+<span class="chord" data-chord="Ami">Ami</span> Otroci řeky, prach a špína, tvrdá <span class="chord" data-chord="Emi">Emi</span> zem,
+jediná výhra, je tanec smrti s medvě <span class="chord" data-chord="Ami">Ami</span> dem,
+a tak si žijou, ze dne na den tisíc <span class="chord" data-chord="Emi">Emi</span> let,
+Burlaci pijou, jak bylo by to napos <span class="chord" data-chord="F">F</span> led,
+když svoje lodě proti proudu tá <span class="chord" data-chord="Ami">Ami</span> hnou,
+navzdory všem kame <span class="chord" data-chord="F">F</span> nům
+Proč jenom touhy po čase <span class="chord" data-chord="E">E</span> vadnou?
+Otoč se a podí <span class="chord" data-chord="C">C</span> vej.
+R: Nebe je tem <span class="chord" data-chord="G">G</span> ný a mnohem <span class="chord" data-chord="Ami">Ami</span> níž,
+    jen vlků <span class="chord" data-chord="F">F</span> dávnej chorál z <span class="chord" data-chord="C">C</span>hor,
+    a já tu <span class="chord" data-chord="G">G</span> miarně hledám <span class="chord" data-chord="Ami">Ami</span> skrýš,
+    když cesta <span class="chord" data-chord="F">F</span> rovná se nám ztrá <span class="chord" data-chord="C">C</span> cí,
+    lidi jsou <span class="chord" data-chord="G">G</span> andělé a nebo <span class="chord" data-chord="Ami">Ami</span> draci,
+    a každej <span class="chord" data-chord="F">F</span>dobrej skutek sílu <span class="chord" data-chord="C">C</span> vrací,
+    no tak jen <span class="chord" data-chord="G">G</span> otoč se a podí <span class="chord" data-chord="Ami">Ami</span> vej na lodě <span class="chord" data-chord="B">B</span> za tebou!
+Není to lehký, ve světě lží a polopravd,
+Na břehu řeky harmonika začla hrát,
+Tamtoho léta vítr stopy zahladil,
+Jsme jako oni, už nezbejvá nám tolik sil,
+Když svoje lodě proti proudu táhnem,
+Navzdory všem kamenům,
+Jednou si každej až na dno sáhnem.
+Otoč se a podí <span class="chord" data-chord="C">C</span> vej.
+R:
+Tak se mi <span class="chord" data-chord="C">C</span> zdá...
+
+R: 2x</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Burlaci" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

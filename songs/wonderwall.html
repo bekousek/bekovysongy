@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wonderwall - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Wonderwall</h1>
+      <p class="song-author">Oasis</p>
+      
+    </div>
+    <pre class="song-text">1. <span class="chord" data-chord="Emi">Emi</span>Today is <span class="chord" data-chord="G">G</span>gonna be the day
+
+   that they're <span class="chord" data-chord="D">D</span>gonna throw it back to <span class="chord" data-chord="A">A</span>you   
+
+   By now you should've somehow
+
+   realized what you gotta do
+
+   I don't believe that anybody 
+
+   feels the way I do about you now
+2. Backbeat the word was on the street
+
+    that the fire in your heart is out
+
+    I'm sure you've heard it all before
+
+    but you never really had a doubt
+
+    I don't believe that anybody 
+
+    feels the way I do about you now
+Bridge: And <span class="chord" data-chord="C">C</span>all the roads we <span class="chord" data-chord="D">D</span>have to walk are <span class="chord" data-chord="Emi">Emi</span>winding
+
+             And <span class="chord" data-chord="C">C</span>all the lights that <span class="chord" data-chord="D">D</span>lead us there are <span class="chord" data-chord="Emi">Emi</span>blinding
+
+             There <span class="chord" data-chord="C">C</span>are many things that <span class="chord" data-chord="D">D</span>I would <span class="chord" data-chord="G">G</span>like to say <span class="chord" data-chord="Emi">Emi</span>to you
+
+             but I don't know <span class="chord" data-chord="A">A</span>how
+R: Cause <span class="chord" data-chord="Cadd9">Cadd9</span>maybe <span class="chord" data-chord="Emi7">Emi7</span>, you're gonna be the one that
+
+    <span class="chord" data-chord="Cadd9">Cadd9</span>saves me <span class="chord" data-chord="Emi7">Emi7</span>, and after <span class="chord" data-chord="Cadd9">Cadd9</span>all
+
+    <span class="chord" data-chord="Emi7">Emi7</span>you're my wonder Cadd9 wall <span class="chord" data-chord="Emi7">Emi7</span>
+1.
+Bridge:
+2x R:
+
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Wonderwall" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

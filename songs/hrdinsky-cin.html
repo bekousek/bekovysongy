@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hrdinský čin - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Hrdinský čin</h1>
+      <p class="song-author">Pokáč</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Ami">Ami</span>Řeknu vám  <span class="chord" data-chord="C">C</span> příběh  <span class="chord" data-chord="E">E</span> který se  <span class="chord" data-chord="Ami">Ami</span>stal
+a
+ <span class="chord" data-chord="Ami">Ami</span>sním klidně<span class="chord" data-chord="C">C</span> svůj klobouk  <span class="chord" data-chord="G">G</span> kdybych vám  <span class="chord" data-chord="C">C</span> lhal
+
+jak  <span class="chord" data-chord="Dmi">Dmi</span>zpívá
+pan  <span class="chord" data-chord="C">C</span> Tučný a  <span class="chord" data-chord="G">G</span>snad to není <span class="chord" data-chord="E">E</span>
+<span class="chord" data-chord="Ami">Ami</span>autorské
+ <span class="chord" data-chord="C">C</span>ho práva<span class="chord" data-chord="E">E</span> porušení <span class="chord" data-chord="Ami">Ami</span>
+Tak si to hasim po václaváku
+nahoře pod koněm jdu z hlaváku
+když na rameni ucítím ruku něčí
+a neznámý muž spustí cizí řečí
+Hello my friend i think i am lost
+you know how i could get to "Karlův most"
+i've never been here and my phone is dead
+could you please help me 'cause i've got no map 
+
+Chvíli jen zírám nevěřícně
+co-se-to ten podivín snaží říct mně
+pak povídám hele já nerozumim
+já tou tvojí hatmatilkou nemluvim
+
+R: 3x  <span class="chord" data-chord="Dmi   G   Ami   C">Dmi   G   Ami   C</span>  Lalala...
+    <span class="chord" data-chord="C   E   Ami">C   E   Ami</span>  ... lalala
+Sorry i don't speak czech not a single word
+or maybe just one the one i just heard
+from this nice young man that i passed by
+i think he said "nečum" and i guess that means "hi"
+Jak to se mnou mluvíš ty zmetku cizí
+říkám uděláš nejlíp když vodsaď zmizíš
+jsem na výsost pohoršen a smutno je mi
+co za lůzu běhá po naší zemi
+Okay i think that i'll try this way
+thanks for your time and have a nice day
+you know today it's the birthday of my lovely wife
+as a present i got her this beautiful knife, look
+
+V tu chvíli na mě ten cizí muž
+bez oka mrknutí vytasil nůž
+já však zachoval klid a o zem švih s ním
+a tak zatočil s cizákem násilnickým
+
+R:
+A tak končí příběh, který se stal
+a přísahám že jsem vám fakt nekecal
+jednou se budou psát písně to už teď vím
+oslavující můj hrdinský čin
+a <span class="chord" data-chord="Dmi">Dmi</span> nejeden <span class="chord" data-chord="C">C</span> film jistě <span class="chord" data-chord="G">G</span> půjde do <span class="chord" data-chord="C">C</span> kin
+R: 
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Hrdinský čin" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

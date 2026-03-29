@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centuries - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Centuries</h1>
+      <p class="song-author">Fall Out Boys</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Em">Em</span> <span class="chord" data-chord="Ami">Ami</span> <span class="chord" data-chord="Dsus2">Dsus2</span>
+R: <span class="chord" data-chord="Emi">Emi</span> Some legends are told
+    Some turn to <span class="chord" data-chord="G">G</span>dust or to gold
+    But you will <span class="chord" data-chord="C">C</span> remember me
+    <span class="chord" data-chord="Ami">Ami</span> Remember me for <span class="chord" data-chord="D">D</span> centuries
+    And <span class="chord" data-chord="Emi">Emi</span> just one mistake
+    Is <span class="chord" data-chord="G">G</span> all it will take
+    We'll go down in <span class="chord" data-chord="C">C</span> history
+    <span class="chord" data-chord="Ami">Ami</span> Remember me for <span class="chord" data-chord="D">D</span> centuries
+    <span class="chord" data-chord="Emi">Emi</span> Hey yeah, oh <span class="chord" data-chord="G">G</span> hey, <span class="chord" data-chord="C">C</span>hey yeah
+    <span class="chord" data-chord="Ami">Ami</span> Remember me for <span class="chord" data-chord="D">D</span> centuries
+<span class="chord" data-chord="Emi">Emi</span> Mummified my teenage dreams
+<span class="chord" data-chord="G">G</span> No, it's nothing wrong with me
+The <span class="chord" data-chord="C">C</span>kids are all wrong
+The stories are off
+<span class="chord" data-chord="Ami">Ami</span> Heavy metal broke my <span class="chord" data-chord="D">D</span> heart
+Come on, come on and let me in
+The bruises on your thighs like my fingerprints
+And this is supposed to match
+The darkness that you felt
+I never meant for you to fix yourself
+<span class="chord" data-chord="Emi">Emi</span> <span class="chord" data-chord="Ami">Ami</span> <span class="chord" data-chord="Dsus2">Dsus2</span>
+R:
+I can't <span class="chord" data-chord="Emi">Emi</span> stop until the whole world knows my name
+'Cause <span class="chord" data-chord="G">G</span>I was only born inside my dreams
+<span class="chord" data-chord="C">C</span> Until you die for me, as long as there's a light
+My <span class="chord" data-chord="Ami">Ami</span> shadow's over you 'cause <span class="chord" data-chord="D">D</span> I-I am the <span class="chord" data-chord="Emi">Emi</span> opposite of amnesia <span class="chord" data-chord="G">G</span>
+And <span class="chord" data-chord="C">C</span>you're a cherry blossom
+You're about to bloom
+You <span class="chord" data-chord="Ami">Ami</span> look so pretty, but you're <span class="chord" data-chord="D">D</span> gone so soon
+<span class="chord" data-chord="Emi Ami Dsus2">Emi Ami Dsus2</span>
+
+R:
+<span class="chord" data-chord="Emi">Emi</span> We've been here <span class="chord" data-chord="G">G</span> forever
+And <span class="chord" data-chord="C">C</span> here's the frozen <span class="chord" data-chord="Ami">Ami</span> proof <span class="chord" data-chord="D">D</span>
+<span class="chord" data-chord="Emi">Emi</span> I could scream <span class="chord" data-chord="G">G</span>forever
+We <span class="chord" data-chord="C">C</span> are the poisoned <span class="chord" data-chord="Ami">Ami</span> youth <span class="chord" data-chord="D">D</span>
+2x <span class="chord" data-chord="Emi Ami Dsus2">Emi Ami Dsus2</span>
+
+R:</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Centuries" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

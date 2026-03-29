@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prezident pankovejch států - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Prezident pankovejch států</h1>
+      <p class="song-author">Kašpárek v rohlíku</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Emi">Emi</span>Já budu prezidentem, <span class="chord" data-chord="G">G</span>pankovejch států,
+<span class="chord" data-chord="D">D</span>Na hlavu si přimontuju <span class="chord" data-chord="C">C</span>číro ze salátu,
+<span class="chord" data-chord="Emi">Emi</span>Všechny pecky budu zpívat <span class="chord" data-chord="G">G</span>v barevnym domě,
+<span class="chord" data-chord="D">D</span>Kulatá pracovna <span class="chord" data-chord="C">C</span>bude jenom pro mě
+Na radě bezpečnosti zívaj světa hosti
+Zapoguju přestanou hned myslet na blbosti
+Žádná tréma nou probléma když je tvoje nebe vzduch
+Pak ať klidně královnu ochraňuje Bůh.
+R: <span class="chord" data-chord="Emi">Emi</span>Hej héj, <span class="chord" data-chord="G">G</span>tý jó, 
+    <span class="chord" data-chord="D">D</span>vyjedu v tanku v rytmu panku <span class="chord" data-chord="C">C</span>vítat novej den
+    <span class="chord" data-chord="Emi">Emi</span>Heh héj, <span class="chord" data-chord="G">G</span>nech bejt, 
+    <span class="chord" data-chord="D">D</span>ať nechytí tě prej seš dítě <span class="chord" data-chord="C">C</span>žádnej prezident
+Emi Já budu prezidentem G pankovejch států
+D nevisim na obraze, C ale na plagátu
+Ať v koutě klečí ten, kdo život trapnou nudou marní
+na hanbu s tou celou hudbou populární
+We don't need your education máme vlastní hlavy
+když už dřepět ve škole, tak ať nás to tam baví
+Chcem bejt věčně mrňaví a nechcem bejt dospělí
+A komu se nechce vstávat, ať leží v posteli 
+R:
+<span class="chord" data-chord="Emi">Emi</span>Já budu prezidentem <span class="chord" data-chord="G">G</span>pankovejch států
+<span class="chord" data-chord="D">D</span>Klíč od celý zeměkoule <span class="chord" data-chord="C">C</span>nosim na špagátu
+A když na stý zasedání příjdou nóbl páni
+Přehraju jim novou songu o zamilování
+Ty máš fáro já mám háro někdo bere fešnej plat
+Chudej bejvá bohatej když má někoho rád.
+R:
+Ty seš dítě žádnej prezident, hej hej jó
+Ty seš dítě žádnej prezident, hej hej jó
+Ty seš dítě žádnej prezident, hej hej jó
+Ty seš dítě žádnej prezident, hej hej jó
+R:</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Prezident pankovejch států" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

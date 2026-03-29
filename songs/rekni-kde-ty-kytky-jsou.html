@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Řekni, kde ty kytky jsou - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Řekni, kde ty kytky jsou</h1>
+      <p class="song-author">Judita Čeřovská</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="C">C</span>Řekni, kde ty <span class="chord" data-chord="Ami">Ami</span>kytky jsou, <span class="chord" data-chord="F">F</span>co se s nima <span class="chord" data-chord="G">G</span>mohlo stát,
+
+<span class="chord" data-chord="C">C</span>řekni, kde ty <span class="chord" data-chord="Ami">Ami</span>kytky jsou, kde <span class="chord" data-chord="Dmi">Dmi</span>mohou <span class="chord" data-chord="G">G</span>být,
+
+<span class="chord" data-chord="C">C</span>dívky je tu <span class="chord" data-chord="Ami">Ami</span>během dne <span class="chord" data-chord="D7">D7</span>otrhaly <span class="chord" data-chord="G">G</span>do jedné,
+
+<span class="chord" data-chord="F">F</span>kdo to kdy <span class="chord" data-chord="C">C</span>pochopí, kdo <span class="chord" data-chord="Dmi">Dmi</span>to kdy <span class="chord" data-chord="G">G</span>pocho <span class="chord" data-chord="C">C</span>pí?
+Řekni, kde ty dívky jsou, co se s nima mohlo stát,
+
+   řekni, kde ty dívky jsou, kde mohou být,
+
+   muži si je vyhlédli, s sebou domů odvedli,
+
+   kdo to kdy pochopí, kdo to kdy pochopí?
+Řekni, kde ti muži jsou, co se s nima mohlo stát,
+
+   řekni, kde ti muži jsou, kde mohou být,
+
+   muži v plné polní jdou, do války je zase zvou,
+
+   kdo to kdy pochopí, kdo to kdy pochopí?
+A kde jsou ti vojáci, co se s nima mohlo stát,
+
+   a kde jsou ti vojáci, kde mohou být,
+
+   řady hrobů v zákrytu, meluzína kvílí tu,
+
+   kdo to kdy pochopí, kdo to kdy pochopí?
+Opakovat 1. sloku
+Where have all the flowers gone?
+
+Long time passing.
+
+Where have all the flowers gone?
+
+Long time ago.
+
+Where have all the flowers gone?
+
+The girls have picked them ev'ry one.
+
+Oh, when will they ever learn?
+
+Oh, when will they ever learn?
+....young girls...
+
+They've taken husbands ev'ry one.
+
+Oh,....
+....young men...
+
+They're all in uniform.
+
+Oh,....
+....soldiers...
+
+They've gone to graveyards ev'ry one.
+
+Oh,....
+....graveyards...
+
+They're covered with flowers ev'ry one.
+
+Oh,....
+....flowers...
+
+Young girls have picked them ev'ry one.
+
+Oh,....
+
+Sag mir, wo die Blumen sind,
+
+Wo sind sie geblieben?
+
+Sag mir, wo die Blumen sind,
+
+Was ist gescheh'n?
+
+Sag mir, wo die Blumen sind,
+
+Mädchen pflückten sie geschwind.
+
+Wann wird man je versteh'n,
+
+Wann wird man je versteh'n?
+Sag mir, wo die Mädchen sind...
+
+Männer nahmen sie geschwind.
+Sag mir, wo die Männer sind...
+
+Zogen fort, der Krieg beginnt.
+Sag, wo die Soldaten sind...
+
+Über Gräbern weht der Wind.
+Sag mir, wo die Gräber sind...
+
+Blumen weh'n im Sommerwind.
+Sag mir, wo die Blumen sind.....  
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Řekni, kde ty kytky jsou" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Náhrobní kámen - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Náhrobní kámen</h1>
+      <p class="song-author">Petr Novák</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="G">G</span> Když půjdeš <span class="chord" data-chord="Emi">Emi</span> po cestě, <span class="chord" data-chord="G">G</span>kde růže <span class="chord" data-chord="A">A</span> vadnou, 
+kde rostou <span class="chord" data-chord="G">G</span>stromy <span class="chord" data-chord="C">C</span> bez <span class="chord" data-chord="G">G</span> listí
+<span class="chord" data-chord="G">G</span> tak vyjdeš <span class="chord" data-chord="Emi">Emi</span> na místo, <span class="chord" data-chord="G">G</span> kde tvý slzy <span class="chord" data-chord="A">A</span> spadnou 
+na <span class="chord" data-chord="G">G</span>hrob, <span class="chord" data-chord="C">C</span> co nikdo nečis <span class="chord" data-chord="G">G</span> tí.
+Jen starej rozbitej náhrobní kámen, 
+řekne ti, kdo nemoh už dál
+Tak sepni ruce svý a zašeptej ámen 
+ať jsi tulák nebo král.
+Rec: Dřív děvče chodilo s kyticí růží rozdávat lidem štěstí a smích.
+Oči jí maloval sám Bůh černou tuší, pod jejím krokem tál sníh.
+Všem lidem dávala náručí plnou, sázela kytky podél cest
+jednou však zmizela a jako když utne, přestaly růže náhle kvést.
+Pak jsem ji uviděl, ubohou vílu, 
+na zvadlých květech věčně snít
+všem lidem rozdala svou lásku a sílu, 
+že sama dál nemohla už žít.
+Tak jsem jí postavil náhrobní kámen 
+a čerstvé růže jsem tam dal
+pak jsem se pomodlil a zašeptal ámen 
+a svojí píseň jsem jí hrál.</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Náhrobní kámen" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

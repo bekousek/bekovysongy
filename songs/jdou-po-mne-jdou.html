@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jdou po mně jdou - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Jdou po mně jdou</h1>
+      <p class="song-author">Jaromír Nohavica</p>
+      
+    </div>
+    <pre class="song-text">Býval jsem <span class="chord" data-chord="D">D</span>chudý jak <span class="chord" data-chord="G">G</span>kostelní <span class="chord" data-chord="D">D</span>myš,
+
+    na půdě <span class="chord" data-chord="F#mi">F#mi</span> půdy jsem <span class="chord" data-chord="Hmi">Hmi</span>míval svou <span class="chord" data-chord="A">A</span>skrýš,
+
+    /: <span class="chord" data-chord="G">G</span>pak jednou v <span class="chord" data-chord="D">D</span>létě <span class="chord" data-chord="A">A</span>řek' jsem si: <span class="chord" data-chord="Hmi">Hmi</span>ať,
+
+<span class="chord" data-chord="G">G</span>svět facku <span class="chord" data-chord="D">D</span>je tě, a <span class="chord" data-chord="G">G</span>tak mu to <span class="chord" data-chord="D">D</span>vrať. :/ 
+
+Když mi dát nechceš, já vezmu si sám,
+
+    zámek jde lehce a adresu znám,
+
+    /: zlato jak zlato, dolar či frank,
+
+       tak jsem šel na to do National Bank. :/ 
+
+R: Jdou po mně, <span class="chord" data-chord="D">D</span>jdou, <span class="chord" data-chord="G">G</span>jdou, <span class="chord" data-chord="D">D</span>jdou,
+
+    na každém <span class="chord" data-chord="F#mi">F#mi</span> rohu ma <span class="chord" data-chord="Hmi">Hmi</span>jí fotku <span class="chord" data-chord="A">A</span>mou,
+
+    <span class="chord" data-chord="G">G</span>kdyby mě <span class="chord" data-chord="D">D</span>chytli, <span class="chord" data-chord="A">A</span>jó, byl by <span class="chord" data-chord="Hmi">Hmi</span>ring,
+
+    <span class="chord" data-chord="G">G</span>tma jako v <span class="chord" data-chord="D">D</span>pytli je v <span class="chord" data-chord="C">C</span>celách Sing- <span class="chord" data-chord="G">G</span>sing. <span class="chord" data-chord="A">A</span>, <span class="chord" data-chord="D">D</span>, <span class="chord" data-chord="G">G</span>, <span class="chord" data-chord="D">D</span>
+
+Ve státě Iowa byl od poldů klid,
+
+    chudičká vdova mi nabídla byt,
+
+    /: jó, byla to kráska, já měl peníze,
+
+       tak začla láska jak z televize. :/ 
+
+Však půl roku nato řekla mi: "Dost,
+
+    tobě došlo zlato, mně trpělivost,
+
+    /: sbal svých pár švestek a běž si, kam chceš,"
+
+       tak jsem na cestě a chudý jak veš. :/ 
+
+R: 
+
+Klenotník Smith mi do očí lhal,
+
+    dvě facky slíz a dal, vše mi dal,
+
+    /: a pak jsem vzal nohy na ramena,
+
+       ten, kdo nemá vlohy, nic neznamená. :/ 
+
+Teď ve státě Utah žiju spokojen,
+
+    pípu jsem utáh a straním se žen,
+
+    /: jó, kladou mi pasti a do pastí špek,
+
+       já na ně mastím, jen ať mají vztek. :/ 
+
+R: Jdou po mně jdou, jdou, jdou,
+
+    na nočních stolcích mají fotku mou,
+
+    kdyby mě klofly, jó, byl by ring,
+
+    být pod pantoflí je hůř než v Sing-sing. 
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Jdou po mně jdou" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

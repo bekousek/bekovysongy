@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vrchlabí - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Vrchlabí</h1>
+      <p class="song-author">Chinaski</p>
+      
+    </div>
+    <pre class="song-text">Jela jsem s <span class="chord" data-chord="C">C</span>Marcelou a Martou <span class="chord" data-chord="C7">C7</span>
+po koncertě <span class="chord" data-chord="F">F</span>autem domů z Vrchlabí. <span class="chord" data-chord="D">D</span>
+Milí <span class="chord" data-chord="C">C</span>páni, nemáte <span class="chord" data-chord="C7">C7</span>nejmenší zdání,
+co <span class="chord" data-chord="F">F</span>všechno tři holky pobaví. <span class="chord" data-chord="D">D</span>
+Hustě <span class="chord" data-chord="F">F</span>sněží, <span class="chord" data-chord="C">C</span>cestu <span class="chord" data-chord="Dmi">Dmi</span>klikatou dlouhou
+<span class="chord" data-chord="F">F</span>krájíme krok za krokem. <span class="chord" data-chord="C">C</span>, <span class="chord" data-chord="G">G</span>, <span class="chord" data-chord="Ami">Ami</span>, <span class="chord" data-chord="F">F</span>, <span class="chord" data-chord="C">C</span>, <span class="chord" data-chord="G">G</span>, <span class="chord" data-chord="Ami">Ami</span>, <span class="chord" data-chord="F">F</span>
+Mobilní <span class="chord" data-chord="C">C</span>noční babí sněm, <span class="chord" data-chord="C7">C7</span>
+dvoustopá <span class="chord" data-chord="F">F</span>oáza, čtyřtaktní <span class="chord" data-chord="D">D</span>zázemí.
+Nad námi <span class="chord" data-chord="C">C</span>Velkej vůz a my v něm, <span class="chord" data-chord="C7">C7</span>
+v Jičíně <span class="chord" data-chord="F">F</span>střídáme se v řízení. <span class="chord" data-chord="D">D</span>
+Uprostřed<span class="chord" data-chord="F">F</span>noci zbloudilí, <span class="chord" data-chord="C">C</span>
+ať počítám, <span class="chord" data-chord="Dmi">Dmi</span>jak počítám, <span class="chord" data-chord="F">F</span>
+R: pořád <span class="chord" data-chord="C">C</span>jsem to <span class="chord" data-chord="G">G</span>já,
+    pořád <span class="chord" data-chord="Ami">Ami</span>jsme to <span class="chord" data-chord="F">F</span>my
+    pár přátel na cestách,
+    od jara do zimy.
+    Přes <span class="chord" data-chord="C">C</span>všechen <span class="chord" data-chord="G">G</span>čas,
+    všech <span class="chord" data-chord="Ami">Ami</span>ny ty dny, <span class="chord" data-chord="F">F</span>
+    přes všechno trápení,
+    pořád jsme to my.
+Hustě <span class="chord" data-chord="C">C</span>sněží, cestu <span class="chord" data-chord="C7">C7</span>klikatou dlouhou,
+<span class="chord" data-chord="F">F</span>krájíme krok za krokem. <span class="chord" data-chord="D">D</span>
+Náš <span class="chord" data-chord="C">C</span>tým <span class="chord" data-chord="C7">C7</span>neohrožených žen<span class="chord" data-chord="F">F</span>, <span class="chord" data-chord="D">D</span>
+Náš tým neohrožených žen...
+Náš tým neohrožených žen...
+<span class="chord" data-chord="F">F</span>Vstříc novým Vrchlabím
+vždy <span class="chord" data-chord="D">D</span>s úsměvem
+R: 3x </pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Vrchlabí" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

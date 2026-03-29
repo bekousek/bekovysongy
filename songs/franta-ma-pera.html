@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Franta má péra - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Franta má péra</h1>
+      <p class="song-author">Wabi Daněk</p>
+      
+    </div>
+    <pre class="song-text">R: <span class="chord" data-chord="D">D</span>Franta má péra, <span class="chord" data-chord="E">E</span>
+    jéžiši, <span class="chord" data-chord="A">A</span> Franta má péra,<span class="chord" data-chord="D E">D E</span>
+    <span class="chord" data-chord="A">A</span> barevný <span class="chord" data-chord="D">D</span> pé <span class="chord" data-chord="E">E</span> ra, 
+    ježiši, <span class="chord" data-chord="A">A</span> Franta má <span class="chord" data-chord="D">D</span> pé <span class="chord" data-chord="E">E</span> ra. 
+Šel jsem <span class="chord" data-chord="D">D</span> v novým kvádru na trh, <span class="chord" data-chord="E">E</span>
+někdo mi ho <span class="chord" data-chord="A">A</span> ze <span class="chord" data-chord="D">D</span> zadu <span class="chord" data-chord="E">E</span> natrh, 
+<span class="chord" data-chord="D">D</span> natrh mi ho hřebí <span class="chord" data-chord="E">E</span> kem,
+já při tom <span class="chord" data-chord="A">A</span> vlek <span class="chord" data-chord="D">D</span> pytlík s mlí <span class="chord" data-chord="E">E</span>kem, 
+je to <span class="chord" data-chord="D">D</span> setsakrament <span class="chord" data-chord="E">E</span> ský, 
+v čem budu<span class="chord" data-chord="A">A</span> proháňet...<span class="chord" data-chord="D E">D E</span> caramba, seňority. 
+R: 
+Vejda do kavárny zřel jsem mloka,
+
+jak sedě zpříma lokal moka,
+
+měl černý kvádro s žlutými fleky,
+
+já při tom pohledu pukal vzteky,
+
+od těch dob, když vidím mloka,
+
+fláknu ho pěstí do voka. 
+R:
+Ráno jsem vyšel z Liberce
+
+a už mě z toho bolí bérce,
+
+ten kdo to tu zná, jistě uzná,
+
+že jsou tu cesty samá džuzna,
+
+tak šlapu od Ještědu
+
+a jsem rád, že ještě jdu. 
+Měl jsem jet hrát do Třebíče,
+
+jenže jsem v autě zlomil klíče,
+
+tlačit se nedá, je to těžký,
+nezbývá, než to dojít pěšky,
+
+tak šlapu ku Třebíči,
+
+no je to... prostě těžký.
+
+R:
+Dnes ráno u dveří mého bytu
+potkal jsem na schodech vepřovou kýtu,
+
+to ovšem zdaleka není všecko,
+
+s tou kýtou se za šlachu vedlo plecko,
+
+asi byl bezmasý pátek,
+
+tak šly na procházku z jatek. 
+R: </pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Franta má péra" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

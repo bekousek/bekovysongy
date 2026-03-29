@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaro - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Jaro</h1>
+      <p class="song-author">Fešáci</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Ami">Ami</span>My čekali <span class="chord" data-chord="C">C</span>jaro, a <span class="chord" data-chord="G">G</span>zatím přišel <span class="chord" data-chord="Ami">Ami</span>mráz,
+  tak strašlivou <span class="chord" data-chord="C">C</span>zimu ne <span class="chord" data-chord="G">G</span>zažil nikdo z <span class="chord" data-chord="Ami">Ami</span>nás,
+  z těžkých černých <span class="chord" data-chord="C">C</span>mraků se <span class="chord" data-chord="G">G</span>stále sypal <span class="chord" data-chord="Ami">Ami</span>sníh
+  a vánice <span class="chord" data-chord="C">C</span>sílí v po <span class="chord" data-chord="G">G</span>ryvech ledo <span class="chord" data-chord="Ami">Ami</span>vých.
+  Z <span class="chord" data-chord="C">C</span>chýší dřevo mizí a <span class="chord" data-chord="G">G</span>mouky ubývá,
+<span class="chord" data-chord="Dmi">Dmi</span>do sýpek se raději už <span class="chord" data-chord="G">G</span>nikdo nedívá,
+<span class="chord" data-chord="C">C</span>zvěř z okolních lesů nám <span class="chord" data-chord="G">G</span>stála u dveří
+<span class="chord" data-chord="Dmi">Dmi</span>a hladoví ptáci při <span class="chord" data-chord="G">G</span>létli za zvěří, a stále <span class="chord" data-chord="Ami">Ami</span>blíž.
+Jednoho dne večer, to už jsem skoro spal,
+  když vystrašenej soused na okno zaklepal:
+  "Můj synek doma leží, v horečkách vyvádí,
+  já do města bych zašel, doktor snad poradí."
+  Půjčil jsem mu koně, a když sedlo zapínal,
+  dříve, než se rozjel, jsem ho ještě varoval:
+  "Nejezdi naší zkratkou, je tam příkrej sráz
+  a v týhletý bouři tam snadno zlámeš vaz, tak  neriskuj!"
+Na to strašný ráno dnes nerad vzpomínám,
+  na tu strašnou chvíli, když kůň se vrátil sám,
+  trvalo to dlouho, než se vítr utišil,
+  na sněhové pláně si každý pospíšil.
+  Jeli jsme tou zkratkou až k místu, které znám,
+  kterým bych v té bouři nejel ani sám,
+  a pak ho někdo spatřil, jak tam leží pod srázem,
+  krev nám tuhla v žilách nad tím obrazem, já klobouk  sňal.
+<span class="chord" data-chord="Ami">Ami</span>Někdy ten, kdo <span class="chord" data-chord="C">C</span>spěchá,  se <span class="chord" data-chord="G">G</span>domů nevrací <span class="chord" data-chord="Ami">Ami</span></pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Jaro" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

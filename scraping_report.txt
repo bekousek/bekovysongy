@@ -1,0 +1,19 @@
+Scraping Report
+===============
+Date: 2026-03-30 00:12:37
+
+Internal songs found: 453
+Successfully scraped: 453
+Skipped (empty): 0
+Errors: 0
+External links saved: 130
+
+
+Unique chords found: 115
+Chords: #, (Emi, ), /, A, A Emi, A, A, G, D, A, A7, A2, A7, Ab7, Am, Ami, Ami F C G, Ami G F E, Ami6, Ami7, Asus2, Asus4, B, B7, C, C Ami G, C E F G, C F B F, C F C G, C F G C, C G Ami F, C G D, C#, C#dim, C#m, C#mi, C7, CEF, CGC, Cadd9, Cdim, Cmaj, Cmaj7, Cmi, D, D D7, D E, D E H, D Emi, D G Cadd9, D#mi, D, G, D, D4sus, D7, Dm, Dmi, Dmi7, Dsus2, Dsus4, E, E F, E, C#, E, E7, E, F, E7, E7  F G, EHDA, Eb, Em, Emi, Emi D, Emi F, Emi G Emi, Emi, Ami, Emi7, Es, Esus4, F, F C, F E Ami, F G Ami, F#, F#6, F#6 G6, F#dim, F#m, F#mi, F, G, F6, Fadd9, Fdim, Fmaj7, Fmi, Fmi#, G, G Ami, G Ami C G, G C, G D, G D A7, G F, G G, G#mi, G, D, G, F, G, G6, G7, Gdim, Gmaj7, Gmi, Gmi7, Gsus4, H, H, F#, H7, Hmi, mi, mi7
+
+Language distribution:
+  CZ: 374
+  EN: 71
+  PL: 4
+  SK: 4

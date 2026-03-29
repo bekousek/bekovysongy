@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diggi Diggi Hole - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Diggi Diggi Hole</h1>
+      <p class="song-author">The Yogscast</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Emi">Emi</span> Brothers of the mine rejoice!
+<span class="chord" data-chord="C">C</span>Swing, <span class="chord" data-chord="G">G</span> swing, swing with <span class="chord" data-chord="Emi">Emi</span> me
+<span class="chord" data-chord="Emi">Emi</span> Raise your pick and raise your voice!<span class="chord" data-chord="C">C</span>Sing, <span class="chord" data-chord="G">G</span> sing, sing with <span class="chord" data-chord="Emi">Emi</span> me
+<span class="chord" data-chord="Emi">Emi</span> Down and down <span class="chord" data-chord="D">D</span> into the deep
+<span class="chord" data-chord="C">C</span>Who knows what we'll <span class="chord" data-chord="G">G</span>find beneath?
+<span class="chord" data-chord="Emi">Emi</span> Diamonds, rubies,<span class="chord" data-chord="D">D</span> gold and more
+<span class="chord" data-chord="H">H</span> Hidden in the mountain store
+<span class="chord" data-chord="C">C</span> Born <span class="chord" data-chord="G">G</span>underground, <span class="chord" data-chord="D">D</span> suckled from a <span class="chord" data-chord="Emi">Emi</span> teat of stone
+<span class="chord" data-chord="C">C</span> Raised in the <span class="chord" data-chord="G">G</span> dark, the <span class="chord" data-chord="D">D</span> safety of our <span class="chord" data-chord="Emi">Emi</span> mountain home
+<span class="chord" data-chord="C">C</span> Skin made of <span class="chord" data-chord="G">G</span> iron, <span class="chord" data-chord="H">H</span> steel in our <span class="chord" data-chord="C">C</span> bones
+<span class="chord" data-chord="C">C</span> To dig and dig makes us free
+<span class="chord" data-chord="D">D</span> Come on brothers sing with me!
+R: <span class="chord" data-chord="Emi">Emi</span> I am a <span class="chord" data-chord="G">G</span> dwarf and I'm <span class="chord" data-chord="D">D</span> digging a <span class="chord" data-chord="C">C</span> hole
+    <span class="chord" data-chord="C">C</span> Diggy, diggy <span class="chord" data-chord="G">G</span> hole, <span class="chord" data-chord="C">C</span> diggy, diggy <span class="chord" data-chord="H">H</span> hole
+    <span class="chord" data-chord="Emi">Emi</span> I am a <span class="chord" data-chord="G">G</span> dwarf and I'm <span class="chord" data-chord="D">D</span> digging a <span class="chord" data-chord="C">C</span> hole
+   <span class="chord" data-chord="C">C</span> Diggy, diggy <span class="chord" data-chord="G">G</span> hole, <span class="chord" data-chord="H">H</span> digging a <span class="chord" data-chord="Emi">Emi</span> hole
+The sunlight will not reach this low
+Deep, deep in the mine
+Never seen the blue moon glow
+Dwarves won't fly so high
+Fill a glass and down some mead!
+Stuff your bellies at the feast!
+Stumble home and fall asleep
+Dreaming in our mountain keep
+Born underground, grown inside a rocky womb
+The earth is our cradle; the mountain shall become our tomb
+Face us on the battlefield; you will meet your doom
+We do not fear what lies beneath
+We can never dig too deep
+R: 2x
+Born underground, suckled from a teat of stone
+Raised in the dark, the safety of our mountain home
+Skin made of iron, steel in our bones
+To dig and dig makes us free
+Come on brothers sing with me!
+R: 2x</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Diggi Diggi Hole" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

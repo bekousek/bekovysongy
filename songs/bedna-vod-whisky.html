@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bedna od whisky - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="/na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Bedna od whisky</h1>
+      <p class="song-author">Miki Ryvola</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Ami">Ami</span>Dneska už mě <span class="chord" data-chord="C">C</span>fóry ňák <span class="chord" data-chord="Ami">Ami</span>nejdou přes <span class="chord" data-chord="E7">E7</span>pysky 
+
+<span class="chord" data-chord="Ami">Ami</span>Stojím s dlouhou <span class="chord" data-chord="C">C</span>kravatou na <span class="chord" data-chord="Ami">Ami</span>bedně <span class="chord" data-chord="E7">E7</span>vod whis <span class="chord" data-chord="Ami">Ami</span>ky. 
+
+Stojím s dlouhým <span class="chord" data-chord="C">C</span>vobojkem jak <span class="chord" data-chord="Ami">Ami</span>stájovej <span class="chord" data-chord="E7">E7</span>pinč. 
+
+<span class="chord" data-chord="Ami">Ami</span>Tu kravatu <span class="chord" data-chord="C">C</span>co nosím mi <span class="chord" data-chord="Ami">Ami</span>navlík <span class="chord" data-chord="E7">E7</span>soudce <span class="chord" data-chord="Ami">Ami</span>Linč.
+R: <span class="chord" data-chord="A">A</span>Tak kopni do tý <span class="chord" data-chord="D">D</span>bedny ať <span class="chord" data-chord="E">E</span>panstvo ne <span class="chord" data-chord="A">A</span>čeká 
+
+    jsou dlouhý schody do <span class="chord" data-chord="D">D</span>nebe a štre <span class="chord" data-chord="E">E</span>ka daleká <span class="chord" data-chord="A">A</span>. 
+
+    Do nebeskýho <span class="chord" data-chord="D">D</span>báru já su <span class="chord" data-chord="E">E</span>cho v kr <span class="chord" data-chord="A">A</span>ku mám. 
+
+    Tak kopni do tý bed <span class="chord" data-chord="D">D</span>ny ať <span class="chord" data-chord="E">E</span>na cestu se <span class="chord" data-chord="A">A</span>dám.
+Mít tak všechny brdny od whisky vypitý. 
+
+Postavil bych malej dům na louce ukrytý. 
+
+Postavil bych malej dům a z okna koukal ven 
+
+a chlastal bych tam s Billem a chlastal by tam Ben.
+R:
+Kdyby si se hochu jen pořád nechtěl rvát. 
+
+Nemusel jsi dneska na týhle bedně stát. 
+
+Moh' si někde v suchu tu svoji whisky pít
+
+nemusel si hochu na krku laso mít.
+R:
+Když jsem štípnul koně a ujel jen pár mil
+
+nechtěl běžet dokavád se whisky nenapil
+
+zatracená smůla zlá a zatracenej pech
+
+když kůň cucá whisku jak u potoka mech.
+R:
+Až kopneš do tý bedny, jak se to dělává 
+
+do krku ti zůstane jen dírka mrňavá. 
+
+Jenom dírka mrňavá a k smrti jenom krok. 
+
+mám to smutnej konec, a whisky ani lok
+R:
+
+</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:bek@bekovysongy.cz?subject=Bug: Bedna od whisky" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>
