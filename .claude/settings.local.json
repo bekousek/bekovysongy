@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c:*)",
+      "Bash(pip install:*)",
+      "Bash(python scrape.py)",
+      "Bash(curl -s http://localhost:8080/)",
+      "Bash(curl -s http://localhost:8080/na-kytaru/)",
+      "Bash(curl -s http://localhost:8080/songs/hallelujah.html)",
+      "Bash(curl -s http://localhost:8080/songs.json)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(curl -s https://www.bekovysongy.cz/)",
+      "WebFetch(domain:www.bekovysongy.cz)",
+      "Bash(mkdir -p assets/fonts)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Metropolis/WOFF2/Metropolis-Regular.woff2\" -o Metropolis-Regular.woff2)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Metropolis/WOFF2/Metropolis-Medium.woff2\" -o Metropolis-Medium.woff2)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Metropolis/WOFF2/Metropolis-SemiBold.woff2\" -o Metropolis-SemiBold.woff2)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Metropolis/WOFF2/Metropolis-Bold.woff2\" -o Metropolis-Bold.woff2)",
+      "Bash(curl -sI \"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Metropolis/WOFF2/Metropolis-Regular.woff2\")",
+      "Bash(curl -s https://api.github.com/repos/dw5/Metropolis/git/trees/master?recursive=1)",
+      "Bash(BASE=\"https://raw.githubusercontent.com/dw5/Metropolis/master/Fonts/Webfonts/WOFF2\")",
+      "Bash(for f:*)",
+      "Bash(do curl:*)",
+      "Bash(done)",
+      "Bash(python3:*)",
+      "Bash(python fix_capo.py)",
+      "Bash(python fix_paths.py)"
+    ]
+  }
+}
