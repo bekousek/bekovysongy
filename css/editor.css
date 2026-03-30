@@ -1,0 +1,376 @@
+/* === Editor Styles === */
+
+.editor-setup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+  padding: 2rem;
+}
+
+.setup-box {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.setup-box h2 {
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.setup-box p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.setup-box code {
+  background: var(--bg);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.setup-hint a {
+  text-decoration: underline;
+}
+
+.setup-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.setup-note {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 0.75rem;
+}
+
+/* Layout */
+.editor-container {
+  display: flex;
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
+
+/* Sidebar */
+.editor-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--bg-light);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.song-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.song-list li {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.1s;
+  font-size: 0.85rem;
+}
+
+.song-list li:hover {
+  background: rgba(230, 126, 34, 0.08);
+}
+
+.song-list li.active {
+  background: rgba(230, 126, 34, 0.15);
+  color: var(--accent);
+}
+
+.song-list li .song-list-author {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.1rem;
+}
+
+.song-list li.modified::after {
+  content: '●';
+  color: var(--accent);
+  float: right;
+  font-size: 0.7rem;
+}
+
+/* Main area */
+.editor-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+/* Topbar */
+.editor-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.editor-song-info {
+  display: flex;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.edit-title-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font);
+  outline: none;
+  flex: 1;
+  min-width: 150px;
+}
+
+.edit-author-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  outline: none;
+  width: 200px;
+}
+
+.edit-title-input:focus,
+.edit-author-input:focus {
+  border-color: var(--accent);
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-editor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-editor:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-save {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-save:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: #fff;
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Chord toolbar */
+.chord-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: rgba(230, 126, 34, 0.05);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.toolbar-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.toolbar-sep {
+  color: var(--border);
+  margin: 0 0.2rem;
+}
+
+.chord-input {
+  width: 60px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 0.25rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  outline: none;
+  text-align: center;
+}
+
+.chord-input:focus {
+  border-color: var(--accent);
+}
+
+.btn-quick-chord {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.btn-quick-chord:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Editor area */
+.editor-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  outline: none;
+  color: var(--text);
+  caret-color: var(--accent);
+}
+
+.editor-area:focus {
+  background: rgba(0,0,0,0.1);
+}
+
+.editor-area .chord {
+  color: var(--accent);
+  font-weight: 700;
+  cursor: default;
+  background: rgba(230, 126, 34, 0.1);
+  padding: 0.05rem 0.2rem;
+  border-radius: 2px;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+}
+
+.editor-area .chord:hover {
+  background: rgba(230, 126, 34, 0.2);
+}
+
+.editor-area .chord.selected {
+  outline: 2px solid var(--accent);
+}
+
+/* Preview */
+.editor-preview {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  margin: 0;
+  background: var(--bg);
+}
+
+/* Status bar */
+.editor-status {
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  background: var(--bg-light);
+  border-top: 1px solid var(--border);
+  min-height: 28px;
+}
+
+.editor-status.success {
+  color: var(--success);
+}
+
+.editor-status.error {
+  color: var(--danger);
+}
+
+.editor-status.saving {
+  color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .editor-container {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 80px);
+  }
+
+  .editor-sidebar {
+    width: 100%;
+    min-width: 100%;
+    max-height: 35vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .editor-main {
+    min-height: 60vh;
+  }
+
+  .editor-song-info {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .edit-author-input {
+    width: 100%;
+  }
+
+  .chord-toolbar {
+    padding: 0.3rem 0.5rem;
+  }
+}

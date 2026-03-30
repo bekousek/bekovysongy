@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/editor.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="/" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="/na-kytaru/">Na kytaru</a>
+      <a href="/editor/" class="active">Editor</a>
+    </div>
+  </nav>
+
+  <!-- GitHub token setup -->
+  <div class="editor-setup" id="setup-panel">
+    <div class="setup-box">
+      <h2>Nastavení editoru</h2>
+      <p>Pro ukládání změn potřebuješ GitHub Personal Access Token s oprávněním <code>repo</code>.</p>
+      <p class="setup-hint">Vytvoříš ho na <a href="https://github.com/settings/tokens/new?scopes=repo&description=Bekovy+songy+editor" target="_blank">github.com/settings/tokens</a></p>
+      <div class="setup-fields">
+        <input type="password" id="gh-token" class="filter-input" placeholder="ghp_xxxxxxxxxxxx" style="width:100%">
+        <input type="text" id="gh-repo" class="filter-input" value="bekousek/bekovysongy" placeholder="owner/repo" style="width:100%">
+      </div>
+      <button type="button" class="btn-random" id="save-token-btn">Uložit a pokračovat</button>
+      <p class="setup-note">Token se uloží jen v tomto prohlížeči (localStorage).</p>
+    </div>
+  </div>
+
+  <!-- Song list -->
+  <div class="editor-container" id="editor-container" style="display:none">
+    <div class="editor-sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <input type="text" id="editor-search" class="filter-input" placeholder="Hledat píseň..." style="width:100%">
+      </div>
+      <ul class="song-list" id="song-list"></ul>
+    </div>
+
+    <div class="editor-main" id="editor-main">
+      <div class="editor-placeholder" id="editor-placeholder">
+        <p>Vyber píseň ze seznamu vlevo</p>
+      </div>
+
+      <div class="editor-active" id="editor-active" style="display:none">
+        <div class="editor-topbar">
+          <div class="editor-song-info">
+            <input type="text" id="edit-title" class="edit-title-input" placeholder="Název písně">
+            <input type="text" id="edit-author" class="edit-author-input" placeholder="Autor">
+          </div>
+          <div class="editor-actions">
+            <button type="button" class="btn-editor" id="btn-preview" title="Náhled">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button type="button" class="btn-editor btn-save" id="btn-save" title="Uložit na GitHub">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Uložit
+            </button>
+          </div>
+        </div>
+
+        <!-- Chord toolbar -->
+        <div class="chord-toolbar" id="chord-toolbar">
+          <span class="toolbar-label">Vložit akord:</span>
+          <input type="text" id="chord-input" class="chord-input" placeholder="Ami" maxlength="10">
+          <button type="button" class="btn-sm" id="btn-insert-chord">Vložit</button>
+          <span class="toolbar-sep">|</span>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="Ami">Ami</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="Emi">Emi</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="C">C</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="G">G</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="D">D</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="F">F</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="E">E</button>
+          <button type="button" class="btn-sm btn-quick-chord" data-chord="H">H</button>
+        </div>
+
+        <!-- Editor area -->
+        <div class="editor-area" id="editor-area" contenteditable="true" spellcheck="false"></div>
+
+        <!-- Preview area -->
+        <pre class="editor-preview song-text" id="editor-preview" style="display:none"></pre>
+
+        <!-- Status -->
+        <div class="editor-status" id="editor-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/editor.js"></script>
+</body>
+</html>
