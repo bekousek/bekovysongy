@@ -79,13 +79,14 @@
   function startScroll() {
     stopScroll();
     const speed = parseInt(scrollSpeed.value) || 3;
+    // speed 1 = 0.4px/100ms (very slow), speed 10 = 4px/100ms
     scrollInterval = setInterval(() => {
-      window.scrollBy(0, speed * 0.5);
+      window.scrollBy(0, speed * 0.4);
       // Stop at bottom
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         stopScroll();
       }
-    }, 50);
+    }, 100);
     scrollToggle.classList.add('active');
   }
 
@@ -360,7 +361,7 @@
       }
       const subject = encodeURIComponent(`Bug: ${songTitle}`);
       const body = encodeURIComponent(`Píseň: ${songTitle}\nURL: ${window.location.href}\n\n${text}`);
-      window.location.href = `mailto:bek@bekovysongy.cz?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:ondrejbek8@gmail.com?subject=${subject}&body=${body}`;
       closeModal();
     });
   }
