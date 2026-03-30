@@ -92,16 +92,15 @@
       }
     },
     {
-      "title": "A pak",
+      "title": "5 policajtů",
       "slug": "a-pak",
-      "author": "Tomáš Klus",
+      "author": "Jablkoň",
       "chords": [
-        "A",
         "Ami",
-        "D",
-        "Emi",
-        "G",
-        "Hmi"
+        "C",
+        "Dmi",
+        "E",
+        "G"
       ],
       "group": "",
       "tags": {
