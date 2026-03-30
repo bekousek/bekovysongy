@@ -8,7 +8,6 @@
         "A",
         "D",
         "E",
-        "E A E A E A E A",
         "F#"
       ],
       "group": "",
@@ -64,13 +63,10 @@
         "C#",
         "D",
         "E",
-        "E, C#",
-        "E, F",
         "F",
         "F#",
         "G",
-        "H",
-        "H, F#"
+        "H"
       ],
       "group": "",
       "tags": {
@@ -156,11 +152,9 @@
       "chords": [
         "A",
         "Ami",
-        "Ami, Hmi, Emi",
         "C",
         "D",
         "Emi",
-        "Emi, Ami, D, Hmi, G ,C ,Ami, Hmi",
         "G",
         "Hmi"
       ],
@@ -175,9 +169,9 @@
       "slug": "alice-se-dala-na-piti",
       "author": "Sto zvířat",
       "chords": [
-        "#",
         "A",
         "C",
+        "C#",
         "D",
         "Dmi",
         "F",
@@ -340,12 +334,10 @@
       "slug": "atentat",
       "author": "Kryštof",
       "chords": [
-        "#",
         "A",
         "D",
         "E",
-        "F",
-        "mi"
+        "F#"
       ],
       "group": "",
       "tags": {
@@ -391,7 +383,6 @@
       "author": "Viktor Sheen a Calin",
       "chords": [
         "Ami",
-        "Ami G F E",
         "E",
         "F",
         "G"
@@ -448,7 +439,6 @@
         "A",
         "A7",
         "D",
-        "D D7",
         "D7",
         "Emi",
         "G",
@@ -468,9 +458,7 @@
         "A",
         "Cadd9",
         "D",
-        "D G Cadd9",
         "Emi",
-        "Emi D",
         "G"
       ],
       "group": "",
@@ -518,12 +506,10 @@
       "slug": "believer",
       "author": "Imagine Dragons",
       "chords": [
-        "#",
-        "/",
         "Ami",
         "E",
         "F",
-        "G"
+        "G#"
       ],
       "group": "",
       "tags": {
@@ -536,11 +522,10 @@
       "slug": "benzinka",
       "author": "Vypsaná fixa",
       "chords": [
-        "#",
         "A",
         "E",
-        "F",
-        "G",
+        "F#",
+        "G#",
         "H"
       ],
       "group": "",
@@ -673,14 +658,13 @@
       "slug": "bude-mi-lehka-zem",
       "author": "Jana Kirschner",
       "chords": [
-        "#",
         "A",
         "D",
         "Dmi",
         "E",
         "Emi",
         "F",
-        "mi"
+        "F#"
       ],
       "group": "",
       "tags": {
@@ -789,7 +773,6 @@
         "Dsus2",
         "Em",
         "Emi",
-        "Emi Ami Dsus2",
         "G"
       ],
       "group": "",
@@ -912,7 +895,6 @@
       "chords": [
         "A7",
         "C#dim",
-        "C#dim, Dmi7, G7",
         "Cmaj7",
         "Dmi7",
         "Emi7",
@@ -934,8 +916,7 @@
         "B",
         "C",
         "Dmi",
-        "F",
-        "F, Dmi, F, Dmi"
+        "F"
       ],
       "group": "",
       "tags": {
@@ -949,8 +930,6 @@
       "author": "Lucie",
       "chords": [
         "A",
-        "A, A, G, D",
-        "A, G, D, A, G, D, A, G, D, A, G, D",
         "D",
         "G"
       ],
@@ -1000,8 +979,7 @@
         "Ami",
         "C",
         "F",
-        "G",
-        "G Ami"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -1017,11 +995,8 @@
         "A",
         "Ami",
         "C",
-        "C G F G Ami",
         "F",
-        "F G Ami C G F G Ami",
-        "G",
-        "G F"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -1053,13 +1028,10 @@
       "author": "Kašpárek v rohlíku",
       "chords": [
         "A",
-        "A, A7",
+        "A7",
         "D",
-        "D, G, D",
-        "F, G",
-        "G",
-        "G, D",
-        "G, F, G"
+        "F",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -1106,11 +1078,9 @@
       "author": "Jaromír Nohavica",
       "chords": [
         "Ami",
-        "Ami, Emi, C, G, Ami, F, F#dim, E7 Ami, Emi, C, G, Ami, F, F#dim, E7",
         "C",
         "E7",
         "Emi",
-        "Emi, Ami",
         "F",
         "F#dim",
         "G"
@@ -1129,7 +1099,6 @@
         "C",
         "D",
         "Emi",
-        "Emi G Emi",
         "G",
         "H7"
       ],
@@ -1144,7 +1113,6 @@
       "slug": "david-a-golias",
       "author": "Jan Werich a Jiří Voskovec",
       "chords": [
-        "#",
         "A",
         "A7",
         "Ami",
@@ -1157,6 +1125,7 @@
         "F",
         "Fmi",
         "G",
+        "G#",
         "G7",
         "H7"
       ],
@@ -1294,11 +1263,12 @@
       "author": "Zuzana Navarová",
       "chords": [
         "Ami",
-        "Ami Dmi G7 C E7",
+        "C",
         "Dmi",
         "E",
         "E7",
-        "F"
+        "F",
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -1548,7 +1518,7 @@
         "C",
         "Emi",
         "F",
-        "F G Ami"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -1614,7 +1584,6 @@
       "chords": [
         "A",
         "D",
-        "D E",
         "E"
       ],
       "group": "",
@@ -1775,7 +1744,6 @@
         "E7",
         "F",
         "G",
-        "G D A7",
         "H"
       ],
       "group": "",
@@ -1886,7 +1854,6 @@
         "Ami",
         "C",
         "F",
-        "F C",
         "G"
       ],
       "group": "",
@@ -1933,12 +1900,9 @@
       "author": "Vypsaná fixa",
       "chords": [
         "Ami",
-        "Ami Emi F C Ami Emi F",
         "C",
         "Emi",
-        "Emi F",
-        "F",
-        "F C"
+        "F"
       ],
       "group": "",
       "tags": {
@@ -2060,9 +2024,7 @@
       "chords": [
         "Ami",
         "C",
-        "C E Ami",
         "Dmi",
-        "Dmi G Ami C",
         "E",
         "G"
       ],
@@ -2173,7 +2135,6 @@
       "chords": [
         "D",
         "G",
-        "G G",
         "Hmi"
       ],
       "group": "",
@@ -2362,7 +2323,6 @@
         "A",
         "Ami",
         "C",
-        "C F C G",
         "Emi",
         "F",
         "G"
@@ -2461,10 +2421,9 @@
       "slug": "ja-s-tebou-zit-nebudu",
       "author": "Nerez",
       "chords": [
-        "#",
         "Ami",
         "Emi",
-        "F",
+        "F#",
         "G",
         "H",
         "H7"
@@ -2801,12 +2760,11 @@
       "slug": "jez",
       "author": "Ivan Mládek",
       "chords": [
-        "#",
         "A7",
         "C",
         "D7",
         "Dmi",
-        "G",
+        "G#",
         "G7"
       ],
       "group": "",
@@ -2886,10 +2844,10 @@
       "slug": "kafe-s-mlikem",
       "author": "Chinaski",
       "chords": [
-        "#",
         "Ami7",
         "C",
         "D",
+        "D#",
         "E",
         "Emi",
         "G"
@@ -2924,13 +2882,12 @@
       "slug": "karavana-mraku",
       "author": "Karel Kryl",
       "chords": [
-        "#",
         "A",
         "A7",
         "D",
         "D7",
         "Emi",
-        "F",
+        "F#",
         "G",
         "Hmi"
       ],
@@ -2963,11 +2920,10 @@
       "slug": "kdo-vi-jestli",
       "author": "Kabát",
       "chords": [
-        "(Emi",
-        ")",
         "A",
         "C",
         "D",
+        "Emi",
         "G"
       ],
       "group": "",
@@ -3112,7 +3068,6 @@
         "A7",
         "Ami",
         "C",
-        "C E F G",
         "Cdim",
         "D7",
         "Dmi",
@@ -3205,8 +3160,7 @@
         "Ami",
         "C",
         "D",
-        "G",
-        "G D"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -3225,7 +3179,6 @@
         "D",
         "D7",
         "G",
-        "G C G C G C",
         "H"
       ],
       "group": "",
@@ -3496,14 +3449,12 @@
       "slug": "leto-95",
       "author": "Marek Ztracený",
       "chords": [
-        "#",
         "A",
         "D",
         "Emi7",
-        "F",
+        "F#",
         "G",
-        "Hmi",
-        "mi"
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -3552,7 +3503,7 @@
         "C",
         "D7",
         "E7",
-        "F C",
+        "F",
         "G7"
       ],
       "group": "",
@@ -3600,7 +3551,6 @@
       "author": "Of Monsters And Men",
       "chords": [
         "Ami",
-        "Ami F C G",
         "C",
         "F",
         "G"
@@ -3812,8 +3762,8 @@
         "Ami",
         "Dmi7",
         "E7",
-        "E7  F G",
         "Emi",
+        "F",
         "Fmaj7",
         "G"
       ],
@@ -3828,13 +3778,11 @@
       "slug": "mam-takovej-pocit",
       "author": "Hm... (Čertí brko)",
       "chords": [
-        "#",
-        "/",
         "A",
         "C",
         "D",
         "Emi",
-        "F",
+        "F#",
         "G",
         "Hmi"
       ],
@@ -4303,13 +4251,11 @@
       "slug": "movin-on",
       "author": "Support Lesbiens",
       "chords": [
-        "#",
         "A",
         "D",
         "E",
-        "F",
-        "H",
-        "mi"
+        "F#",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -4583,13 +4529,11 @@
       "slug": "namornicka",
       "author": "Karel Plíhal",
       "chords": [
-        "#",
         "A7",
         "D",
         "E",
-        "F",
-        "G",
-        "mi7"
+        "F#",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -4809,8 +4753,7 @@
         "F#",
         "G",
         "H",
-        "Hmi",
-        "mi"
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -4975,11 +4918,10 @@
       "slug": "opakovani",
       "author": "Tata Bojs",
       "chords": [
-        "#",
         "A",
         "D",
         "E",
-        "F",
+        "F#",
         "G",
         "Hmi"
       ],
@@ -5033,7 +4975,6 @@
         "Ami",
         "C",
         "D",
-        "Es",
         "F",
         "G"
       ],
@@ -5176,7 +5117,6 @@
       "slug": "perfect",
       "author": "Ed Sheeran",
       "chords": [
-        "/",
         "Ami",
         "B",
         "C",
@@ -5194,14 +5134,12 @@
       "slug": "pesaci",
       "author": "Tata Bojs",
       "chords": [
+        "A",
         "D",
-        "D E H",
         "E",
         "F#mi",
         "G",
-        "H",
-        "H F#mi G, D, E, H",
-        "H, D, G, A, HH, D, G, A, H"
+        "H"
       ],
       "group": "",
       "tags": {
@@ -5419,8 +5357,7 @@
         "Ami",
         "C",
         "D",
-        "G",
-        "G Ami C G D"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -5469,7 +5406,6 @@
       "chords": [
         "Ami",
         "C",
-        "C G Ami F",
         "D",
         "F",
         "G"
@@ -5632,7 +5568,6 @@
       "author": "Michal Tučný",
       "chords": [
         "C",
-        "C F G C",
         "D7",
         "F",
         "G",
@@ -5654,8 +5589,7 @@
         "C",
         "Dmi",
         "E",
-        "G",
-        "G C"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -5671,8 +5605,7 @@
         "Ami",
         "Dmi",
         "E",
-        "F",
-        "F E Ami"
+        "F"
       ],
       "group": "",
       "tags": {
@@ -5771,8 +5704,7 @@
         "Ami",
         "C",
         "D",
-        "G",
-        "G D"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -5838,7 +5770,6 @@
       "chords": [
         "Ami",
         "C",
-        "C G D",
         "D",
         "Emi",
         "G"
@@ -5857,7 +5788,6 @@
         "Ami",
         "C",
         "F#6",
-        "F#6 G6",
         "F#dim",
         "F6",
         "Fadd9",
@@ -6057,7 +5987,6 @@
         "A7",
         "Ami",
         "D",
-        "D4sus",
         "Emi",
         "G",
         "Hmi"
@@ -6159,12 +6088,11 @@
       "slug": "slepic-pirka",
       "author": "Mig 21",
       "chords": [
-        "#",
         "A",
         "D",
         "E",
         "F",
-        "mi"
+        "F#"
       ],
       "group": "",
       "tags": {
@@ -6182,7 +6110,7 @@
         "D",
         "D#mi",
         "E",
-        "E, E7",
+        "E7",
         "F#mi",
         "G",
         "G#mi",
@@ -6248,7 +6176,6 @@
       "chords": [
         "B",
         "C",
-        "C F B F",
         "F",
         "Gmi"
       ],
@@ -6265,7 +6192,6 @@
       "chords": [
         "Ami",
         "C",
-        "C Ami G",
         "F",
         "G"
       ],
@@ -6280,14 +6206,12 @@
       "slug": "srdce-nehasnou",
       "author": "Karel Gott",
       "chords": [
-        "#",
         "A",
         "D",
         "Emi",
-        "F",
+        "F#",
         "G",
-        "Hmi",
-        "mi"
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -6428,7 +6352,6 @@
         "Am",
         "Ami",
         "C",
-        "C Emi D Ami",
         "D",
         "Emi",
         "G"
@@ -6447,7 +6370,6 @@
         "A",
         "C",
         "D",
-        "D Emi",
         "Emi",
         "G",
         "Hmi"
@@ -6463,11 +6385,10 @@
       "slug": "svetova",
       "author": "Tata Bojs, Vladimír 518",
       "chords": [
-        "#",
         "A",
         "C",
-        "H",
-        "mi"
+        "C#",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -6533,8 +6454,7 @@
         "C",
         "D",
         "Emi",
-        "G",
-        "G D"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -6550,8 +6470,7 @@
         "A",
         "D",
         "E",
-        "G",
-        "G D"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -6640,7 +6559,6 @@
         "C",
         "D",
         "Dmi",
-        "Dmi G C Ami",
         "Emi",
         "F",
         "G",
@@ -6808,14 +6726,12 @@
       "slug": "tisic-dnu-mezi-nami",
       "author": "Nerez",
       "chords": [
-        "#",
         "Ami",
         "C",
         "D",
         "Emi",
-        "F",
-        "Hmi",
-        "mi"
+        "F#",
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -7061,11 +6977,9 @@
       "slug": "udrzuj-si-svou-lednicku-plnou",
       "author": "Monika Načeva",
       "chords": [
-        "#",
         "A",
         "E",
         "Fmi",
-        "Fmi#",
         "H"
       ],
       "group": "",
@@ -7100,7 +7014,6 @@
         "A7",
         "Ami",
         "D",
-        "D F E Ami E",
         "Dmi",
         "E",
         "E7",
@@ -7267,8 +7180,6 @@
         "A",
         "Ami",
         "C",
-        "CEF",
-        "CGC",
         "Dmi",
         "E",
         "E7",
@@ -7342,7 +7253,6 @@
         "A",
         "D",
         "E",
-        "EHDA",
         "H"
       ],
       "group": "",
@@ -7448,7 +7358,6 @@
       "slug": "we-are-the-champions",
       "author": "Queen",
       "chords": [
-        "#",
         "A",
         "Ami",
         "C",
@@ -7457,10 +7366,10 @@
         "Emi",
         "Emi7",
         "F",
+        "F#",
         "G",
         "H",
-        "Hmi",
-        "mi"
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -7475,11 +7384,9 @@
       "chords": [
         "Ami",
         "C",
-        "C Dmi Ami   F C E Ami",
         "Dmi",
         "E",
-        "F",
-        "F C Dmi Ami   F C E Ami"
+        "F"
       ],
       "group": "",
       "tags": {
@@ -7509,8 +7416,7 @@
       "chords": [
         "Ami",
         "C",
-        "G",
-        "G Ami C G"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -7560,7 +7466,6 @@
         "Ami",
         "C",
         "E",
-        "E F",
         "F",
         "G"
       ],
@@ -7617,7 +7522,6 @@
         "B",
         "D",
         "Emi",
-        "Emi Hmi D Ami Hmi",
         "G",
         "H",
         "Hmi"
@@ -7808,7 +7712,6 @@
       "slug": "zeme-vzdalena",
       "author": "Kamil Střihavka",
       "chords": [
-        "#",
         "A",
         "Ami",
         "C",
@@ -7816,10 +7719,10 @@
         "E",
         "Emi",
         "F",
+        "F#",
         "G",
         "H",
-        "Hmi",
-        "mi"
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -7833,7 +7736,6 @@
       "author": "Jaromír Nohavica",
       "chords": [
         "Ami",
-        "Ami, D, G, Emi",
         "C",
         "D",
         "E",
@@ -7888,7 +7790,6 @@
       "author": "Tata Bojs",
       "chords": [
         "A",
-        "A Emi",
         "Cmaj7",
         "D",
         "Emi",
