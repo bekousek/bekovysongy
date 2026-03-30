@@ -110,18 +110,15 @@
       }
     },
     {
-      "title": "A star is born",
+      "title": "A star is born (Shallow)",
       "slug": "a-star-is-born",
       "author": "Lady Gaga & Bradley Cooper",
       "chords": [
-        "A",
         "Ami",
         "C",
         "D",
-        "E",
         "Emi",
-        "G",
-        "H"
+        "G"
       ],
       "group": "",
       "tags": {
