@@ -121,6 +121,12 @@
   overflow: hidden;
 }
 
+.editor-active {
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
 .editor-placeholder {
   display: flex;
   align-items: center;
