@@ -26,7 +26,9 @@
       "Bash(done)",
       "Bash(python3:*)",
       "Bash(python fix_capo.py)",
-      "Bash(python fix_paths.py)"
+      "Bash(python fix_paths.py)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
