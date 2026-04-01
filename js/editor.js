@@ -20,6 +20,8 @@
   const editorActive = document.getElementById('editor-active');
   const editTitle = document.getElementById('edit-title');
   const editAuthor = document.getElementById('edit-author');
+  const editCapo = document.getElementById('edit-capo');
+  const editLanguage = document.getElementById('edit-language');
   const editorArea = document.getElementById('editor-area');
   const editorPreview = document.getElementById('editor-preview');
   const editorStatus = document.getElementById('editor-status');
@@ -152,6 +154,8 @@
 
     editTitle.value = song.title;
     editAuthor.value = song.author || '';
+    editCapo.value = (song.tags && song.tags.capo) ? song.tags.capo : '';
+    editLanguage.value = (song.tags && song.tags.language) ? song.tags.language : '';
 
     setStatus('Načítám...', '');
 
@@ -289,10 +293,12 @@
       // 2. Build updated HTML
       const newTitle = editTitle.value.trim() || currentSong.title;
       const newAuthor = editAuthor.value.trim();
+      const newCapo = editCapo.value ? parseInt(editCapo.value) : 0;
+      const newLanguage = editLanguage.value || '';
       const newContent = editorArea.innerHTML;
 
-      // Read the full original file to preserve structure
-      const originalHTML = atob(fileResp.content);
+      // Read the full original file to preserve structure (UTF-8 safe)
+      const originalHTML = decodeURIComponent(escape(atob(fileResp.content)));
       let updatedHTML = originalHTML;
 
       // Update title
@@ -316,6 +322,25 @@
         }
       }
 
+      // Update capo
+      if (newCapo > 0) {
+        if (updatedHTML.includes('class="song-capo"')) {
+          updatedHTML = updatedHTML.replace(
+            /<p class="song-capo">.*?<\/p>/,
+            `<p class="song-capo">Capo ${newCapo}</p>`
+          );
+        } else {
+          // Insert before </div> that precedes <pre
+          updatedHTML = updatedHTML.replace(
+            /(\s*)(    <\/div>\s*\n\s*<pre class="song-text">)/,
+            `\n      <p class="song-capo">Capo ${newCapo}</p>\n$2`
+          );
+        }
+      } else {
+        // Remove capo line if set to 0
+        updatedHTML = updatedHTML.replace(/\s*<p class="song-capo">.*?<\/p>/, '');
+      }
+
       // Update song content
       updatedHTML = updatedHTML.replace(
         /<pre class="song-text">[\s\S]*?<\/pre>/,
@@ -328,10 +353,10 @@
         `<title>${escapeHtml(newTitle)} - Bekovy songy</title>`
       );
 
-      // Update mailto subject
+      // Update mailto subject (if mailto link exists in the file)
       updatedHTML = updatedHTML.replace(
-        /mailto:bek@bekovysongy\.cz\?subject=[^"]+/,
-        `mailto:bek@bekovysongy.cz?subject=Bug: ${encodeURIComponent(newTitle)}`
+        /mailto:[^?]+\?subject=[^"]+/,
+        `mailto:ondrejbek8@gmail.com?subject=Bug: ${encodeURIComponent(newTitle)}`
       );
 
       // 3. Commit the file
@@ -343,14 +368,15 @@
         branch: BRANCH
       });
 
-      // 4. Update songs.json if title or author changed
-      if (newTitle !== currentSong.title || newAuthor !== (currentSong.author || '')) {
-        await updateSongsJson(currentSong.slug, newTitle, newAuthor, newContent);
-      }
+      // 4. Always update songs.json (title, author, capo, language, chords)
+      await updateSongsJson(currentSong.slug, newTitle, newAuthor, newCapo, newLanguage, newContent);
 
       // Update local state
       currentSong.title = newTitle;
       currentSong.author = newAuthor;
+      if (!currentSong.tags) currentSong.tags = {};
+      currentSong.tags.capo = newCapo || false;
+      currentSong.tags.language = newLanguage || '';
       modifiedSlugs.delete(currentSong.slug);
       originalContent = newContent;
 
@@ -366,7 +392,7 @@
     }
   }
 
-  async function updateSongsJson(slug, newTitle, newAuthor, htmlContent) {
+  async function updateSongsJson(slug, newTitle, newAuthor, newCapo, newLanguage, htmlContent) {
     try {
       const resp = await ghAPI(`/repos/${ghRepo}/contents/${SONGS_JSON_PATH}?ref=${BRANCH}`);
       const content = decodeURIComponent(escape(atob(resp.content)));
@@ -376,6 +402,13 @@
       if (song) {
         song.title = newTitle;
         song.author = newAuthor;
+
+        // Update tags
+        if (!song.tags) song.tags = {};
+        song.tags.capo = newCapo || false;
+        if (newLanguage) {
+          song.tags.language = newLanguage;
+        }
 
         // Extract chords from HTML content
         const chords = new Set();

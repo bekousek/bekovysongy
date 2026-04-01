@@ -86,7 +86,7 @@
     'F#6':    { frets: [-1, -1, 4, 3, 4, 2], baseFret: 1 },
     'F6':     { frets: [-1, -1, 3, 2, 3, 1], baseFret: 1 },
     'G6':     { frets: [3, 2, 0, 0, 0, 0], baseFret: 1 },
-    'C#':     { frets: [-1, 4, 6, 6, 6, 4], baseFret: 1, barres: [4] },
+    'C#':     { frets: [-1, -1, 3, 1, 2, 1], baseFret: 1 },
     'Eb':     { frets: [-1, -1, 1, 3, 4, 3], baseFret: 1 },
     'Ab7':    { frets: [-1, -1, 1, 1, 1, 2], baseFret: 4 },
     'A2':     { frets: [-1, 0, 2, 2, 0, 0], baseFret: 1 },  // same as Asus2

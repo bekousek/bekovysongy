@@ -50,6 +50,18 @@
           <div class="editor-song-info">
             <input type="text" id="edit-title" class="edit-title-input" placeholder="Název písně">
             <input type="text" id="edit-author" class="edit-author-input" placeholder="Autor">
+            <div class="editor-meta-row">
+              <label>Capo: <input type="number" id="edit-capo" class="edit-meta-input" min="0" max="12" placeholder="–"></label>
+              <label>Jazyk:
+                <select id="edit-language" class="edit-meta-input">
+                  <option value="">–</option>
+                  <option value="CZ">CZ</option>
+                  <option value="EN">EN</option>
+                  <option value="SK">SK</option>
+                  <option value="PL">PL</option>
+                </select>
+              </label>
+            </div>
           </div>
           <div class="editor-actions">
             <button type="button" class="btn-editor" id="btn-preview" title="Náhled">
