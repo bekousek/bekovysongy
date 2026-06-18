@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nafrněná - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Nafrněná</h1>
+      <p class="song-author">Barbora Poláková</p>
+      
+    </div>
+    <pre class="song-text"> <span class="chord" data-chord="F">F</span>Tak už to o ní teď víš, <span class="chord" data-chord="Ab">Ab</span>no to se o ní teď ří<span class="chord" data-chord="C#">C#</span>ká. <span class="chord" data-chord="B">B</span>
+
+ I on to o ní prej ví, dyť se to dávno už ví.
+
+ I tamta támhle to ví, no tak to bejt tak musí.
+
+ Když se to prsimtě říká, se to prsimtě ví.
+
+ Je nafrněná, nafrněná, nafrněná, prej blbě vaří,
+
+ je nafrněná, nafrněná, až moc se jí daří,
+
+ je <span class="chord" data-chord="F">F</span>nafrněná, <span class="chord" data-chord="Ab">Ab</span>nafrněná, <span class="chord" data-chord="Eb">Eb</span>problematická, <span class="chord" data-chord="C#">C#</span>
+
+ je nafrněná, nafrněná, egoistická,
+
+ je nafrněná, nafrněná a hysterická,
+
+ je nafrněná, nafrněná a ironická.
+
+ Já už to o Tobě vím, to se teď o Tobě říká.
+
+ Já už to o Tobě vím, dyť se to ježiši ví.
+
+ Ty už to o mě teď víš, no tak se zas něco říká.
+
+ A kdo to prsimtě říká, jak to prsimtě víš?
+
+ Každej ví víc, než Ty, kdo jsi, a co se teď říká.
+
+ Všichni ví líp, než já, líp, než já, kdo jsem já.
+
+ Všichni ví o všech víc a všechno, co se teď říká.
+
+ Všichni ví o všech víc, to se tak prostě ví.
+
+ Jsem nafrněná, nafrněná, nafrněná, problematická,
+
+ jsem nafrněná, nafrněná, nafrněná, egoistická,
+
+ Jsem nafrněná, nafrněná a hysterická,
+
+ jsem nafrněná, nafrněná a ironická,
+
+ jsem nafrněná, nafrněná, egoistická,
+
+ jsem nafrněná, nafrněná, problematická.
+
+ I Ty už to o mně víš, to, co se o mně říká,
+
+ i Ty víš líp kdo jsem já, líp, líp, než vím to já.
+
+ I Ty už to o mně víš, to, co se o mně říká,
+
+ i Ty víš líp kdo jsem já, líp, líp, než vím to já.
+
+ Jsem nafrněná!
+
+ (i Ty už to o mně víš, to, co se o mně říká)
+
+ Nafrněná!
+
+ (i Ty víš líp kdo jsem já, líp, líp než vím to já)
+
+ Nafrněná!
+
+ (i tTy už to o mně víš, to, co se o mně říká)
+
+ Nafrněná!
+
+ (i Ty víš líp kdo jsem já, líp, líp, než vím to já)</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Nafrn%C4%9Bn%C3%A1" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

@@ -143,6 +143,22 @@
       }
     },
     {
+      "title": "Ach Bože z nebe",
+      "slug": "ach-boze-z-nebe",
+      "author": "Čechomor",
+      "chords": [
+        "A",
+        "C",
+        "Dmi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Aida",
       "slug": "aida",
       "author": "Tři sestry",
@@ -198,6 +214,23 @@
       }
     },
     {
+      "title": "Amazonka",
+      "slug": "amazonka",
+      "author": "Hop Trop",
+      "chords": [
+        "A",
+        "C#mi",
+        "E",
+        "F#mi",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Amerika",
       "slug": "amerika",
       "author": "Lucie",
@@ -249,6 +282,22 @@
       }
     },
     {
+      "title": "Anděl (Mirai)",
+      "slug": "andel-mirai",
+      "author": "MIRAI",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Andělská",
       "slug": "andelska",
       "author": "Zuzana Navarová",
@@ -272,20 +321,19 @@
       }
     },
     {
-      "title": "Anělé",
-      "slug": "andele",
-      "author": "Wanastowi vjecy",
+      "title": "Anděl (Kerndlová)",
+      "slug": "andel-kerndlova",
+      "author": "Tereza Kerndlová",
       "chords": [
-        "A",
+        "Ami",
         "C",
-        "D",
         "E",
         "F",
-        "G"
+        "H"
       ],
       "group": "",
       "tags": {
-        "capo": 2,
+        "capo": false,
         "language": "CZ"
       }
     },
@@ -323,6 +371,24 @@
       "group": "",
       "tags": {
         "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Anělé",
+      "slug": "andele",
+      "author": "Wanastowi vjecy",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 2,
         "language": "CZ"
       }
     },
@@ -391,6 +457,39 @@
       }
     },
     {
+      "title": "Až se k nám právo vrátí",
+      "slug": "az-se-k-nam-pravo-vrati",
+      "author": "Spirituál Kvintet",
+      "chords": [
+        "A",
+        "A7",
+        "B",
+        "C",
+        "Dmi",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Babinský",
+      "slug": "babinsky",
+      "author": "Taborove Pisne",
+      "chords": [
+        "A",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Babí léto bez bab",
       "slug": "babi-leto-bez-bab",
       "author": "Xavier Baumaxa",
@@ -412,20 +511,22 @@
       }
     },
     {
-      "title": "Báječná ženská",
-      "slug": "bajecna-zenska",
-      "author": "Michal Tučný",
+      "title": "Bad Liar",
+      "slug": "bad-liar",
+      "author": "Imagine Dragons",
       "chords": [
         "A",
-        "C",
+        "A/F#",
+        "Bmi",
         "D",
-        "F",
+        "D/A",
+        "F#mi",
         "G"
       ],
       "group": "",
       "tags": {
-        "capo": false,
-        "language": "CZ"
+        "capo": true,
+        "language": "EN"
       }
     },
     {
@@ -478,6 +579,21 @@
       "tags": {
         "capo": false,
         "language": "CZ"
+      }
+    },
+    {
+      "title": "Because I Got High",
+      "slug": "because-i-got-high",
+      "author": "Afroman",
+      "chords": [
+        "C",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
       }
     },
     {
@@ -550,22 +666,6 @@
       }
     },
     {
-      "title": "Bláznova ukolébavka",
-      "slug": "blaznova-ukolebavka",
-      "author": "Pavel Dydovič",
-      "chords": [
-        "A",
-        "D",
-        "E",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Blues o spolykaných slovech",
       "slug": "blues-o-spolykanych-slovech",
       "author": "Michal Prokop",
@@ -584,6 +684,22 @@
       }
     },
     {
+      "title": "Bláznova ukolébavka",
+      "slug": "blaznova-ukolebavka",
+      "author": "Pavel Dydovič",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Bojím",
       "slug": "bojim",
       "author": "Zrní",
@@ -591,6 +707,21 @@
         "Ami",
         "C",
         "E"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Boty proti lásce",
+      "slug": "boty-proti-lasce",
+      "author": "Yvonne Přenosilová",
+      "chords": [
+        "A",
+        "E",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -635,12 +766,15 @@
       }
     },
     {
-      "title": "Buď a nebe",
-      "slug": "bud-a-nebe",
-      "author": "UDG",
+      "title": "Buchet je spousta",
+      "slug": "buchet-je-spousta",
+      "author": "Kouzla králů",
       "chords": [
+        "A",
         "Ami",
         "C",
+        "Dmi",
+        "Emi",
         "F",
         "G"
       ],
@@ -670,17 +804,14 @@
       }
     },
     {
-      "title": "Buchet je spousta",
-      "slug": "buchet-je-spousta",
-      "author": "Kouzla králů",
+      "title": "Budulínek vs. Galantní jelen",
+      "slug": "budulinek-vs-galantni-jelen",
+      "author": "Vojtěch Závesky&amp;#769;",
       "chords": [
-        "A",
         "Ami",
         "C",
-        "Dmi",
-        "Emi",
-        "F",
-        "G"
+        "D",
+        "E"
       ],
       "group": "",
       "tags": {
@@ -697,22 +828,6 @@
         "C",
         "D7",
         "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Buráky",
-      "slug": "buraky",
-      "author": "Michal Tučný",
-      "chords": [
-        "A",
-        "C",
-        "D",
         "G"
       ],
       "group": "",
@@ -741,41 +856,52 @@
       }
     },
     {
-      "title": "Can't help falling in love",
-      "slug": "cant-help-falling-in-love",
-      "author": "Elvis Presley",
+      "title": "Buráky",
+      "slug": "buraky",
+      "author": "Michal Tučný",
       "chords": [
-        "Ami",
-        "C",
-        "Dmi",
-        "Emi",
-        "F",
-        "G",
-        "G7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      }
-    },
-    {
-      "title": "Centuries",
-      "slug": "centuries",
-      "author": "Fall Out Boys",
-      "chords": [
-        "Ami",
+        "A",
         "C",
         "D",
-        "Dsus2",
-        "Em",
-        "Emi",
         "G"
       ],
       "group": "",
       "tags": {
         "capo": false,
-        "language": "EN"
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Buď a nebe",
+      "slug": "bud-a-nebe",
+      "author": "UDG",
+      "chords": [
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Báječná ženská",
+      "slug": "bajecna-zenska",
+      "author": "Michal Tučný",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -798,6 +924,62 @@
       "tags": {
         "capo": false,
         "language": "CZ"
+      }
+    },
+    {
+      "title": "Can't help falling in love",
+      "slug": "cant-help-falling-in-love",
+      "author": "Elvis Presley",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "Emi",
+        "F",
+        "G",
+        "G7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
+      "title": "Carpe Diem",
+      "slug": "carpe-diem",
+      "author": "Ag Flek",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi7",
+        "E",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Centuries",
+      "slug": "centuries",
+      "author": "Fall Out Boys",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Dsus2",
+        "Em",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
       }
     },
     {
@@ -828,6 +1010,104 @@
         "D",
         "G",
         "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chajda malá",
+      "slug": "chajda-mala",
+      "author": "",
+      "chords": [
+        "A",
+        "A7",
+        "D",
+        "E"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chci ti říct",
+      "slug": "chci-ti-rict",
+      "author": "Mig 21",
+      "chords": [
+        "B",
+        "B7",
+        "C",
+        "Dmi",
+        "F",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chci zas v tobě spát",
+      "slug": "chci-zas-v-tobe-spat",
+      "author": "Lucie",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chlapi sú",
+      "slug": "chlapi-su",
+      "author": "Mucha",
+      "chords": [
+        "A",
+        "Emi",
+        "G",
+        "H"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chodím po Brodwayi",
+      "slug": "chodim-po-brodwayi",
+      "author": "",
+      "chords": [
+        "A",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Chválím tě, Země má",
+      "slug": "chvalim-te-zeme-ma",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
+      "chords": [
+        "C",
+        "F",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -886,6 +1166,22 @@
       }
     },
     {
+      "title": "Creep",
+      "slug": "creep",
+      "author": "Radiohead",
+      "chords": [
+        "C",
+        "E",
+        "F",
+        "Fmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Cukrářská bossa-nova",
       "slug": "cukrarska-bossa-nova",
       "author": "Jaromír Nohavica",
@@ -896,156 +1192,6 @@
         "Dmi7",
         "Emi7",
         "G7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Černej pasažér",
-      "slug": "cernej-pasazer",
-      "author": "Traband",
-      "chords": [
-        "A",
-        "A7",
-        "B",
-        "C",
-        "Dmi",
-        "F"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Černí andělé",
-      "slug": "cerni-andele",
-      "author": "Lucie",
-      "chords": [
-        "A",
-        "D",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Černý a bílý",
-      "slug": "cerny-a-bily",
-      "author": "Šárka Plhalová",
-      "chords": [
-        "C",
-        "D",
-        "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Červená řeka",
-      "slug": "cervena-reka",
-      "author": "Helena Vondráčková",
-      "chords": [
-        "A7",
-        "D",
-        "D7",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Člověk nového typu",
-      "slug": "clovek-noveho-typu",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "Ami",
-        "C",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Čmelák",
-      "slug": "cmelak",
-      "author": "Divokej Bill",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Čtyři slunce",
-      "slug": "ctyri-slunce",
-      "author": "Vypsaná Fixa",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "D",
-        "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Čůrej sem a čůrej tam",
-      "slug": "curej-sem-a-curej-tam",
-      "author": "Kašpárek v rohlíku",
-      "chords": [
-        "A",
-        "A7",
-        "D",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Dáme klukovi školy",
-      "slug": "dame-klukovi-skoly",
-      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
-      "chords": [
-        "Ami",
-        "C",
-        "Emi",
-        "F",
-        "G"
       ],
       "group": "",
       "tags": {
@@ -1089,23 +1235,6 @@
       }
     },
     {
-      "title": "Dátamtůja",
-      "slug": "datamtuja",
-      "author": "Xavier Baumaxa",
-      "chords": [
-        "C",
-        "D",
-        "Emi",
-        "G",
-        "H7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "David a Goliáš",
       "slug": "david-a-golias",
       "author": "Jan Werich a Jiří Voskovec",
@@ -1133,6 +1262,22 @@
       }
     },
     {
+      "title": "De Nîmes",
+      "slug": "de-nimes",
+      "author": "Radůza",
+      "chords": [
+        "Ami",
+        "Dmi",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Dej mi víc své lásky",
       "slug": "dej-mi-vic-sve-lasky",
       "author": "Olympic",
@@ -1152,20 +1297,19 @@
       }
     },
     {
-      "title": "Dělání",
-      "slug": "delani",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "title": "Demons",
+      "slug": "demons",
+      "author": "Imagine Dragons",
       "chords": [
-        "A",
-        "D",
-        "Emi",
-        "G",
-        "Hmi"
+        "Ami",
+        "C",
+        "F",
+        "G"
       ],
       "group": "",
       "tags": {
         "capo": false,
-        "language": "CZ"
+        "language": "EN"
       }
     },
     {
@@ -1230,6 +1374,21 @@
         "C",
         "Dmi",
         "E7",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dlažební kostka",
+      "slug": "dlazebni-kostka",
+      "author": "Brutus",
+      "chords": [
+        "C",
         "F",
         "G"
       ],
@@ -1373,6 +1532,22 @@
       }
     },
     {
+      "title": "Dragostea Din Tei",
+      "slug": "dragostea-din-tei",
+      "author": "O-zone",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Drobná paralela",
       "slug": "drobna-paralela",
       "author": "Chinaski",
@@ -1401,13 +1576,13 @@
       }
     },
     {
-      "title": "Duše z gumy",
-      "slug": "duse-z-gumy",
-      "author": "Chinaski",
+      "title": "Dutý ale free",
+      "slug": "duty-ale-free",
+      "author": "Mňága a Žďorp",
       "chords": [
         "Ami",
         "C",
-        "Dmi7",
+        "Dmi",
         "F",
         "Fmaj7",
         "G"
@@ -1419,13 +1594,13 @@
       }
     },
     {
-      "title": "Dutý ale free",
-      "slug": "duty-ale-free",
-      "author": "Mňága a Žďorp",
+      "title": "Duše z gumy",
+      "slug": "duse-z-gumy",
+      "author": "Chinaski",
       "chords": [
         "Ami",
         "C",
-        "Dmi",
+        "Dmi7",
         "F",
         "Fmaj7",
         "G"
@@ -1447,6 +1622,89 @@
         "Emi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dva havrani",
+      "slug": "dva-havrani",
+      "author": "Asonance",
+      "chords": [
+        "C",
+        "Dmi",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dáma s čápem",
+      "slug": "dama-s-capem",
+      "author": "Sto Zvířat",
+      "chords": [
+        "Cmi",
+        "D#",
+        "Dmi",
+        "G#",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dáme klukovi školy",
+      "slug": "dame-klukovi-skoly",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
+      "chords": [
+        "Ami",
+        "C",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dátamtůja",
+      "slug": "datamtuja",
+      "author": "Xavier Baumaxa",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Dělání",
+      "slug": "delani",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "chords": [
+        "A",
+        "D",
+        "Emi",
+        "G",
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -1483,6 +1741,24 @@
         "Dmi",
         "E",
         "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
+      "title": "Ex's & Oh's",
+      "slug": "ex-s-oh-s",
+      "author": "Elle King",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -1590,6 +1866,24 @@
       }
     },
     {
+      "title": "Františkovy lázně",
+      "slug": "frantiskovy-lazne",
+      "author": "Mandrage",
+      "chords": [
+        "A",
+        "A/C#",
+        "B",
+        "C",
+        "C#",
+        "Dmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Gangstafolk",
       "slug": "gangstafolk",
       "author": "Vojtaano",
@@ -1601,6 +1895,28 @@
         "E",
         "Emi",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Globální oteplování (Já jsem gay)",
+      "slug": "globalni-oteplovani-ja-jsem-gay",
+      "author": "Nightwork",
+      "chords": [
+        "A",
+        "C#mi",
+        "E",
+        "F",
+        "F#",
+        "F#mi",
+        "G",
+        "G#",
+        "G#mi",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -1908,6 +2224,42 @@
       }
     },
     {
+      "title": "Holky pitomý",
+      "slug": "holky-pitomy",
+      "author": "Poletime",
+      "chords": [
+        "A7",
+        "C",
+        "C#7",
+        "D7",
+        "E",
+        "F#7",
+        "G7",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Holky z naší školky",
+      "slug": "holky-z-nasi-skolky",
+      "author": "Stanislav Hložek",
+      "chords": [
+        "A",
+        "D",
+        "Emi7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Holubí dům",
       "slug": "holubi-dum",
       "author": "Jiří Schelinger",
@@ -1996,25 +2348,6 @@
       }
     },
     {
-      "title": "Hráz",
-      "slug": "hraz",
-      "author": "Brontosauři",
-      "chords": [
-        "Ami",
-        "C",
-        "D",
-        "E",
-        "Emi",
-        "G",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Hrdinský čin",
       "slug": "hrdinsky-cin",
       "author": "Pokáč",
@@ -2056,6 +2389,25 @@
         "A",
         "D",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Hráz",
+      "slug": "hraz",
+      "author": "Brontosauři",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "E",
+        "Emi",
+        "G",
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -2133,104 +2485,6 @@
         "D",
         "G",
         "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chajda malá",
-      "slug": "chajda-mala",
-      "author": "",
-      "chords": [
-        "A",
-        "A7",
-        "D",
-        "E"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chci ti říct",
-      "slug": "chci-ti-rict",
-      "author": "Mig 21",
-      "chords": [
-        "B",
-        "B7",
-        "C",
-        "Dmi",
-        "F",
-        "Gmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chci zas v tobě spát",
-      "slug": "chci-zas-v-tobe-spat",
-      "author": "Lucie",
-      "chords": [
-        "Ami",
-        "C",
-        "D",
-        "Emi",
-        "G",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chlapi sú",
-      "slug": "chlapi-su",
-      "author": "Mucha",
-      "chords": [
-        "A",
-        "Emi",
-        "G",
-        "H"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chodím po Brodwayi",
-      "slug": "chodim-po-brodwayi",
-      "author": "",
-      "chords": [
-        "A",
-        "D",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Chválím tě, Země má",
-      "slug": "chvalim-te-zeme-ma",
-      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
-      "chords": [
-        "C",
-        "F",
-        "G"
       ],
       "group": "",
       "tags": {
@@ -2398,55 +2652,6 @@
       }
     },
     {
-      "title": "Já budu chodit po špičkách",
-      "slug": "ja-budu-chodit-po-spickach",
-      "author": "Petr Novák",
-      "chords": [
-        "A",
-        "D",
-        "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Já s tebou žít nebudu",
-      "slug": "ja-s-tebou-zit-nebudu",
-      "author": "Nerez",
-      "chords": [
-        "Ami",
-        "Emi",
-        "F#",
-        "G",
-        "H",
-        "H7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Já žádám",
-      "slug": "ja-zadam",
-      "author": "Jaromír Nohavica",
-      "chords": [
-        "A",
-        "D",
-        "E"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Jabloně",
       "slug": "jablone",
       "author": "Zrní",
@@ -2459,6 +2664,22 @@
       "group": "",
       "tags": {
         "capo": 4,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Jahody mražený",
+      "slug": "jahody-mrazeny",
+      "author": "Jiří Schelinger",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
         "language": "CZ"
       }
     },
@@ -2557,6 +2778,22 @@
         "F#mi",
         "G",
         "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Je mi to brácha",
+      "slug": "je-mi-to-bracha",
+      "author": "Zpevnik",
+      "chords": [
+        "A",
+        "C",
+        "Dmi",
+        "Gmi"
       ],
       "group": "",
       "tags": {
@@ -2723,6 +2960,24 @@
       }
     },
     {
+      "title": "Jez",
+      "slug": "jez",
+      "author": "Ivan Mládek",
+      "chords": [
+        "A7",
+        "C",
+        "D7",
+        "Dmi",
+        "G#",
+        "G7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Ještě jedno kafe",
       "slug": "jeste-jedno-kafe",
       "author": "Druhá tráva",
@@ -2745,24 +3000,6 @@
       "chords": [
         "C",
         "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Jez",
-      "slug": "jez",
-      "author": "Ivan Mládek",
-      "chords": [
-        "A7",
-        "C",
-        "D7",
-        "Dmi",
-        "G#",
-        "G7"
       ],
       "group": "",
       "tags": {
@@ -2804,6 +3041,70 @@
       }
     },
     {
+      "title": "Jupí, čerte",
+      "slug": "jupi-certe",
+      "author": "Greenhorn",
+      "chords": [
+        "C",
+        "D7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Já budu chodit po špičkách",
+      "slug": "ja-budu-chodit-po-spickach",
+      "author": "Petr Novák",
+      "chords": [
+        "A",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Já s tebou žít nebudu",
+      "slug": "ja-s-tebou-zit-nebudu",
+      "author": "Nerez",
+      "chords": [
+        "Ami",
+        "Emi",
+        "F#",
+        "G",
+        "H",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Já žádám",
+      "slug": "ja-zadam",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "A",
+        "D",
+        "E"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Jóžin z bážin",
       "slug": "jozin-z-bazin",
       "author": "Ivan Mládek",
@@ -2814,21 +3115,6 @@
         "F",
         "G",
         "G7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Jupí, čerte",
-      "slug": "jupi-certe",
-      "author": "Greenhorn",
-      "chords": [
-        "C",
-        "D7",
-        "G"
       ],
       "group": "",
       "tags": {
@@ -2895,6 +3181,29 @@
       }
     },
     {
+      "title": "Karkulka",
+      "slug": "karkulka",
+      "author": "Sverak Uhlir",
+      "chords": [
+        "A",
+        "A7",
+        "B",
+        "C",
+        "D",
+        "Dmi",
+        "F",
+        "F#",
+        "G",
+        "Gmi",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Každý ráno",
       "slug": "kazdy-rano",
       "author": "Chinaski",
@@ -2913,6 +3222,23 @@
       }
     },
     {
+      "title": "Kde si včera bol",
+      "slug": "kde-si-vcera-bol",
+      "author": "Romstar Vyškov",
+      "chords": [
+        "B",
+        "C#",
+        "D#mi",
+        "F#",
+        "G#mi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Kdo ví jestli",
       "slug": "kdo-vi-jestli",
       "author": "Kabát",
@@ -2922,6 +3248,39 @@
         "D",
         "Emi",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Kdyby se v komnatách",
+      "slug": "kdyby-se-v-komnatach",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
+      "chords": [
+        "C",
+        "C7",
+        "Dmi",
+        "F",
+        "G",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Kdyby tady byla taková panenka",
+      "slug": "kdyby-tady-byla-takova-panenka",
+      "author": "Pavel Lohonka Žalman",
+      "chords": [
+        "C",
+        "F",
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -2962,6 +3321,22 @@
       }
     },
     {
+      "title": "Když nemůžeš, tak přidej",
+      "slug": "kdyz-nemuzes-tak-pridej",
+      "author": "MIRAI",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "Fmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": true,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Když se načančám",
       "slug": "kdyz-se-nacancam",
       "author": "Co takhle svatba, princi?",
@@ -2995,6 +3370,29 @@
       }
     },
     {
+      "title": "Když si tě dívko představím",
+      "slug": "kdyz-si-te-divko-predstavim",
+      "author": "Tomáš Klus",
+      "chords": [
+        "A",
+        "Ami",
+        "Asus4",
+        "D",
+        "Dsus4",
+        "Emi",
+        "Emi7",
+        "Emi7+g",
+        "G",
+        "Hmi",
+        "Hsus2"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Když v noci sněží",
       "slug": "kdyz-v-noci-snezi",
       "author": "Jablkoň",
@@ -3019,6 +3417,54 @@
         "C",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Kluziště",
+      "slug": "kluziste",
+      "author": "Karel Plíhal",
+      "chords": [
+        "Ami7",
+        "C",
+        "C/G",
+        "D7",
+        "Emi7/H",
+        "Fmaj7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Klára",
+      "slug": "klara",
+      "author": "Chinaski",
+      "chords": [
+        "Ami",
+        "Bmi",
+        "C",
+        "C#",
+        "C#mi",
+        "D#mi",
+        "D#mi7",
+        "Dmi",
+        "Dmi7",
+        "E",
+        "Emi",
+        "F",
+        "F#",
+        "F#mi",
+        "Fmi",
+        "G#mi",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -3149,6 +3595,26 @@
       }
     },
     {
+      "title": "Kočky",
+      "slug": "kocky",
+      "author": "Nerez",
+      "chords": [
+        "A7maj",
+        "Bmaj7",
+        "C#mi7",
+        "Cmaj7",
+        "Dmi7",
+        "E7/4",
+        "F#",
+        "Hmi7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Krabička",
       "slug": "krabicka",
       "author": "Vypsaná Fixa",
@@ -3157,6 +3623,22 @@
         "Ami",
         "C",
         "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Krutý krtek Joy",
+      "slug": "kruty-krtek-joy",
+      "author": "Kabát",
+      "chords": [
+        "Ami",
+        "C",
+        "F",
         "G"
       ],
       "group": "",
@@ -3221,14 +3703,12 @@
       }
     },
     {
-      "title": "Krutý krtek Joy",
-      "slug": "kruty-krtek-joy",
-      "author": "Kabát",
+      "title": "Kulatý obdélníky",
+      "slug": "kulaty-obdelniky",
+      "author": "Hop Trop",
       "chords": [
-        "Ami",
-        "C",
-        "F",
-        "G"
+        "A7",
+        "D"
       ],
       "group": "",
       "tags": {
@@ -3303,22 +3783,6 @@
       }
     },
     {
-      "title": "Láska a data",
-      "slug": "laska-a-data",
-      "author": "Chinaski",
-      "chords": [
-        "A",
-        "D",
-        "G",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 1,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Lavina",
       "slug": "lavina",
       "author": "Vojtaano",
@@ -3349,6 +3813,22 @@
       "tags": {
         "capo": 4,
         "language": "EN"
+      }
+    },
+    {
+      "title": "LeHomoLe",
+      "slug": "lehomole",
+      "author": "Tomas Klus",
+      "chords": [
+        "A",
+        "C#mi",
+        "D",
+        "E"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -3418,40 +3898,6 @@
         "Dmi",
         "F",
         "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Léto",
-      "slug": "leto",
-      "author": "Vojtaano",
-      "chords": [
-        "A",
-        "C",
-        "D",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Léto 95",
-      "slug": "leto-95",
-      "author": "Marek Ztracený",
-      "chords": [
-        "A",
-        "D",
-        "Emi7",
-        "F#",
-        "G",
-        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -3596,6 +4042,73 @@
       }
     },
     {
+      "title": "Láska a data",
+      "slug": "laska-a-data",
+      "author": "Chinaski",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 1,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Láska v housce",
+      "slug": "laska-v-housce",
+      "author": "Xindl X",
+      "chords": [
+        "Bmi",
+        "D#mi",
+        "F",
+        "F#",
+        "G#"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Léto",
+      "slug": "leto",
+      "author": "Vojtaano",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Léto 95",
+      "slug": "leto-95",
+      "author": "Marek Ztracený",
+      "chords": [
+        "A",
+        "D",
+        "Emi7",
+        "F#",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Made in Valmez",
       "slug": "made-in-valmez",
       "author": "Mňága a Žďorp",
@@ -3603,6 +4116,25 @@
         "A",
         "D",
         "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Madeleine",
+      "slug": "madeleine",
+      "author": "Radůza",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "E",
+        "Emi",
+        "F",
         "G"
       ],
       "group": "",
@@ -3628,16 +4160,14 @@
       }
     },
     {
-      "title": "Malá dáma",
-      "slug": "mala-dama",
-      "author": "Kabát",
+      "title": "Maja",
+      "slug": "maja",
+      "author": "Nightwork",
       "chords": [
-        "Ami",
         "C",
         "D",
         "Emi",
-        "G",
-        "H7"
+        "H"
       ],
       "group": "",
       "tags": {
@@ -3662,24 +4192,6 @@
       "tags": {
         "capo": 3,
         "language": "CZ"
-      }
-    },
-    {
-      "title": "Małomiasteczkowy",
-      "slug": "malomiasteczkowy",
-      "author": "Dawid Podsiadło",
-      "chords": [
-        "A",
-        "C#m",
-        "D",
-        "E",
-        "F#m",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "PL"
       }
     },
     {
@@ -3716,72 +4228,16 @@
       }
     },
     {
-      "title": "Mám doma kočku",
-      "slug": "mam-doma-kocku",
-      "author": "Pokáč",
+      "title": "Malá dáma",
+      "slug": "mala-dama",
+      "author": "Kabát",
       "chords": [
-        "A",
+        "Ami",
         "C",
         "D",
         "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 1,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Mám jizvu na rtu",
-      "slug": "mam-jizvu-na-rtu",
-      "author": "Jaromír Nohavica",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "Dmi7",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Mám styl Čendy",
-      "slug": "mam-styl-cendy",
-      "author": "Karel Gott",
-      "chords": [
-        "A",
-        "Ami",
-        "Dmi7",
-        "E7",
-        "Emi",
-        "F",
-        "Fmaj7",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Mám takovej pocit",
-      "slug": "mam-takovej-pocit",
-      "author": "Hm... (Čertí brko)",
-      "chords": [
-        "A",
-        "C",
-        "D",
-        "Emi",
-        "F#",
         "G",
-        "Hmi"
+        "H7"
       ],
       "group": "",
       "tags": {
@@ -3790,35 +4246,17 @@
       }
     },
     {
-      "title": "Máma se vrací",
-      "slug": "mama-se-vraci",
-      "author": "Mig 21",
+      "title": "Mamko, nedávej mě mamko",
+      "slug": "mamko-nedavej-me-mamko",
+      "author": "Cechomor",
       "chords": [
-        "A",
         "Ami",
         "C",
-        "D",
         "Dmi",
-        "E",
-        "Emi",
-        "Fmi",
-        "H"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Mámámamá",
-      "slug": "mamamama",
-      "author": "Xavier Baumaxa",
-      "chords": [
-        "A",
-        "D",
+        "E7",
+        "F",
         "G",
-        "Hmi"
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -3911,44 +4349,21 @@
       }
     },
     {
-      "title": "Mávej",
-      "slug": "mavej",
-      "author": "Mig 21",
-      "chords": [
-        "Ami",
-        "C",
-        "C7",
-        "Dmi",
-        "Dmi7",
-        "Emi",
-        "Emi7",
-        "F",
-        "Fmi",
-        "G7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Medvídek",
-      "slug": "medvidek",
-      "author": "Lucie",
+      "title": "Małomiasteczkowy",
+      "slug": "malomiasteczkowy",
+      "author": "Dawid Podsiadło",
       "chords": [
         "A",
-        "A7",
-        "B",
+        "C#m",
         "D",
-        "Emi",
-        "G",
+        "E",
+        "F#m",
         "Hmi"
       ],
       "group": "",
       "tags": {
         "capo": false,
-        "language": "CZ"
+        "language": "PL"
       }
     },
     {
@@ -3968,31 +4383,17 @@
       }
     },
     {
-      "title": "Měla krátkou ofinu",
-      "slug": "mela-kratkou-ofinu",
-      "author": "Vypsaná Fixa",
+      "title": "Medvídek",
+      "slug": "medvidek",
+      "author": "Lucie",
       "chords": [
         "A",
-        "Ami",
-        "C",
-        "D",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Měsíc",
-      "slug": "mesic",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "C",
+        "A7",
+        "B",
         "D",
         "Emi",
-        "G"
+        "G",
+        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -4028,22 +4429,6 @@
         "F",
         "G",
         "G7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Míle a míle",
-      "slug": "mile-a-mile",
-      "author": "Waldemar Matuška",
-      "chords": [
-        "A",
-        "D",
-        "E",
-        "F#mi"
       ],
       "group": "",
       "tags": {
@@ -4279,16 +4664,11 @@
       }
     },
     {
-      "title": "Můj čas",
-      "slug": "muj-cas",
-      "author": "Hana Zagorová (ze seriálu Sanitka)",
+      "title": "Mravenčí ukolébavka",
+      "slug": "mravenci-ukolebavka",
+      "author": "Zpevnik",
       "chords": [
-        "Ami",
         "C",
-        "D",
-        "Dmi",
-        "E",
-        "Emi",
         "F",
         "G"
       ],
@@ -4364,6 +4744,231 @@
       }
     },
     {
+      "title": "Mám doma kočku",
+      "slug": "mam-doma-kocku",
+      "author": "Pokáč",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 1,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mám jednu ruku dlouhou",
+      "slug": "mam-jednu-ruku-dlouhou",
+      "author": "Buty",
+      "chords": [
+        "A",
+        "Ami",
+        "C#mi",
+        "Cmi",
+        "D",
+        "E",
+        "F#mi",
+        "G#mi",
+        "H",
+        "H/A",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mám jizvu na rtu",
+      "slug": "mam-jizvu-na-rtu",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "Dmi7",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mám styl Čendy",
+      "slug": "mam-styl-cendy",
+      "author": "Karel Gott",
+      "chords": [
+        "A",
+        "Ami",
+        "Dmi7",
+        "E7",
+        "Emi",
+        "F",
+        "Fmaj7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mám takovej pocit",
+      "slug": "mam-takovej-pocit",
+      "author": "Hm... (Čertí brko)",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "Emi",
+        "F#",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Máma se vrací",
+      "slug": "mama-se-vraci",
+      "author": "Mig 21",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "D",
+        "Dmi",
+        "E",
+        "Emi",
+        "Fmi",
+        "H"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mámámamá",
+      "slug": "mamamama",
+      "author": "Xavier Baumaxa",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Mávej",
+      "slug": "mavej",
+      "author": "Mig 21",
+      "chords": [
+        "Ami",
+        "C",
+        "C7",
+        "Dmi",
+        "Dmi7",
+        "Emi",
+        "Emi7",
+        "F",
+        "Fmi",
+        "G7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Míle a míle",
+      "slug": "mile-a-mile",
+      "author": "Waldemar Matuška",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "F#mi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Měla krátkou ofinu",
+      "slug": "mela-kratkou-ofinu",
+      "author": "Vypsaná Fixa",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Měsíc",
+      "slug": "mesic",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Můj čas",
+      "slug": "muj-cas",
+      "author": "Hana Zagorová (ze seriálu Sanitka)",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Dmi",
+        "E",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Na co nesmíš zapomenout",
       "slug": "na-co-nesmis-zapomenout",
       "author": "Midi Lidi",
@@ -4401,6 +5006,23 @@
       }
     },
     {
+      "title": "Na hotelu v Olomouci",
+      "slug": "na-hotelu-v-olomouci",
+      "author": "Petr Hapka",
+      "chords": [
+        "B",
+        "C",
+        "Dmi",
+        "F",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Na kameni kámen",
       "slug": "na-kameni-kamen",
       "author": "Nedvědi",
@@ -4427,6 +5049,22 @@
         "Dmi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Na ostří nože",
+      "slug": "na-ostri-noze",
+      "author": "Ewa Farna",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi"
       ],
       "group": "",
       "tags": {
@@ -4474,6 +5112,23 @@
       }
     },
     {
+      "title": "Nafrněná",
+      "slug": "nafrnena",
+      "author": "Barbora Poláková",
+      "chords": [
+        "Ab",
+        "B",
+        "C#",
+        "Eb",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Nagasaki Hirošima",
       "slug": "nagasaki-hirosima",
       "author": "Mňága a Žďorp / Karel Plíhal",
@@ -4506,31 +5161,14 @@
       }
     },
     {
-      "title": "Náhrobní kámen",
-      "slug": "nahrobni-kamen",
-      "author": "Petr Novák",
+      "title": "Napojen",
+      "slug": "napojen",
+      "author": "Tomáš Klus",
       "chords": [
         "A",
-        "C",
-        "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Námořnická",
-      "slug": "namornicka",
-      "author": "Karel Plíhal",
-      "chords": [
-        "A7",
-        "D",
         "E",
         "F#",
-        "G"
+        "H"
       ],
       "group": "",
       "tags": {
@@ -4571,24 +5209,6 @@
       }
     },
     {
-      "title": "Něgdy",
-      "slug": "negdy",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "A",
-        "B",
-        "C",
-        "Dmi",
-        "F",
-        "Gmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Nejlíp jim bylo",
       "slug": "nejlip-jim-bylo",
       "author": "Mňága a Žďorp",
@@ -4607,16 +5227,31 @@
       }
     },
     {
-      "title": "Některé otázky už si prostě nekladu",
-      "slug": "nektere-otazky-uz-si-proste-nekladu",
-      "author": "Mňága a Žďorp",
+      "title": "Neklid",
+      "slug": "neklid",
+      "author": "Tomáš Klus",
       "chords": [
         "Ami",
-        "B",
         "C",
-        "Dmi",
+        "E",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Nemůžu si pomoct",
+      "slug": "nemuzu-si-pomoct",
+      "author": "Marek Vašut",
+      "chords": [
+        "Ami",
+        "C",
         "F",
-        "G"
+        "G",
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -4741,24 +5376,6 @@
       }
     },
     {
-      "title": "Nízko letí ptáci",
-      "slug": "nizko-leti-ptaci",
-      "author": "Zrní",
-      "chords": [
-        "A",
-        "D",
-        "F#",
-        "G",
-        "H",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Nosorožec",
       "slug": "nosorozec",
       "author": "Karel Plíhal",
@@ -4791,6 +5408,125 @@
       "tags": {
         "capo": false,
         "language": "EN"
+      }
+    },
+    {
+      "title": "Náhrobní kámen",
+      "slug": "nahrobni-kamen",
+      "author": "Petr Novák",
+      "chords": [
+        "A",
+        "C",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Nám se stalo něco překrásného",
+      "slug": "nam-se-stalo-neco-prekrasneho",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
+      "chords": [
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Námořnická",
+      "slug": "namornicka",
+      "author": "Karel Plíhal",
+      "chords": [
+        "A7",
+        "D",
+        "E",
+        "F#",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Náměšť",
+      "slug": "namest",
+      "author": "Jaroslav Hutka",
+      "chords": [
+        "A7",
+        "D",
+        "Emi",
+        "H7",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Nízko letí ptáci",
+      "slug": "nizko-leti-ptaci",
+      "author": "Zrní",
+      "chords": [
+        "A",
+        "D",
+        "F#",
+        "G",
+        "H",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Něgdy",
+      "slug": "negdy",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "A",
+        "B",
+        "C",
+        "Dmi",
+        "F",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Některé otázky už si prostě nekladu",
+      "slug": "nektere-otazky-uz-si-proste-nekladu",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "Ami",
+        "B",
+        "C",
+        "Dmi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -4911,6 +5647,23 @@
       }
     },
     {
+      "title": "One",
+      "slug": "one",
+      "author": "U2",
+      "chords": [
+        "Ami",
+        "C",
+        "D2",
+        "Fmaj7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Opakování",
       "slug": "opakovani",
       "author": "Tata Bojs",
@@ -4957,6 +5710,24 @@
         "Dmi",
         "F",
         "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Otevřená zlomenina srdečního svalu",
+      "slug": "otevrena-zlomenina-srdecniho-svalu-2",
+      "author": "Wanastowi Vjecy",
+      "chords": [
+        "Ami",
+        "C",
+        "Cmi",
+        "D",
+        "F",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -5013,20 +5784,6 @@
       }
     },
     {
-      "title": "Papírovka",
-      "slug": "papirovka",
-      "author": "Tata Bojs",
-      "chords": [
-        "C",
-        "D"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Papoušek noci",
       "slug": "papousek-noci",
       "author": "Květy",
@@ -5039,6 +5796,20 @@
       "group": "",
       "tags": {
         "capo": 1,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Papírovka",
+      "slug": "papirovka",
+      "author": "Tata Bojs",
+      "chords": [
+        "C",
+        "D"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
         "language": "CZ"
       }
     },
@@ -5068,6 +5839,26 @@
         "Emi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Paš o paňori",
+      "slug": "pas-o-panori",
+      "author": "Věra Bílá",
+      "chords": [
+        "A7",
+        "Ami7",
+        "C",
+        "Dmi7",
+        "E7",
+        "Edim",
+        "F",
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -5127,24 +5918,6 @@
       }
     },
     {
-      "title": "Pěšáci",
-      "slug": "pesaci",
-      "author": "Tata Bojs",
-      "chords": [
-        "A",
-        "D",
-        "E",
-        "F#mi",
-        "G",
-        "H"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Petěrburg",
       "slug": "peterburg",
       "author": "Jaromír Nohavica",
@@ -5177,43 +5950,45 @@
       }
     },
     {
-      "title": "Písnička na tři",
-      "slug": "pisnicka-na-tri",
-      "author": "",
-      "chords": [
-        "A",
-        "D",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Písnička pro tebe",
-      "slug": "pisnicka-pro-tebe",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "A",
-        "C",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Plakala",
       "slug": "plakala",
       "author": "Divokej Bill",
       "chords": [
         "Ami",
         "C",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Planeta Zombie",
+      "slug": "planeta-zombie",
+      "author": "",
+      "chords": [
+        "Ami",
+        "Dmi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Pochod marodů",
+      "slug": "pochod-marodu",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "E",
+        "F",
         "G"
       ],
       "group": "",
@@ -5275,6 +6050,25 @@
       }
     },
     {
+      "title": "Pohoda",
+      "slug": "pohoda",
+      "author": "Kabát",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Dmi",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Pohádka",
       "slug": "pohadka",
       "author": "Pokáč",
@@ -5310,43 +6104,6 @@
       }
     },
     {
-      "title": "Pohoda",
-      "slug": "pohoda",
-      "author": "Kabát",
-      "chords": [
-        "Ami",
-        "C",
-        "D",
-        "Dmi",
-        "Emi",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Pochod marodů",
-      "slug": "pochod-marodu",
-      "author": "Jaromír Nohavica",
-      "chords": [
-        "Ami",
-        "C",
-        "Dmi",
-        "E",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Pojď se mnou, lásko má",
       "slug": "pojd-se-mnou-lasko-ma",
       "author": "Poletíme?",
@@ -5354,6 +6111,64 @@
         "Ami",
         "C",
         "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Pojďme se napít",
+      "slug": "pojdme-se-napit",
+      "author": "Poutníci",
+      "chords": [
+        "A",
+        "D",
+        "Emi",
+        "F#mi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Pokoj v duši",
+      "slug": "pokoj-v-dusi",
+      "author": "Jana Kirschner",
+      "chords": [
+        "A",
+        "D",
+        "F#",
+        "F#mi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Pokojný a jasný",
+      "slug": "pokojny-a-jasny",
+      "author": "Zuzana Navarová",
+      "chords": [
+        "Ami",
+        "Ami/G",
+        "C",
+        "C/H",
+        "Dmi",
+        "Dmi7",
+        "E7",
+        "F",
+        "Fmaj7",
         "G"
       ],
       "group": "",
@@ -5397,6 +6212,23 @@
       }
     },
     {
+      "title": "Popelka",
+      "slug": "popelka",
+      "author": "Xindl X",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Poruba",
       "slug": "poruba",
       "author": "Jaromír Nohavica",
@@ -5432,6 +6264,24 @@
       }
     },
     {
+      "title": "Povídej",
+      "slug": "povidej",
+      "author": "Petr Novák",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "D7",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Pověste ho vejš",
       "slug": "poveste-ho-vejs",
       "author": "Michal Tučný",
@@ -5451,16 +6301,13 @@
       }
     },
     {
-      "title": "Povídej",
-      "slug": "povidej",
-      "author": "Petr Novák",
+      "title": "Praha Vídeň",
+      "slug": "praha-viden",
+      "author": "Calin",
       "chords": [
-        "A",
+        "Ami",
         "C",
-        "D",
-        "D7",
-        "G",
-        "Hmi"
+        "Emi"
       ],
       "group": "",
       "tags": {
@@ -5522,27 +6369,6 @@
       }
     },
     {
-      "title": "Príbeh nekončí",
-      "slug": "pribeh-nekonci",
-      "author": "Superstar 2010",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "D",
-        "Dmi",
-        "F",
-        "G",
-        "Gsus4",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Pro Emu",
       "slug": "pro-emu",
       "author": "Michal Hrůza",
@@ -5595,14 +6421,133 @@
       }
     },
     {
-      "title": "Přičuchnutí alergikovo",
-      "slug": "pricuchnuti-alergikovo",
-      "author": "Tomáš Klus",
+      "title": "Príbeh",
+      "slug": "pribeh",
+      "author": "Tina",
       "chords": [
         "Ami",
+        "Fmaj7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "SK"
+      }
+    },
+    {
+      "title": "Príbeh nekončí",
+      "slug": "pribeh-nekonci",
+      "author": "Superstar 2010",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "D",
         "Dmi",
+        "F",
+        "G",
+        "Gsus4",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Ptáčata",
+      "slug": "ptacata",
+      "author": "Nedvědi",
+      "chords": [
+        "Ami",
+        "C",
+        "D7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Píseň proti trudomyslnosti",
+      "slug": "pisen-proti-trudomyslnosti",
+      "author": "Jára Cimrman",
+      "chords": [
+        "A7",
+        "D",
+        "E7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Písnička",
+      "slug": "pisnicka",
+      "author": "Pavel Callta",
+      "chords": [
+        "C",
+        "D",
+        "Dsus2",
+        "Emi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": true,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Písnička na tři",
+      "slug": "pisnicka-na-tri",
+      "author": "",
+      "chords": [
+        "A",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Písnička pro tebe",
+      "slug": "pisnicka-pro-tebe",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "A",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Pěšáci",
+      "slug": "pesaci",
+      "author": "Tata Bojs",
+      "chords": [
+        "A",
+        "D",
         "E",
-        "F"
+        "F#mi",
+        "G",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -5627,14 +6572,14 @@
       }
     },
     {
-      "title": "Ptáčata",
-      "slug": "ptacata",
-      "author": "Nedvědi",
+      "title": "Přičuchnutí alergikovo",
+      "slug": "pricuchnuti-alergikovo",
+      "author": "Tomáš Klus",
       "chords": [
         "Ami",
-        "C",
-        "D7",
-        "G"
+        "Dmi",
+        "E",
+        "F"
       ],
       "group": "",
       "tags": {
@@ -5668,24 +6613,6 @@
         "A7",
         "D",
         "E"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Ráda se miluje",
-      "slug": "rada-se-miluje",
-      "author": "Karel Plíhal",
-      "chords": [
-        "Ami",
-        "C",
-        "E",
-        "Emi",
-        "F",
-        "G"
       ],
       "group": "",
       "tags": {
@@ -5728,20 +6655,20 @@
       }
     },
     {
-      "title": "Ráno",
-      "slug": "rano",
-      "author": "Inekafe",
+      "title": "Replay",
+      "slug": "replay",
+      "author": "Iyaz",
       "chords": [
-        "A",
-        "Ami",
         "C",
-        "F",
+        "D",
+        "E",
+        "Emi",
         "G"
       ],
       "group": "",
       "tags": {
-        "capo": false,
-        "language": "CZ"
+        "capo": true,
+        "language": "EN"
       }
     },
     {
@@ -5851,6 +6778,41 @@
       }
     },
     {
+      "title": "Ráda se miluje",
+      "slug": "rada-se-miluje",
+      "author": "Karel Plíhal",
+      "chords": [
+        "Ami",
+        "C",
+        "E",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Ráno",
+      "slug": "rano",
+      "author": "Inekafe",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Růže z papíru",
       "slug": "ruze-z-papiru",
       "author": "Brontosauři",
@@ -5868,24 +6830,6 @@
       "tags": {
         "capo": false,
         "language": "CZ"
-      }
-    },
-    {
-      "title": "Řekni, kde ty kytky jsou",
-      "slug": "rekni-kde-ty-kytky-jsou",
-      "author": "Judita Čeřovská",
-      "chords": [
-        "Ami",
-        "C",
-        "D7",
-        "Dmi",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "EN"
       }
     },
     {
@@ -5921,6 +6865,22 @@
       }
     },
     {
+      "title": "Sametová",
+      "slug": "sametova",
+      "author": "Zluty Pes",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Samurajské meče",
       "slug": "samurajske-mece",
       "author": "Vypsaná Fixa",
@@ -5939,12 +6899,31 @@
       }
     },
     {
-      "title": "Sáro",
-      "slug": "saro",
-      "author": "Traband",
+      "title": "Sarajevo",
+      "slug": "sarajevo",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "Ami",
+        "Ami/F#",
+        "D7/F#",
+        "Emi",
+        "G",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Sbohem galánečko",
+      "slug": "sbohem-galanecko",
+      "author": "Vlasta Redl",
       "chords": [
         "A",
-        "C",
+        "A7",
+        "Ami",
         "D",
         "Emi",
         "G",
@@ -5976,25 +6955,6 @@
       }
     },
     {
-      "title": "Sbohem galánečko",
-      "slug": "sbohem-galanecko",
-      "author": "Vlasta Redl",
-      "chords": [
-        "A",
-        "A7",
-        "Ami",
-        "D",
-        "Emi",
-        "G",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Sen",
       "slug": "sen",
       "author": "Lucie",
@@ -6005,6 +6965,24 @@
         "Dmi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Severní vítr",
+      "slug": "severni-vitr",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
+      "chords": [
+        "Ami",
+        "C",
+        "C7",
+        "F",
+        "G",
+        "G7"
       ],
       "group": "",
       "tags": {
@@ -6032,14 +7010,13 @@
       }
     },
     {
-      "title": "Síla starejch vín",
-      "slug": "sila-starejch-vin",
-      "author": "Škwor",
+      "title": "Skřítkové tesaři",
+      "slug": "skritkove-tesari",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
       "chords": [
-        "A",
         "C",
-        "D",
-        "Emi",
+        "C7",
+        "F",
         "G"
       ],
       "group": "",
@@ -6120,6 +7097,24 @@
       }
     },
     {
+      "title": "Snowman",
+      "slug": "snowman",
+      "author": "Sia",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "E7",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Sound of silence",
       "slug": "sound-of-silence",
       "author": "Paul Simon",
@@ -6183,6 +7178,26 @@
       }
     },
     {
+      "title": "Spím v obilí",
+      "slug": "spim-v-obili",
+      "author": "Michal Tucny",
+      "chords": [
+        "Ami",
+        "C",
+        "C7",
+        "Dmi",
+        "Emi",
+        "Emi7",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": true,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Srdce jako kníže Rohan",
       "slug": "srdce-jako-knize-rohan",
       "author": "Richard Müller",
@@ -6234,15 +7249,12 @@
       }
     },
     {
-      "title": "Stánky",
-      "slug": "stanky",
-      "author": "Ptáčata",
+      "title": "Stará archa (Kocábka)",
+      "slug": "stara-archa-kocabka",
+      "author": "Spirituál Kvintet",
       "chords": [
-        "A",
-        "D",
-        "Dmi",
-        "E",
-        "E7"
+        "D7",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -6268,6 +7280,22 @@
       }
     },
     {
+      "title": "Statistika",
+      "slug": "statistika",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Stoupám",
       "slug": "stoupam",
       "author": "Cocoman",
@@ -6276,6 +7304,26 @@
         "C",
         "D",
         "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Strom",
+      "slug": "strom",
+      "author": "Ozvěna",
+      "chords": [
+        "A",
+        "Ami",
+        "D",
+        "Dmi",
+        "E",
+        "F",
+        "F#mi",
         "G"
       ],
       "group": "",
@@ -6296,6 +7344,23 @@
         "Emi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Stánky",
+      "slug": "stanky",
+      "author": "Ptáčata",
+      "chords": [
+        "A",
+        "D",
+        "Dmi",
+        "E",
+        "E7"
       ],
       "group": "",
       "tags": {
@@ -6443,58 +7508,9 @@
       }
     },
     {
-      "title": "Šaman",
-      "slug": "saman",
-      "author": "Šárka Plhalová",
-      "chords": [
-        "Ami",
-        "C",
-        "D",
-        "Emi",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 2,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Škytavka",
-      "slug": "skytavka",
-      "author": "Hm...",
-      "chords": [
-        "A",
-        "D",
-        "E",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Šrouby a matice",
-      "slug": "srouby-a-matice",
-      "author": "Mandrage",
-      "chords": [
-        "A",
-        "D",
-        "E",
-        "Hmi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Šrouby do hlavy",
-      "slug": "srouby-do-hlavy",
-      "author": "Lucie",
+      "title": "Sáro",
+      "slug": "saro",
+      "author": "Traband",
       "chords": [
         "A",
         "C",
@@ -6510,17 +7526,15 @@
       }
     },
     {
-      "title": "Šťastnější",
-      "slug": "stastnejsi",
-      "author": "Tata Bojs",
+      "title": "Síla starejch vín",
+      "slug": "sila-starejch-vin",
+      "author": "Škwor",
       "chords": [
-        "Ami",
+        "A",
         "C",
         "D",
         "Emi",
-        "F",
-        "G",
-        "Hmi"
+        "G"
       ],
       "group": "",
       "tags": {
@@ -6529,16 +7543,33 @@
       }
     },
     {
-      "title": "Šůrka mikrofon",
-      "slug": "surka-mikrofon",
-      "author": "Vypsaná Fixa",
+      "title": "Síť",
+      "slug": "sit",
+      "author": "Divokej Bill",
       "chords": [
-        "A",
-        "C",
-        "D",
-        "E",
+        "B",
+        "Dmi",
         "F",
-        "G"
+        "G#",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Ta ne",
+      "slug": "ta-ne",
+      "author": "Kristína",
+      "chords": [
+        "B",
+        "Cmi",
+        "Eb",
+        "F/C",
+        "G",
+        "Gmi/D"
       ],
       "group": "",
       "tags": {
@@ -6638,40 +7669,6 @@
       }
     },
     {
-      "title": "Těšínská",
-      "slug": "tesinska",
-      "author": "Jaromír Nohavica",
-      "chords": [
-        "Ami",
-        "C",
-        "Dmi",
-        "E7",
-        "F"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Těžký váhy",
-      "slug": "tezky-vahy",
-      "author": "Ben Cristovao",
-      "chords": [
-        "A",
-        "Ami",
-        "Emi",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "The Pretender",
       "slug": "the-pretender",
       "author": "Foo Fighters",
@@ -6716,6 +7713,22 @@
       "tags": {
         "capo": false,
         "language": "EN"
+      }
+    },
+    {
+      "title": "Tisíc andělů",
+      "slug": "tisic-andelu",
+      "author": "Čechomor",
+      "chords": [
+        "C",
+        "F",
+        "G",
+        "G7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -6837,6 +7850,150 @@
       }
     },
     {
+      "title": "Trubadůrská",
+      "slug": "trubadurska",
+      "author": "Karel Plíhal",
+      "chords": [
+        "Ami",
+        "Ami/G",
+        "C",
+        "D9/F#",
+        "E",
+        "Emi",
+        "Emi7/H",
+        "Fmaj7",
+        "Fmaj7/F#",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Tsunami",
+      "slug": "tsunami",
+      "author": "Divokej Bill",
+      "chords": [
+        "Ami",
+        "C",
+        "E",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 5,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Tu kytaru jsem koupil kvůli tobě",
+      "slug": "tu-kytaru-jsem-koupil-kvuli-tobe",
+      "author": "Filmová Hudba Cz",
+      "chords": [
+        "A",
+        "D",
+        "D7",
+        "Emi",
+        "F#mi",
+        "G",
+        "Gmi",
+        "H7",
+        "H7/4",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Tulácký ráno",
+      "slug": "tulacky-rano",
+      "author": "Honza Nedvěd",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Ty jsi jako já",
+      "slug": "ty-jsi-jako-ja",
+      "author": "Michal Hrůza",
+      "chords": [
+        "C",
+        "D",
+        "Emi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 2,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Tääborääk Sonxx",
+      "slug": "taaboraak-sonxx",
+      "author": "Xavier Baumaxa",
+      "chords": [
+        "A",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
+      "title": "Těšínská",
+      "slug": "tesinska",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "E7",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Těžký váhy",
+      "slug": "tezky-vahy",
+      "author": "Ben Cristovao",
+      "chords": [
+        "A",
+        "Ami",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Tři citrónky",
       "slug": "tri-citronky",
       "author": "",
@@ -6854,12 +8011,14 @@
       }
     },
     {
-      "title": "Tři čuníci",
-      "slug": "tri-cunici",
-      "author": "Jaromír Nohavica",
+      "title": "Tři kámošky psycholožky",
+      "slug": "tri-kamosky-psycholozky",
+      "author": "Akusticke",
       "chords": [
-        "Dmi",
-        "G7"
+        "C",
+        "D",
+        "Emi",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -6901,52 +8060,16 @@
       }
     },
     {
-      "title": "Tsunami",
-      "slug": "tsunami",
-      "author": "Divokej Bill",
+      "title": "Tři čuníci",
+      "slug": "tri-cunici",
+      "author": "Jaromír Nohavica",
       "chords": [
-        "Ami",
-        "C",
-        "E",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 5,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Tulácký ráno",
-      "slug": "tulacky-rano",
-      "author": "Honza Nedvěd",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "Emi",
-        "F",
-        "G"
+        "Dmi",
+        "G7"
       ],
       "group": "",
       "tags": {
         "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Ty jsi jako já",
-      "slug": "ty-jsi-jako-ja",
-      "author": "Michal Hrůza",
-      "chords": [
-        "C",
-        "D",
-        "Emi"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 2,
         "language": "CZ"
       }
     },
@@ -6986,19 +8109,24 @@
       }
     },
     {
-      "title": "Úplně levej",
-      "slug": "uplne-levej",
-      "author": "Pokáč",
+      "title": "Ukolébavka",
+      "slug": "ukolebavka",
+      "author": "Jaromír Nohavica",
       "chords": [
+        "Ami",
+        "Ami/G",
+        "Ami/G#",
         "C",
-        "D",
+        "D7",
         "Emi",
         "G",
-        "H"
+        "G/E",
+        "G/F#",
+        "Hmi"
       ],
       "group": "",
       "tags": {
-        "capo": 3,
+        "capo": false,
         "language": "CZ"
       }
     },
@@ -7020,6 +8148,24 @@
       "group": "",
       "tags": {
         "capo": 2,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "V blbým věku",
+      "slug": "v-blbym-veku",
+      "author": "Xindl X",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
         "language": "CZ"
       }
     },
@@ -7086,25 +8232,6 @@
         "A7",
         "D",
         "E"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Vánoce na míru",
-      "slug": "vanoce-na-miru",
-      "author": "Ewa Farna",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "D",
-        "Emi",
-        "G",
-        "Hmi"
       ],
       "group": "",
       "tags": {
@@ -7191,6 +8318,23 @@
       }
     },
     {
+      "title": "Velrybářská výprava",
+      "slug": "velrybarska-vyprava",
+      "author": "Pacifik",
+      "chords": [
+        "A",
+        "C#mi",
+        "E",
+        "F#mi",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Venku je na nule",
       "slug": "venku-je-na-nule",
       "author": "Chinaski",
@@ -7226,6 +8370,24 @@
       }
     },
     {
+      "title": "Vlajky vlají",
+      "slug": "vlajky-vlaji",
+      "author": "Mig 21",
+      "chords": [
+        "Ami",
+        "B",
+        "C",
+        "Dmi",
+        "E",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Vlaštovky",
       "slug": "vlastovky",
       "author": "Traband",
@@ -7235,6 +8397,24 @@
         "C",
         "Dmi",
         "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Voda živá",
+      "slug": "voda-ziva",
+      "author": "Aneta Langerová",
+      "chords": [
+        "B",
+        "C",
+        "C/F",
+        "Dmi",
+        "F",
+        "Gmi"
       ],
       "group": "",
       "tags": {
@@ -7269,40 +8449,6 @@
         "D",
         "Dmi",
         "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Všechna slast",
-      "slug": "vsechna-slast",
-      "author": "Hm...",
-      "chords": [
-        "Ami",
-        "C",
-        "Dmi",
-        "Emi",
-        "F",
-        "G"
-      ],
-      "group": "",
-      "tags": {
-        "capo": 5,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Výhledově",
-      "slug": "vyhledove",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "C",
-        "D",
-        "Emi",
         "G"
       ],
       "group": "",
@@ -7347,6 +8493,99 @@
       "group": "",
       "tags": {
         "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Vánoce na míru",
+      "slug": "vanoce-na-miru",
+      "author": "Ewa Farna",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Víla Vivi",
+      "slug": "vila-vivi",
+      "author": "Kašpárek V Rohlíku",
+      "chords": [
+        "Ab",
+        "Ab7",
+        "B7",
+        "Bmi",
+        "Bsus4",
+        "Db",
+        "Ebmi",
+        "Ebmi/Ab",
+        "Ebmi/B",
+        "Ebmi/Db",
+        "Ebmi/Gb",
+        "Gb",
+        "Gb6"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Výhledově",
+      "slug": "vyhledove",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Včelín",
+      "slug": "vcelin",
+      "author": "Čechomor",
+      "chords": [
+        "C",
+        "Dmi",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Všechna slast",
+      "slug": "vsechna-slast",
+      "author": "Hm...",
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 5,
         "language": "CZ"
       }
     },
@@ -7403,6 +8642,22 @@
       "group": "",
       "tags": {
         "capo": false,
+        "language": "EN"
+      }
+    },
+    {
+      "title": "Whatever it takes",
+      "slug": "whatever-it-takes",
+      "author": "Imagine Dragons",
+      "chords": [
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": true,
         "language": "EN"
       }
     },
@@ -7530,6 +8785,26 @@
       }
     },
     {
+      "title": "Yesterday",
+      "slug": "yesterday",
+      "author": "Beatles",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Dmi",
+        "E",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "You've got a friend in me",
       "slug": "youve-got-a-friend-in-me",
       "author": "Toy Story 4",
@@ -7573,23 +8848,6 @@
         "C",
         "Dmi",
         "F"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
-      "title": "Začátek a konec",
-      "slug": "zacatek-a-konec",
-      "author": "Mňága a Žďorp",
-      "chords": [
-        "A",
-        "Ami",
-        "C",
-        "F",
-        "G"
       ],
       "group": "",
       "tags": {
@@ -7652,6 +8910,23 @@
       }
     },
     {
+      "title": "Zanedbaný sex",
+      "slug": "zanedbany-sex",
+      "author": "Elan",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "F#mi",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Zatanči",
       "slug": "zatanci",
       "author": "Jaromír Nohavica",
@@ -7686,6 +8961,73 @@
       }
     },
     {
+      "title": "Zavolejte stráže",
+      "slug": "zavolejte-straze",
+      "author": "Zdeněk Svěrák &amp; Jaroslav Uhlíř",
+      "chords": [
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Začátek a konec",
+      "slug": "zacatek-a-konec",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Zbirka zvadlejch ruzi",
+      "slug": "zbirka-zvadlejch-ruzi",
+      "author": "Wanastowi Vjecy",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Zdá se mi",
+      "slug": "zda-se-mi",
+      "author": "Brutus",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "H",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Zejtra mám",
       "slug": "zejtra-mam",
       "author": "Ready Kirken",
@@ -7697,6 +9039,21 @@
         "Emi",
         "G",
         "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Zelený list",
+      "slug": "zeleny-list",
+      "author": "Švihadlo",
+      "chords": [
+        "D",
+        "Emi",
+        "G"
       ],
       "group": "",
       "tags": {
@@ -7728,26 +9085,6 @@
       }
     },
     {
-      "title": "Zítra ráno v pět",
-      "slug": "zitra-rano-v-pet",
-      "author": "Jaromír Nohavica",
-      "chords": [
-        "Ami",
-        "C",
-        "D",
-        "E",
-        "Emi",
-        "Emi7",
-        "G",
-        "H7"
-      ],
-      "group": "",
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      }
-    },
-    {
       "title": "Zlatíčka",
       "slug": "zlaticka",
       "author": "Kapitán Demo",
@@ -7758,6 +9095,25 @@
         "Emi",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Známka punku",
+      "slug": "znamka-punku",
+      "author": "Visací Zámek",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F#",
+        "G",
+        "H"
       ],
       "group": "",
       "tags": {
@@ -7834,6 +9190,459 @@
       "group": "",
       "tags": {
         "capo": 3,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Zítra ráno v pět",
+      "slug": "zitra-rano-v-pet",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "E",
+        "Emi",
+        "Emi7",
+        "G",
+        "H7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Zůstaň tu se mnou",
+      "slug": "zustan-tu-se-mnou",
+      "author": "Kryštof",
+      "chords": [
+        "Ami",
+        "C",
+        "Emi",
+        "F",
+        "Fmaj7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Úplně levej",
+      "slug": "uplne-levej",
+      "author": "Pokáč",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "H"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 3,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čarodějnice z Amesbury",
+      "slug": "carodejnice-z-amesbury",
+      "author": "Trymheim",
+      "chords": [
+        "A",
+        "D",
+        "F#mi",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Času je málo",
+      "slug": "casu-je-malo",
+      "author": "Švihadlo",
+      "chords": [
+        "Ami",
+        "Dmi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Černej pasažér",
+      "slug": "cernej-pasazer",
+      "author": "Traband",
+      "chords": [
+        "A",
+        "A7",
+        "B",
+        "C",
+        "Dmi",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Černí andělé",
+      "slug": "cerni-andele",
+      "author": "Lucie",
+      "chords": [
+        "A",
+        "D",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Černý a bílý",
+      "slug": "cerny-a-bily",
+      "author": "Šárka Plhalová",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čert ví proč",
+      "slug": "cert-vi-proc",
+      "author": "Zuzana Navarová",
+      "chords": [
+        "Ami",
+        "B",
+        "C",
+        "D",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Červená řeka",
+      "slug": "cervena-reka",
+      "author": "Helena Vondráčková",
+      "chords": [
+        "A7",
+        "D",
+        "D7",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Člověk nového typu",
+      "slug": "clovek-noveho-typu",
+      "author": "Mňága a Žďorp",
+      "chords": [
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čmelák",
+      "slug": "cmelak",
+      "author": "Divokej Bill",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čtyři slunce",
+      "slug": "ctyri-slunce",
+      "author": "Vypsaná Fixa",
+      "chords": [
+        "A",
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čůrej sem a čůrej tam",
+      "slug": "curej-sem-a-curej-tam",
+      "author": "Kašpárek v rohlíku",
+      "chords": [
+        "A",
+        "A7",
+        "D",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Řekni, kde ty kytky jsou",
+      "slug": "rekni-kde-ty-kytky-jsou",
+      "author": "Judita Čeřovská",
+      "chords": [
+        "Ami",
+        "C",
+        "D7",
+        "Dmi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
+      "title": "Šaman",
+      "slug": "saman",
+      "author": "Šárka Plhalová",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": 2,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Škytavka",
+      "slug": "skytavka",
+      "author": "Hm...",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Šrouby a matice",
+      "slug": "srouby-a-matice",
+      "author": "Mandrage",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Šrouby do hlavy",
+      "slug": "srouby-do-hlavy",
+      "author": "Lucie",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "Emi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Šípková růženka",
+      "slug": "sipkova-ruzenka",
+      "author": "Jiří Schelinger",
+      "chords": [
+        "B",
+        "C",
+        "Cmi",
+        "D#",
+        "Dmi",
+        "F",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Šťastnější",
+      "slug": "stastnejsi",
+      "author": "Tata Bojs",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "F",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Šůrka mikrofon",
+      "slug": "surka-mikrofon",
+      "author": "Vypsaná Fixa",
+      "chords": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Žijeme len raz",
+      "slug": "zijeme-len-raz",
+      "author": "Ego",
+      "chords": [
+        "B",
+        "C",
+        "Dmi",
+        "F"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Žili byli bratři tři",
+      "slug": "zili-byli-bratri-tri",
+      "author": "",
+      "chords": [
+        "Ami",
+        "C",
+        "Cmi",
+        "D7",
+        "E",
+        "E7",
+        "G",
+        "G/D",
+        "G7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Život je jen náhoda",
+      "slug": "zivot-je-jen-nahoda",
+      "author": "Ježek + Voskovec + Werich",
+      "chords": [
+        "A7",
+        "Aaug",
+        "B",
+        "C",
+        "C#",
+        "C7",
+        "Cmaj7",
+        "Cmi",
+        "Cmi6",
+        "D",
+        "D#",
+        "D7",
+        "D7+",
+        "Daug",
+        "Ddim",
+        "E",
+        "Fdim",
+        "G",
+        "G6",
+        "G7",
+        "Gaug",
+        "Gdim",
+        "Gmi",
+        "Hmi",
+        "Hmi7"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
         "language": "CZ"
       }
     }

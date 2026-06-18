@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Because I Got High - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Because I Got High</h1>
+      <p class="song-author">Afroman</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="G">G</span>i was gonna clean up my room
+
+but then i got <span class="chord" data-chord="C">C</span>high
+
+i was gonna <span class="chord" data-chord="D">D</span>get up and find the broom
+
+but then i got <span class="chord" data-chord="G">G</span>high
+
+my room is still messed up
+
+and i know <span class="chord" data-chord="C">C</span>why....
+
+because i got <span class="chord" data-chord="G">G</span>high
+
+because i got <span class="chord" data-chord="D">D</span>high
+
+because i got <span class="chord" data-chord="G">G</span>high
+
+I was gonna go to class, before I got high
+
+I coulda' cheated and I coulda passed, but I got high
+
+I'm taking it next semester and I know why, (why man) 'cuz I got high
+
+Because I got high
+
+Because I got high
+
+I was gonna go to work, but then I got high
+
+I just got a new promotion, but I got high
+
+Now I'm selling dope and I know why, (why man) 'cuz I got high
+
+Because I got high
+
+Because I got high
+
+I was gonna go to court, before I got high
+
+I was gonna pay my child support, but then I got high (No you weren't)
+
+They took my whole pay check, and I know why, (why man) 'cuz I got high,
+
+Because I got high
+
+Because I got high
+
+I wasn't gonna run from the cops but I was high, (I'm serious man)
+
+I was gonna pull right over and stop, but I was high
+
+Now I'm a paraplegic, and I know why, (why man) 'cuz I got high
+
+Because I got high
+
+Because I got high
+
+I was gonna pay my car a note, until I got high
+
+I wasn't gonna gamble on the boat, but then I got high
+
+Now the tow truck's pulling away, and I know why, (why man) 'cuz I got high, because I got high, because I got high
+
+Because I got high
+
+Because I got high
+
+I was gonna make love to you, but then I got high, I'm serious
+
+I was gonna eat your pussy to, but then I got high
+
+Now i'm jacking off and I know why, (turn this shit off) 'cuz I got high, because I got high, because I got high
+
+I messed up my entire life, because I got high
+
+I lost my kids and wife , because I got high
+
+Now I'm sleeping on the sidewalk, and I know why, (why man) 'cuz I got high, because I got high, because I got high
+
+I'm gonna stop singing this song, because I'm high
+
+I'm singing this whole thing wrong, because I'm high
+
+And if I don't sell one copy I know why, (why man) 'cuz I'm high,
+
+because I'm high, because I'm high
+
+(Are you really high man?) (he really is high man!) get jiggy with it
+
+O bring it back (say what say what oh, Because I'm high
+
+Because I'm high, because I'm high
+
+Well my name is afroman and I'm from east palmdale,
+
+All the 'Dale weed i be smokin, is mama's hell
+
+I dont belive in Hitler thats what I say' (O my goodness)
+
+So all of you skins, please give me more head
+
+Mother fucker, afro mother fucker m-a-n
+
+A-e-i-o-u and somtimes w
+
+We aint going to sell any of these mother fucking albums cuz
+
+Lets go back to marshal durbans and hang some more chickins cuz fuck it
+
+Fuck the corporate world bitch</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Because%20I%20Got%20High" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

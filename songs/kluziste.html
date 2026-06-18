@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kluziště - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Kluziště</h1>
+      <p class="song-author">Karel Plíhal</p>
+      
+    </div>
+    <pre class="song-text">1. St<span class="chord" data-chord="C">C</span>rejček  <span class="chord" data-chord="Emi7/H">Emi7/H</span>kovář c<span class="chord" data-chord="Ami7">Ami7</span>hytil k<span class="chord" data-chord="C/G">C/G</span>leště,<span class="chord" data-chord="Fmaj7">Fmaj7</span> uštíp' z <span class="chord" data-chord="C">C</span>noční<span class="chord" data-chord="Fmaj7">Fmaj7</span> obloh<span class="chord" data-chord="G">G</span>y
+
+     j<span class="chord" data-chord="C">C</span>ednu m<span class="chord" data-chord="Emi7/H">Emi7/H</span>alou ka<span class="chord" data-chord="Ami7">Ami7</span>pku d<span class="chord" data-chord="C/G">C/G</span>eště, t<span class="chord" data-chord="Fmaj7">Fmaj7</span>a mu sp<span class="chord" data-chord="C">C</span>adla p<span class="chord" data-chord="Fmaj7">Fmaj7</span>od noh<span class="chord" data-chord="G">G</span>y,
+
+     n<span class="chord" data-chord="C">C</span>ejdřív <span class="chord" data-chord="Emi7/H">Emi7/H</span>ale chy<span class="chord" data-chord="Ami7">Ami7</span>til sl<span class="chord" data-chord="C/G">C/G</span>inu, t<span class="chord" data-chord="Fmaj7">Fmaj7</span>ak šáh' k<span class="chord" data-chord="C">C</span>amsi pr<span class="chord" data-chord="Fmaj7">Fmaj7</span>o pivo<span class="chord" data-chord="G">G</span>,
+
+     p<span class="chord" data-chord="C">C</span>ak přit<span class="chord" data-chord="Emi7/H">Emi7/H</span>áhl kov<span class="chord" data-chord="Ami7">Ami7</span>adlin<span class="chord" data-chord="C/G">C/G</span>u a <span class="chord" data-chord="Fmaj7">Fmaj7</span>obrovs<span class="chord" data-chord="C">C</span>ký klad<span class="chord" data-chord="Fmaj7">Fmaj7</span>ivo.
+
+  R: Zatím t<span class="chord" data-chord="C">C</span>ři bílé v<span class="chord" data-chord="Emi7/H">Emi7/H</span>rány pě<span class="chord" data-chord="Ami7">Ami7</span>kně za se<span class="chord" data-chord="C/G">C/G</span>bou
+
+     kolem jd<span class="chord" data-chord="Fmaj7">Fmaj7</span>ou, někam jd<span class="chord" data-chord="C">C</span>ou, do rytm<span class="chord" data-chord="D7">D7</span>u se kývaj<span class="chord" data-chord="G">G</span>í,
+
+     tyhle tř<span class="chord" data-chord="C">C</span>i bílé vr<span class="chord" data-chord="Emi7/H">Emi7/H</span>ány pěk<span class="chord" data-chord="Ami7">Ami7</span>ně za seb<span class="chord" data-chord="C/G">C/G</span>ou
+
+     kolem jd<span class="chord" data-chord="Fmaj7">Fmaj7</span>ou, někam jd<span class="chord" data-chord="C">C</span>ou, nedojd<span class="chord" data-chord="Fmaj7">Fmaj7</span>ou, nedojd<span class="chord" data-chord="C">C</span>ou.
+
+  2. Vydal z hrdla mocný pokřik ztichlým letním večerem,
+
+     pak tu kapku všude rozstřík'  jedním mocným úderem,
+
+     celej svět byl náhle v  kapce a vysoko nad námi
+
+     na obrovské mucholapce visí  nebe s hvězdami.
+
+  R:
+
+  3. Zpod víček mi vytrysk' pramen na zmačkané polštáře,
+
+     kdosi mě vzal kolem ramen a  políbil na tváře,
+
+     kdesi v dálce rozmazaně  strejda kovář odchází,
+
+     do kalhot si čistí ruce  umazané od sazí.
+
+  [   C  Emi7/H Ami7 C/G Fmaj7 C D7 G C Emi7/H Ami7 C/G Fmaj7 C Fmaj7 C]</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Kluzi%C5%A1t%C4%9B" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

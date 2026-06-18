@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu kytaru jsem koupil kvůli tobě - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Tu kytaru jsem koupil kvůli tobě</h1>
+      <p class="song-author">Filmová Hudba Cz</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="H7/4">H7/4</span>Jak <span class="chord" data-chord="D">D</span>můžeš  bejt tak <span class="chord" data-chord="H7">H7</span>krutá
+
+  <span class="chord" data-chord="G">G</span>copak nemáš kouska citu  v <span class="chord" data-chord="A">A</span>těle
+
+  Tu <span class="chord" data-chord="D">D</span>kytáru jsem koupil kvůli  tobě
+
+  a dal jsem za ni celej tátův <span class="chord" data-chord="A">A</span>plat
+
+  Ta <span class="chord" data-chord="D">D</span>dávno ještě <span class="chord" data-chord="D7">D7</span>byla ve vý<span class="chord" data-chord="G">G</span>robě <span class="chord" data-chord="Gmi">Gmi</span>a já už <span class="chord" data-chord="D">D</span>věděl <span class="chord" data-chord="A">A</span>co ti budú <span class="chord" data-chord="D">D</span>hra-a-át <span class="chord" data-chord="A">A</span>
+
+  To ještě rostla v javorovém lese
+
+  a jenom vítr na to dřevo hrál
+
+  a já už trnul jestli někdy snese
+
+  žár, který ve mně denně narůstal
+
+  ®: S tou <span class="chord" data-chord="Hmi">Hmi</span>kytárou teď stojím  před tvým <span class="chord" data-chord="F#mi">F#mi</span>domem
+
+  měj <span class="chord" data-chord="Hmi">Hmi</span>soucit aspoň k <span class="chord" data-chord="D7">D7</span>tomu javo<span class="chord" data-chord="Emi">Emi</span>ru <span class="chord" data-chord="A">A</span>
+
+  Jen <span class="chord" data-chord="D">D</span>kvůli tobě <span class="chord" data-chord="D7">D7</span>přestal býti <span class="chord" data-chord="G">G</span>stromem <span class="chord" data-chord="Gmi">Gmi</span>
+
+  tak už nás <span class="chord" data-chord="D">D</span>oba <span class="chord" data-chord="A">A</span>pozvi naho<span class="chord" data-chord="D">D</span>ru.
+
+  Tu kytaru jsem koupil kvůli tobě
+
+  a dal jsem za ni celej tátuv plat
+
+  Ta dávno ještě byla ve výrobě
+
+  a já už věděl, co ti budu hra-a-át
+
+  ®:</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Tu%20kytaru%20jsem%20koupil%20kv%C5%AFli%20tob%C4%9B" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>
