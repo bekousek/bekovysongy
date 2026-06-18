@@ -92,6 +92,22 @@
       }
     },
     {
+      "title": "7 years",
+      "slug": "a7-years",
+      "author": "Lukas Graham",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "A pak",
       "slug": "a-pak",
       "author": "Tomáš Klus",
@@ -888,6 +904,21 @@
       }
     },
     {
+      "title": "Byla cesta, byla ušlapaná",
+      "slug": "byla-cesta-byla-uslapana",
+      "author": "Cechomor",
+      "chords": [
+        "C",
+        "D",
+        "Gmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Báječná ženská",
       "slug": "bajecna-zenska",
       "author": "Michal Tučný",
@@ -1343,6 +1374,23 @@
       "tags": {
         "capo": false,
         "language": "EN"
+      }
+    },
+    {
+      "title": "Dinosaur",
+      "slug": "dinosaur",
+      "author": "Kruh 19",
+      "chords": [
+        "Ami",
+        "C",
+        "Emi",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -7115,6 +7163,23 @@
       }
     },
     {
+      "title": "Somewhere over the rainbow",
+      "slug": "somewhere-over-the-rainbow",
+      "author": "Israel Kamakawiwo Ole\\&#039;",
+      "chords": [
+        "Ami",
+        "C",
+        "Emi",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Sound of silence",
       "slug": "sound-of-silence",
       "author": "Paul Simon",
@@ -7630,6 +7695,26 @@
       "tags": {
         "capo": false,
         "language": "EN"
+      }
+    },
+    {
+      "title": "Tančím",
+      "slug": "tancim",
+      "author": "Mig 21",
+      "chords": [
+        "A",
+        "B",
+        "D",
+        "E",
+        "F",
+        "F#",
+        "H",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -8516,6 +8601,22 @@
       }
     },
     {
+      "title": "Vánoční",
+      "slug": "vanocni",
+      "author": "Johny Machette",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Víla Vivi",
       "slug": "vila-vivi",
       "author": "Kašpárek V Rohlíku",
@@ -8587,6 +8688,23 @@
       "tags": {
         "capo": 5,
         "language": "CZ"
+      }
+    },
+    {
+      "title": "Warriors",
+      "slug": "warriors",
+      "author": "Imagine Dragons",
+      "chords": [
+        "Ami",
+        "C",
+        "E7",
+        "F",
+        "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
       }
     },
     {
@@ -9424,6 +9542,24 @@
         "D",
         "F",
         "G"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Ředitel autobusu",
+      "slug": "reditel-autobusu",
+      "author": "The Tap Tap",
+      "chords": [
+        "A",
+        "C#mi",
+        "E",
+        "F#mi",
+        "G#",
+        "H"
       ],
       "group": "",
       "tags": {

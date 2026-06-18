@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7 years - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>7 years</h1>
+      <p class="song-author">Lukas Graham</p>
+      
+    </div>
+    <pre class="song-text"><span class="chord" data-chord="Emi">Emi</span>Once I was seven years ol<span class="chord" data-chord="G">G</span>d, my mamma told m<span class="chord" data-chord="C">C</span>e
+Go make yourself some friends or you'll be l<span class="chord" data-chord="D">D</span>onely.
+<span class="chord" data-chord="Emi">Emi</span>Once I was seven years o<span class="chord" data-chord="G">G</span>ld.
+EM            D    G                                  C
+
+It was a big big world, but we thought we were bigger.
+Pushing each other to the limits, we won't l<span class="chord" data-chord="D">D</span>earn them quicker.<span class="chord" data-chord="Emi">Emi</span>
+By eleven smok<span class="chord" data-chord="D">D</span>ing h<span class="chord" data-chord="G">G</span>erb and drinking burning liquor<span class="chord" data-chord="C">C</span>
+Never rich so we were out to make that st<span class="chord" data-chord="D">D</span>eady figure
+<span class="chord" data-chord="Emi">Emi</span>Once I was seven years ol<span class="chord" data-chord="G">G</span>d, my mamma told m<span class="chord" data-chord="C">C</span>e
+Go make yourself some friends or you'll be l<span class="chord" data-chord="D">D</span>onely.
+<span class="chord" data-chord="Emi">Emi</span>Once I was seven years o<span class="chord" data-chord="G">G</span>ld.
+EM            D    G                             C
+
+I always had that dream like my daddy before me
+So I started writing songs, I started<span class="chord" data-chord="D">D</span> writing stories<span class="chord" data-chord="Emi">Emi</span>
+Something about t<span class="chord" data-chord="D">D</span>he gl<span class="chord" data-chord="G">G</span>ory, just always seemed to bore me<span class="chord" data-chord="C">C</span>
+Cause only those I really love will ever<span class="chord" data-chord="D">D</span> really know me
+<span class="chord" data-chord="Emi">Emi</span>Once I was seven years ol<span class="chord" data-chord="G">G</span>d, my mamma told m<span class="chord" data-chord="C">C</span>e
+Go make yourself some friends or you'll be l<span class="chord" data-chord="D">D</span>onely.
+<span class="chord" data-chord="Emi">Emi</span>Once I was seven years o<span class="chord" data-chord="G">G</span>ld.
+
+I only see my goals, I don't believe in failure.
+Cause I know the smallest voices, they can make it major.
+I got my boys with me atleast those in favor
+And if we don't lead before I leave, I hope ill see you later.
+
+Once I was 20 years old, my story got told
+I was writing about everything, I saw before me
+Once I was 20 years old.
+
+Soon we'll be 30 years old, our songs have been sold
+We've traveled around the world and we're still roaming.
+Soon we'll be 30 years old.
+
+I'm still learning about life
+My woman brought children for me
+So I can sing them all my songs
+And I can tell them stories
+Most of my boys are with me
+Some are still out seeking glory
+And some I had to leave behind
+My brother I'm still sorry
+
+Soon I'll be 60 years old, my daddy got 61
+Remember life and then your life becomes a better one
+I made the man so happy when I wrote a letter once
+
+I hope my children come and visit, once or twice a month
+Soon I'll be 60 years old, will I think the world is cold
+Or will I have a lot of children who can bore me
+Soon I'll be 60 years old
+Soon I'll be 60 years old, will I think the world is cold
+Or will I have a lot of children who can bore me
+Soon I'll be 60 years old
+Once I was seven years old, my mama told me
+Go make yourself some friends or you'll be lonely
+Once I was seven years old
+Once I was seven years old</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%207%20years" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

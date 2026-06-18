@@ -54,6 +54,15 @@ DELAY = 0.4
 CORRECTIONS = {
     # listed link pointed at Sia – Snowman by mistake; correct song is MIRAI's.
     "Když nemůžeš, tak přidej": "https://supermusic.cz/skupina.php?idpiesne=989283",
+    # user-confirmed alternative chord sources (originals were JS/blocked)
+    "Somewhere over the rainbow": "https://supermusic.cz/skupina.php?idpiesne=422440",
+    "Ředitel autobusu": "https://supermusic.cz/skupina.php?idpiesne=515423",
+    "Tančím": "https://pisnicky-akordy.cz/mig-21/tancim",
+    "Dinosaur": "https://www.velkyzpevnik.cz/kruh-19/dinosaur",
+    "Warriors": "https://pisnicky-akordy.cz/imagine-dragons/warriors",
+    "7 years": "https://pisnicky-akordy.cz/lukas-graham/7-years",
+    "Vánoční": "https://supermusic.cz/skupina.php?idpiesne=1073369",
+    "Byla cesta, byla ušlapaná": "https://pisnicky-akordy.cz/cechomor/byla-cesta-byla-uslapana",
 }
 
 # ----------------------------------------------------------------------------
