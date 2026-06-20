@@ -1621,10 +1621,17 @@
       "title": "Duality",
       "slug": "duality",
       "author": "Slipknot",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "Ami9",
+        "Ami9/Eb",
+        "B",
+        "C",
+        "F"
+      ],
       "group": "",
       "tags": {
-        "capo": false,
+        "capo": true,
         "language": "EN"
       }
     },
@@ -2185,8 +2192,16 @@
     {
       "title": "High Hopes",
       "slug": "high-hopes",
-      "author": "Panic At The Disco",
-      "chords": [],
+      "author": "Panic! At the Disco",
+      "chords": [
+        "Aaug",
+        "Ami",
+        "B",
+        "Bmi6",
+        "C",
+        "Dmi",
+        "F"
+      ],
       "group": "",
       "tags": {
         "capo": false,
@@ -2577,10 +2592,17 @@
       "title": "I bet my life",
       "slug": "i-bet-my-life",
       "author": "Imagine Dragons",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "C",
+        "Dmi",
+        "F",
+        "G",
+        "G/H"
+      ],
       "group": "",
       "tags": {
-        "capo": false,
+        "capo": true,
         "language": "EN"
       }
     },
@@ -4116,10 +4138,14 @@
       "title": "Lose yourself",
       "slug": "lose-yourself",
       "author": "Eminem",
-      "chords": [],
+      "chords": [
+        "B",
+        "C",
+        "Dmi"
+      ],
       "group": "",
       "tags": {
-        "capo": false,
+        "capo": true,
         "language": "EN"
       }
     },
@@ -5283,7 +5309,10 @@
       "title": "Natural",
       "slug": "natural",
       "author": "Imagine Dragons",
-      "chords": [],
+      "chords": [
+        "A7",
+        "Dmi"
+      ],
       "group": "",
       "tags": {
         "capo": false,

@@ -4,19 +4,18 @@ Celkem v rozsahu: **129**
 
 | stav | počet |
 |---|---|
-| Hotovo – ke kontrole zarovnání akordů | 6 |
+| Hotovo – ke kontrole zarovnání akordů | 5 |
 | Čeká na stažení přes prohlížeč | 6 |
-| Přeskočeno (duplicita) | 117 |
+| Přeskočeno (duplicita) | 118 |
 
 
-## Hotovo – ke kontrole zarovnání akordů (6)
+## Hotovo – ke kontrole zarovnání akordů (5)
 
-- **Bones** `bones.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
-- **Natural** `natural.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
-- **I bet my life** `i-bet-my-life.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
-- **Lose yourself** `lose-yourself.html` [pisnicky-akordy.cz] – Eminem – pouze text (zdroj bez akordů) – akordy doplnit ručně
-- **High Hopes** `high-hopes.html` [pisnicky-akordy.cz] – Panic At The Disco – pouze text (zdroj bez akordů) – akordy doplnit ručně
-- **Duality** `duality.html` [pisnicky-akordy.cz] – Slipknot – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Natural** `natural.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
+- **I bet my life** `i-bet-my-life.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
+- **Lose yourself** `lose-yourself.html` [tabs.ultimate-guitar.com] – Eminem – akordy nad textem – zkontrolovat zarovnání
+- **High Hopes** `high-hopes.html` [tabs.ultimate-guitar.com] – Panic! At the Disco – akordy nad textem – zkontrolovat zarovnání
+- **Duality** `duality.html` [tabs.ultimate-guitar.com] – Slipknot – akordy nad textem – zkontrolovat zarovnání
 
 ## Čeká na stažení přes prohlížeč (6)
 
@@ -27,10 +26,11 @@ Celkem v rozsahu: **129**
 - **Žigulik** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Náš Matěj** [chordify.net] – browser fetch needed: chordify.net
 
-## Přeskočeno (duplicita) (117)
+## Přeskočeno (duplicita) (118)
 
 - **Velrybářská výprava** [supermusic.cz] – už existuje na webu
 - **Čarodějnice z Amesbury** [supermusic.cz] – už existuje na webu
+- **Bones** [pisnicky-akordy.cz] – už existuje na webu
 - **Demons** [supermusic.cz] – už existuje na webu
 - **Bad Liar** [supermusic.cz] – už existuje na webu
 - **Thunder** [tabs.ultimate-guitar.com] – už existuje na webu
@@ -151,4 +151,4 @@ Celkem v rozsahu: **129**
 
 Tyto akordy fungují pro transpozici, ale nemají nákresový diagram (volitelně doplnit do `js/chords.js`):
 
-– žádné –
+Aaug, Ami9, Ami9/Eb, Bmi6, G/H

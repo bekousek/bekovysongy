@@ -63,13 +63,14 @@ CORRECTIONS = {
     "7 years": "https://pisnicky-akordy.cz/lukas-graham/7-years",
     "Vánoční": "https://supermusic.cz/skupina.php?idpiesne=1073369",
     "Byla cesta, byla ušlapaná": "https://pisnicky-akordy.cz/cechomor/byla-cesta-byla-uslapana",
-    # lyrics-only fallback (no chords available on fetchable sources; user adds chords)
+    # Bones: lyrics-only (no UG sheet fetched); chords added manually later
     "Bones": "https://pisnicky-akordy.cz/imagine-dragons/bones",
-    "Natural": "https://pisnicky-akordy.cz/imagine-dragons/natural",
-    "I bet my life": "https://pisnicky-akordy.cz/imagine-dragons/i-bet-my-life",
-    "High Hopes": "https://pisnicky-akordy.cz/panic-at-the-disco/high-hopes",
-    "Lose yourself": "https://pisnicky-akordy.cz/eminem/lose-yourself",
-    "Duality": "https://pisnicky-akordy.cz/slipknot/duality",
+    # full chord sheets captured from Ultimate Guitar via browser -> staging/*.src.txt
+    "Natural": "https://tabs.ultimate-guitar.com/tab/imagine-dragons/natural-chords-2427609",
+    "I bet my life": "https://tabs.ultimate-guitar.com/tab/imagine-dragons/i-bet-my-life-chords-1675328",
+    "High Hopes": "https://tabs.ultimate-guitar.com/tab/panic-at-the-disco/high-hopes-chords-2390665",
+    "Lose yourself": "https://tabs.ultimate-guitar.com/tab/eminem/lose-yourself-chords-1505623",
+    "Duality": "https://tabs.ultimate-guitar.com/tab/slipknot/duality-chords-1926235",
 }
 
 # ----------------------------------------------------------------------------
@@ -223,7 +224,8 @@ def is_chordish_line(line):
 # Structural labels that can appear in [brackets] but are NOT chords
 SECTION_WORDS = {"bridge", "verse", "chorus", "pre-chorus", "prechorus", "intro",
                  "outro", "refrain", "refren", "refrén", "solo", "coda", "mezihra",
-                 "sloka", "predehra", "předehra", "dohra", "interlude", "break"}
+                 "sloka", "predehra", "předehra", "dohra", "interlude", "break",
+                 "acapella", "acappella", "instrumental", "hook"}
 
 
 def _chord_span(chord):
@@ -705,6 +707,49 @@ class NeedsBrowser(Exception):
     pass
 
 
+def clean_ug_lines(lines):
+    """Drop Ultimate Guitar preamble junk: tuning/capo/notes lines, URLs, and
+    ASCII tab/chord-diagram art. Keeps section labels, chords and lyrics."""
+    # UG real content starts at the first [Section] label; drop the preamble
+    # (title, transcriber notes, chord-diagram art) before it.
+    first_sec = next((i for i, ln in enumerate(lines)
+                      if re.match(r"^\s*\[[^\]]+\]\s*$", ln)), None)
+    if first_sec is not None:
+        lines = lines[first_sec:]
+
+    out = []
+    for ln in lines:
+        s = ln.strip()
+        if not s:
+            out.append(ln)
+            continue
+        low = s.lower()
+        if low.startswith(("http", "notes:", "tuning", "no capo", "capo")):
+            continue
+        if s.startswith("~") or s.startswith("- "):
+            continue
+        if re.search(r"-{2,}", ln) or re.search(r"_{3,}", ln):
+            continue
+        if re.match(r"^[eEADGBhx]\|", s):          # tab string line  e|---
+            continue
+        if re.match(r"^[|0-9x ]{4,}$", s):          # fret diagram row
+            continue
+        if re.search(r"#\d", s):                     # diagram headers like "#1 #2"
+            continue
+        out.append(ln)
+    # collapse blank runs + trim
+    coll = []
+    for ln in out:
+        if not ln.strip() and coll and not coll[-1].strip():
+            continue
+        coll.append(ln)
+    while coll and not coll[0].strip():
+        coll.pop(0)
+    while coll and not coll[-1].strip():
+        coll.pop()
+    return coll
+
+
 def fetch_staged(item):
     """Read a browser-captured song text from staging/<slug>.src.txt.
     Optional first line 'AUTHOR: X' sets the author. Raises NeedsBrowser if
@@ -722,7 +767,10 @@ def fetch_staged(item):
         author = lines[0][7:].strip()
         lines = lines[1:]
     english = (dom == "tabs.ultimate-guitar.com") or ("/en/" in url)
-    return {"author": author, "lines": [ln.rstrip() for ln in lines],
+    lines = [ln.rstrip() for ln in lines]
+    if dom == "tabs.ultimate-guitar.com":
+        lines = clean_ug_lines(lines)
+    return {"author": author, "lines": lines,
             "english": english, "capo": detect_capo_text(raw), "source": url}
 
 
