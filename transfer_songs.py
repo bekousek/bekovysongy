@@ -63,6 +63,13 @@ CORRECTIONS = {
     "7 years": "https://pisnicky-akordy.cz/lukas-graham/7-years",
     "Vánoční": "https://supermusic.cz/skupina.php?idpiesne=1073369",
     "Byla cesta, byla ušlapaná": "https://pisnicky-akordy.cz/cechomor/byla-cesta-byla-uslapana",
+    # lyrics-only fallback (no chords available on fetchable sources; user adds chords)
+    "Bones": "https://pisnicky-akordy.cz/imagine-dragons/bones",
+    "Natural": "https://pisnicky-akordy.cz/imagine-dragons/natural",
+    "I bet my life": "https://pisnicky-akordy.cz/imagine-dragons/i-bet-my-life",
+    "High Hopes": "https://pisnicky-akordy.cz/panic-at-the-disco/high-hopes",
+    "Lose yourself": "https://pisnicky-akordy.cz/eminem/lose-yourself",
+    "Duality": "https://pisnicky-akordy.cz/slipknot/duality",
 }
 
 # ----------------------------------------------------------------------------
@@ -372,8 +379,16 @@ def smart_decode(content):
         return content.decode("cp1250", "replace")
 
 
-def http_get(url):
-    return requests.get(url, headers=HEADERS, timeout=30, allow_redirects=True)
+def http_get(url, tries=4):
+    """GET with retry+backoff (some sources throttle / time out transiently)."""
+    last = None
+    for i in range(tries):
+        try:
+            return requests.get(url, headers=HEADERS, timeout=45, allow_redirects=True)
+        except requests.RequestException as e:
+            last = e
+            time.sleep(3 * (i + 1))
+    raise last
 
 
 def soup_of(url):
@@ -760,6 +775,9 @@ def process_item(item, taken, existing_titles, seen_titles, staging=True):
     if needs_review:
         rec["status"] = "needs-review"
         rec["note"] = "akordy nad textem – zkontrolovat zarovnání"
+    elif not chords:
+        rec["status"] = "needs-review"
+        rec["note"] = "pouze text (zdroj bez akordů) – akordy doplnit ručně"
 
     page = generate_song_html(title, author, capo, body)
     out_dir = STAGING_DIR if staging else SONGS_DIR

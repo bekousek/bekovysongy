@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lose yourself - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Lose yourself</h1>
+      <p class="song-author">Eminem</p>
+      
+    </div>
+    <pre class="song-text">Look, if you had one shot or one opportunity 
+To seize everything you ever wanted in one moment 
+Would you capture it or just let it slip? 
+
+Yo, his palms are sweaty, knees weak, arms are heavy 
+There is vomit on his sweater already 
+Moms spaghetti, he's nervous 
+But on the surface he looks calm and ready 
+To drop bombs, but he keeps on forgetting 
+What he wrote down, the whole crowd goes so loud 
+He opens his mouth but the words won't come out 
+He's choking, how? Everybody's jokin' now 
+The clock's run out, time's up, over bloah! 
+Snap back to reality, oh there goes gravity 
+Oh, there goes Rabbit, he choked, he's so mad 
+But he won't give up that easy, no he won't have it 
+He knows his whole back's to city ropes 
+It don't matter, he's dope, he knows that 
+But he's broke, he's so stacked that he knows 
+When he goes back to this mobile home 
+That's when it's back to the lab again, yo 
+This whole rhapsody, better go capture this moment 
+And hope it don't collapse on him 
+
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better 
+
+Soul's escapin' through this hole's that is gaping 
+This world is mine for the taking 
+Make me king as we move toward a new world order 
+A normal life is boring 
+But superstardom's close to post mortar 
+It only grows harder, homie grows hotter 
+He blows us all over, these hoes is all on him 
+Coast to coast shows, he's known as the Globetrotter 
+Lonely roads got him 
+He knows he's grown farther from home, he's no father 
+He goes home and barely knows his own daughter 
+But hold ya nose cuz here goes the cold water 
+These hoes don't want him no mo', he's cold product 
+They moved on to the next shmo who flows 
+Who nose dove and sold nada 
+And so the soap opera is told and unfolds 
+I suppose it's old, partner 
+But the beat goes on 
+Duh duh doe, duh doe, dah dah dah dah 
+
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better 
+
+No more games, I'ma change for due called rage 
+Tear this muthafuckin' roof off like two dogs caged 
+I was playin' in the beginnin', the mood all changed 
+I've been chewed up and spit out and booed off stage 
+But I kept rhymin' and stepped writin' the next cipher 
+Best believe somebody's payin' the pied piper 
+All the pain inside amplified by the 
+Fact that I can't get by with my nine to five 
+And I can't provide the right type of life for my family 
+Cuz, man, these goddamn food stamps don't buy diapers 
+And there's no movie, there's no Mekhi Pfifer 
+This is my life and these times are so hard 
+And it's gettin' even harder tryin' to feed and water 
+My seed plus see dishonor 
+Caught up between bein' a father and a pre-madonna 
+Baby momma drama, screamin' on her 
+Too much for me to wanna stay in one spot 
+Another damn or not has gotten me to the point 
+I'm like a snail, I've got to formulate a plot 
+Or end up in jail or shot 
+Success is my only muthafuckin' option, failure's not 
+Momma love you but this trailer's got to go 
+I cannot grow old in Salem's Lot 
+So here I go, it's my shot 
+Feet fail me not 
+Cuz maybe the only opportunity that I got 
+
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better lose yourself in the music 
+The moment you own it you better never let it go, oh 
+You only get one shot, do not miss your chance to blow 
+Cuz opportunity comes once in a lifetime, yo 
+You better 
+
+You can do anything you set your mind to, man</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Lose%20yourself" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

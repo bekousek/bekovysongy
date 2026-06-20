@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natural - Bekovy songy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="../" class="nav-logo">Bekovy songy</a>
+    <div class="nav-links">
+      <a href="../na-kytaru/">Na kytaru</a>
+      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
+      <a href="../na-kalimbu/">Na kalimbu</a>
+    </div>
+  </nav>
+
+  <main class="song-page">
+    <div class="song-header">
+      <h1>Natural</h1>
+      <p class="song-author">Imagine Dragons</p>
+      
+    </div>
+    <pre class="song-text">Will you hold the line
+When every one of them has given up and given in, tell me
+In this house of mine
+Nothing ever comes without a consequence or cost, tell me
+Will the stars align?
+Will heaven step in? Will it save us from our sin? Will it?
+'Cause this house of mine stands strong
+
+That's the price you pay
+Leave behind your heart and cast away
+Just another product of today
+Rather be the hunter than the prey
+And you're standing on the edge, face up 'cause you're a...
+
+Natural
+A beating heart of stone
+You gotta be so cold
+To make it in this world
+Yeah, you're a natural
+Living your life cutthroat
+You gotta be so cold
+Yeah, you're a natural
+
+Will somebody
+Let me see the light within the dark trees' shadowing
+What's happening?
+Looking through the glass find the wrong within the past knowing
+Oh, we are the youth
+Cut until it bleeds inside a world, without the peace, face it
+A bit of the truth, the truth
+
+That's the price you pay
+Leave behind your heart and cast away
+Just another product of today
+Rather be the hunter than the prey
+And you're standing on the edge, face up 'cause you're a...
+
+Natural
+A beating heart of stone
+You gotta be so cold
+To make it in this world
+Yeah, you're a natural
+Living your life cutthroat
+You gotta be so cold
+Yeah, you're a natural
+
+Deep inside me, I'm fading to black, I'm fading
+Took an oath by the blood of my hand, won't break it
+I can taste it, the end is upon us, I swear
+Gonna make it
+I'm gonna make it
+
+Natural
+A beating heart of stone
+You gotta be so cold
+To make it in this world
+Yeah, you're a natural
+Living your life cutthroat
+You gotta be so cold
+Yeah, you're a natural
+
+Natural
+Yeah, you're a natural</pre>
+  </main>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-section player-transpose">
+      <span class="player-label">Transpozice</span>
+      <button class="btn-transpose" id="transpose-down">-1</button>
+      <span id="transpose-value">0</span>
+      <button class="btn-transpose" id="transpose-up">+1</button>
+    </div>
+    <div class="player-section player-scroll">
+      <button class="btn-player" id="scroll-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
+    </div>
+    <div class="player-section player-metronome">
+      <button class="btn-player" id="metronome-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
+      </button>
+      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
+    </div>
+    <div class="player-section player-tuner">
+      <button class="btn-player" id="tuner-toggle">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <span id="tuner-display" class="tuner-display"></span>
+    </div>
+    <div class="player-section player-bug">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20Natural" class="btn-player" title="Nahlásit chybu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script src="../js/chords.js"></script>
+  <script src="../js/player.js"></script>
+</body>
+</html>

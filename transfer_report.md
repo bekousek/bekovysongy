@@ -4,42 +4,30 @@ Celkem v rozsahu: **129**
 
 | stav | počet |
 |---|---|
-| Hotovo | 3 |
-| Hotovo – ke kontrole zarovnání akordů | 5 |
-| Čeká na stažení přes prohlížeč | 12 |
-| Přeskočeno (duplicita) | 109 |
+| Hotovo – ke kontrole zarovnání akordů | 6 |
+| Čeká na stažení přes prohlížeč | 6 |
+| Přeskočeno (duplicita) | 117 |
 
 
-## Hotovo (3)
+## Hotovo – ke kontrole zarovnání akordů (6)
 
-- **Somewhere over the rainbow** `somewhere-over-the-rainbow.html` [supermusic.cz] – Israel Kamakawiwo Ole\&#039;
-- **Ředitel autobusu** `reditel-autobusu.html` [supermusic.cz] – The Tap Tap
-- **Vánoční** `vanocni.html` [supermusic.cz] – Johny Machette
+- **Bones** `bones.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Natural** `natural.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **I bet my life** `i-bet-my-life.html` [pisnicky-akordy.cz] – Imagine Dragons – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Lose yourself** `lose-yourself.html` [pisnicky-akordy.cz] – Eminem – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **High Hopes** `high-hopes.html` [pisnicky-akordy.cz] – Panic At The Disco – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Duality** `duality.html` [pisnicky-akordy.cz] – Slipknot – pouze text (zdroj bez akordů) – akordy doplnit ručně
 
-## Hotovo – ke kontrole zarovnání akordů (5)
+## Čeká na stažení přes prohlížeč (6)
 
-- **Warriors** `warriors.html` [pisnicky-akordy.cz] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
-- **Byla cesta, byla ušlapaná** `byla-cesta-byla-uslapana.html` [pisnicky-akordy.cz] – Cechomor – akordy nad textem – zkontrolovat zarovnání
-- **7 years** `a7-years.html` [pisnicky-akordy.cz] – Lukas Graham – akordy nad textem – zkontrolovat zarovnání
-- **Tančím** `tancim.html` [pisnicky-akordy.cz] – Mig 21 – akordy nad textem – zkontrolovat zarovnání
-- **Dinosaur** `dinosaur.html` [velkyzpevnik.cz] – Kruh 19 – akordy nad textem – zkontrolovat zarovnání
-
-## Čeká na stažení přes prohlížeč (12)
-
-- **Bones** [pisnicky.cz] – browser fetch needed: pisnicky.cz
 - **Enemy** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
-- **Natural** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
-- **I bet my life** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
-- **Lose yourself** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
-- **High Hopes** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Láska Neumiera** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Až po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Žigulik** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Náš Matěj** [chordify.net] – browser fetch needed: chordify.net
-- **Duality** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 
-## Přeskočeno (duplicita) (109)
+## Přeskočeno (duplicita) (117)
 
 - **Velrybářská výprava** [supermusic.cz] – už existuje na webu
 - **Čarodějnice z Amesbury** [supermusic.cz] – už existuje na webu
@@ -47,6 +35,10 @@ Celkem v rozsahu: **129**
 - **Bad Liar** [supermusic.cz] – už existuje na webu
 - **Thunder** [tabs.ultimate-guitar.com] – už existuje na webu
 - **Whatever it takes** [supermusic.cz] – už existuje na webu
+- **Warriors** [pisnicky-akordy.cz] – už existuje na webu
+- **Somewhere over the rainbow** [supermusic.cz] – už existuje na webu
+- **Ředitel autobusu** [supermusic.cz] – už existuje na webu
+- **Byla cesta, byla ušlapaná** [pisnicky-akordy.cz] – už existuje na webu
 - **Ex's & Oh's** [supermusic.cz] – už existuje na webu
 - **Ta ne** [supermusic.cz] – už existuje na webu
 - **Víla Vivi** [supermusic.cz] – už existuje na webu
@@ -112,14 +104,17 @@ Celkem v rozsahu: **129**
 - **Sametová** [pisnicky-akordy.cz] – už existuje na webu
 - **Na ostří nože** [velkyzpevnik.cz] – už existuje na webu
 - **Žijeme len raz** [supermusic.cz] – už existuje na webu
+- **7 years** [pisnicky-akordy.cz] – už existuje na webu
 - **Snowman** [pisnicky-akordy.cz] – už existuje na webu
 - **Když nemůžeš, tak přidej** [supermusic.cz] – už existuje na webu
 - **Kde si včera bol** [supermusic.cz] – už existuje na webu
 - **Tisíc andělů** [supermusic.cz] – už existuje na webu
+- **Vánoční** [supermusic.cz] – už existuje na webu
 - **Carpe Diem** [supermusic.cz] – už existuje na webu
 - **Pojďme se napít** [supermusic.cz] – už existuje na webu
 - **Kluziště** [supermusic.cz] – už existuje na webu
 - **Anděl (Kerndlová)** [supermusic.cz] – už existuje na webu
+- **Tančím** [pisnicky-akordy.cz] – už existuje na webu
 - **Yesterday** [supermusic.cz] – už existuje na webu
 - **Zůstaň tu se mnou** [supermusic.cz] – už existuje na webu
 - **Anděl (Mirai)** [supermusic.cz] – už existuje na webu
@@ -147,6 +142,7 @@ Celkem v rozsahu: **129**
 - **Vlajky vlají** [supermusic.cz] – už existuje na webu
 - **Madeleine** [supermusic.cz] – už existuje na webu
 - **Praha Vídeň** [pisnicky-akordy.cz] – už existuje na webu
+- **Dinosaur** [velkyzpevnik.cz] – už existuje na webu
 - **Creep** [pisnicky-akordy.cz] – už existuje na webu
 - **One** [pisnicky-akordy.cz] – už existuje na webu
 - **Planeta Zombie** [yousongs.cz] – už existuje na webu
@@ -155,4 +151,4 @@ Celkem v rozsahu: **129**
 
 Tyto akordy fungují pro transpozici, ale nemají nákresový diagram (volitelně doplnit do `js/chords.js`):
 
-G#
+– žádné –
