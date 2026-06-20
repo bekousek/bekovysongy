@@ -63,9 +63,9 @@ CORRECTIONS = {
     "7 years": "https://pisnicky-akordy.cz/lukas-graham/7-years",
     "Vánoční": "https://supermusic.cz/skupina.php?idpiesne=1073369",
     "Byla cesta, byla ušlapaná": "https://pisnicky-akordy.cz/cechomor/byla-cesta-byla-uslapana",
-    # Bones: lyrics-only (no UG sheet fetched); chords added manually later
-    "Bones": "https://pisnicky-akordy.cz/imagine-dragons/bones",
     # full chord sheets captured from Ultimate Guitar via browser -> staging/*.src.txt
+    "Bones": "https://tabs.ultimate-guitar.com/tab/imagine-dragons/bones-chords-4105315",
+    "Enemy": "https://tabs.ultimate-guitar.com/tab/misc-cartoons/arcane-league-of-legends-enemy-chords-3945359",
     "Natural": "https://tabs.ultimate-guitar.com/tab/imagine-dragons/natural-chords-2427609",
     "I bet my life": "https://tabs.ultimate-guitar.com/tab/imagine-dragons/i-bet-my-life-chords-1675328",
     "High Hopes": "https://tabs.ultimate-guitar.com/tab/panic-at-the-disco/high-hopes-chords-2390665",

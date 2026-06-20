@@ -4,42 +4,40 @@ Celkem v rozsahu: **129**
 
 | stav | počet |
 |---|---|
-| Hotovo – ke kontrole zarovnání akordů | 5 |
-| Čeká na stažení přes prohlížeč | 6 |
-| Přeskočeno (duplicita) | 118 |
+| Hotovo – ke kontrole zarovnání akordů | 2 |
+| Čeká na stažení přes prohlížeč | 5 |
+| Přeskočeno (duplicita) | 122 |
 
 
-## Hotovo – ke kontrole zarovnání akordů (5)
+## Hotovo – ke kontrole zarovnání akordů (2)
 
-- **Natural** `natural.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
-- **I bet my life** `i-bet-my-life.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
-- **Lose yourself** `lose-yourself.html` [tabs.ultimate-guitar.com] – Eminem – akordy nad textem – zkontrolovat zarovnání
-- **High Hopes** `high-hopes.html` [tabs.ultimate-guitar.com] – Panic! At the Disco – akordy nad textem – zkontrolovat zarovnání
-- **Duality** `duality.html` [tabs.ultimate-guitar.com] – Slipknot – akordy nad textem – zkontrolovat zarovnání
+- **Bones** `bones.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
+- **Enemy** `enemy.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
 
-## Čeká na stažení přes prohlížeč (6)
+## Čeká na stažení přes prohlížeč (5)
 
-- **Enemy** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Láska Neumiera** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Až po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Žigulik** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Náš Matěj** [chordify.net] – browser fetch needed: chordify.net
 
-## Přeskočeno (duplicita) (118)
+## Přeskočeno (duplicita) (122)
 
 - **Velrybářská výprava** [supermusic.cz] – už existuje na webu
 - **Čarodějnice z Amesbury** [supermusic.cz] – už existuje na webu
-- **Bones** [pisnicky-akordy.cz] – už existuje na webu
 - **Demons** [supermusic.cz] – už existuje na webu
 - **Bad Liar** [supermusic.cz] – už existuje na webu
 - **Thunder** [tabs.ultimate-guitar.com] – už existuje na webu
+- **Natural** [tabs.ultimate-guitar.com] – už existuje na webu
 - **Whatever it takes** [supermusic.cz] – už existuje na webu
 - **Warriors** [pisnicky-akordy.cz] – už existuje na webu
+- **I bet my life** [tabs.ultimate-guitar.com] – už existuje na webu
 - **Somewhere over the rainbow** [supermusic.cz] – už existuje na webu
 - **Ředitel autobusu** [supermusic.cz] – už existuje na webu
 - **Byla cesta, byla ušlapaná** [pisnicky-akordy.cz] – už existuje na webu
 - **Ex's & Oh's** [supermusic.cz] – už existuje na webu
+- **Lose yourself** [tabs.ultimate-guitar.com] – už existuje na webu
 - **Ta ne** [supermusic.cz] – už existuje na webu
 - **Víla Vivi** [supermusic.cz] – už existuje na webu
 - **Because I Got High** [supermusic.cz] – už existuje na webu
@@ -48,6 +46,7 @@ Celkem v rozsahu: **129**
 - **Trubadůrská** [supermusic.cz] – už existuje na webu
 - **Tääborääk Sonxx** [supermusic.cz] – už existuje na webu
 - **Replay** [supermusic.cz] – už existuje na webu
+- **High Hopes** [tabs.ultimate-guitar.com] – už existuje na webu
 - **LeHomoLe** [pisnicky-akordy.cz] – už existuje na webu
 - **Dlažební kostka** [supermusic.cz] – už existuje na webu
 - **Zanedbaný sex** [pisnicky-akordy.cz] – už existuje na webu
@@ -146,9 +145,10 @@ Celkem v rozsahu: **129**
 - **Creep** [pisnicky-akordy.cz] – už existuje na webu
 - **One** [pisnicky-akordy.cz] – už existuje na webu
 - **Planeta Zombie** [yousongs.cz] – už existuje na webu
+- **Duality** [tabs.ultimate-guitar.com] – už existuje na webu
 
 ## Akordy bez diagramu v js/chords.js
 
 Tyto akordy fungují pro transpozici, ale nemají nákresový diagram (volitelně doplnit do `js/chords.js`):
 
-Aaug, Ami9, Ami9/Eb, Bmi6, G/H
+– žádné –

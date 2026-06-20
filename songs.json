@@ -734,10 +734,16 @@
       "title": "Bones",
       "slug": "bones",
       "author": "Imagine Dragons",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "D",
+        "E",
+        "Emi",
+        "G"
+      ],
       "group": "",
       "tags": {
-        "capo": false,
+        "capo": true,
         "language": "EN"
       }
     },
@@ -1807,6 +1813,21 @@
       "tags": {
         "capo": false,
         "language": "CZ"
+      }
+    },
+    {
+      "title": "Enemy",
+      "slug": "enemy",
+      "author": "Imagine Dragons",
+      "chords": [
+        "F#",
+        "G",
+        "Hmi"
+      ],
+      "group": "",
+      "tags": {
+        "capo": false,
+        "language": "EN"
       }
     },
     {
