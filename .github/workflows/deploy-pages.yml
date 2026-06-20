@@ -1,9 +1,10 @@
 name: Deploy to GitHub Pages
 
-# Spustí se po každém pushi do main (tj. po každém uložení z /admin)
-# i ručně. Concurrency se skupinou "pages" + cancel-in-progress znamená,
-# že rychlá po sobě jdoucí uložení se sloučí a nasadí se vždy jen poslední
-# stav. Veřejné repo = Actions minuty zdarma, žádný build-minutový strop.
+# Spustí se po každém pushi do main (tj. po každém uložení z /admin) i ručně.
+# Concurrency se skupinou "pages": běžící deploy se NEruší (cancel-in-progress:
+# false – doporučení GitHubu pro Pages, brání CDN race), ale rychlá po sobě
+# jdoucí uložení se ve frontě sloučí – počká se na běžící deploy a pak naběhne
+# jen poslední stav. Veřejné repo = Actions minuty zdarma, žádný build-minutový strop.
 on:
   push:
     branches: [main]
@@ -16,7 +17,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
