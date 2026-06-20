@@ -6,6 +6,7 @@
   <title>Editor - Bekovy songy</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/editor.css">
+  <script src="https://accounts.google.com/gsi/client" async></script>
 </head>
 <body>
   <nav class="main-nav">
@@ -16,8 +17,18 @@
     </div>
   </nav>
 
+  <!-- Google login gate -->
+  <div class="editor-setup" id="login-panel">
+    <div class="setup-box">
+      <h2>Přihlášení</h2>
+      <p>Pro přístup do editoru se přihlas svým Google účtem.</p>
+      <div id="google-signin-btn"></div>
+      <p class="setup-note" id="login-msg"></p>
+    </div>
+  </div>
+
   <!-- GitHub token setup -->
-  <div class="editor-setup" id="setup-panel">
+  <div class="editor-setup" id="setup-panel" style="display:none">
     <div class="setup-box">
       <h2>Nastavení editoru</h2>
       <p>Pro ukládání změn potřebuješ GitHub Personal Access Token s oprávněním <code>repo</code>.</p>

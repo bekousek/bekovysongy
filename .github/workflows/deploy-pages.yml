@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+# Spustí se po každém pushi do main (tj. po každém uložení z /admin)
+# i ručně. Concurrency se skupinou "pages" + cancel-in-progress znamená,
+# že rychlá po sobě jdoucí uložení se sloučí a nasadí se vždy jen poslední
+# stav. Veřejné repo = Actions minuty zdarma, žádný build-minutový strop.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

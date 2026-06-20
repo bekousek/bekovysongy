@@ -8,7 +8,15 @@
   const SONGS_JSON_PATH = 'songs.json';
   const BRANCH = 'main';
 
+  // Google sign-in gate. GOOGLE_CLIENT_ID doplň z Google Cloud Console
+  // (OAuth Client ID typu "Web application", vypadá jako "…apps.googleusercontent.com").
+  const GOOGLE_CLIENT_ID = '606957226831-ii7i1f725cscngskp3htedeqvv9cinhk.apps.googleusercontent.com';
+  const ALLOWED_EMAIL = 'ondrejbek8@gmail.com';
+
   // DOM refs
+  const loginPanel = document.getElementById('login-panel');
+  const googleBtnContainer = document.getElementById('google-signin-btn');
+  const loginMsg = document.getElementById('login-msg');
   const setupPanel = document.getElementById('setup-panel');
   const editorContainer = document.getElementById('editor-container');
   const ghTokenInput = document.getElementById('gh-token');
@@ -37,18 +45,18 @@
   let originalContent = '';
   let isPreviewMode = false;
   let modifiedSlugs = new Set();
+  let isAuthed = false;
 
   // === Init ===
   function init() {
     ghToken = localStorage.getItem('gh_token') || '';
     ghRepo = localStorage.getItem('gh_repo') || 'bekousek/bekovysongy';
 
-    if (ghToken) {
-      showEditor();
-    } else {
-      setupPanel.style.display = '';
-      editorContainer.style.display = 'none';
-    }
+    // Until Google sign-in succeeds, show only the login gate.
+    loginPanel.style.display = '';
+    setupPanel.style.display = 'none';
+    editorContainer.style.display = 'none';
+    bootGoogleAuth();
 
     saveTokenBtn.addEventListener('click', saveToken);
     editorSearch.addEventListener('input', filterSongList);
@@ -85,6 +93,77 @@
 
     // Handle chord deletion - delete whole chord span on backspace
     editorArea.addEventListener('keydown', handleEditorKeydown);
+  }
+
+  // === Google sign-in gate ===
+  function bootGoogleAuth() {
+    if (!GOOGLE_CLIENT_ID) {
+      loginMsg.textContent = 'Editor zatím není nakonfigurovaný (chybí Google Client ID).';
+      return;
+    }
+    // GSI knihovna se načítá asynchronně – počkej, až bude k dispozici.
+    if (window.google && google.accounts && google.accounts.id) {
+      initGoogleAuth();
+    } else {
+      window.onGoogleLibraryLoad = initGoogleAuth;
+    }
+  }
+
+  function initGoogleAuth() {
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+      auto_select: true
+    });
+    google.accounts.id.renderButton(googleBtnContainer, {
+      theme: 'filled_blue',
+      size: 'large',
+      text: 'signin_with',
+      shape: 'pill'
+    });
+    // One Tap (tichý návrat přihlášeného uživatele); tlačítko je fallback.
+    google.accounts.id.prompt();
+  }
+
+  function handleCredentialResponse(response) {
+    const payload = parseJwt(response && response.credential);
+    if (!payload) {
+      loginMsg.textContent = 'Přihlášení se nezdařilo, zkus to prosím znovu.';
+      return;
+    }
+    const emailOk = payload.email === ALLOWED_EMAIL && payload.email_verified === true;
+    const audOk = payload.aud === GOOGLE_CLIENT_ID;
+    const notExpired = typeof payload.exp === 'number' && payload.exp * 1000 > Date.now();
+
+    if (emailOk && audOk && notExpired) {
+      isAuthed = true;
+      onAuthSuccess();
+    } else {
+      isAuthed = false;
+      loginMsg.textContent = 'Přístup zamítnut pro účet: ' + (payload.email || 'neznámý') + '.';
+    }
+  }
+
+  function onAuthSuccess() {
+    loginPanel.style.display = 'none';
+    if (ghToken) {
+      showEditor();
+    } else {
+      setupPanel.style.display = '';
+    }
+  }
+
+  function parseJwt(token) {
+    if (!token) return null;
+    try {
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      const json = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   function saveToken() {
@@ -277,7 +356,7 @@
     }
   }
 
-  // === Save to GitHub ===
+  // === Save to GitHub (single atomic commit) ===
   async function saveToGitHub() {
     if (!currentSong || !ghToken) return;
 
@@ -285,20 +364,17 @@
     setStatus('Ukládám na GitHub...', 'saving');
 
     try {
-      // 1. Get the current file content from GitHub to get its SHA
       const filePath = `${REPO_PATH_PREFIX}${currentSong.slug}.html`;
-      const fileResp = await ghAPI(`/repos/${ghRepo}/contents/${filePath}?ref=${BRANCH}`);
-      const fileSha = fileResp.sha;
 
-      // 2. Build updated HTML
+      // Values from the form
       const newTitle = editTitle.value.trim() || currentSong.title;
       const newAuthor = editAuthor.value.trim();
       const newCapo = editCapo.value ? parseInt(editCapo.value) : 0;
       const newLanguage = editLanguage.value || '';
       const newContent = editorArea.innerHTML;
 
-      // Read the full original file to preserve structure (UTF-8 safe)
-      const originalHTML = decodeURIComponent(escape(atob(fileResp.content)));
+      // 1. Build updated song HTML from the current file (preserve structure, UTF-8 safe)
+      const originalHTML = await getFileContent(filePath);
       let updatedHTML = originalHTML;
 
       // Update title
@@ -359,19 +435,17 @@
         `mailto:ondrejbek8@gmail.com?subject=Bug: ${encodeURIComponent(newTitle)}`
       );
 
-      // 3. Commit the file
-      const encoded = btoa(unescape(encodeURIComponent(updatedHTML)));
-      await ghAPI(`/repos/${ghRepo}/contents/${filePath}`, 'PUT', {
-        message: `Edit: ${newTitle}`,
-        content: encoded,
-        sha: fileSha,
-        branch: BRANCH
-      });
+      // 2. Build updated songs.json (metadata + chords)
+      const newSongsJson = await buildUpdatedSongsJson(
+        currentSong.slug, newTitle, newAuthor, newCapo, newLanguage, newContent
+      );
 
-      // 4. Always update songs.json (title, author, capo, language, chords)
-      await updateSongsJson(currentSong.slug, newTitle, newAuthor, newCapo, newLanguage, newContent);
+      // 3. Commit song HTML + songs.json in a SINGLE commit (one deploy, no desync)
+      const files = [{ path: filePath, content: updatedHTML }];
+      if (newSongsJson !== null) files.push({ path: SONGS_JSON_PATH, content: newSongsJson });
+      await commitFiles(files, `Edit: ${newTitle}`);
 
-      // Update local state
+      // 4. Update local state
       currentSong.title = newTitle;
       currentSong.author = newAuthor;
       if (!currentSong.tags) currentSong.tags = {};
@@ -392,11 +466,9 @@
     }
   }
 
-  async function updateSongsJson(slug, newTitle, newAuthor, newCapo, newLanguage, htmlContent) {
+  async function buildUpdatedSongsJson(slug, newTitle, newAuthor, newCapo, newLanguage, htmlContent) {
     try {
-      const resp = await ghAPI(`/repos/${ghRepo}/contents/${SONGS_JSON_PATH}?ref=${BRANCH}`);
-      const content = decodeURIComponent(escape(atob(resp.content)));
-      const data = JSON.parse(content);
+      const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
 
       const song = data.songs.find(s => s.slug === slug);
       if (song) {
@@ -420,16 +492,62 @@
         song.chords = Array.from(chords).sort();
       }
 
-      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-      await ghAPI(`/repos/${ghRepo}/contents/${SONGS_JSON_PATH}`, 'PUT', {
-        message: `Update metadata: ${newTitle}`,
-        content: encoded,
-        sha: resp.sha,
-        branch: BRANCH
-      });
+      return JSON.stringify(data, null, 2);
     } catch (e) {
-      console.warn('Failed to update songs.json:', e);
+      console.warn('Failed to build songs.json update:', e);
+      return null;
     }
+  }
+
+  // === GitHub content read + atomic multi-file commit ===
+  async function getFileContent(path) {
+    const resp = await ghAPI(`/repos/${ghRepo}/contents/${path}?ref=${BRANCH}`);
+    return base64ToUtf8(resp.content);
+  }
+
+  // Commit several files in ONE commit via the Git Data API
+  // (blob -> tree with base_tree -> commit -> update ref). One push = one deploy.
+  async function commitFiles(files, message) {
+    const ref = await ghAPI(`/repos/${ghRepo}/git/ref/heads/${BRANCH}`);
+    const baseCommitSha = ref.object.sha;
+    const baseCommit = await ghAPI(`/repos/${ghRepo}/git/commits/${baseCommitSha}`);
+    const baseTreeSha = baseCommit.tree.sha;
+
+    const blobShas = [];
+    for (const f of files) {
+      const blob = await ghAPI(`/repos/${ghRepo}/git/blobs`, 'POST', {
+        content: utf8ToBase64(f.content),
+        encoding: 'base64'
+      });
+      blobShas.push(blob.sha);
+    }
+
+    const tree = files.map((f, i) => ({
+      path: f.path, mode: '100644', type: 'blob', sha: blobShas[i]
+    }));
+
+    const newTree = await ghAPI(`/repos/${ghRepo}/git/trees`, 'POST', {
+      base_tree: baseTreeSha,
+      tree
+    });
+
+    const newCommit = await ghAPI(`/repos/${ghRepo}/git/commits`, 'POST', {
+      message,
+      tree: newTree.sha,
+      parents: [baseCommitSha]
+    });
+
+    await ghAPI(`/repos/${ghRepo}/git/refs/heads/${BRANCH}`, 'PATCH', {
+      sha: newCommit.sha
+    });
+  }
+
+  function utf8ToBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  function base64ToUtf8(b64) {
+    return decodeURIComponent(escape(atob(b64)));
   }
 
   // === GitHub API helper ===
