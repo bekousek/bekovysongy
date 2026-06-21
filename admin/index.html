@@ -101,6 +101,19 @@
           <button type="button" class="btn-sm btn-quick-chord" data-chord="H">H</button>
         </div>
 
+        <!-- Cleanup + transpose toolbar -->
+        <div class="chord-toolbar" id="cleanup-toolbar">
+          <span class="toolbar-label">Úklid:</span>
+          <button type="button" class="btn-sm" id="btn-fix-spacing" title="Jedna mezera mezi akordem a textem">Mezery</button>
+          <button type="button" class="btn-sm" id="btn-remove-empty" title="Smazat prázdné řádky">Prázdné řádky</button>
+          <span class="toolbar-sep">|</span>
+          <span class="toolbar-label">Transpozice:</span>
+          <button type="button" class="btn-sm" id="btn-transpose-down" title="Všechny akordy o půltón níž">−1</button>
+          <button type="button" class="btn-sm" id="btn-transpose-up" title="Všechny akordy o půltón výš">+1</button>
+          <span class="toolbar-sep">|</span>
+          <button type="button" class="btn-sm" id="btn-toggle-shortcuts" title="Klávesy 1–8 vkládají akordy z lišty. Vypni u písní s čísly v textu.">Zkratky 1–8: ZAP</button>
+        </div>
+
         <!-- Editor area -->
         <div class="editor-area" id="editor-area" contenteditable="true" spellcheck="false"></div>
 
@@ -113,6 +126,7 @@
     </div>
   </div>
 
+  <script src="../js/song-cleanup.js"></script>
   <script src="../js/editor.js"></script>
 </body>
 </html>

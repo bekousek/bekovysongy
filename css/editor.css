@@ -314,6 +314,24 @@ select.edit-meta-input {
   border-color: var(--accent);
 }
 
+/* Number-key hint badge on quick-chord buttons */
+.key-hint {
+  display: inline-block;
+  min-width: 0.9em;
+  margin-right: 0.3rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  opacity: 0.55;
+  vertical-align: middle;
+}
+
+/* Active state for the chord-shortcut toggle */
+#cleanup-toolbar .btn-sm.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 /* Editor area */
 .editor-area {
   flex: 1;

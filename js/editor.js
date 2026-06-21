@@ -37,6 +37,11 @@
   const btnPreview = document.getElementById('btn-preview');
   const chordInput = document.getElementById('chord-input');
   const btnInsertChord = document.getElementById('btn-insert-chord');
+  const btnFixSpacing = document.getElementById('btn-fix-spacing');
+  const btnRemoveEmpty = document.getElementById('btn-remove-empty');
+  const btnTransposeDown = document.getElementById('btn-transpose-down');
+  const btnTransposeUp = document.getElementById('btn-transpose-up');
+  const btnToggleShortcuts = document.getElementById('btn-toggle-shortcuts');
 
   let ghToken = '';
   let ghRepo = '';
@@ -46,6 +51,7 @@
   let isPreviewMode = false;
   let modifiedSlugs = new Set();
   let isAuthed = false;
+  let chordShortcutsEnabled = localStorage.getItem('chord_shortcuts') !== 'off';
 
   // === Init ===
   function init() {
@@ -70,10 +76,32 @@
       }
     });
 
-    // Quick chord buttons
-    document.querySelectorAll('.btn-quick-chord').forEach(btn => {
+    // Quick chord buttons + number-key hints (1..9)
+    document.querySelectorAll('.btn-quick-chord').forEach((btn, i) => {
       btn.addEventListener('click', () => insertChord(btn.dataset.chord));
+      if (i < 9) {
+        btn.title = 'Zkratka: ' + (i + 1);
+        const hint = document.createElement('span');
+        hint.className = 'key-hint';
+        hint.textContent = (i + 1);
+        btn.prepend(hint);
+      }
     });
+
+    // Cleanup + transpose buttons
+    btnFixSpacing.addEventListener('click', () => applyCleanup(SongCleanup.normalizeChordSpacing));
+    btnRemoveEmpty.addEventListener('click', () => applyCleanup(SongCleanup.removeEmptyLines));
+    btnTransposeDown.addEventListener('click', () => applyCleanup(h => SongCleanup.transposeSong(h, -1)));
+    btnTransposeUp.addEventListener('click', () => applyCleanup(h => SongCleanup.transposeSong(h, 1)));
+
+    // Chord number-key shortcuts (1..8) inside the editor
+    updateShortcutToggle();
+    btnToggleShortcuts.addEventListener('click', () => {
+      chordShortcutsEnabled = !chordShortcutsEnabled;
+      localStorage.setItem('chord_shortcuts', chordShortcutsEnabled ? 'on' : 'off');
+      updateShortcutToggle();
+    });
+    editorArea.addEventListener('keydown', handleChordShortcut);
 
     // Track modifications
     editorArea.addEventListener('input', () => {
@@ -304,6 +332,40 @@
 
     chordInput.value = '';
     if (currentSong) modifiedSlugs.add(currentSong.slug);
+  }
+
+  // === Cleanup / transpose actions ===
+  function applyCleanup(fn) {
+    if (!currentSong) return;
+    try {
+      editorArea.innerHTML = fn(editorArea.innerHTML);
+      modifiedSlugs.add(currentSong.slug);
+      updateSongListItem(currentSong.slug);
+      setStatus('Upraveno (zatím neuloženo)', '');
+    } catch (e) {
+      setStatus('Chyba při úpravě: ' + e.message, 'error');
+      console.error(e);
+    }
+  }
+
+  function updateShortcutToggle() {
+    if (!btnToggleShortcuts) return;
+    btnToggleShortcuts.textContent = 'Zkratky 1–8: ' + (chordShortcutsEnabled ? 'ZAP' : 'VYP');
+    btnToggleShortcuts.classList.toggle('active', chordShortcutsEnabled);
+  }
+
+  // Number keys 1..9 insert the matching toolbar chord at the caret.
+  function handleChordShortcut(e) {
+    if (!chordShortcutsEnabled || isPreviewMode) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (!/^[1-9]$/.test(e.key)) return;
+    const btns = document.querySelectorAll('.btn-quick-chord');
+    const idx = parseInt(e.key, 10) - 1;
+    if (idx >= btns.length) return;
+    const chord = btns[idx].dataset.chord;
+    if (!chord) return;
+    e.preventDefault();
+    insertChord(chord);
   }
 
   // === Editor keydown handling ===
