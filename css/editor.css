@@ -285,6 +285,17 @@ select.edit-meta-input {
   margin: 0 0.2rem;
 }
 
+.toolbar-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.btn-section {
+  font-weight: 700;
+  color: var(--accent);
+}
+
 .chord-input {
   width: 60px;
   background: var(--bg);

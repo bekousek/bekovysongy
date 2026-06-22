@@ -532,6 +532,48 @@ a:hover {
   word-wrap: break-word;
 }
 
+/* === Song sections (refrén / sloka / bridge) === */
+.song-section {
+  position: relative;
+}
+.song-section + .song-section {
+  margin-top: 0.9rem;
+}
+.section-body {
+  display: block;
+}
+/* Refrén and bridge are indented; an unmarked verse stays at the baseline. */
+.section-refren,
+.section-bridge {
+  padding-left: 2.4em;
+}
+.section-bridge {
+  font-style: italic;
+}
+.section-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-style: normal;
+  user-select: none;
+}
+.section-plain .section-label {
+  display: none;
+}
+/* Repeated parts (all but the first) collapse to just their label until the
+   "Opakování" toggle reveals them. */
+.song-text .is-repeat .section-body {
+  display: none;
+}
+.song-text.show-repeats .is-repeat .section-body {
+  display: block;
+}
+.is-repeat .section-label {
+  opacity: 0.85;
+}
+
 .chord {
   color: var(--accent);
   font-weight: 700;

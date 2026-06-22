@@ -364,6 +364,7 @@ def generate_song_html(title, author, capo, body_html):
   </div>
 
   <script src="../js/chords.js"></script>
+  <script src="../js/sections.js"></script>
   <script src="../js/player.js"></script>
 </body>
 </html>'''

@@ -88,6 +88,11 @@
       }
     });
 
+    // Section marker buttons (insert R: / R1: / S: / B: at the line start)
+    document.querySelectorAll('.btn-section').forEach(btn => {
+      btn.addEventListener('click', () => insertSectionMarker(btn.dataset.marker));
+    });
+
     // Cleanup + transpose buttons
     btnFixSpacing.addEventListener('click', () => applyCleanup(SongCleanup.normalizeChordSpacing));
     btnRemoveEmpty.addEventListener('click', () => applyCleanup(SongCleanup.removeEmptyLines));
@@ -334,6 +339,41 @@
     if (currentSong) modifiedSlugs.add(currentSong.slug);
   }
 
+  // === Section markers ===
+  // Insert a section marker (R:, R1:, S:, B:, ...) on its own line at the caret.
+  function insertSectionMarker(marker) {
+    if (!marker) return;
+    editorArea.focus();
+    const sel = window.getSelection();
+    if (!sel.rangeCount || !editorArea.contains(sel.anchorNode)) {
+      // No caret in the editor: append at the end.
+      editorArea.appendChild(document.createTextNode('\n' + marker + ' '));
+    } else {
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+
+      // Start a new line unless the caret already sits at the start of one.
+      let atLineStart = true;
+      const node = range.startContainer;
+      if (node.nodeType === Node.TEXT_NODE && range.startOffset > 0) {
+        const ch = node.textContent[range.startOffset - 1];
+        if (ch && ch !== '\n') atLineStart = false;
+      }
+
+      const tn = document.createTextNode((atLineStart ? '' : '\n') + marker + ' ');
+      range.insertNode(tn);
+      range.setStartAfter(tn);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    if (currentSong) {
+      modifiedSlugs.add(currentSong.slug);
+      updateSongListItem(currentSong.slug);
+    }
+  }
+
   // === Cleanup / transpose actions ===
   function applyCleanup(fn) {
     if (!currentSong) return;
@@ -411,7 +451,15 @@
     if (isPreviewMode) {
       editorArea.style.display = 'none';
       editorPreview.style.display = '';
-      editorPreview.innerHTML = editorArea.innerHTML;
+      // Render the same section layout as the live song page. Show repeats
+      // expanded so the whole song is visible while editing.
+      if (window.SongSections && SongSections.hasSections(editorArea.innerHTML)) {
+        editorPreview.innerHTML = SongSections.transform(editorArea.innerHTML);
+        editorPreview.classList.add('show-repeats');
+      } else {
+        editorPreview.innerHTML = editorArea.innerHTML;
+        editorPreview.classList.remove('show-repeats');
+      }
     } else {
       editorArea.style.display = '';
       editorPreview.style.display = 'none';

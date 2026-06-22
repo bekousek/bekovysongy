@@ -114,6 +114,17 @@
           <button type="button" class="btn-sm" id="btn-toggle-shortcuts" title="Klávesy 1–8 vkládají akordy z lišty. Vypni u písní s čísly v textu.">Zkratky 1–8: ZAP</button>
         </div>
 
+        <!-- Section markers toolbar -->
+        <div class="chord-toolbar" id="section-toolbar">
+          <span class="toolbar-label">Sekce:</span>
+          <button type="button" class="btn-sm btn-section" data-marker="R:" title="Refrén">R:</button>
+          <button type="button" class="btn-sm btn-section" data-marker="R1:" title="1. refrén">R1:</button>
+          <button type="button" class="btn-sm btn-section" data-marker="R2:" title="2. refrén">R2:</button>
+          <button type="button" class="btn-sm btn-section" data-marker="S:" title="Sloka">S:</button>
+          <button type="button" class="btn-sm btn-section" data-marker="B:" title="Bridge">B:</button>
+          <span class="toolbar-hint">Refrén piš vždy celý; opakování zařídí web.</span>
+        </div>
+
         <!-- Editor area -->
         <div class="editor-area" id="editor-area" contenteditable="true" spellcheck="false"></div>
 
@@ -127,6 +138,7 @@
   </div>
 
   <script src="../js/song-cleanup.js"></script>
+  <script src="../js/sections.js"></script>
   <script src="../js/editor.js"></script>
 </body>
 </html>

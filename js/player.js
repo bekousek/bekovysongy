@@ -4,6 +4,51 @@
 (function () {
   'use strict';
 
+  // === Sections (refrén / sloka / bridge) + repeats toggle ===
+  // Wrap the song text into labelled, indented sections and add a player-bar
+  // toggle that reveals/hides repeated parts (all but the first occurrence).
+  const REPEATS_KEY = 'show_repeats';
+
+  function buildSections() {
+    const pre = document.querySelector('.song-text');
+    if (!pre || !window.SongSections) return;
+    if (!SongSections.hasSections(pre.innerHTML)) return; // plain song, leave as-is
+
+    pre.innerHTML = SongSections.transform(pre.innerHTML);
+
+    const showRepeats = localStorage.getItem(REPEATS_KEY) === 'on';
+    pre.classList.toggle('show-repeats', showRepeats);
+
+    injectRepeatsToggle(pre, showRepeats);
+  }
+
+  function injectRepeatsToggle(pre, showRepeats) {
+    const bar = document.getElementById('player-bar');
+    if (!bar) return;
+
+    const section = document.createElement('div');
+    section.className = 'player-section player-repeats';
+    section.innerHTML =
+      '<button class="btn-player" id="repeats-toggle" title="Zobrazit opakování">' +
+      '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">' +
+      '<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>' +
+      '<polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>' +
+      '</button><span class="player-label">Opakování</span>';
+    // Place it as the first control on the bar.
+    bar.insertBefore(section, bar.firstChild);
+
+    const btn = section.querySelector('#repeats-toggle');
+    btn.classList.toggle('active', showRepeats);
+    btn.addEventListener('click', () => {
+      const on = !pre.classList.contains('show-repeats');
+      pre.classList.toggle('show-repeats', on);
+      btn.classList.toggle('active', on);
+      localStorage.setItem(REPEATS_KEY, on ? 'on' : 'off');
+    });
+  }
+
+  buildSections();
+
   // === Note mapping (Czech notation: H = B, B = Bb) ===
   const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'B', 'H'];
   // Enharmonic aliases for parsing
