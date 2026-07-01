@@ -743,7 +743,7 @@
       ],
       "group": "",
       "tags": {
-        "capo": true,
+        "capo": false,
         "language": "EN"
       }
     },
