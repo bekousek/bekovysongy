@@ -234,15 +234,15 @@
       "slug": "amazonka",
       "author": "Hop Trop",
       "chords": [
-        "A",
-        "C#mi",
-        "E",
-        "F#mi",
+        "Ami",
+        "D",
+        "Emi",
+        "G",
         "Hmi"
       ],
       "group": "",
       "tags": {
-        "capo": false,
+        "capo": 2,
         "language": "CZ"
       }
     },
