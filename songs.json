@@ -221,14 +221,14 @@
       "slug": "amazonka",
       "author": "Hop Trop",
       "chords": [
-        "A",
-        "C#mi",
-        "E",
-        "F#mi",
+        "Ami",
+        "D",
+        "Emi",
+        "G",
         "Hmi"
       ],
       "tags": {
-        "capo": false,
+        "capo": 2,
         "language": "CZ"
       }
     },
@@ -510,7 +510,7 @@
         "G"
       ],
       "tags": {
-        "capo": true,
+        "capo": false,
         "language": "EN"
       }
     },
@@ -700,7 +700,7 @@
         "G"
       ],
       "tags": {
-        "capo": true,
+        "capo": false,
         "language": "EN"
       }
     },
