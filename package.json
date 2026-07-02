@@ -1,0 +1,12 @@
+{
+  "name": "bekovysongy",
+  "private": true,
+  "description": "Bekovy songy - zpevnik s akordy (static site)",
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate-data.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Bekovy songy</title>
+  <meta name="robots" content="noindex">
+  <!-- Self-contained on purpose: shown by the service worker as a last
+       resort when neither the network nor the cache have the page, so it
+       can't depend on css/style.css possibly being unavailable too. -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .box h1 { font-size: 1.75rem; color: #e67e22; margin-bottom: 0.75rem; }
+    .box p { color: #8899aa; font-size: 1.05rem; margin-bottom: 1.5rem; }
+    .box a {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      background: #b25c0d;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .box a:hover { background: #a8560d; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Jsi offline</h1>
+    <p>Tahle stránka ještě není uložená pro offline použití. Písně, které jsi
+    už otevřel/a, fungují i bez signálu.</p>
+    <a href="./">Zpět na Bekovy songy</a>
+  </div>
+</body>
+</html>

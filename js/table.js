@@ -25,13 +25,28 @@
 
   // Fetch songs.json
   fetch('../songs.json')
-    .then(r => r.json())
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
     .then(data => {
       allSongs = data.songs;
       collectChords();
       buildChordFilter();
       applyFilters();
       bindEvents();
+    })
+    .catch(err => {
+      console.error('Failed to load songs.json:', err);
+      songCount.textContent = '';
+      tbody.innerHTML = '';
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 4;
+      td.className = 'table-error';
+      td.textContent = 'Nepodařilo se načíst seznam písní — zkuste obnovit stránku.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
     });
 
   function collectChords() {
@@ -79,15 +94,21 @@
       : 'Vybrat akordy';
   }
 
+  // Strip diacritics so e.g. "zelva" matches "želva" - handy on mobile
+  // keyboards that don't type Czech háčky/čárky by default.
+  function normalizeForSearch(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
   function applyFilters() {
-    const query = searchInput.value.toLowerCase().trim();
+    const query = normalizeForSearch(searchInput.value.trim());
     const lang = langFilter.value;
     const capo = capoFilter.value;
 
     filteredSongs = allSongs.filter(song => {
       // Text search
       if (query) {
-        const haystack = (song.title + ' ' + song.author).toLowerCase();
+        const haystack = normalizeForSearch(song.title + ' ' + song.author);
         if (!haystack.includes(query)) return false;
       }
       // Language
@@ -202,24 +223,34 @@
     langFilter.addEventListener('change', applyFilters);
     capoFilter.addEventListener('change', applyFilters);
 
-    // Sort headers
+    // Sort headers (mouse and keyboard - the header acts as a button)
+    function sortByHeader(th) {
+      const col = th.dataset.sort;
+      if (sortCol === col) {
+        sortAsc = !sortAsc;
+      } else {
+        sortCol = col;
+        sortAsc = true;
+      }
+      // Update header styles
+      document.querySelectorAll('.songs-table th').forEach(h => {
+        h.classList.remove('sorted');
+        h.querySelector('.sort-arrow').textContent = '▲';
+        h.setAttribute('aria-sort', 'none');
+      });
+      th.classList.add('sorted');
+      th.querySelector('.sort-arrow').textContent = sortAsc ? '▲' : '▼';
+      th.setAttribute('aria-sort', sortAsc ? 'ascending' : 'descending');
+      applyFilters();
+    }
+
     document.querySelectorAll('.songs-table th[data-sort]').forEach(th => {
-      th.addEventListener('click', () => {
-        const col = th.dataset.sort;
-        if (sortCol === col) {
-          sortAsc = !sortAsc;
-        } else {
-          sortCol = col;
-          sortAsc = true;
+      th.addEventListener('click', () => sortByHeader(th));
+      th.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          sortByHeader(th);
         }
-        // Update header styles
-        document.querySelectorAll('.songs-table th').forEach(h => {
-          h.classList.remove('sorted');
-          h.querySelector('.sort-arrow').textContent = '▲';
-        });
-        th.classList.add('sorted');
-        th.querySelector('.sort-arrow').textContent = sortAsc ? '▲' : '▼';
-        applyFilters();
       });
     });
 

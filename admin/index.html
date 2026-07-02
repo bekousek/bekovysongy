@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editor - Bekovy songy</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/editor.css">
   <script src="https://accounts.google.com/gsi/client" async></script>
@@ -31,8 +35,11 @@
   <div class="editor-setup" id="setup-panel" style="display:none">
     <div class="setup-box">
       <h2>Nastavení editoru</h2>
-      <p>Pro ukládání změn potřebuješ GitHub Personal Access Token s oprávněním <code>repo</code>.</p>
-      <p class="setup-hint">Vytvoříš ho na <a href="https://github.com/settings/tokens/new?scopes=repo&description=Bekovy+songy+editor" target="_blank">github.com/settings/tokens</a></p>
+      <p>Pro ukládání změn potřebuješ GitHub <strong>fine-grained</strong> Personal Access Token omezený jen na tento repozitář (ne classic token se scope <code>repo</code> — ten dává přístup ke všem tvým repozitářům).</p>
+      <p class="setup-hint">
+        Vytvoříš ho na <a href="https://github.com/settings/personal-access-tokens/new?target_name=bekousek&description=Bekovy+songy+editor" target="_blank">github.com/settings/personal-access-tokens/new</a>.
+        Nastav: <strong>Repository access → Only select repositories</strong> → <code>bekousek/bekovysongy</code>, a v <strong>Permissions → Repository permissions</strong> vyber <strong>Contents: Read and write</strong>. Nic dalšího není potřeba.
+      </p>
       <div class="setup-fields">
         <input type="password" id="gh-token" class="filter-input" placeholder="ghp_xxxxxxxxxxxx" style="width:100%">
         <input type="text" id="gh-repo" class="filter-input" value="bekousek/bekovysongy" placeholder="owner/repo" style="width:100%">
@@ -137,8 +144,14 @@
     </div>
   </div>
 
+  <script src="../js/chord-theory.js"></script>
   <script src="../js/song-cleanup.js"></script>
   <script src="../js/sections.js"></script>
   <script src="../js/editor.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js'));
+    }
+  </script>
 </body>
 </html>

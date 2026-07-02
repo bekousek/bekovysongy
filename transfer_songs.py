@@ -24,8 +24,30 @@ from urllib.parse import urlparse, parse_qs
 import requests
 from bs4 import BeautifulSoup
 
-# Reuse language/capo heuristics from the original scraper.
-from scrape import detect_language, detect_capo
+# Language/capo heuristics (formerly imported from the retired scrape.py).
+CZ_WORDS = {"jsem", "jsou", "není", "kde", "jak", "ale", "jeho", "její", "jako", "když", "nebo", "tak", "jen", "byl", "aby", "může", "bylo", "každý", "tohle", "ještě", "mám", "máš", "ráno", "láska", "srdce", "oči", "slunce", "nebe"}
+EN_WORDS = {"the", "and", "you", "that", "was", "for", "are", "with", "his", "they", "this", "have", "from", "one", "had", "but", "not", "what", "all", "were", "when", "your", "can", "said", "each", "she", "love", "heart", "eyes"}
+SK_WORDS = {"som", "sme", "nie", "ako", "keď", "alebo", "jeho", "jej", "ešte", "veľmi", "teraz", "potom", "lásku", "srdce", "môže", "byť", "neviem", "viem"}
+PL_WORDS = {"jest", "nie", "jak", "ale", "jego", "jest", "gdzie", "kiedy", "tylko", "jeszcze", "bardzo", "teraz", "potem", "może", "być", "oczy", "serce"}
+
+
+def detect_language(text):
+    words = set(re.findall(r'[a-záčďéěíňóřšťúůýžąćęłńóśźż]+', text.lower()))
+    scores = {
+        "CZ": len(words & CZ_WORDS),
+        "EN": len(words & EN_WORDS),
+        "SK": len(words & SK_WORDS),
+        "PL": len(words & PL_WORDS),
+    }
+    best = max(scores, key=scores.get)
+    if scores[best] == 0:
+        return "CZ"  # default
+    return best
+
+
+def detect_capo(text):
+    return bool(re.search(r'capo', text, re.IGNORECASE))
+
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
@@ -299,17 +321,33 @@ def chords_above_to_inline(chord_line, lyric_line):
 # ----------------------------------------------------------------------------
 # HTML page generation (matches songs/andel.html template exactly)
 # ----------------------------------------------------------------------------
-def generate_song_html(title, author, capo, body_html):
+def generate_song_html(title, author, capo, body_html, slug):
     import urllib.parse
     subj = urllib.parse.quote(f"Bug: {title}")
     author_p = f'<p class="song-author">{html.escape(author)}</p>' if author else ""
     capo_p = '<p class="song-capo">Capo</p>' if capo else ""
+    og_title = f'{html.escape(title)} - Bekovy songy'
+    by = f' od {author}' if author else ''
+    description = html.escape(f'Akordy a text písně {title}{by}. Transpozice, capo, ladička a metronom na Bekovy songy.')
+    canonical_url = f'https://bekovysongy.cz/songs/{slug}.html'
     return f'''<!DOCTYPE html>
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{html.escape(title)} - Bekovy songy</title>
+  <meta name="description" content="{description}">
+  <link rel="canonical" href="{canonical_url}">
+  <meta property="og:type" content="music.song">
+  <meta property="og:url" content="{canonical_url}">
+  <meta property="og:title" content="{og_title}">
+  <meta property="og:description" content="{description}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{og_title}">
+  <meta name="twitter:description" content="{description}">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -339,25 +377,25 @@ def generate_song_html(title, author, capo, body_html):
       <button class="btn-transpose" id="transpose-up">+1</button>
     </div>
     <div class="player-section player-scroll">
-      <button class="btn-player" id="scroll-toggle">
+      <button class="btn-player" id="scroll-toggle" aria-label="Automatické rolování" title="Automatické rolování">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </button>
       <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
     </div>
     <div class="player-section player-metronome">
-      <button class="btn-player" id="metronome-toggle">
+      <button class="btn-player" id="metronome-toggle" aria-label="Metronom" title="Metronom">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
       </button>
       <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
     </div>
     <div class="player-section player-tuner">
-      <button class="btn-player" id="tuner-toggle">
+      <button class="btn-player" id="tuner-toggle" aria-label="Ladička" title="Ladička">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
       </button>
       <span id="tuner-display" class="tuner-display"></span>
     </div>
     <div class="player-section player-bug">
-      <a href="mailto:{BUG_EMAIL}?subject={subj}" class="btn-player" title="Nahlásit chybu">
+      <a href="mailto:{BUG_EMAIL}?subject={subj}" class="btn-player" title="Nahlásit chybu" aria-label="Nahlásit chybu">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
       </a>
     </div>
@@ -365,6 +403,7 @@ def generate_song_html(title, author, capo, body_html):
 
   <script src="../js/chords.js"></script>
   <script src="../js/sections.js"></script>
+  <script src="../js/chord-theory.js"></script>
   <script src="../js/player.js"></script>
 </body>
 </html>'''
@@ -828,13 +867,13 @@ def process_item(item, taken, existing_titles, seen_titles, staging=True):
         rec["status"] = "needs-review"
         rec["note"] = "pouze text (zdroj bez akordů) – akordy doplnit ručně"
 
-    page = generate_song_html(title, author, capo, body)
+    page = generate_song_html(title, author, capo, body, slug)
     out_dir = STAGING_DIR if staging else SONGS_DIR
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, slug + ".html"), "w", encoding="utf-8") as f:
         f.write(page)
     rec["_entry"] = {"title": title, "slug": slug, "author": author,
-                     "chords": sorted(chords), "group": "",
+                     "chords": sorted(chords),
                      "tags": {"capo": capo, "language": language}}
     return rec
 

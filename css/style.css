@@ -46,9 +46,14 @@
   --bg-card: #0f3460;
   --accent: #e67e22;
   --accent-hover: #f39c12;
+  /* Darker variants for white text on an accent-filled background - the base
+     --accent/--accent-hover only pass WCAG AA as text/borders on the dark
+     background, not as a fill under white text (2.85:1). */
+  --accent-solid: #b25c0d;
+  --accent-solid-hover: #a8560d;
   --text: #e0e0e0;
   --text-muted: #8899aa;
-  --text-dim: #556677;
+  --text-dim: #7a8ba0;
   --border: #2a3a4e;
   --success: #27ae60;
   --danger: #e74c3c;
@@ -166,7 +171,7 @@ a:hover {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: var(--accent);
+  background: var(--accent-solid);
   color: #fff;
   border-radius: var(--radius);
   font-weight: 600;
@@ -175,7 +180,7 @@ a:hover {
 }
 
 .hero-link:hover {
-  background: var(--accent-hover);
+  background: var(--accent-solid-hover);
   color: #fff;
   transform: translateY(-1px);
 }
@@ -298,13 +303,29 @@ a:hover {
 }
 
 .chord-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
   gap: 0.375rem;
 }
 
+/* Visually hidden but still focusable/operable by keyboard and screen
+   readers (unlike display:none, which drops it from the tab order). */
 .chord-checkbox {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.chord-checkbox:focus-visible + .chord-label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .chord-label {
@@ -322,8 +343,8 @@ a:hover {
 }
 
 .chord-checkbox:checked + .chord-label {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
   color: #fff;
 }
 
@@ -371,7 +392,7 @@ a:hover {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: var(--accent);
+  background: var(--accent-solid);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -382,7 +403,7 @@ a:hover {
 }
 
 .btn-random:hover {
-  background: var(--accent-hover);
+  background: var(--accent-solid-hover);
 }
 
 .song-count {
@@ -419,6 +440,11 @@ a:hover {
 
 .songs-table th:hover {
   color: var(--accent);
+}
+
+.songs-table th:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .songs-table th .sort-arrow {
@@ -471,22 +497,18 @@ a:hover {
   white-space: nowrap;
 }
 
-.song-group-link {
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.song-group-link:hover {
-  color: var(--accent);
-}
-
 .song-lang {
   font-size: 0.75rem;
   color: var(--text-dim);
   padding: 0.1rem 0.35rem;
   background: rgba(255,255,255,0.05);
   border-radius: 3px;
+}
+
+.table-error {
+  text-align: center;
+  color: var(--danger);
+  padding: 2rem 1rem;
 }
 
 /* === Song Page === */
@@ -620,6 +642,13 @@ a:hover {
   margin-bottom: 0.25rem;
 }
 
+.chord-tooltip .chord-missing {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 0.25rem 0.5rem;
+}
+
 /* === Player Bar === */
 
 .player-bar {
@@ -707,8 +736,8 @@ a:hover {
 }
 
 .btn-player.active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
   color: #fff;
 }
 
@@ -852,7 +881,7 @@ a:hover {
 
 .btn-bug-send {
   padding: 0.5rem 1.25rem;
-  background: var(--accent);
+  background: var(--accent-solid);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -863,7 +892,7 @@ a:hover {
 }
 
 .btn-bug-send:hover {
-  background: var(--accent-hover);
+  background: var(--accent-solid-hover);
 }
 
 .btn-bug-cancel {

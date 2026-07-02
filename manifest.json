@@ -1,0 +1,19 @@
+{
+  "name": "Bekovy songy",
+  "short_name": "Bekovy songy",
+  "description": "Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "lang": "cs",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

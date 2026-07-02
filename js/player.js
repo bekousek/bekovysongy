@@ -4,6 +4,13 @@
 (function () {
   'use strict';
 
+  // Register the offline service worker. Every song page is exactly one
+  // directory deep, so "../sw.js" (which lives at the site root) is always
+  // the right relative path here regardless of hosting subpath vs. root.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js'));
+  }
+
   // === Sections (refrén / sloka / bridge) + repeats toggle ===
   // Wrap the song text into labelled, indented sections and add a player-bar
   // toggle that reveals/hides repeated parts (all but the first occurrence).
@@ -29,7 +36,7 @@
     const section = document.createElement('div');
     section.className = 'player-section player-repeats';
     section.innerHTML =
-      '<button class="btn-player" id="repeats-toggle" title="Zobrazit opakování">' +
+      '<button class="btn-player" id="repeats-toggle" title="Zobrazit opakování" aria-label="Zobrazit opakování">' +
       '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">' +
       '<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>' +
       '<polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>' +
@@ -49,45 +56,9 @@
 
   buildSections();
 
-  // === Note mapping (Czech notation: H = B, B = Bb) ===
-  const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'B', 'H'];
-  // Enharmonic aliases for parsing
-  const NOTE_MAP = {
-    'C': 0, 'C#': 1, 'Db': 1,
-    'D': 2, 'D#': 3, 'Eb': 3,
-    'E': 4, 'Fb': 4,
-    'F': 5, 'F#': 6, 'Gb': 6,
-    'G': 7, 'G#': 8, 'Ab': 8,
-    'A': 9, 'A#': 10, 'B': 10, 'Bb': 10,
-    'H': 11, 'Cb': 11
-  };
-
-  // Parse chord into root note index + suffix
-  function parseChord(chord) {
-    let root = '';
-    let i = 0;
-    if (i < chord.length) {
-      root += chord[i];
-      i++;
-    }
-    // Check for # or b
-    if (i < chord.length && (chord[i] === '#' || chord[i] === 'b')) {
-      root += chord[i];
-      i++;
-    }
-    const suffix = chord.slice(i);
-    const noteIndex = NOTE_MAP[root];
-    if (noteIndex === undefined) return null;
-    return { noteIndex, suffix };
-  }
-
-  function transposeChord(chord, semitones) {
-    const parsed = parseChord(chord);
-    if (!parsed) return chord;
-    let newIndex = (parsed.noteIndex + semitones) % 12;
-    if (newIndex < 0) newIndex += 12;
-    return NOTES[newIndex] + parsed.suffix;
-  }
+  // Chord parsing/transposition lives in chord-theory.js (shared with the
+  // editor's song-cleanup.js), loaded before this script.
+  const { transposeChord } = window.ChordTheory;
 
   // === Transpose ===
   let currentTranspose = 0;
@@ -354,13 +325,14 @@
     // Get song title from the page
     const songTitle = document.querySelector('.song-header h1')?.textContent || '';
 
-    // Create modal HTML
+    // Create modal HTML (song title comes from page data, so it's set via
+    // textContent below rather than interpolated into innerHTML).
     const overlay = document.createElement('div');
     overlay.className = 'bug-modal-overlay';
     overlay.innerHTML = `
       <div class="bug-modal">
         <h2>Nahlásit chybu</h2>
-        <p class="bug-song-name">${songTitle}</p>
+        <p class="bug-song-name"></p>
         <textarea id="bug-text" placeholder="Co je špatně? (chybný akord, překlep v textu, špatný autor...)"></textarea>
         <div class="bug-modal-actions">
           <button type="button" class="btn-bug-cancel" id="bug-cancel">Zrušit</button>
@@ -368,6 +340,7 @@
         </div>
       </div>
     `;
+    overlay.querySelector('.bug-song-name').textContent = songTitle;
     document.body.appendChild(overlay);
 
     const bugText = document.getElementById('bug-text');

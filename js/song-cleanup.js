@@ -22,43 +22,13 @@
   var MARKER = '';
   var NBSP = ' ';
 
-  // === Czech notation: H = international B, B = international Bb ===
-  var NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'B', 'H'];
-  var NOTE_MAP = {
-    'C': 0, 'C#': 1, 'Db': 1,
-    'D': 2, 'D#': 3, 'Eb': 3,
-    'E': 4, 'Fb': 4,
-    'F': 5, 'F#': 6, 'Gb': 6,
-    'G': 7, 'G#': 8, 'Ab': 8,
-    'A': 9, 'A#': 10, 'B': 10, 'Bb': 10,
-    'H': 11, 'Cb': 11
-  };
-
-  function parseChord(chord) {
-    var root = '';
-    var i = 0;
-    if (i < chord.length) { root += chord[i]; i++; }
-    if (i < chord.length && (chord[i] === '#' || chord[i] === 'b')) { root += chord[i]; i++; }
-    var suffix = chord.slice(i);
-    var noteIndex = NOTE_MAP[root];
-    if (noteIndex === undefined) return null;
-    return { noteIndex: noteIndex, suffix: suffix };
-  }
-
-  function transposeChord(chord, semitones) {
-    var parsed = parseChord(chord);
-    if (!parsed) return chord;
-    var newIndex = (parsed.noteIndex + semitones) % 12;
-    if (newIndex < 0) newIndex += 12;
-    return NOTES[newIndex] + parsed.suffix;
-  }
-
-  // Handle slash chords (e.g. D/F# -> bass note transposed too)
-  function transposeChordFull(chord, semitones) {
-    return chord.split('/').map(function (part) {
-      return transposeChord(part.trim(), semitones);
-    }).join('/');
-  }
+  // Chord parsing/transposition is shared with player.js via
+  // chord-theory.js (Node: require the sibling file; browser: loaded
+  // first as a <script>, exposing window.ChordTheory).
+  var ChordTheory = (typeof require !== 'undefined')
+    ? require('./chord-theory.js')
+    : global.ChordTheory;
+  var transposeChordFull = ChordTheory.transposeChord;
 
   // === HTML entity helpers ===
   function decodeEntities(s) {

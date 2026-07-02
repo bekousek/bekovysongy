@@ -90,6 +90,22 @@
     'Eb':     { frets: [-1, -1, 1, 3, 4, 3], baseFret: 1 },
     'Ab7':    { frets: [-1, -1, 1, 1, 1, 2], baseFret: 4 },
     'A2':     { frets: [-1, 0, 2, 2, 0, 0], baseFret: 1 },  // same as Asus2
+
+    // === Movable barre shapes for roots not covered above ===
+    // E-shape and A-shape barres, each verified note-by-note against the
+    // chord's actual tones (not just pattern-copied) before being added here.
+    'G#':     { frets: [4, 6, 6, 5, 4, 4], baseFret: 1, barres: [4] },
+    'Ab':     { frets: [4, 6, 6, 5, 4, 4], baseFret: 1, barres: [4] },  // = G#
+    'Db':     { frets: [-1, -1, 3, 1, 2, 1], baseFret: 1 },  // = C#
+    'Gb':     { frets: [2, 4, 4, 3, 2, 2], baseFret: 1, barres: [2] },  // = F#
+    'D#':     { frets: [-1, -1, 1, 3, 4, 3], baseFret: 1 },  // = Eb
+    'Bmi':    { frets: [-1, 1, 3, 3, 2, 1], baseFret: 1, barres: [1] },
+    'Ebmi':   { frets: [-1, 6, 8, 8, 7, 6], baseFret: 1, barres: [6] },
+    'C#7':    { frets: [-1, 4, 6, 4, 6, 4], baseFret: 1, barres: [4] },
+    'F#7':    { frets: [2, 4, 2, 3, 2, 2], baseFret: 1, barres: [2] },
+    'C#mi7':  { frets: [-1, 4, 6, 4, 5, 4], baseFret: 1, barres: [4] },
+    'D#mi7':  { frets: [-1, 6, 8, 6, 7, 6], baseFret: 1, barres: [6] },
+    'Hmi7':   { frets: [-1, 2, 4, 2, 3, 2], baseFret: 1, barres: [2] },
   };
 
   /**
@@ -191,15 +207,29 @@
 
   function showTooltip(chordEl) {
     hideTooltip();
-    const chordName = chordEl.dataset.chord;
+    // dataset.display holds the transposed name (set by player.js); fall back
+    // to the original data-chord when the song hasn't been transposed.
+    const chordName = chordEl.dataset.display || chordEl.dataset.chord;
     if (!chordName) return;
 
     const svg = renderChordSVG(chordName);
-    if (!svg) return;
 
     const tooltip = document.createElement('div');
     tooltip.className = 'chord-tooltip';
-    tooltip.innerHTML = `<div class="chord-name">${chordName}</div>${svg}`;
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'chord-name';
+    nameDiv.textContent = chordName;
+    tooltip.appendChild(nameDiv);
+    if (svg) {
+      // svg is built entirely from CHORD_DB constants (see renderChordSVG),
+      // not from chordName, so this insert is safe.
+      tooltip.insertAdjacentHTML('beforeend', svg);
+    } else {
+      const missing = document.createElement('div');
+      missing.className = 'chord-missing';
+      missing.textContent = 'Diagram chybí';
+      tooltip.appendChild(missing);
+    }
 
     chordEl.style.position = 'relative';
     chordEl.appendChild(tooltip);
@@ -210,7 +240,6 @@
     if (rect.top < 0) {
       tooltip.style.bottom = 'auto';
       tooltip.style.top = 'calc(100% + 8px)';
-      tooltip.querySelector('::after') // CSS handles arrow flip
     }
     if (rect.left < 0) {
       tooltip.style.left = '0';
@@ -254,13 +283,18 @@
     });
   }
 
-  // Export for use
-  window.ChordDiagrams = { renderChordSVG, CHORD_DB };
+  // Export for use. Browser: window.ChordDiagrams. Node: module.exports (for
+  // tests - CHORD_DB/renderChordSVG are pure, DOM-free).
+  const api = { renderChordSVG, CHORD_DB };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  if (typeof window !== 'undefined') window.ChordDiagrams = api;
 
-  // Init when DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindChordEvents);
-  } else {
-    bindChordEvents();
+  // Init when DOM ready (skipped under Node, where there is no DOM).
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindChordEvents);
+    } else {
+      bindChordEvents();
+    }
   }
 })();

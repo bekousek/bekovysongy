@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bekovy songy</title>
+  <meta name="description" content="Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu. Přes 570 písní s transpozicí, metronomem, ladičkou a prstoklady zdarma.">
+  <link rel="canonical" href="https://bekovysongy.cz/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bekovysongy.cz/">
+  <meta property="og:title" content="Bekovy songy">
+  <meta property="og:description" content="Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu. Přes 570 písní s transpozicí, metronomem, ladičkou a prstoklady zdarma.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bekovy songy">
+  <meta name="twitter:description" content="Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -28,5 +40,11 @@
       <a href="./na-kalimbu/" class="hero-link secondary">Na kalimbu</a>
     </div>
   </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
 </body>
 </html>

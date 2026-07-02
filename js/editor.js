@@ -124,6 +124,14 @@
       }
     });
 
+    // Warn before closing/reloading the tab with unsaved edits.
+    window.addEventListener('beforeunload', (e) => {
+      if (currentSong && modifiedSlugs.has(currentSong.slug)) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+
     // Handle chord deletion - delete whole chord span on backspace
     editorArea.addEventListener('keydown', handleEditorKeydown);
   }
@@ -234,7 +242,11 @@
     songs.forEach(song => {
       const li = document.createElement('li');
       li.dataset.slug = song.slug;
-      li.innerHTML = `${song.title}<span class="song-list-author">${song.author || ''}</span>`;
+      li.appendChild(document.createTextNode(song.title));
+      const authorSpan = document.createElement('span');
+      authorSpan.className = 'song-list-author';
+      authorSpan.textContent = song.author || '';
+      li.appendChild(authorSpan);
       if (modifiedSlugs.has(song.slug)) li.classList.add('modified');
       if (currentSong && currentSong.slug === song.slug) li.classList.add('active');
       li.addEventListener('click', () => loadSong(song));
@@ -247,16 +259,28 @@
     if (li) li.classList.add('modified');
   }
 
+  // Strip diacritics so e.g. "zelva" matches "želva" - handy on mobile
+  // keyboards that don't type Czech háčky/čárky by default.
+  function normalizeForSearch(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
   function filterSongList() {
-    const q = editorSearch.value.toLowerCase().trim();
+    const q = normalizeForSearch(editorSearch.value.trim());
     const filtered = allSongs.filter(s =>
-      (s.title + ' ' + s.author).toLowerCase().includes(q)
+      normalizeForSearch(s.title + ' ' + s.author).includes(q)
     );
     renderSongList(filtered);
   }
 
   // === Load Song ===
   async function loadSong(song) {
+    if (currentSong && currentSong.slug !== song.slug && modifiedSlugs.has(currentSong.slug)) {
+      const discard = confirm(`Píseň "${currentSong.title}" má neuložené změny. Přepnout na jinou píseň a zahodit je?`);
+      if (!discard) return;
+      modifiedSlugs.delete(currentSong.slug);
+    }
+
     currentSong = song;
     editorPlaceholder.style.display = 'none';
     editorActive.style.display = 'flex';
@@ -272,8 +296,9 @@
     setStatus('Načítám...', '');
 
     try {
-      const resp = await fetch(`../songs/${song.slug}.html`);
-      const html = await resp.text();
+      // Read via the GitHub API (not the Pages CDN, which caches for 10 min
+      // and would otherwise serve a stale version right after a save).
+      const html = await getFileContent(`${REPO_PATH_PREFIX}${song.slug}.html`);
 
       // Extract pre content
       const m = html.match(/<pre class="song-text">([\s\S]*?)<\/pre>/);
@@ -284,10 +309,8 @@
         editorArea.innerHTML = '<em>Nepodařilo se načíst obsah</em>';
       }
 
-      // Update active state in list
-      songListEl.querySelectorAll('li').forEach(li => {
-        li.classList.toggle('active', li.dataset.slug === song.slug);
-      });
+      // Rebuild list so a discarded "modified" state (see above) disappears too.
+      filterSongList();
 
       setStatus(`Načteno: ${song.title}`, 'success');
     } catch (e) {

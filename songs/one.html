@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>One - Bekovy songy</title>
+  <meta name="description" content="Akordy a text písně One od U2. Transpozice, capo, ladička a metronom na Bekovy songy.">
+  <link rel="canonical" href="https://bekovysongy.cz/songs/one.html">
+  <meta property="og:type" content="music.song">
+  <meta property="og:url" content="https://bekovysongy.cz/songs/one.html">
+  <meta property="og:title" content="One - Bekovy songy">
+  <meta property="og:description" content="Akordy a text písně One od U2. Transpozice, capo, ladička a metronom na Bekovy songy.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="One - Bekovy songy">
+  <meta name="twitter:description" content="Akordy a text písně One od U2. Transpozice, capo, ladička a metronom na Bekovy songy.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -29,38 +41,65 @@
 Ref.: You say <span class="chord" data-chord="C">C</span> one love,<span class="chord" data-chord="Ami">Ami</span>   one life
       <span class="chord" data-chord="Fmaj7">Fmaj7</span>When it's one need <span class="chord" data-chord="C">C</span> in the night
       <span class="chord" data-chord="C">C</span> One love <span class="chord" data-chord="Ami">Ami</span>  We get to share it
-      <span class="chord" data-chord="Fmaj7">Fmaj7</span>   It leaves you baby if you<span class="chord" data-chord="C">C</span> don't care for <span class="chord" data-chord="Ami">Ami</span>it
-<span class="chord" data-chord="D2">D2</span>
-D<span class="chord" data-chord="Fmaj7">Fmaj7</span>id I d<span class="chord" data-chord="G">G</span>isappoint you
-Or leave a bad taste in your mouth
-You act like you never had love
-And you want me to go without
-
-R: Well it's too late, tonight,
-   To drag the past out into the light
-   We're one, but we're not the same
-   We get to carry each other, carry each other .... One
-
-Have you come here for forgiveness?
-Have you come to raise the dead?
-Have you come here to play Jesus
-to the lepers in your head?
-
-R: Did I ask too much, more than a lot
-   You gave me nothing, now it's all I got
-   We're one but we're not the same
+      <span class="chord" data-chord="Fmaj7">Fmaj7</span>   It leaves you baby if you<span class="chord" data-chord="C">C</span> don't care for <span class="chord" data-chord="Ami">Ami</span>it
+
+<span class="chord" data-chord="D2">D2</span>
+
+D<span class="chord" data-chord="Fmaj7">Fmaj7</span>id I d<span class="chord" data-chord="G">G</span>isappoint you
+
+Or leave a bad taste in your mouth
+
+You act like you never had love
+
+And you want me to go without
+
+
+
+R: Well it's too late, tonight,
+
+   To drag the past out into the light
+
+   We're one, but we're not the same
+
+   We get to carry each other, carry each other .... One
+
+
+
+Have you come here for forgiveness?
+
+Have you come to raise the dead?
+
+Have you come here to play Jesus
+
+to the lepers in your head?
+
+
+
+R: Did I ask too much, more than a lot
+
+   You gave me nothing, now it's all I got
+
+   We're one but we're not the same
+
    Well we hurt each other, then we do it again
 You say <span class="chord" data-chord="C">C</span>Love is a temple, <span class="chord" data-chord="Ami">Ami</span>love a higher law,
 <span class="chord" data-chord="C">C</span>Love is a temple, <span class="chord" data-chord="Ami">Ami</span>love the higher law
 You <span class="chord" data-chord="C">C</span>ask me to enter but <span class="chord" data-chord="G">G</span>then you make me crawl
 And I can't be holding o<span class="chord" data-chord="Fmaj7">Fmaj7</span>n to what you got
-When all you've got is <span class="chord" data-chord="C">C</span>hurt
-
-R: One love, one blood
-   One life, you got to do what you should
-   One life with each other
-   Sisters, brothers
-   One life but we're not the same
+When all you've got is <span class="chord" data-chord="C">C</span>hurt
+
+
+
+R: One love, one blood
+
+   One life, you got to do what you should
+
+   One life with each other
+
+   Sisters, brothers
+
+   One life but we're not the same
+
    We get to carry each other, carry each other. ..One...One...</pre>
   </main>
 
@@ -72,25 +111,25 @@ R: One love, one blood
       <button class="btn-transpose" id="transpose-up">+1</button>
     </div>
     <div class="player-section player-scroll">
-      <button class="btn-player" id="scroll-toggle">
+      <button class="btn-player" id="scroll-toggle" aria-label="Automatické rolování" title="Automatické rolování">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </button>
       <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">
     </div>
     <div class="player-section player-metronome">
-      <button class="btn-player" id="metronome-toggle">
+      <button class="btn-player" id="metronome-toggle" aria-label="Metronom" title="Metronom">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>
       </button>
       <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">
     </div>
     <div class="player-section player-tuner">
-      <button class="btn-player" id="tuner-toggle">
+      <button class="btn-player" id="tuner-toggle" aria-label="Ladička" title="Ladička">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
       </button>
       <span id="tuner-display" class="tuner-display"></span>
     </div>
     <div class="player-section player-bug">
-      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20One" class="btn-player" title="Nahlásit chybu">
+      <a href="mailto:ondrejbek8@gmail.com?subject=Bug%3A%20One" class="btn-player" title="Nahlásit chybu" aria-label="Nahlásit chybu">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>
       </a>
     </div>
@@ -98,6 +137,7 @@ R: One love, one blood
 
   <script src="../js/chords.js"></script>
   <script src="../js/sections.js"></script>
+  <script src="../js/chord-theory.js"></script>
   <script src="../js/player.js"></script>
 </body>
 </html>

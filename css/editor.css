@@ -247,14 +247,14 @@ select.edit-meta-input {
 }
 
 .btn-save {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
   color: #fff;
 }
 
 .btn-save:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: var(--accent-solid-hover);
+  border-color: var(--accent-solid-hover);
   color: #fff;
 }
 
@@ -320,9 +320,9 @@ select.edit-meta-input {
 }
 
 .btn-quick-chord:hover {
-  background: var(--accent);
+  background: var(--accent-solid);
   color: #fff;
-  border-color: var(--accent);
+  border-color: var(--accent-solid);
 }
 
 /* Number-key hint badge on quick-chord buttons */
@@ -338,8 +338,8 @@ select.edit-meta-input {
 
 /* Active state for the chord-shortcut toggle */
 #cleanup-toolbar .btn-sm.active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
   color: #fff;
 }
 

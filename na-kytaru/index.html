@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Na kytaru - Bekovy songy</title>
+  <meta name="description" content="Přes 570 písní s akordy na kytaru — hledání podle názvu i autora, filtr podle akordů, transpozice, metronom a ladička přímo ve webu.">
+  <link rel="canonical" href="https://bekovysongy.cz/na-kytaru/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bekovysongy.cz/na-kytaru/">
+  <meta property="og:title" content="Na kytaru - Bekovy songy">
+  <meta property="og:description" content="Přes 570 písní s akordy na kytaru — hledání podle názvu i autora, filtr podle akordů, transpozice, metronom a ladička přímo ve webu.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Na kytaru - Bekovy songy">
+  <meta name="twitter:description" content="Přes 570 písní s akordy na kytaru, s filtrem podle akordů a transpozicí.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -73,10 +85,10 @@
       <table class="songs-table">
         <thead>
           <tr>
-            <th data-sort="title">Název <span class="sort-arrow">▲</span></th>
-            <th data-sort="author">Autor <span class="sort-arrow">▲</span></th>
-            <th data-sort="chords">Akordy <span class="sort-arrow">▲</span></th>
-            <th data-sort="language">Jazyk <span class="sort-arrow">▲</span></th>
+            <th data-sort="title" tabindex="0" role="button" aria-sort="ascending">Název <span class="sort-arrow">▲</span></th>
+            <th data-sort="author" tabindex="0" role="button" aria-sort="none">Autor <span class="sort-arrow">▲</span></th>
+            <th data-sort="chords" tabindex="0" role="button" aria-sort="none">Akordy <span class="sort-arrow">▲</span></th>
+            <th data-sort="language" tabindex="0" role="button" aria-sort="none">Jazyk <span class="sort-arrow">▲</span></th>
           </tr>
         </thead>
         <tbody id="songs-tbody"></tbody>
@@ -85,5 +97,10 @@
   </main>
 
   <script src="../js/table.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js'));
+    }
+  </script>
 </body>
 </html>

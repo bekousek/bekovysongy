@@ -28,7 +28,11 @@
       "Bash(python fix_capo.py)",
       "Bash(python fix_paths.py)",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(python -c \"import json; songs = json.load\\(open\\('songs.json'\\)\\)['songs']; print\\(f'Total songs: {len\\(songs\\)}'\\); print\\('First:', songs[0]['slug']\\); print\\('Last:', songs[-1]['slug']\\)\")",
+      "Bash(python -c \"import json; songs=json.load\\(open\\('songs.json'\\)\\); print\\(f'Total songs: {len\\(songs[\\\\\"songs\\\\\"]\\)}'\\); [print\\(s['slug']\\) for s in songs['songs'][:5]]\")",
+      "Bash(python -c \"import json; songs=json.load\\(open\\('songs.json', encoding='utf-8'\\)\\); print\\(f'Total songs: {len\\(songs[\\\\\"songs\\\\\"]\\)}'\\); [print\\(s['slug']\\) for s in songs['songs'][:5]]\")",
+      "Bash(python -c ' *)"
     ]
   }
 }

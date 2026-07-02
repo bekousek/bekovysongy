@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stránka nenalezena - Bekovy songy</title>
+  <meta name="robots" content="noindex">
+  <!-- Self-contained on purpose: a 404 can be hit from any path depth, so it
+       doesn't rely on css/style.css or other relative assets. -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .box h1 { font-size: 2rem; color: #e67e22; margin-bottom: 0.75rem; }
+    .box p { color: #8899aa; font-size: 1.05rem; margin-bottom: 1.5rem; }
+    .box a {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      background: #e67e22;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .box a:hover { background: #f39c12; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>404 — Stránka nenalezena</h1>
+    <p>Píseň nebo stránka, kterou hledáš, tu není (nebo byl špatně přepsaný odkaz).</p>
+    <a href="/" id="home-link">Zpět na Bekovy songy</a>
+  </div>
+  <script>
+    // Works both on the GitHub Pages project subpath (…/bekovysongy/) and on
+    // the final custom domain (root), without hardcoding either.
+    var m = location.pathname.match(/^\/[^/]+\//);
+    if (m) document.getElementById('home-link').href = m[0];
+  </script>
+</body>
+</html>
