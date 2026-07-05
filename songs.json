@@ -1283,6 +1283,21 @@
       }
     },
     {
+      "title": "Detaily",
+      "slug": "detaily",
+      "author": "Vypsaná Fixa",
+      "chords": [
+        "A",
+        "D",
+        "G",
+        "Hmi"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Dezolát",
       "slug": "dezolat",
       "author": "Vypsaná fixa",
@@ -1523,6 +1538,16 @@
       "title": "Drobná paralela",
       "slug": "drobna-paralela",
       "author": "Chinaski",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Druide",
+      "slug": "druide",
+      "author": "Krucipüsk",
       "chords": [],
       "tags": {
         "capo": false,
@@ -2274,6 +2299,22 @@
       }
     },
     {
+      "title": "Hot n Cold",
+      "slug": "hot-n-cold",
+      "author": "Katy Perry",
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "Emi",
+        "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Houby",
       "slug": "houby",
       "author": "Garáž",
@@ -2692,6 +2733,21 @@
         "Ami",
         "C",
         "Dmi",
+        "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Jarošovský pivovar",
+      "slug": "jarosovsky-pivovar",
+      "author": "Argema",
+      "chords": [
+        "C",
+        "D",
+        "Emi",
         "G"
       ],
       "tags": {
@@ -6699,6 +6755,20 @@
         "F",
         "G",
         "H"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Seděla u vody",
+      "slug": "sedela-u-vody",
+      "author": "Lucie",
+      "chords": [
+        "A",
+        "E",
+        "H7"
       ],
       "tags": {
         "capo": false,

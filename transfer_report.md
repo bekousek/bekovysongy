@@ -1,31 +1,41 @@
 # Transfer report – „pod-čarou" písně
 
-Celkem v rozsahu: **129**
+Celkem v rozsahu: **135**
 
 | stav | počet |
 |---|---|
-| Hotovo – ke kontrole zarovnání akordů | 2 |
-| Čeká na stažení přes prohlížeč | 5 |
-| Přeskočeno (duplicita) | 122 |
+| Hotovo | 2 |
+| Hotovo – ke kontrole zarovnání akordů | 3 |
+| Čeká na stažení přes prohlížeč | 6 |
+| Přeskočeno (duplicita) | 124 |
 
 
-## Hotovo – ke kontrole zarovnání akordů (2)
+## Hotovo (2)
 
-- **Bones** `bones.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
-- **Enemy** `enemy.html` [tabs.ultimate-guitar.com] – Imagine Dragons – akordy nad textem – zkontrolovat zarovnání
+- **Detaily** `detaily.html` [supermusic.cz] – Vypsaná Fixa
+- **Hot n Cold** `hot-n-cold.html` [supermusic.cz] – Katy Perry
 
-## Čeká na stažení přes prohlížeč (5)
+## Hotovo – ke kontrole zarovnání akordů (3)
+
+- **Jarošovský pivovar** `jarosovsky-pivovar.html` [pisnicky-akordy.cz] – Argema – akordy nad textem – zkontrolovat zarovnání
+- **Seděla u vody** `sedela-u-vody.html` [pisnicky-akordy.cz] – Lucie – akordy nad textem – zkontrolovat zarovnání
+- **Druide** `druide.html` [pisnicky-akordy.cz] – Krucipuesk – pouze text (zdroj bez akordů) – akordy doplnit ručně
+
+## Čeká na stažení přes prohlížeč (6)
 
 - **Láska Neumiera** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Až po uši** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Žigulik** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
+- **I hate everything about you** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Náš Matěj** [chordify.net] – browser fetch needed: chordify.net
 
-## Přeskočeno (duplicita) (122)
+## Přeskočeno (duplicita) (124)
 
 - **Velrybářská výprava** [supermusic.cz] – už existuje na webu
 - **Čarodějnice z Amesbury** [supermusic.cz] – už existuje na webu
+- **Bones** [tabs.ultimate-guitar.com] – už existuje na webu
+- **Enemy** [tabs.ultimate-guitar.com] – už existuje na webu
 - **Demons** [supermusic.cz] – už existuje na webu
 - **Bad Liar** [supermusic.cz] – už existuje na webu
 - **Thunder** [tabs.ultimate-guitar.com] – už existuje na webu
