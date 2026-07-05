@@ -96,11 +96,20 @@
     </div>
   </main>
 
+  <footer class="site-footer" id="offline-footer" hidden>
+    <button type="button" class="btn-offline" id="offline-download-btn" data-sw-path="../sw.js">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M5 21h14"/></svg>
+      Stáhnout offline
+    </button>
+    <p class="offline-status" id="offline-status"></p>
+  </footer>
+
   <script src="../js/table.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js'));
     }
   </script>
+  <script src="../js/offline-download.js"></script>
 </body>
 </html>

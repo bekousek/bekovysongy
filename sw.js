@@ -8,6 +8,11 @@
  * directory it's served from, and this one needs to control every page.
  * All URLs below are built from self.registration.scope so this works both
  * on the GitHub Pages project subpath and the eventual custom domain root.
+ *
+ * precacheAll() also runs on demand, triggered by a postMessage({type:
+ * 'PRECACHE_ALL'}) from js/offline-download.js (the "Stáhnout offline"
+ * button), so the install-time precache above isn't the only way in - useful
+ * right before going offline, or to retry songs that failed the first time.
  */
 const CACHE_NAME = 'bekovysongy-v1';
 const BASE = self.registration.scope;
@@ -33,26 +38,67 @@ const APP_SHELL = [
   'offline.html',
 ].map((p) => BASE + p);
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      await cache.addAll(APP_SHELL);
-      // Cache every song individually (not one addAll) so a single flaky
-      // fetch can't abort caching for all the others.
-      try {
-        const res = await fetch(BASE + 'songs.json');
-        const data = await res.json();
-        await Promise.allSettled(
-          data.songs.map((s) => cache.add(BASE + 'songs/' + s.slug + '.html'))
-        );
-      } catch (e) {
-        // No network at install time, or songs.json failed - app shell is
-        // still cached; individual songs get cached as they're visited.
+// Caches every song, reporting progress via onProgress(done, total) - used
+// both silently on install and on demand from the download button. Songs are
+// cached individually with limited concurrency (not one big addAll/allSettled)
+// so a handful of flaky fetches can't abort the rest and 570 requests don't
+// all fire at once.
+async function precacheAll(onProgress) {
+  const cache = await caches.open(CACHE_NAME);
+  try {
+    await cache.addAll(APP_SHELL);
+  } catch (e) {
+    // A shell asset is missing/unreachable - songs are still worth caching.
+  }
+
+  let total = 0;
+  let failed = 0;
+  try {
+    const res = await fetch(BASE + 'songs.json');
+    const data = await res.json();
+    const slugs = data.songs.map((s) => s.slug);
+    total = slugs.length;
+    if (onProgress) onProgress(0, total);
+
+    let next = 0;
+    let done = 0;
+    const CONCURRENCY = 12;
+    async function worker() {
+      while (next < slugs.length) {
+        const slug = slugs[next++];
+        try {
+          await cache.add(BASE + 'songs/' + slug + '.html');
+        } catch (e) {
+          failed++;
+        }
+        done++;
+        if (onProgress) onProgress(done, total);
       }
-    })()
-  );
+    }
+    await Promise.all(Array.from({ length: Math.min(CONCURRENCY, slugs.length) }, worker));
+  } catch (e) {
+    // No network, or songs.json failed - app shell is still cached;
+    // individual songs get cached as they're visited.
+  }
+
+  return { total, failed };
+}
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(precacheAll());
   self.skipWaiting();
+});
+
+self.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'PRECACHE_ALL') return;
+  const client = event.source;
+  event.waitUntil(
+    precacheAll((done, total) => {
+      if (client) client.postMessage({ type: 'PRECACHE_PROGRESS', done, total });
+    }).then(({ total, failed }) => {
+      if (client) client.postMessage({ type: 'PRECACHE_DONE', total, failed });
+    })
+  );
 });
 
 self.addEventListener('activate', (event) => {
