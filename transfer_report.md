@@ -1,25 +1,23 @@
 # Transfer report – „pod-čarou" písně
 
-Celkem v rozsahu: **135**
+Celkem v rozsahu: **142**
 
 | stav | počet |
 |---|---|
-| Hotovo | 2 |
-| Hotovo – ke kontrole zarovnání akordů | 3 |
+| Hotovo – ke kontrole zarovnání akordů | 7 |
 | Čeká na stažení přes prohlížeč | 6 |
-| Přeskočeno (duplicita) | 124 |
+| Přeskočeno (duplicita) | 129 |
 
 
-## Hotovo (2)
+## Hotovo – ke kontrole zarovnání akordů (7)
 
-- **Detaily** `detaily.html` [supermusic.cz] – Vypsaná Fixa
-- **Hot n Cold** `hot-n-cold.html` [supermusic.cz] – Katy Perry
-
-## Hotovo – ke kontrole zarovnání akordů (3)
-
-- **Jarošovský pivovar** `jarosovsky-pivovar.html` [pisnicky-akordy.cz] – Argema – akordy nad textem – zkontrolovat zarovnání
-- **Seděla u vody** `sedela-u-vody.html` [pisnicky-akordy.cz] – Lucie – akordy nad textem – zkontrolovat zarovnání
-- **Druide** `druide.html` [pisnicky-akordy.cz] – Krucipuesk – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Hafo** `hafo.html` [velkyzpevnik.cz] – Frank Wild Kafoo – pouze text (zdroj bez akordů) – akordy doplnit ručně
+- **Californication** `californication.html` [pisnicky-akordy.cz] – Red Hot Chili Peppers – akordy nad textem – zkontrolovat zarovnání
+- **Čekám na signál** `cekam-na-signal.html` [pisnicky-akordy.cz] – Nightwork – akordy nad textem – zkontrolovat zarovnání
+- **Seděla Anička na větvičce** `sedela-anicka-na-vetvicce.html` [yousongs.cz] – akordy nad textem – zkontrolovat zarovnání
+- **Kam jdeš s tou pilou** `kam-jdes-s-tou-pilou.html` [supermusic.cz] – Josef Král – akordy nad textem – zkontrolovat zarovnání
+- **Rakety** `rakety.html` [pisnicky-akordy.cz] – Jarek Nohavica – akordy nad textem – zkontrolovat zarovnání
+- **Večerníček** `vecernicek.html` [pisnicky-akordy.cz] – Karel Cernoch – akordy nad textem – zkontrolovat zarovnání
 
 ## Čeká na stažení přes prohlížeč (6)
 
@@ -30,7 +28,7 @@ Celkem v rozsahu: **135**
 - **I hate everything about you** [tabs.ultimate-guitar.com] – browser fetch needed: tabs.ultimate-guitar.com
 - **Náš Matěj** [chordify.net] – browser fetch needed: chordify.net
 
-## Přeskočeno (duplicita) (124)
+## Přeskočeno (duplicita) (129)
 
 - **Velrybářská výprava** [supermusic.cz] – už existuje na webu
 - **Čarodějnice z Amesbury** [supermusic.cz] – už existuje na webu
@@ -143,6 +141,11 @@ Celkem v rozsahu: **135**
 - **Je mi to brácha** [kytaristka.cz] – už existuje na webu
 - **Stará archa (Kocábka)** [supermusic.cz] – už existuje na webu
 - **Františkovy lázně** [supermusic.cz] – už existuje na webu
+- **Detaily** [supermusic.cz] – už existuje na webu
+- **Jarošovský pivovar** [pisnicky-akordy.cz] – už existuje na webu
+- **Seděla u vody** [pisnicky-akordy.cz] – už existuje na webu
+- **Druide** [pisnicky-akordy.cz] – už existuje na webu
+- **Hot n Cold** [supermusic.cz] – už existuje na webu
 - **V blbým věku** [supermusic.cz] – už existuje na webu
 - **Písnička** [supermusic.cz] – už existuje na webu
 - **Tu kytaru jsem koupil kvůli tobě** [supermusic.cz] – už existuje na webu

@@ -919,6 +919,27 @@
       }
     },
     {
+      "title": "Californication",
+      "slug": "californication",
+      "author": "Red Hot Chili Peppers",
+      "chords": [
+        "A",
+        "Ami",
+        "Bmi",
+        "C",
+        "D",
+        "Dmi",
+        "E",
+        "F",
+        "F#mi",
+        "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      }
+    },
+    {
       "title": "Can't help falling in love",
       "slug": "cant-help-falling-in-love",
       "author": "Elvis Presley",
@@ -1942,6 +1963,16 @@
       "tags": {
         "capo": false,
         "language": "PL"
+      }
+    },
+    {
+      "title": "Hafo",
+      "slug": "hafo",
+      "author": "Frank Wild & Kafuu",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       }
     },
     {
@@ -3153,6 +3184,22 @@
         "Eb",
         "F",
         "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Kam jdeš s tou pilou",
+      "slug": "kam-jdes-s-tou-pilou",
+      "author": "Josef Král",
+      "chords": [
+        "A",
+        "D",
+        "E",
+        "G",
+        "Hmi"
       ],
       "tags": {
         "capo": false,
@@ -6479,6 +6526,28 @@
       }
     },
     {
+      "title": "Rakety",
+      "slug": "rakety",
+      "author": "Jaromír Nohavica",
+      "chords": [
+        "Ami",
+        "Ami7",
+        "Asus2",
+        "Asus4",
+        "C",
+        "Cmaj7",
+        "D",
+        "Emi",
+        "G",
+        "Hmi",
+        "Hmi7"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Replay",
       "slug": "replay",
       "author": "Iyaz",
@@ -6755,6 +6824,19 @@
         "F",
         "G",
         "H"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Seděla Anička na větvičce",
+      "slug": "sedela-anicka-na-vetvicce",
+      "author": "",
+      "chords": [
+        "A",
+        "E"
       ],
       "tags": {
         "capo": false,
@@ -8129,6 +8211,22 @@
       }
     },
     {
+      "title": "Večerníček",
+      "slug": "vecernicek",
+      "author": "Karel Černoch",
+      "chords": [
+        "C",
+        "C7",
+        "F",
+        "G",
+        "G7"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
       "title": "Vinaři",
       "slug": "vinari",
       "author": "Chinaski",
@@ -9029,6 +9127,28 @@
         "Dmi",
         "F",
         "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      }
+    },
+    {
+      "title": "Čekám na signál",
+      "slug": "cekam-na-signal",
+      "author": "Nightwork",
+      "chords": [
+        "A",
+        "A7",
+        "Ami",
+        "C",
+        "Dmi",
+        "E",
+        "Emi",
+        "F",
+        "F#mi",
+        "G",
+        "Hmi"
       ],
       "tags": {
         "capo": false,
