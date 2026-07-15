@@ -831,11 +831,10 @@ a:hover {
   border-color: var(--accent);
 }
 
+/* The tuner now opens a fullscreen overlay, so the old inline readout span
+   (kept in every song's HTML) is no longer used — hide it. */
 .tuner-display {
-  font-size: 0.8rem;
-  font-weight: 600;
-  min-width: 80px;
-  text-align: center;
+  display: none;
 }
 
 .tuner-display .note {
@@ -853,6 +852,290 @@ a:hover {
 
 .tuner-display .cents.off-tune {
   color: var(--danger);
+}
+
+/* === Tuner Modal (fullscreen overlay) === */
+
+.tuner-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 24, 0.94);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.tuner-overlay.open {
+  display: flex;
+}
+
+.tuner-modal {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 540px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.tuner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tuner-instruments {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem;
+}
+
+.tuner-instruments button {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tuner-instruments button.active {
+  background: var(--accent-solid);
+  color: #fff;
+}
+
+.tuner-close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tuner-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Big detected note */
+.tuner-note {
+  text-align: center;
+  line-height: 1;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.tuner-note-name {
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.tuner-note.tuned .tuner-note-name {
+  color: var(--success);
+}
+
+.tuner-note-oct {
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  vertical-align: super;
+  margin-left: 0.15rem;
+}
+
+.tuner-status {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-height: 1.5rem;
+  transition: color 0.15s;
+}
+
+.tuner-status.tuned {
+  color: var(--success);
+}
+
+.tuner-status.off {
+  color: var(--accent);
+}
+
+/* Needle meter */
+.tuner-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tuner-meter-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.tuner-meter-track {
+  position: relative;
+  height: 48px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.tuner-meter-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  background: rgba(39, 174, 96, 0.16);
+  border-left: 1px solid rgba(39, 174, 96, 0.4);
+  border-right: 1px solid rgba(39, 174, 96, 0.4);
+}
+
+.tuner-meter-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--success);
+  opacity: 0.7;
+}
+
+.tuner-meter-needle {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 50%;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transition: left 0.08s linear, background 0.15s;
+}
+
+.tuner-meter-needle.tuned {
+  background: var(--success);
+}
+
+.tuner-cents {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  min-height: 1.1rem;
+}
+
+/* String chips */
+.tuner-strings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tuner-string {
+  min-width: 54px;
+  padding: 0.65rem 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.tuner-string small {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+.tuner-string:hover {
+  border-color: var(--accent);
+}
+
+.tuner-string.near {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.3);
+}
+
+.tuner-string.tuned {
+  border-color: var(--success);
+  color: var(--success);
+  box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.35);
+}
+
+.tuner-string.tuned small {
+  color: var(--success);
+}
+
+.tuner-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+
+.tuner-error {
+  text-align: center;
+  color: var(--danger);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .tuner-modal {
+    padding: 1rem 1rem 1.25rem;
+    gap: 0.9rem;
+  }
+
+  .tuner-note-name {
+    font-size: 4.75rem;
+  }
+
+  .tuner-note-oct {
+    font-size: 1.5rem;
+  }
+
+  .tuner-instruments button {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
+  }
 }
 
 /* === Bug Report Modal === */

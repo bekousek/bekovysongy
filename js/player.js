@@ -183,28 +183,42 @@
     });
   }
 
-  // === Tuner ===
-  let tunerCtx = null;
-  let tunerAnalyser = null;
-  let tunerStream = null;
-  let tunerRunning = false;
-  let tunerAnimFrame = null;
+  // === Tuner (fullscreen overlay, guitar + ukulele) ===
+  // Clicking the player-bar button opens a large, distraction-free overlay so
+  // you can tune without the song/chords in the way. It shows the target
+  // string, a live needle for how far off you are, and clickable reference
+  // tones. All the UI is built here in JS so no per-song HTML changes are
+  // needed (every page already ships the #tuner-toggle button).
   const tunerToggle = document.getElementById('tuner-toggle');
-  const tunerDisplay = document.getElementById('tuner-display');
 
-  const TUNER_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  const TUNER_INSTRUMENTS = {
+    guitar: {
+      label: 'Kytara',
+      // Standard tuning, low to high (Czech note names: H = B).
+      strings: [
+        { name: 'E', oct: '2', midi: 40 },
+        { name: 'A', oct: '2', midi: 45 },
+        { name: 'D', oct: '3', midi: 50 },
+        { name: 'G', oct: '3', midi: 55 },
+        { name: 'H', oct: '3', midi: 59 },
+        { name: 'E', oct: '4', midi: 64 },
+      ],
+    },
+    ukulele: {
+      label: 'Ukulele',
+      // Standard GCEA (reentrant high-G).
+      strings: [
+        { name: 'G', oct: '4', midi: 67 },
+        { name: 'C', oct: '4', midi: 60 },
+        { name: 'E', oct: '4', midi: 64 },
+        { name: 'A', oct: '4', midi: 69 },
+      ],
+    },
+  };
+  const TUNER_INST_KEY = 'tuner_instrument';
 
-  function noteFromFreq(freq) {
-    const noteNum = 12 * (Math.log(freq / 440) / Math.log(2));
-    return Math.round(noteNum) + 69;
-  }
-
-  function freqFromNote(note) {
-    return 440 * Math.pow(2, (note - 69) / 12);
-  }
-
-  function centsOff(freq, note) {
-    return Math.floor(1200 * Math.log(freq / freqFromNote(note)) / Math.log(2));
+  function freqFromMidi(midi) {
+    return 440 * Math.pow(2, (midi - 69) / 12);
   }
 
   // Autocorrelation pitch detection
@@ -258,6 +272,121 @@
     return sampleRate / T0;
   }
 
+  // --- Tuner state ---
+  let T = null;                 // built DOM references (lazy, first open)
+  let tunerCtx = null, tunerAnalyser = null, tunerStream = null;
+  let tunerRunning = false, tunerAnimFrame = null;
+  let toneCtx = null;           // for reference-tone playback
+  let smoothCents = 0;          // smoothed needle position
+  let tunerInstrument = TUNER_INSTRUMENTS[localStorage.getItem(TUNER_INST_KEY)]
+    ? localStorage.getItem(TUNER_INST_KEY) : 'guitar';
+
+  function buildTunerOverlay() {
+    if (T) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'tuner-overlay';
+    overlay.innerHTML = `
+      <div class="tuner-modal" role="dialog" aria-label="Ladička">
+        <div class="tuner-head">
+          <div class="tuner-instruments">
+            <button type="button" data-inst="guitar">Kytara</button>
+            <button type="button" data-inst="ukulele">Ukulele</button>
+          </div>
+          <button type="button" class="tuner-close" aria-label="Zavřít ladičku">✕</button>
+        </div>
+        <div class="tuner-note"><span class="tuner-note-name">–</span><span class="tuner-note-oct"></span></div>
+        <div class="tuner-status">Zahraj strunu…</div>
+        <div class="tuner-meter">
+          <div class="tuner-meter-scale"><span>♭ nízko</span><span>0</span><span>vysoko ♯</span></div>
+          <div class="tuner-meter-track">
+            <div class="tuner-meter-zone"></div>
+            <div class="tuner-meter-center"></div>
+            <div class="tuner-meter-needle"></div>
+          </div>
+          <div class="tuner-cents"></div>
+        </div>
+        <div class="tuner-strings"></div>
+        <p class="tuner-error"></p>
+        <p class="tuner-hint">Klepni na strunu pro přehrání tónu, pak zahraj tu samou strunu na nástroji — ručička ukáže, jestli je moc nízko, nebo vysoko.</p>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    T = {
+      overlay,
+      note: overlay.querySelector('.tuner-note'),
+      noteName: overlay.querySelector('.tuner-note-name'),
+      noteOct: overlay.querySelector('.tuner-note-oct'),
+      status: overlay.querySelector('.tuner-status'),
+      needle: overlay.querySelector('.tuner-meter-needle'),
+      cents: overlay.querySelector('.tuner-cents'),
+      strings: overlay.querySelector('.tuner-strings'),
+      error: overlay.querySelector('.tuner-error'),
+      instBtns: overlay.querySelectorAll('.tuner-instruments button'),
+      stringEls: [],
+    };
+    T.error.style.display = 'none';
+
+    overlay.querySelector('.tuner-close').addEventListener('click', closeTuner);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeTuner(); });
+    T.instBtns.forEach(b => b.addEventListener('click', () => setInstrument(b.dataset.inst)));
+
+    setInstrument(tunerInstrument);
+  }
+
+  function setInstrument(inst) {
+    if (!TUNER_INSTRUMENTS[inst]) inst = 'guitar';
+    tunerInstrument = inst;
+    localStorage.setItem(TUNER_INST_KEY, inst);
+    T.instBtns.forEach(b => b.classList.toggle('active', b.dataset.inst === inst));
+    renderStrings();
+    smoothCents = 0;
+  }
+
+  function renderStrings() {
+    T.strings.innerHTML = '';
+    T.stringEls = [];
+    TUNER_INSTRUMENTS[tunerInstrument].strings.forEach((s) => {
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'tuner-string';
+      el.innerHTML = `${s.name}<small>${s.oct}</small>`;
+      el.addEventListener('click', () => playReference(s.midi));
+      T.strings.appendChild(el);
+      T.stringEls.push(el);
+    });
+  }
+
+  function clearStringHighlight() {
+    T.stringEls.forEach(el => el.classList.remove('near', 'tuned'));
+  }
+
+  function highlightString(idx, inTune) {
+    T.stringEls.forEach((el, i) => {
+      el.classList.toggle('near', i === idx && !inTune);
+      el.classList.toggle('tuned', i === idx && inTune);
+    });
+  }
+
+  // Play a short reference tone for a tapped string.
+  function playReference(midi) {
+    try {
+      if (!toneCtx) toneCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (toneCtx.state === 'suspended') toneCtx.resume();
+      const now = toneCtx.currentTime;
+      const osc = toneCtx.createOscillator();
+      const gain = toneCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freqFromMidi(midi);
+      osc.connect(gain);
+      gain.connect(toneCtx.destination);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.25, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.6);
+      osc.start(now);
+      osc.stop(now + 1.7);
+    } catch (e) { /* ignore audio errors */ }
+  }
+
   function updateTuner() {
     if (!tunerRunning) return;
 
@@ -265,41 +394,94 @@
     tunerAnalyser.getFloatTimeDomainData(buf);
     const freq = autoCorrelate(buf, tunerCtx.sampleRate);
 
-    if (freq === -1) {
-      tunerDisplay.innerHTML = '<span style="color:#556677">--</span>';
+    if (freq === -1 || freq < 30 || freq > 1200) {
+      T.note.classList.remove('tuned');
+      T.status.className = 'tuner-status';
+      T.status.textContent = 'Zahraj strunu…';
+      T.noteName.textContent = '–';
+      T.noteOct.textContent = '';
+      T.cents.textContent = '';
+      T.needle.classList.remove('tuned');
+      T.needle.style.left = '50%';
+      clearStringHighlight();
+      smoothCents = 0;
     } else {
-      const midi = noteFromFreq(freq);
-      const noteName = TUNER_NOTES[midi % 12];
-      const octave = Math.floor(midi / 12) - 1;
-      const cents = centsOff(freq, midi);
-      const inTune = Math.abs(cents) <= 5;
-      const centsClass = inTune ? 'in-tune' : 'off-tune';
-      const centsStr = (cents >= 0 ? '+' : '') + cents;
-      tunerDisplay.innerHTML = `<span class="note">${noteName}${octave}</span> <span class="cents ${centsClass}">${centsStr}c</span>`;
+      const midiFloat = 69 + 12 * Math.log2(freq / 440);
+      const strings = TUNER_INSTRUMENTS[tunerInstrument].strings;
+      let best = 0, bestDist = Infinity;
+      strings.forEach((s, i) => {
+        const dist = Math.abs(midiFloat - s.midi);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      const s = strings[best];
+      const cents = (midiFloat - s.midi) * 100;
+      smoothCents += (cents - smoothCents) * 0.35;
+      const shown = smoothCents;
+      const inTune = Math.abs(shown) <= 5;
+      const rounded = Math.round(shown);
+
+      T.noteName.textContent = s.name;
+      T.noteOct.textContent = s.oct;
+      T.note.classList.toggle('tuned', inTune);
+
+      const clamped = Math.max(-50, Math.min(50, shown));
+      T.needle.style.left = (clamped + 50) + '%';
+      T.needle.classList.toggle('tuned', inTune);
+
+      if (inTune) {
+        T.status.className = 'tuner-status tuned';
+        T.status.textContent = '✓ Naladěno';
+        T.cents.textContent = '0 centů';
+      } else if (shown < 0) {
+        T.status.className = 'tuner-status off';
+        T.status.textContent = '♭ Nízko — utáhni strunu';
+        T.cents.textContent = rounded + ' centů';
+      } else {
+        T.status.className = 'tuner-status off';
+        T.status.textContent = '♯ Vysoko — povol strunu';
+        T.cents.textContent = '+' + rounded + ' centů';
+      }
+
+      highlightString(best, inTune);
     }
 
     tunerAnimFrame = requestAnimationFrame(updateTuner);
   }
 
   async function startTuner() {
+    T.error.style.display = 'none';
+    T.error.textContent = '';
+    T.status.className = 'tuner-status';
+    T.status.textContent = 'Povol přístup k mikrofonu…';
     try {
       tunerCtx = new (window.AudioContext || window.webkitAudioContext)();
-      tunerStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (tunerCtx.state === 'suspended') await tunerCtx.resume();
+      // Turn off browser processing that would distort the pitch.
+      tunerStream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+      });
       const source = tunerCtx.createMediaStreamSource(tunerStream);
       tunerAnalyser = tunerCtx.createAnalyser();
-      tunerAnalyser.fftSize = 2048;
+      tunerAnalyser.fftSize = 4096; // larger window = steadier low strings (E2)
       source.connect(tunerAnalyser);
       tunerRunning = true;
-      tunerToggle.classList.add('active');
+      T.status.textContent = 'Zahraj strunu…';
       updateTuner();
     } catch (e) {
-      tunerDisplay.innerHTML = '<span style="color:#e74c3c">Mikrofon nedostupný</span>';
+      tunerRunning = false;
+      T.status.className = 'tuner-status';
+      T.status.textContent = '';
+      T.noteName.textContent = '–';
+      T.noteOct.textContent = '';
+      T.cents.textContent = '';
+      T.error.textContent = 'Mikrofon není dostupný. Povol přístup k mikrofonu v prohlížeči a zkus to znovu.';
+      T.error.style.display = 'block';
     }
   }
 
   function stopTuner() {
     tunerRunning = false;
-    if (tunerAnimFrame) cancelAnimationFrame(tunerAnimFrame);
+    if (tunerAnimFrame) { cancelAnimationFrame(tunerAnimFrame); tunerAnimFrame = null; }
     if (tunerStream) {
       tunerStream.getTracks().forEach(t => t.stop());
       tunerStream = null;
@@ -308,14 +490,30 @@
       tunerCtx.close();
       tunerCtx = null;
     }
+  }
+
+  function openTuner() {
+    buildTunerOverlay();
+    T.overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (tunerToggle) tunerToggle.classList.add('active');
+    startTuner();
+  }
+
+  function closeTuner() {
+    stopTuner();
+    if (T) T.overlay.classList.remove('open');
+    document.body.style.overflow = '';
     if (tunerToggle) tunerToggle.classList.remove('active');
-    if (tunerDisplay) tunerDisplay.textContent = '';
   }
 
   if (tunerToggle) {
     tunerToggle.addEventListener('click', () => {
-      if (tunerRunning) stopTuner();
-      else startTuner();
+      if (T && T.overlay.classList.contains('open')) closeTuner();
+      else openTuner();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && T && T.overlay.classList.contains('open')) closeTuner();
     });
   }
 
