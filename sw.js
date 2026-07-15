@@ -4,6 +4,11 @@
  * environment (chata, les). Cache-first at runtime, refreshed from network
  * in the background so edits made in /admin show up next time you're online.
  *
+ * Exception: songs.json is network-first (falling back to cache offline).
+ * It's the index the admin and the random-pick/search features read, and
+ * cache-first here could serve a stale song list to a returning visitor for
+ * up to this cache's lifetime - not just the fresh-in-background delay above.
+ *
  * Must live at the site root: a service worker's default scope is the
  * directory it's served from, and this one needs to control every page.
  * All URLs below are built from self.registration.scope so this works both
@@ -115,6 +120,25 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return; // e.g. Google Sign-In on /admin
+
+  // songs.json: always hit the network first (admin's loadSongList and the
+  // random-pick/search pool all read from it, and cache-first could otherwise
+  // serve a returning visitor a stale song list indefinitely). Falls back to
+  // cache only when offline.
+  if (url.pathname.endsWith('/songs.json')) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-cache' })
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
   event.respondWith(
     (async () => {

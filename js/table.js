@@ -11,6 +11,30 @@
   let selectedChords = new Set();
   let allChords = [];
 
+  // Random-pick no-repeat memory. Kept in localStorage (not a module-level
+  // variable) because clicking "Random" navigates away to the song page,
+  // which tears down this whole module.
+  const RANDOM_HISTORY_KEY = 'random_history';
+  const RANDOM_HISTORY_SIZE = 20;
+
+  function loadRandomHistory() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(RANDOM_HISTORY_KEY));
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveRandomHistory(history) {
+    try {
+      localStorage.setItem(RANDOM_HISTORY_KEY, JSON.stringify(history));
+    } catch (e) {
+      // Private browsing / storage disabled: the pick above still happened,
+      // it just won't be remembered for next time.
+    }
+  }
+
   const tbody = document.getElementById('songs-tbody');
   const searchInput = document.getElementById('search-input');
   const langFilter = document.getElementById('lang-filter');
@@ -254,10 +278,24 @@
       });
     });
 
-    // Random
+    // Random - skips the last ~20 picks so the same song doesn't keep coming
+    // back. If the current filter/search narrows the pool below that (or
+    // below 1), fall back to the full filtered pool rather than getting
+    // stuck with nothing to pick - a small pool naturally repeats sooner,
+    // which is fine; the history itself is left untouched in that case.
     randomBtn.addEventListener('click', () => {
       if (filteredSongs.length === 0) return;
-      const song = filteredSongs[Math.floor(Math.random() * filteredSongs.length)];
+      const history = loadRandomHistory();
+      let pool = filteredSongs.filter(s => !history.includes(s.slug));
+      if (pool.length === 0) pool = filteredSongs;
+
+      const song = pool[Math.floor(Math.random() * pool.length)];
+
+      const next = history.filter(slug => slug !== song.slug);
+      next.push(song.slug);
+      while (next.length > RANDOM_HISTORY_SIZE) next.shift();
+      saveRandomHistory(next);
+
       window.location.href = '../songs/' + song.slug + '.html';
     });
 

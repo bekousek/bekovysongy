@@ -54,8 +54,21 @@
     <div class="editor-sidebar" id="sidebar">
       <div class="sidebar-header">
         <input type="text" id="editor-search" class="filter-input" placeholder="Hledat píseň..." style="width:100%">
+        <div class="sidebar-actions">
+          <button type="button" class="btn-editor" id="btn-new-song">+ Nová píseň</button>
+          <button type="button" class="btn-editor btn-save" id="btn-save-all" disabled>Uložit vše <span id="save-all-count"></span></button>
+        </div>
       </div>
-      <ul class="song-list" id="song-list"></ul>
+      <div class="song-list-wrap" id="song-list-wrap">
+        <details class="song-section" id="section-unchecked" open>
+          <summary>Ke kontrole <span class="section-count" id="count-unchecked"></span></summary>
+          <ul class="song-list" id="song-list-unchecked"></ul>
+        </details>
+        <details class="song-section" id="section-checked" open>
+          <summary>Zkontrolováno <span class="section-count" id="count-checked"></span></summary>
+          <ul class="song-list" id="song-list-checked"></ul>
+        </details>
+      </div>
     </div>
 
     <div class="editor-main" id="editor-main">
@@ -144,9 +157,45 @@
     </div>
   </div>
 
+  <!-- New song dialog -->
+  <dialog id="new-song-dialog">
+    <form id="new-song-form">
+      <h2>Nová píseň</h2>
+      <label class="dialog-field">
+        Název
+        <input type="text" id="new-title" class="filter-input" required>
+      </label>
+      <label class="dialog-field">
+        Autor
+        <input type="text" id="new-author" class="filter-input">
+      </label>
+      <div class="dialog-row">
+        <label class="dialog-field">
+          Capo
+          <input type="number" id="new-capo" class="edit-meta-input" min="0" max="12" value="0">
+        </label>
+        <label class="dialog-field">
+          Jazyk
+          <select id="new-language" class="edit-meta-input">
+            <option value="CZ" selected>CZ</option>
+            <option value="EN">EN</option>
+            <option value="SK">SK</option>
+            <option value="PL">PL</option>
+          </select>
+        </label>
+      </div>
+      <p id="new-song-slug-preview" class="setup-note"></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn-editor" id="btn-new-cancel">Zrušit</button>
+        <button type="submit" class="btn-editor btn-save">Vytvořit</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="../js/chord-theory.js"></script>
   <script src="../js/song-cleanup.js"></script>
   <script src="../js/sections.js"></script>
+  <script src="../js/song-template.js"></script>
   <script src="../js/editor.js"></script>
   <script>
     if ('serviceWorker' in navigator) {

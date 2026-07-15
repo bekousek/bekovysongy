@@ -6,7 +6,10 @@
 
   const REPO_PATH_PREFIX = 'songs/';
   const SONGS_JSON_PATH = 'songs.json';
-  const BRANCH = 'main';
+  // Override via localStorage('gh_branch') to dry-run saves against a
+  // scratch branch instead of main - the deploy workflow only runs on main,
+  // so nothing deploys while testing this way.
+  const BRANCH = localStorage.getItem('gh_branch') || 'main';
 
   // Google sign-in gate. GOOGLE_CLIENT_ID doplň z Google Cloud Console
   // (OAuth Client ID typu "Web application", vypadá jako "…apps.googleusercontent.com").
@@ -23,7 +26,23 @@
   const ghRepoInput = document.getElementById('gh-repo');
   const saveTokenBtn = document.getElementById('save-token-btn');
   const editorSearch = document.getElementById('editor-search');
-  const songListEl = document.getElementById('song-list');
+  const songListUnchecked = document.getElementById('song-list-unchecked');
+  const songListChecked = document.getElementById('song-list-checked');
+  const countUnchecked = document.getElementById('count-unchecked');
+  const countChecked = document.getElementById('count-checked');
+  const sectionUnchecked = document.getElementById('section-unchecked');
+  const sectionChecked = document.getElementById('section-checked');
+  const btnNewSong = document.getElementById('btn-new-song');
+  const btnSaveAll = document.getElementById('btn-save-all');
+  const saveAllCount = document.getElementById('save-all-count');
+  const newSongDialog = document.getElementById('new-song-dialog');
+  const newSongForm = document.getElementById('new-song-form');
+  const newTitleInput = document.getElementById('new-title');
+  const newAuthorInput = document.getElementById('new-author');
+  const newCapoInput = document.getElementById('new-capo');
+  const newLanguageSelect = document.getElementById('new-language');
+  const newSongSlugPreview = document.getElementById('new-song-slug-preview');
+  const btnNewCancel = document.getElementById('btn-new-cancel');
   const editorPlaceholder = document.getElementById('editor-placeholder');
   const editorActive = document.getElementById('editor-active');
   const editTitle = document.getElementById('edit-title');
@@ -47,11 +66,26 @@
   let ghRepo = '';
   let allSongs = [];
   let currentSong = null;
-  let originalContent = '';
   let isPreviewMode = false;
-  let modifiedSlugs = new Set();
   let isAuthed = false;
   let chordShortcutsEnabled = localStorage.getItem('chord_shortcuts') !== 'off';
+
+  // slug -> pending entry. An entry exists for every song opened this
+  // session (clean or dirty) and every not-yet-pushed new song - it doubles
+  // as a content cache so switching songs never needs a re-fetch and never
+  // discards unsaved edits (unlike the old confirm-to-discard flow).
+  //
+  // entry shape: { isNew, rawHtml (song file as fetched; null for new songs),
+  //   title, author, capo (int, 0 = none), language, body (<pre> innerHTML),
+  //   baseTitle, baseAuthor, baseCapo, baseLanguage, baseBody (values at
+  //   load time / last successful save - used to detect dirtiness) }
+  const pendingEdits = new Map();
+
+  // Slugs whose "checked" flag has been flipped from its last-persisted
+  // value (toggle semantics: present = flipped, absent = at persisted
+  // value). Never contains isNew slugs - a new song's checked state is
+  // whatever's on its (not-yet-pushed) songs.json entry already.
+  const pendingChecked = new Set();
 
   // === Init ===
   function init() {
@@ -66,7 +100,8 @@
 
     saveTokenBtn.addEventListener('click', saveToken);
     editorSearch.addEventListener('input', filterSongList);
-    btnSave.addEventListener('click', saveToGitHub);
+    btnSave.addEventListener('click', saveCurrentSong);
+    btnSaveAll.addEventListener('click', saveAll);
     btnPreview.addEventListener('click', togglePreview);
     btnInsertChord.addEventListener('click', () => insertChord(chordInput.value.trim()));
     chordInput.addEventListener('keydown', (e) => {
@@ -108,25 +143,27 @@
     });
     editorArea.addEventListener('keydown', handleChordShortcut);
 
-    // Track modifications
-    editorArea.addEventListener('input', () => {
-      if (currentSong) {
-        modifiedSlugs.add(currentSong.slug);
-        updateSongListItem(currentSong.slug);
-      }
-    });
+    // Track modifications (typing, and any toolbar action that edits the body)
+    editorArea.addEventListener('input', syncCurrentEdits);
 
-    // Keyboard shortcuts
+    // Metadata edits didn't mark anything dirty before - now they do too.
+    editTitle.addEventListener('input', syncCurrentEdits);
+    editAuthor.addEventListener('input', syncCurrentEdits);
+    editCapo.addEventListener('input', syncCurrentEdits);
+    editLanguage.addEventListener('change', syncCurrentEdits);
+
+    // Keyboard shortcuts: Ctrl/Cmd+S saves the open song, +Shift saves all.
     document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
         e.preventDefault();
-        saveToGitHub();
+        if (e.shiftKey) saveAll();
+        else saveCurrentSong();
       }
     });
 
-    // Warn before closing/reloading the tab with unsaved edits.
+    // Warn before closing/reloading the tab with unsaved edits anywhere.
     window.addEventListener('beforeunload', (e) => {
-      if (currentSong && modifiedSlugs.has(currentSong.slug)) {
+      if (getDirtySlugs().length > 0) {
         e.preventDefault();
         e.returnValue = '';
       }
@@ -134,10 +171,42 @@
 
     // Handle chord deletion - delete whole chord span on backspace
     editorArea.addEventListener('keydown', handleEditorKeydown);
+
+    // New-song dialog
+    btnNewSong.addEventListener('click', () => {
+      newSongForm.reset();
+      newCapoInput.value = '0';
+      newLanguageSelect.value = 'CZ';
+      newSongSlugPreview.textContent = '';
+      newSongDialog.showModal();
+    });
+    btnNewCancel.addEventListener('click', () => newSongDialog.close());
+    newTitleInput.addEventListener('input', () => {
+      const title = newTitleInput.value.trim();
+      if (!title) {
+        newSongSlugPreview.textContent = '';
+        return;
+      }
+      const taken = new Set(allSongs.map(s => s.slug));
+      newSongSlugPreview.textContent = 'songs/' + SongTemplate.uniqueSlug(SongTemplate.slugify(title), taken) + '.html';
+    });
+    newSongForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      createNewSong();
+    });
   }
 
   // === Google sign-in gate ===
   function bootGoogleAuth() {
+    // Local dev: the Google gate is a UX convenience, not security - the
+    // real credential is the GitHub PAT, which localStorage on localhost
+    // doesn't have unless a developer puts it there deliberately.
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      isAuthed = true;
+      onAuthSuccess();
+      return;
+    }
+
     if (!GOOGLE_CLIENT_ID) {
       loginMsg.textContent = 'Editor zatím není nakonfigurovaný (chybí Google Client ID).';
       return;
@@ -238,31 +307,115 @@
   }
 
   function renderSongList(songs) {
-    songListEl.innerHTML = '';
+    const unchecked = songs.filter(s => !s.checked);
+    const checked = songs.filter(s => s.checked);
+    fillList(songListUnchecked, unchecked);
+    fillList(songListChecked, checked);
+    countUnchecked.textContent = '(' + unchecked.length + ')';
+    countChecked.textContent = '(' + checked.length + ')';
+  }
+
+  function fillList(ul, songs) {
+    ul.innerHTML = '';
     songs.forEach(song => {
       const li = document.createElement('li');
       li.dataset.slug = song.slug;
-      li.appendChild(document.createTextNode(song.title));
+
+      const main = document.createElement('div');
+      main.className = 'song-list-main';
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'song-list-title';
+      titleSpan.textContent = song.title;
+      main.appendChild(titleSpan);
       const authorSpan = document.createElement('span');
       authorSpan.className = 'song-list-author';
       authorSpan.textContent = song.author || '';
-      li.appendChild(authorSpan);
-      if (modifiedSlugs.has(song.slug)) li.classList.add('modified');
+      main.appendChild(authorSpan);
+      li.appendChild(main);
+
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'btn-check-toggle' + (song.checked ? ' on' : '');
+      toggle.textContent = '✓';
+      toggle.title = song.checked ? 'Vrátit ke kontrole' : 'Označit jako zkontrolováno';
+      toggle.setAttribute('aria-pressed', String(!!song.checked));
+      toggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        toggleChecked(song);
+      });
+      li.appendChild(toggle);
+
+      if (isDirty(song.slug)) li.classList.add('modified');
       if (currentSong && currentSong.slug === song.slug) li.classList.add('active');
       li.addEventListener('click', () => loadSong(song));
-      songListEl.appendChild(li);
+      ul.appendChild(li);
     });
   }
 
-  function updateSongListItem(slug) {
-    const li = songListEl.querySelector(`[data-slug="${slug}"]`);
-    if (li) li.classList.add('modified');
+  function refreshListItemDirty(slug) {
+    const li = document.querySelector('#song-list-wrap [data-slug="' + slug + '"]');
+    if (li) li.classList.toggle('modified', isDirty(slug));
+  }
+
+  function refreshDirtyUI() {
+    if (currentSong) refreshListItemDirty(currentSong.slug);
+    const n = getDirtySlugs().length;
+    saveAllCount.textContent = n ? '(' + n + ')' : '';
+    btnSaveAll.disabled = n === 0;
+  }
+
+  // === Pending-edit / dirty-state helpers ===
+  function isEditDirty(e) {
+    return e.isNew || e.title !== e.baseTitle || e.author !== e.baseAuthor ||
+      e.capo !== e.baseCapo || e.language !== e.baseLanguage || e.body !== e.baseBody;
+  }
+
+  function isDirty(slug) {
+    const e = pendingEdits.get(slug);
+    return (e ? isEditDirty(e) : false) || pendingChecked.has(slug);
+  }
+
+  function getDirtySlugs() {
+    const out = new Set();
+    pendingEdits.forEach((e, slug) => { if (isEditDirty(e)) out.add(slug); });
+    pendingChecked.forEach(slug => out.add(slug));
+    return Array.from(out);
+  }
+
+  // Pulls the topbar + editor area into the current song's pending entry.
+  function syncCurrentEdits() {
+    if (!currentSong) return;
+    const e = pendingEdits.get(currentSong.slug);
+    if (!e) return; // load failed earlier - edits aren't tracked, can't be saved
+    e.title = editTitle.value;
+    e.author = editAuthor.value;
+    e.capo = parseInt(editCapo.value, 10) || 0;
+    e.language = editLanguage.value;
+    e.body = editorArea.innerHTML;
+    refreshDirtyUI();
+  }
+
+  function toggleChecked(song) {
+    song.checked = !song.checked; // live value shown in the sidebar right away
+    const e = pendingEdits.get(song.slug);
+    if (!e || !e.isNew) {
+      if (pendingChecked.has(song.slug)) pendingChecked.delete(song.slug);
+      else pendingChecked.add(song.slug);
+    }
+    filterSongList(); // song jumps to the other section immediately
+    refreshDirtyUI();
   }
 
   // Strip diacritics so e.g. "zelva" matches "želva" - handy on mobile
   // keyboards that don't type Czech háčky/čárky by default.
+  // Combining Diacritical Marks block (U+0300-U+036F), built from numeric
+  // char codes rather than a \u-escape literal - a literal here risks
+  // silently becoming the raw combining characters themselves in transit
+  // (see js/song-template.js's COMBINING_MARKS_RE for the same precaution).
+  const COMBINING_MARKS_RE = new RegExp('[' + String.fromCharCode(0x0300) + '-' + String.fromCharCode(0x036f) + ']', 'g');
+
   function normalizeForSearch(s) {
-    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    return s.normalize('NFD').replace(COMBINING_MARKS_RE, '').toLowerCase();
   }
 
   function filterSongList() {
@@ -271,22 +424,38 @@
       normalizeForSearch(s.title + ' ' + s.author).includes(q)
     );
     renderSongList(filtered);
+    if (q) {
+      // Make sure search hits in a collapsed section are visible.
+      sectionUnchecked.open = true;
+      sectionChecked.open = true;
+    }
   }
 
   // === Load Song ===
   async function loadSong(song) {
-    if (currentSong && currentSong.slug !== song.slug && modifiedSlugs.has(currentSong.slug)) {
-      const discard = confirm(`Píseň "${currentSong.title}" má neuložené změny. Přepnout na jinou píseň a zahodit je?`);
-      if (!discard) return;
-      modifiedSlugs.delete(currentSong.slug);
-    }
-
     currentSong = song;
     editorPlaceholder.style.display = 'none';
     editorActive.style.display = 'flex';
     isPreviewMode = false;
     editorArea.style.display = '';
     editorPreview.style.display = 'none';
+
+    const cached = pendingEdits.get(song.slug);
+    if (cached) {
+      // Already opened this session (or brand new) - restore from memory,
+      // no fetch, no discard prompt.
+      editTitle.value = cached.title;
+      editAuthor.value = cached.author;
+      editCapo.value = cached.capo || '';
+      editLanguage.value = cached.language;
+      editorArea.innerHTML = cached.body;
+      filterSongList();
+      setStatus(
+        cached.isNew ? `Nová píseň: ${cached.title} (zatím jen v prohlížeči)` : `Načteno (z mezipaměti): ${song.title}`,
+        'success'
+      );
+      return;
+    }
 
     editTitle.value = song.title;
     editAuthor.value = song.author || '';
@@ -302,18 +471,38 @@
 
       // Extract pre content
       const m = html.match(/<pre class="song-text">([\s\S]*?)<\/pre>/);
-      if (m) {
-        originalContent = m[1];
-        editorArea.innerHTML = m[1];
-      } else {
-        editorArea.innerHTML = '<em>Nepodařilo se načíst obsah</em>';
+      if (!m) {
+        setStatus('Chyba při načítání písně (chybí <pre class="song-text">)', 'error');
+        return;
       }
 
-      // Rebuild list so a discarded "modified" state (see above) disappears too.
-      filterSongList();
+      editorArea.innerHTML = m[1];
+      // Read back the normalized markup (the browser can reflow raw HTML on
+      // assignment) so later dirty-checks compare like with like instead of
+      // diffing against the pre-normalization regex capture.
+      const body = editorArea.innerHTML;
+      const capo = (song.tags && typeof song.tags.capo === 'number') ? song.tags.capo : 0;
+      const language = (song.tags && song.tags.language) || '';
 
+      pendingEdits.set(song.slug, {
+        isNew: false,
+        rawHtml: html,
+        title: song.title,
+        author: song.author || '',
+        capo, language, body,
+        baseTitle: song.title,
+        baseAuthor: song.author || '',
+        baseCapo: capo,
+        baseLanguage: language,
+        baseBody: body
+      });
+
+      filterSongList();
       setStatus(`Načteno: ${song.title}`, 'success');
     } catch (e) {
+      // Deliberately no pendingEdits entry on failure - saveCurrentSong()
+      // refuses to save a song with no entry, so an error message can never
+      // get written into the file in place of real content.
       setStatus('Chyba při načítání písně', 'error');
     }
   }
@@ -359,7 +548,7 @@
     sel.addRange(range);
 
     chordInput.value = '';
-    if (currentSong) modifiedSlugs.add(currentSong.slug);
+    if (currentSong) syncCurrentEdits();
   }
 
   // === Section markers ===
@@ -391,10 +580,7 @@
       sel.addRange(range);
     }
 
-    if (currentSong) {
-      modifiedSlugs.add(currentSong.slug);
-      updateSongListItem(currentSong.slug);
-    }
+    if (currentSong) syncCurrentEdits();
   }
 
   // === Cleanup / transpose actions ===
@@ -402,8 +588,7 @@
     if (!currentSong) return;
     try {
       editorArea.innerHTML = fn(editorArea.innerHTML);
-      modifiedSlugs.add(currentSong.slug);
-      updateSongListItem(currentSong.slug);
+      syncCurrentEdits();
       setStatus('Upraveno (zatím neuloženo)', '');
     } catch (e) {
       setStatus('Chyba při úpravě: ' + e.message, 'error');
@@ -449,7 +634,7 @@
           if (prev && prev.classList && prev.classList.contains('chord')) {
             e.preventDefault();
             prev.remove();
-            if (currentSong) modifiedSlugs.add(currentSong.slug);
+            if (currentSong) syncCurrentEdits();
             return;
           }
         }
@@ -460,7 +645,7 @@
           if (child && child.classList && child.classList.contains('chord')) {
             e.preventDefault();
             child.remove();
-            if (currentSong) modifiedSlugs.add(currentSong.slug);
+            if (currentSong) syncCurrentEdits();
             return;
           }
         }
@@ -489,146 +674,261 @@
     }
   }
 
-  // === Save to GitHub (single atomic commit) ===
-  async function saveToGitHub() {
+  // === New song ===
+  function createNewSong() {
+    const title = newTitleInput.value.trim();
+    if (!title) return;
+    const author = newAuthorInput.value.trim();
+    const capo = parseInt(newCapoInput.value, 10) || 0;
+    const language = newLanguageSelect.value || 'CZ';
+
+    const taken = new Set(allSongs.map(s => s.slug));
+    const slug = SongTemplate.uniqueSlug(SongTemplate.slugify(title), taken);
+
+    // Lives only in memory until Uložit/Uložit vše pushes it - insert
+    // sorted so the sidebar and a future songs.json diff both read sanely.
+    const song = { title, slug, author, chords: [], tags: { capo: capo || false, language }, checked: false };
+    const idx = allSongs.findIndex(s => s.title.toLowerCase() > title.toLowerCase());
+    if (idx === -1) allSongs.push(song); else allSongs.splice(idx, 0, song);
+
+    pendingEdits.set(slug, {
+      isNew: true,
+      rawHtml: null,
+      title, author, capo, language, body: '',
+      baseTitle: null, baseAuthor: null, baseCapo: null, baseLanguage: null, baseBody: null
+    });
+
+    newSongDialog.close();
+    filterSongList();
+    loadSong(song); // pendingEdits already has it -> restores from memory, no fetch
+    refreshDirtyUI();
+  }
+
+  // === Save to GitHub ===
+  // Extracts the sorted, deduplicated chord list from a song body - used to
+  // keep songs.json's "chords" array in sync with whatever's actually typed.
+  function extractChords(body) {
+    const chords = new Set();
+    const re = /data-chord="([^"]+)"/g;
+    let m;
+    while ((m = re.exec(body)) !== null) chords.add(m[1]);
+    return Array.from(chords).sort();
+  }
+
+  // Rebuilds songs/<slug>.html for one pending entry. Brand-new songs use
+  // the canonical template; existing songs re-apply the same replacements
+  // saveToGitHub always used, against the cached rawHtml (no re-fetch needed).
+  function buildSongHtml(slug, e) {
+    const title = e.title.trim() || e.baseTitle || 'Bez názvu';
+    const author = e.author.trim();
+    const capo = e.capo || 0;
+
+    if (e.isNew || e.rawHtml == null) {
+      return SongTemplate.generateSongHtml({ title, author, capo, body: e.body, slug });
+    }
+
+    let html = e.rawHtml;
+
+    // Update title
+    html = html.replace(/<h1>.*?<\/h1>/, `<h1>${escapeHtml(title)}</h1>`);
+
+    // Update author
+    if (author) {
+      if (html.includes('class="song-author"')) {
+        html = html.replace(
+          /<p class="song-author">.*?<\/p>/,
+          `<p class="song-author">${escapeHtml(author)}</p>`
+        );
+      } else {
+        html = html.replace(
+          '</div>\n    <pre',
+          `<p class="song-author">${escapeHtml(author)}</p>\n    </div>\n    <pre`
+        );
+      }
+    }
+
+    // Update capo
+    if (capo > 0) {
+      if (html.includes('class="song-capo"')) {
+        html = html.replace(
+          /<p class="song-capo">.*?<\/p>/,
+          `<p class="song-capo">Capo ${capo}</p>`
+        );
+      } else {
+        html = html.replace(
+          /(\s*)(    <\/div>\s*\n\s*<pre class="song-text">)/,
+          `\n      <p class="song-capo">Capo ${capo}</p>\n$2`
+        );
+      }
+    } else {
+      // Remove capo line if set to 0
+      html = html.replace(/\s*<p class="song-capo">.*?<\/p>/, '');
+    }
+
+    // Update song content
+    html = html.replace(
+      /<pre class="song-text">[\s\S]*?<\/pre>/,
+      `<pre class="song-text">${e.body}</pre>`
+    );
+
+    // Update <title>
+    html = html.replace(
+      /<title>.*?<\/title>/,
+      `<title>${escapeHtml(title)} - Bekovy songy</title>`
+    );
+
+    // Update mailto subject (if mailto link exists in the file)
+    html = html.replace(
+      /mailto:[^?]+\?subject=[^"]+/,
+      `mailto:ondrejbek8@gmail.com?subject=Bug: ${encodeURIComponent(title)}`
+    );
+
+    return html;
+  }
+
+  // Fetches a FRESH songs.json and applies pending state for ONLY the given
+  // slugs, so a per-song save can never leak some other song's unrelated
+  // pending edits or checked-toggle into the committed file.
+  async function buildMergedSongsJson(slugs) {
+    const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
+
+    for (const slug of slugs) {
+      const e = pendingEdits.get(slug);
+      const local = allSongs.find(s => s.slug === slug);
+      let song = data.songs.find(s => s.slug === slug);
+
+      if (!song) {
+        if (!e || !e.isNew) continue; // shouldn't happen, nothing to do
+        song = { title: '', slug, author: '', chords: [], tags: {} };
+        const idx = data.songs.findIndex(s => s.title.toLowerCase() > e.title.toLowerCase());
+        if (idx === -1) data.songs.push(song); else data.songs.splice(idx, 0, song);
+      }
+
+      if (e && isEditDirty(e)) {
+        song.title = e.title.trim() || e.baseTitle || 'Bez názvu';
+        song.author = e.author.trim();
+        if (!song.tags) song.tags = {};
+        song.tags.capo = e.capo || false;
+        if (e.language) song.tags.language = e.language;
+        song.chords = extractChords(e.body);
+      }
+
+      if (local && (pendingChecked.has(slug) || (e && e.isNew))) {
+        if (local.checked) song.checked = true;
+        else delete song.checked; // absence = "ke kontrole", keeps the file minimal
+      }
+    }
+
+    return JSON.stringify(data, null, 2);
+  }
+
+  // Commits every dirty HTML file among `slugs` plus one merged songs.json,
+  // in a single atomic commit (one push = one deploy, no desync).
+  async function performSave(slugs, message) {
+    const files = [];
+    const builtHtml = new Map();
+
+    for (const slug of slugs) {
+      const e = pendingEdits.get(slug);
+      if (e && isEditDirty(e)) {
+        const html = buildSongHtml(slug, e);
+        builtHtml.set(slug, html);
+        files.push({ path: `${REPO_PATH_PREFIX}${slug}.html`, content: html });
+      }
+      // A slug that's only checked-toggled (not e/isEditDirty) contributes
+      // no HTML file - only its songs.json entry changes.
+    }
+    files.push({ path: SONGS_JSON_PATH, content: await buildMergedSongsJson(slugs) });
+
+    await commitFiles(files, message);
+
+    // Bookkeeping: rebase each saved slug's pending entry onto its new
+    // "clean" state, and reflect the same fields into allSongs.
+    for (const slug of slugs) {
+      const e = pendingEdits.get(slug);
+      const local = allSongs.find(s => s.slug === slug);
+      if (e) {
+        const title = e.title.trim() || e.baseTitle || 'Bez názvu';
+        if (local) {
+          local.title = title;
+          local.author = e.author.trim();
+          if (!local.tags) local.tags = {};
+          local.tags.capo = e.capo || false;
+          if (e.language) local.tags.language = e.language;
+          local.chords = extractChords(e.body);
+        }
+        e.isNew = false;
+        if (builtHtml.has(slug)) e.rawHtml = builtHtml.get(slug);
+        e.title = title;
+        e.baseTitle = title;
+        e.baseAuthor = e.author;
+        e.baseCapo = e.capo;
+        e.baseLanguage = e.language;
+        e.baseBody = e.body;
+      }
+      pendingChecked.delete(slug);
+    }
+
+    filterSongList();
+    refreshDirtyUI();
+  }
+
+  async function saveCurrentSong() {
     if (!currentSong || !ghToken) return;
+    const e = pendingEdits.get(currentSong.slug);
+    if (!e) {
+      setStatus('Píseň se nenačetla, nelze uložit', 'error');
+      return;
+    }
+    if (!isDirty(currentSong.slug)) {
+      setStatus('Žádné změny k uložení', '');
+      return;
+    }
 
     btnSave.disabled = true;
+    btnSaveAll.disabled = true;
     setStatus('Ukládám na GitHub...', 'saving');
 
     try {
-      const filePath = `${REPO_PATH_PREFIX}${currentSong.slug}.html`;
-
-      // Values from the form
-      const newTitle = editTitle.value.trim() || currentSong.title;
-      const newAuthor = editAuthor.value.trim();
-      const newCapo = editCapo.value ? parseInt(editCapo.value) : 0;
-      const newLanguage = editLanguage.value || '';
-      const newContent = editorArea.innerHTML;
-
-      // 1. Build updated song HTML from the current file (preserve structure, UTF-8 safe)
-      const originalHTML = await getFileContent(filePath);
-      let updatedHTML = originalHTML;
-
-      // Update title
-      updatedHTML = updatedHTML.replace(
-        /<h1>.*?<\/h1>/,
-        `<h1>${escapeHtml(newTitle)}</h1>`
-      );
-
-      // Update author
-      if (newAuthor) {
-        if (updatedHTML.includes('class="song-author"')) {
-          updatedHTML = updatedHTML.replace(
-            /<p class="song-author">.*?<\/p>/,
-            `<p class="song-author">${escapeHtml(newAuthor)}</p>`
-          );
-        } else {
-          updatedHTML = updatedHTML.replace(
-            '</div>\n    <pre',
-            `<p class="song-author">${escapeHtml(newAuthor)}</p>\n    </div>\n    <pre`
-          );
-        }
-      }
-
-      // Update capo
-      if (newCapo > 0) {
-        if (updatedHTML.includes('class="song-capo"')) {
-          updatedHTML = updatedHTML.replace(
-            /<p class="song-capo">.*?<\/p>/,
-            `<p class="song-capo">Capo ${newCapo}</p>`
-          );
-        } else {
-          // Insert before </div> that precedes <pre
-          updatedHTML = updatedHTML.replace(
-            /(\s*)(    <\/div>\s*\n\s*<pre class="song-text">)/,
-            `\n      <p class="song-capo">Capo ${newCapo}</p>\n$2`
-          );
-        }
-      } else {
-        // Remove capo line if set to 0
-        updatedHTML = updatedHTML.replace(/\s*<p class="song-capo">.*?<\/p>/, '');
-      }
-
-      // Update song content
-      updatedHTML = updatedHTML.replace(
-        /<pre class="song-text">[\s\S]*?<\/pre>/,
-        `<pre class="song-text">${newContent}</pre>`
-      );
-
-      // Update <title>
-      updatedHTML = updatedHTML.replace(
-        /<title>.*?<\/title>/,
-        `<title>${escapeHtml(newTitle)} - Bekovy songy</title>`
-      );
-
-      // Update mailto subject (if mailto link exists in the file)
-      updatedHTML = updatedHTML.replace(
-        /mailto:[^?]+\?subject=[^"]+/,
-        `mailto:ondrejbek8@gmail.com?subject=Bug: ${encodeURIComponent(newTitle)}`
-      );
-
-      // 2. Build updated songs.json (metadata + chords)
-      const newSongsJson = await buildUpdatedSongsJson(
-        currentSong.slug, newTitle, newAuthor, newCapo, newLanguage, newContent
-      );
-
-      // 3. Commit song HTML + songs.json in a SINGLE commit (one deploy, no desync)
-      const files = [{ path: filePath, content: updatedHTML }];
-      if (newSongsJson !== null) files.push({ path: SONGS_JSON_PATH, content: newSongsJson });
-      await commitFiles(files, `Edit: ${newTitle}`);
-
-      // 4. Update local state
-      currentSong.title = newTitle;
-      currentSong.author = newAuthor;
-      if (!currentSong.tags) currentSong.tags = {};
-      currentSong.tags.capo = newCapo || false;
-      currentSong.tags.language = newLanguage || '';
-      modifiedSlugs.delete(currentSong.slug);
-      originalContent = newContent;
-
-      // Refresh list
-      filterSongList();
-
-      setStatus(`Uloženo: ${newTitle}`, 'success');
-    } catch (e) {
-      setStatus(`Chyba: ${e.message}`, 'error');
-      console.error(e);
+      const title = e.title.trim() || e.baseTitle;
+      const message = (e.isNew ? 'Add: ' : 'Edit: ') + title;
+      await performSave([currentSong.slug], message);
+      setStatus(`Uloženo: ${title}`, 'success');
+    } catch (err) {
+      setStatus(`Chyba: ${err.message}`, 'error');
+      console.error(err);
     } finally {
       btnSave.disabled = false;
+      refreshDirtyUI();
     }
   }
 
-  async function buildUpdatedSongsJson(slug, newTitle, newAuthor, newCapo, newLanguage, htmlContent) {
+  async function saveAll() {
+    if (!ghToken) return;
+    const slugs = getDirtySlugs();
+    if (!slugs.length) return;
+
+    btnSave.disabled = true;
+    btnSaveAll.disabled = true;
+    setStatus('Ukládám na GitHub...', 'saving');
+
     try {
-      const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
-
-      const song = data.songs.find(s => s.slug === slug);
-      if (song) {
-        song.title = newTitle;
-        song.author = newAuthor;
-
-        // Update tags
-        if (!song.tags) song.tags = {};
-        song.tags.capo = newCapo || false;
-        if (newLanguage) {
-          song.tags.language = newLanguage;
-        }
-
-        // Extract chords from HTML content
-        const chords = new Set();
-        const re = /data-chord="([^"]+)"/g;
-        let m;
-        while ((m = re.exec(htmlContent)) !== null) {
-          chords.add(m[1]);
-        }
-        song.chords = Array.from(chords).sort();
-      }
-
-      return JSON.stringify(data, null, 2);
-    } catch (e) {
-      console.warn('Failed to build songs.json update:', e);
-      return null;
+      const titles = slugs.map(slug => {
+        const e = pendingEdits.get(slug);
+        const local = allSongs.find(s => s.slug === slug);
+        return (e && e.title) || (local && local.title) || slug;
+      });
+      const message = slugs.length === 1
+        ? `Edit: ${titles[0]}`
+        : `Edit: ${slugs.length} písní (${titles.slice(0, 3).join(', ')}${slugs.length > 3 ? ', …' : ''})`;
+      await performSave(slugs, message);
+      setStatus(`Uloženo ${slugs.length} písní`, 'success');
+    } catch (err) {
+      setStatus(`Chyba: ${err.message}`, 'error');
+      console.error(err);
+    } finally {
+      btnSave.disabled = false;
+      refreshDirtyUI();
     }
   }
 

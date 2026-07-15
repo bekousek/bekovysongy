@@ -76,13 +76,55 @@
   border-bottom: 1px solid var(--border);
 }
 
-.song-list {
-  list-style: none;
+.sidebar-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sidebar-actions .btn-editor {
+  flex: 1;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Scroll container for both sections - the individual <ul class="song-list">
+   inside each <details> no longer scroll on their own. */
+.song-list-wrap {
   overflow-y: auto;
   flex: 1;
 }
 
+.song-section summary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+
+.section-count {
+  color: var(--text-dim);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.song-list {
+  list-style: none;
+}
+
 .song-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
   border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -99,6 +141,11 @@
   color: var(--accent);
 }
 
+.song-list-main {
+  flex: 1;
+  min-width: 0;
+}
+
 .song-list li .song-list-author {
   display: block;
   font-size: 0.75rem;
@@ -106,11 +153,39 @@
   margin-top: 0.1rem;
 }
 
-.song-list li.modified::after {
-  content: '●';
+/* Dirty indicator now anchors to the title specifically (the li itself is a
+   flex row shared with .btn-check-toggle, so it can't float on the li). */
+.song-list li.modified .song-list-title::after {
+  content: ' ●';
   color: var(--accent);
-  float: right;
+}
+
+.btn-check-toggle {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
   font-size: 0.7rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-check-toggle:hover {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.btn-check-toggle.on {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
 }
 
 /* Main area */
@@ -409,6 +484,60 @@ select.edit-meta-input {
 
 .editor-status.saving {
   color: var(--accent);
+}
+
+/* New song dialog */
+#new-song-dialog {
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+}
+
+#new-song-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#new-song-dialog h2 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.dialog-field input,
+.dialog-field select {
+  font-family: var(--font);
+}
+
+.dialog-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.dialog-row .dialog-field {
+  flex: 1;
+}
+
+#new-song-slug-preview {
+  font-family: monospace;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 /* Responsive */

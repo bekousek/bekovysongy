@@ -111,6 +111,7 @@ for (const s of songs) {
   if (!s.title || !s.title.trim()) fail(`songs.json: "${s.slug}" has an empty title`);
   if (!Array.isArray(s.chords)) fail(`songs.json: "${s.slug}" is missing a chords array`);
   if (!s.tags || typeof s.tags.language !== 'string') warn(`songs.json: "${s.slug}" has no tags.language`);
+  if ('checked' in s && typeof s.checked !== 'boolean') fail(`songs.json: "${s.slug}" has a non-boolean "checked" field`);
 }
 
 // === Report ===
