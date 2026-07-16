@@ -705,14 +705,15 @@
   }
 
   // === Save to GitHub ===
-  // Extracts the sorted, deduplicated chord list from a song body - used to
-  // keep songs.json's "chords" array in sync with whatever's actually typed.
+  // Extracts the deduplicated chord list from a song body, in the order each
+  // chord first appears (play order) - used to keep songs.json's "chords"
+  // array in sync with whatever's actually typed.
   function extractChords(body) {
     const chords = new Set();
     const re = /data-chord="([^"]+)"/g;
     let m;
     while ((m = re.exec(body)) !== null) chords.add(m[1]);
-    return Array.from(chords).sort();
+    return Array.from(chords);
   }
 
   // Rebuilds songs/<slug>.html for one pending entry. Brand-new songs use

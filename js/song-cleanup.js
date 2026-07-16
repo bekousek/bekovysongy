@@ -36,8 +36,12 @@
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
       .replace(/&quot;/g, '"')
-      .replace(/&#0*39;/g, "'")
       .replace(/&apos;/g, "'")
+      // Numeric char refs (decimal &#39; and hex &#x27;) - must run before
+      // &amp; below, otherwise a leftover unmatched &#x... would get its "&"
+      // escaped back to &amp;#x... on render, double-encoding it.
+      .replace(/&#x([0-9a-fA-F]+);/g, function (_, hex) { return String.fromCodePoint(parseInt(hex, 16)); })
+      .replace(/&#(\d+);/g, function (_, dec) { return String.fromCodePoint(parseInt(dec, 10)); })
       .replace(/&nbsp;/g, ' ')
       .replace(/&amp;/g, '&'); // decode &amp; last
   }

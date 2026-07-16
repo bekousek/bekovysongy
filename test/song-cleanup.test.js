@@ -31,6 +31,12 @@ test('normalizeChordSpacing: preserves leading indentation', () => {
   assert.match(out, /^ {4}indented/);
 });
 
+test('normalizeChordSpacing: decodes a hex numeric char ref instead of double-escaping it', () => {
+  const input = `I${chord('C')}don&#x27;t know`;
+  const out = SongCleanup.normalizeChordSpacing(input);
+  assert.equal(out, `I ${chord('C')} don't know`);
+});
+
 test('removeEmptyLines: strips blank lines but keeps lines that only contain a chord', () => {
   const input = `line one\n\n\nline two\n${chord('C')}\n\nline three`;
   const out = SongCleanup.removeEmptyLines(input);
