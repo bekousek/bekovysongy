@@ -35,12 +35,28 @@
     }
   });
 
+  // If register() just found a newer sw.js than the one currently active,
+  // that new worker starts out installing/waiting - not yet the one in
+  // `reg.active`. Posting to `reg.active` in that window hits the outgoing
+  // worker, which silently drops unknown messages (no PRECACHE_* handler on
+  // old versions), so the button hangs on "Připravuji stahování...". Wait
+  // for the incoming worker to finish activating first.
+  function waitForActivation(worker) {
+    return new Promise((resolve) => {
+      if (worker.state === 'activated') { resolve(); return; }
+      worker.addEventListener('statechange', () => {
+        if (worker.state === 'activated') resolve();
+      });
+    });
+  }
+
   btn.addEventListener('click', async () => {
     btn.disabled = true;
     setStatus('Připravuji stahování...');
     try {
-      await navigator.serviceWorker.register(btn.dataset.swPath);
-      const reg = await navigator.serviceWorker.ready;
+      const reg = await navigator.serviceWorker.register(btn.dataset.swPath);
+      const incoming = reg.installing || reg.waiting;
+      if (incoming) await waitForActivation(incoming);
       if (!reg.active) throw new Error('no active service worker');
       reg.active.postMessage({ type: 'PRECACHE_ALL' });
     } catch (e) {
