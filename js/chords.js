@@ -235,6 +235,19 @@
     chordEl.appendChild(tooltip);
     activeTooltip = { el: tooltip, parent: chordEl };
 
+    // Bar chips sit inside a horizontal scroller (.chord-bar-chips) that
+    // clips absolutely-positioned descendants - pop the tooltip out with
+    // fixed positioning instead: below the whole bar (the bar is taller than
+    // the chip, so anchoring to the chip would overlap it), centered on the chip.
+    if (chordEl.closest('.chord-bar-chips')) {
+      const chipRect = chordEl.getBoundingClientRect();
+      const barRect = chordEl.closest('.chord-bar').getBoundingClientRect();
+      tooltip.style.position = 'fixed';
+      tooltip.style.bottom = 'auto';
+      tooltip.style.top = (barRect.bottom + 8) + 'px';
+      tooltip.style.left = (chipRect.left + chipRect.width / 2) + 'px';
+    }
+
     // Ensure tooltip is visible in viewport
     const rect = tooltip.getBoundingClientRect();
     if (rect.top < 0) {
@@ -275,12 +288,23 @@
     document.addEventListener('touchstart', (e) => {
       const chord = e.target.closest('.chord');
       if (chord) {
-        e.preventDefault();
+        // Chips live in a horizontal scroller - preventDefault would block
+        // swipe-scrolling the strip.
+        if (!chord.closest('.chord-bar-chips')) e.preventDefault();
         showTooltip(chord);
       } else {
         hideTooltip();
       }
     });
+
+    // Bar chips sit inside a horizontal scroller (.chord-bar-chips); a fixed
+    // tooltip would otherwise "hang" in place while the chips scroll under it.
+    // scroll doesn't bubble, so this must be capture-phase on document.
+    document.addEventListener('scroll', (e) => {
+      if (e.target instanceof Element && e.target.closest('.chord-bar-chips')) {
+        hideTooltip();
+      }
+    }, true);
   }
 
   // Export for use. Browser: window.ChordDiagrams. Node: module.exports (for

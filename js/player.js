@@ -54,7 +54,62 @@
     });
   }
 
+  // === Mobile chord bar (sticky top bar replacing the hidden nav) ===
+  // Injected at runtime so the ~570 static song pages don't need editing.
+  function buildChordBar() {
+    const main = document.querySelector('main.song-page');
+    if (!main) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'chord-bar';
+
+    // Back arrow: real <a> so it degrades to plain ../ navigation; history.back()
+    // only when we verifiably arrived from this site (preserves list scroll and
+    // filter state). Song pages are always exactly one directory deep, so ../ is
+    // the site root (same invariant as the sw.js registration above).
+    const back = document.createElement('a');
+    back.className = 'chord-bar-back';
+    back.href = '../';
+    back.setAttribute('aria-label', 'Zpět na seznam písní');
+    back.innerHTML =
+      '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
+      'stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>';
+    back.addEventListener('click', (e) => {
+      let fromSite = false;
+      try {
+        fromSite = !!document.referrer &&
+          new URL(document.referrer).origin === location.origin;
+      } catch (err) { /* malformed referrer -> plain navigation */ }
+      if (fromSite && history.length > 1) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+    bar.appendChild(back);
+
+    // Unique chords, first-seen document order. Scoped to .song-text so the
+    // bar's own chips can never be re-collected.
+    const seen = new Set();
+    const chips = document.createElement('div');
+    chips.className = 'chord-bar-chips';
+    main.querySelectorAll('.song-text .chord').forEach((el) => {
+      const name = el.dataset.chord;
+      if (!name || seen.has(name)) return;
+      seen.add(name);
+      const chip = document.createElement('span');
+      chip.className = 'chord';          // opts into transpose + tooltip
+      chip.dataset.chord = name;
+      chip.textContent = name;
+      chips.appendChild(chip);
+    });
+    if (seen.size) bar.appendChild(chips);
+
+    document.body.insertBefore(bar, main);
+    document.body.classList.add('has-chord-bar');
+  }
+
   buildSections();
+  buildChordBar();
 
   // Chord parsing/transposition lives in chord-theory.js (shared with the
   // editor's song-cleanup.js), loaded before this script.
