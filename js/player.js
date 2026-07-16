@@ -26,7 +26,37 @@
     const showRepeats = localStorage.getItem(REPEATS_KEY) === 'on';
     pre.classList.toggle('show-repeats', showRepeats);
 
+    bindRepeatPeek(pre);
     injectRepeatsToggle(pre, showRepeats);
+  }
+
+  // Collapsed repeats render as pills; tapping one peeks at just that
+  // occurrence (the player-bar toggle still expands them all at once).
+  function bindRepeatPeek(pre) {
+    pre.querySelectorAll('.is-repeat .section-head').forEach((head) => {
+      head.setAttribute('role', 'button');
+      head.tabIndex = 0;
+      head.title = 'Rozbalit / sbalit opakování';
+      head.setAttribute('aria-expanded', 'false');
+    });
+
+    const togglePeek = (head) => {
+      const sec = head.closest('.is-repeat');
+      const on = sec.classList.toggle('peek');
+      head.setAttribute('aria-expanded', String(on));
+    };
+    pre.addEventListener('click', (e) => {
+      const head = e.target.closest('.is-repeat .section-head');
+      if (head && !pre.classList.contains('show-repeats')) togglePeek(head);
+    });
+    pre.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const head = e.target.closest('.is-repeat .section-head');
+      if (head && !pre.classList.contains('show-repeats')) {
+        e.preventDefault();
+        togglePeek(head);
+      }
+    });
   }
 
   function injectRepeatsToggle(pre, showRepeats) {

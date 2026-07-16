@@ -50,7 +50,9 @@
   const editCapo = document.getElementById('edit-capo');
   const editLanguage = document.getElementById('edit-language');
   const editorArea = document.getElementById('editor-area');
+  const editorBody = document.getElementById('editor-body');
   const editorPreview = document.getElementById('editor-preview');
+  const previewCollapsed = document.getElementById('preview-collapsed');
   const editorStatus = document.getElementById('editor-status');
   const btnSave = document.getElementById('btn-save');
   const btnPreview = document.getElementById('btn-preview');
@@ -66,9 +68,13 @@
   let ghRepo = '';
   let allSongs = [];
   let currentSong = null;
-  let isPreviewMode = false;
   let isAuthed = false;
   let chordShortcutsEnabled = localStorage.getItem('chord_shortcuts') !== 'off';
+
+  // Live preview: on wide screens it sits next to the editor, on narrow ones
+  // it replaces it (CSS media query does the layout, JS only flips the class).
+  let previewOn = localStorage.getItem('editor_preview') !== 'off';
+  const narrowMQ = window.matchMedia('(max-width: 1099px)');
 
   // slug -> pending entry. An entry exists for every song opened this
   // session (clean or dirty) and every not-yet-pushed new song - it doubles
@@ -103,6 +109,16 @@
     btnSave.addEventListener('click', saveCurrentSong);
     btnSaveAll.addEventListener('click', saveAll);
     btnPreview.addEventListener('click', togglePreview);
+    applyPreviewState();
+
+    // Preview interactivity: the collapse checkbox re-renders, section action
+    // buttons (join/detach) rewrite the source, pills peek like on the site.
+    previewCollapsed.addEventListener('change', () => {
+      localStorage.setItem('editor_preview_collapsed', previewCollapsed.checked ? 'on' : 'off');
+      renderPreview();
+    });
+    previewCollapsed.checked = localStorage.getItem('editor_preview_collapsed') !== 'off';
+    editorPreview.addEventListener('click', handlePreviewClick);
     btnInsertChord.addEventListener('click', () => insertChord(chordInput.value.trim()));
     chordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
@@ -393,6 +409,7 @@
     e.language = editLanguage.value;
     e.body = editorArea.innerHTML;
     refreshDirtyUI();
+    schedulePreview();
   }
 
   function toggleChecked(song) {
@@ -436,9 +453,6 @@
     currentSong = song;
     editorPlaceholder.style.display = 'none';
     editorActive.style.display = 'flex';
-    isPreviewMode = false;
-    editorArea.style.display = '';
-    editorPreview.style.display = 'none';
 
     const cached = pendingEdits.get(song.slug);
     if (cached) {
@@ -449,6 +463,7 @@
       editCapo.value = cached.capo || '';
       editLanguage.value = cached.language;
       editorArea.innerHTML = cached.body;
+      renderPreview();
       filterSongList();
       setStatus(
         cached.isNew ? `Nová píseň: ${cached.title} (zatím jen v prohlížeči)` : `Načteno (z mezipaměti): ${song.title}`,
@@ -477,6 +492,7 @@
       }
 
       editorArea.innerHTML = m[1];
+      renderPreview();
       // Read back the normalized markup (the browser can reflow raw HTML on
       // assignment) so later dirty-checks compare like with like instead of
       // diffing against the pre-normalization regex capture.
@@ -604,7 +620,7 @@
 
   // Number keys 1..9 insert the matching toolbar chord at the caret.
   function handleChordShortcut(e) {
-    if (!chordShortcutsEnabled || isPreviewMode) return;
+    if (!chordShortcutsEnabled || isEditorHidden()) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (!/^[1-9]$/.test(e.key)) return;
     const btns = document.querySelectorAll('.btn-quick-chord');
@@ -653,25 +669,151 @@
     }
   }
 
-  // === Preview ===
+  // === Live preview ===
+  // Renders the song exactly like the live page (shared SongSections
+  // transform + site CSS) and decorates it with editor-only controls:
+  // join/detach buttons that decide what still belongs to a section.
+  let previewTimer = null;
+
   function togglePreview() {
-    isPreviewMode = !isPreviewMode;
-    if (isPreviewMode) {
-      editorArea.style.display = 'none';
-      editorPreview.style.display = '';
-      // Render the same section layout as the live song page. Show repeats
-      // expanded so the whole song is visible while editing.
-      if (window.SongSections && SongSections.hasSections(editorArea.innerHTML)) {
-        editorPreview.innerHTML = SongSections.transform(editorArea.innerHTML);
-        editorPreview.classList.add('show-repeats');
-      } else {
-        editorPreview.innerHTML = editorArea.innerHTML;
-        editorPreview.classList.remove('show-repeats');
-      }
+    previewOn = !previewOn;
+    localStorage.setItem('editor_preview', previewOn ? 'on' : 'off');
+    applyPreviewState();
+  }
+
+  function applyPreviewState() {
+    editorBody.classList.toggle('preview-on', previewOn);
+    btnPreview.classList.toggle('active', previewOn);
+    if (previewOn) renderPreview();
+  }
+
+  // True when the editing surface isn't on screen (narrow screen, preview
+  // shown instead) - used to suspend editing keyboard shortcuts.
+  function isEditorHidden() {
+    return previewOn && narrowMQ.matches;
+  }
+
+  function schedulePreview() {
+    if (!previewOn) return;
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(renderPreview, 250);
+  }
+
+  function renderPreview() {
+    clearTimeout(previewTimer);
+    if (!previewOn) return;
+    const src = editorArea.innerHTML;
+    if (window.SongSections && SongSections.hasSections(src)) {
+      editorPreview.innerHTML = SongSections.transform(src);
+      editorPreview.classList.toggle('show-repeats', !previewCollapsed.checked);
+      decoratePreview(src);
     } else {
-      editorArea.style.display = '';
-      editorPreview.style.display = 'none';
+      editorPreview.classList.remove('show-repeats');
+      editorPreview.innerHTML = src;
     }
+  }
+
+  function sectionLabelOf(block) {
+    const base = block.type === 'refren' ? 'R' : block.type === 'bridge' ? 'B' : 'S';
+    return base + block.id + ':';
+  }
+
+  // Adds the editor-only controls onto the rendered sections:
+  //  - a plain block right after a marked section gets "⤴ do R:" (join it),
+  //  - a marked section with a merged continuation gets "⤵ odpojit konec",
+  //  - a lowercase-starting block right after a section is flagged as a
+  //    suspected chorus continuation (dashed outline, button always visible).
+  function decoratePreview(src) {
+    const blocks = SongSections.parseBlocks(src);
+    const kids = editorPreview.children;
+    if (kids.length !== blocks.length) return; // markup out of sync - skip controls
+
+    const makeBtn = (act, blockIdx, text, title) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sec-act';
+      btn.dataset.act = act;
+      btn.dataset.block = blockIdx;
+      btn.textContent = text;
+      btn.title = title;
+      return btn;
+    };
+
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      const prev = blocks[i - 1];
+
+      if (!b.marker && prev && prev.marker) {
+        const lbl = sectionLabelOf(prev);
+        kids[i].appendChild(makeBtn(
+          'join', i, '⤴ do ' + lbl,
+          'Připojit tento blok k sekci ' + lbl + ' - bude se sbalovat a opakovat spolu s ní'
+        ));
+        const first = b.lines.find(l => l.trim() !== '') || '';
+        const plain = first.replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').trim();
+        if (/^[a-záčďéěíňóřšťúůýž]/.test(plain)) {
+          kids[i].classList.add('sec-suspect');
+          kids[i].title = 'Blok začíná malým písmenem - nepatří ještě k ' + lbl + '?';
+        }
+      }
+
+      if (b.marker && b.lines.indexOf('') > 0) {
+        kids[i].appendChild(makeBtn(
+          'detach', i, '⤵ odpojit konec',
+          'Odpojit poslední připojený blok ze sekce (stane se z něj samostatná sloka)'
+        ));
+      }
+    }
+  }
+
+  function handlePreviewClick(e) {
+    const btn = e.target.closest('.sec-act');
+    if (btn) {
+      applySectionAction(btn.dataset.act, parseInt(btn.dataset.block, 10));
+      return;
+    }
+    // Pills peek open/closed like on the live page.
+    const head = e.target.closest('.is-repeat .section-head');
+    if (head && !editorPreview.classList.contains('show-repeats')) {
+      head.closest('.is-repeat').classList.toggle('peek');
+    }
+  }
+
+  // Rewrites the source so a block joins/leaves the preceding marked section.
+  // "Joined" is stored as indentation - the convention old songs already use
+  // and sections.js already parses (and dedents for display).
+  function applySectionAction(act, idx) {
+    const src = editorArea.innerHTML;
+    const lines = SongSections.normalizeBreaks(src).split('\n');
+    const blocks = SongSections.parseBlocks(src);
+    const b = blocks[idx];
+    if (!b) return;
+
+    if (act === 'join') {
+      for (let i = b.srcStart; i <= b.srcEnd; i++) {
+        if (lines[i].trim() !== '') lines[i] = '  ' + lines[i];
+      }
+    } else if (act === 'detach') {
+      // The last merged continuation sits after the block's last blank line.
+      let lastBlank = -1;
+      for (let i = b.srcStart; i <= b.srcEnd; i++) {
+        if (lines[i].trim() === '') lastBlank = i;
+      }
+      if (lastBlank === -1) return;
+      let min = Infinity;
+      for (let i = lastBlank + 1; i <= b.srcEnd; i++) {
+        if (lines[i].trim() === '') continue;
+        min = Math.min(min, (lines[i].match(/^[ \t]*/) || [''])[0].length);
+      }
+      if (!isFinite(min) || min === 0) return;
+      for (let i = lastBlank + 1; i <= b.srcEnd; i++) {
+        lines[i] = lines[i].slice(min);
+      }
+    }
+
+    editorArea.innerHTML = lines.join('\n');
+    syncCurrentEdits();
+    renderPreview();
   }
 
   // === New song ===

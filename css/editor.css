@@ -418,9 +418,99 @@ select.edit-meta-input {
   color: #fff;
 }
 
+/* Editor area + live preview split */
+.editor-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editor-preview-pane {
+  flex: 1;
+  min-width: 0;
+  display: none;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.editor-body.preview-on .editor-preview-pane {
+  display: flex;
+}
+
+/* Narrow screens: the preview replaces the editor instead of sitting next to it. */
+@media (max-width: 1099px) {
+  .editor-body.preview-on .editor-area {
+    display: none;
+  }
+  .editor-body.preview-on .editor-preview-pane {
+    border-left: none;
+  }
+}
+
+.preview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.preview-collapse-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Join/detach controls drawn on preview sections. Hidden until the section
+   is hovered; suspicious blocks (likely chorus continuations) keep theirs
+   visible and get a dashed outline. */
+.editor-preview .sec-act {
+  position: absolute;
+  top: -0.35em;
+  right: 0;
+  z-index: 1;
+  font-family: inherit;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 0.05rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-light);
+  color: var(--text-dim);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.editor-preview .song-section:hover .sec-act {
+  opacity: 1;
+}
+
+.editor-preview .sec-act:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.editor-preview .sec-suspect {
+  outline: 1px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+.editor-preview .sec-suspect .sec-act {
+  opacity: 1;
+}
+
 /* Editor area */
 .editor-area {
   flex: 1;
+  min-width: 0;
   overflow-y: auto;
   padding: 1.5rem;
   font-family: var(--font);
@@ -462,6 +552,7 @@ select.edit-meta-input {
   padding: 1.5rem;
   margin: 0;
   background: var(--bg);
+  border: none;
 }
 
 /* Status bar */

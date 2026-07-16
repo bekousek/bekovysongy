@@ -617,27 +617,68 @@ a:hover {
 .section-bridge {
   font-style: italic;
 }
-.section-label {
+.section-head {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--accent);
-  font-weight: 700;
   font-style: normal;
   user-select: none;
 }
-.section-plain .section-label {
+.section-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+.section-note {
+  color: var(--text-dim);
+  margin-left: 0.5em;
+}
+/* A play-count note ("R: 2x") puts the head into the text flow as its own
+   line: label pulled back to the left edge, body starts on the next line. */
+.song-section.has-note .section-head {
+  position: static;
+  display: inline-block;
+  margin-left: -2.4em;
+}
+
+/* Repeated parts (bare "R:", "R: 2x", or text identical to the definition)
+   collapse into an in-flow pill, so they take up a line and never overlap
+   the neighbouring text. The player-bar "Opakování" toggle expands all of
+   them; tapping a pill peeks at just that one occurrence. */
+.song-text:not(.show-repeats) .is-repeat {
+  padding-left: 0;
+}
+.song-text:not(.show-repeats) .is-repeat .section-head {
+  position: static;
+  display: inline-block;
+  margin-left: 0;
+  padding: 0 0.65em;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-light);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.song-text:not(.show-repeats) .is-repeat .section-head::after {
+  content: "\21BB"; /* ↻ - opakuje se */
+  margin-left: 0.5em;
+  color: var(--text-dim);
+}
+.song-text:not(.show-repeats) .is-repeat .section-head:hover,
+.song-text:not(.show-repeats) .is-repeat.peek .section-head {
+  border-color: var(--accent);
+}
+.section-head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.song-text:not(.show-repeats) .is-repeat .section-body {
   display: none;
 }
-/* Repeated parts (all but the first) collapse to just their label until the
-   "Opakování" toggle reveals them. */
-.song-text .is-repeat .section-body {
-  display: none;
-}
-.song-text.show-repeats .is-repeat .section-body {
+.song-text:not(.show-repeats) .is-repeat.peek .section-body {
   display: block;
+  padding-left: 2.4em;
 }
-.is-repeat .section-label {
+.song-text.show-repeats .is-repeat .section-head {
   opacity: 0.85;
 }
 
