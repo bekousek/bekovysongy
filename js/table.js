@@ -179,6 +179,13 @@
     });
   }
 
+  function makeChordBadge(name) {
+    const badge = document.createElement('span');
+    badge.className = 'chord-badge';
+    badge.textContent = name;
+    return badge;
+  }
+
   function render() {
     songCount.textContent = `${filteredSongs.length} z ${allSongs.length} písní`;
 
@@ -207,16 +214,27 @@
         tdAuthor.appendChild(authorSpan);
       }
 
-      // Chords
+      // Chords - grouped by section (song.progression) when available, with
+      // a separator between groups; otherwise the flat deduped list, as
+      // before. Filtering/sorting (collectChords/applyFilters/sortSongs)
+      // always use the flat song.chords, untouched - this only changes what
+      // gets drawn in the cell.
       const tdChords = document.createElement('td');
       const chordsDiv = document.createElement('div');
       chordsDiv.className = 'chord-badges';
-      song.chords.forEach(c => {
-        const badge = document.createElement('span');
-        badge.className = 'chord-badge';
-        badge.textContent = c;
-        chordsDiv.appendChild(badge);
-      });
+      if (Array.isArray(song.progression) && song.progression.length) {
+        song.progression.forEach((group, i) => {
+          if (i > 0) {
+            const sep = document.createElement('span');
+            sep.className = 'chord-badge-sep';
+            sep.setAttribute('aria-hidden', 'true');
+            chordsDiv.appendChild(sep);
+          }
+          group.forEach(c => chordsDiv.appendChild(makeChordBadge(c)));
+        });
+      } else {
+        song.chords.forEach(c => chordsDiv.appendChild(makeChordBadge(c)));
+      }
       tdChords.appendChild(chordsDiv);
 
       // Language

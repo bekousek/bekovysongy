@@ -542,6 +542,15 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Divider between chord-progression groups (song.progression), e.g.
+   "G C Emi │ Ami C G D" - a flex child like the badges around it, stretched
+   to the row's height by .chord-badges' flex layout. */
+.chord-badge-sep {
+  align-self: stretch;
+  width: 1px;
+  background: var(--border);
+}
+
 .song-lang {
   font-size: 0.75rem;
   color: var(--text-dim);
@@ -593,7 +602,7 @@ a:hover {
 
 .song-text {
   font-family: var(--font);
-  font-size: 1rem;
+  font-size: calc(1rem * var(--song-font-scale, 1));
   line-height: 1.9;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -777,6 +786,51 @@ a:hover {
   letter-spacing: 0.03em;
 }
 
+/* === "More" (⋯) overflow menu === */
+/* Desktop (default): .player-more/.player-more-panel are invisible
+   wrappers, so the sections they hold (font size, metronome, tuner, bug
+   report) become direct flex children of #player-bar again - unchanged
+   from before this menu existed. The labels added so the mobile dropdown
+   rows stay legible are hidden here, except font-size's, which stays
+   visible like "Transpozice" already is. The <=768px block below turns the
+   wrapper into a real dropdown instead. */
+.player-section.player-more,
+.player-more-panel {
+  display: contents;
+}
+
+#more-toggle {
+  display: none;
+}
+
+.player-more-panel .player-label {
+  display: none;
+}
+
+.player-fontsize .player-label {
+  display: inline-block;
+}
+
+/* Running metronome is easy to miss once it's tucked inside the panel on
+   mobile - reflect it on the ⋯ toggle itself. */
+#more-toggle.has-active {
+  position: relative;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#more-toggle.has-active::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 1px solid var(--bg-light);
+}
+
 .btn-transpose {
   width: 32px;
   height: 32px;
@@ -804,6 +858,15 @@ a:hover {
   font-weight: 600;
   color: var(--accent);
   min-width: 1.5rem;
+  text-align: center;
+}
+
+/* Like #transpose-value, but wider - "150 %" is longer than "+2". */
+#font-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 2.5rem;
   text-align: center;
 }
 
@@ -1342,6 +1405,7 @@ a:hover {
   .player-bar {
     gap: 0.25rem;
     padding: 0.4rem 0.5rem;
+    flex-wrap: nowrap; /* the ⋯ menu below exists so this always fits one row */
   }
 
   .player-section {
@@ -1354,6 +1418,48 @@ a:hover {
 
   .speed-slider {
     width: 40px;
+  }
+
+  /* "More" (⋯) overflow menu: on mobile it's a real dropdown instead of the
+     desktop's invisible `display: contents` wrapper (see the base rules
+     above #transpose-value/.player-more). */
+  .player-section.player-more {
+    display: flex;
+  }
+
+  #more-toggle {
+    display: flex;
+  }
+
+  .player-more-panel {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0.5rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    box-shadow: var(--shadow);
+    z-index: 200;
+  }
+
+  .player-more-panel.open {
+    display: flex;
+  }
+
+  .player-more-panel .player-section {
+    border-right: none;
+    justify-content: space-between;
+  }
+
+  /* Overrides the base (desktop) .player-more-panel .player-label rule
+     above, and the generic mobile .player-label rule just above this one -
+     panel rows are stacked, so the label is what says which row is which. */
+  .player-more-panel .player-label {
+    display: inline-block;
   }
 
   .chord-filter-dropdown {
@@ -1414,8 +1520,17 @@ a:hover {
     white-space: nowrap;
   }
 
+  /* Divider between chord-progression groups in the top bar, e.g.
+     "G C Emi │ Ami C G D" (mirrors .chord-badge-sep in the songs table). */
+  .chord-bar-sep {
+    flex: none;
+    align-self: stretch;
+    width: 1px;
+    background: var(--border);
+  }
+
   .song-text {
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--song-font-scale, 1));
   }
 }
 
@@ -1430,6 +1545,14 @@ a:hover {
 
   .bpm-input {
     width: 40px;
+  }
+}
+
+/* Safety margin so the single-row player bar (Opakování, Transpozice,
+   autoscroll, ⋯) still fits on the narrowest common phones. */
+@media (max-width: 360px) {
+  .speed-slider {
+    width: 36px;
   }
 }
 

@@ -275,14 +275,160 @@
     return parseBlocks(html).some(function (b) { return b.marker; });
   }
 
+  // === Chord progression (grouped, per section) ===
+  //
+  // deriveProgression(html) walks the same parseBlocks() blocks used above
+  // and reduces each block's chords (in play order) to a short list of
+  // "groups" - runs of chords that read as one phrase - then merges those
+  // groups across the whole song. It backs the top chord bar (grouped chips
+  // with a separator between groups) and the songs.json "progression" field
+  // (admin-editable; falls back to this deriver when left blank).
+  //
+  // Example (1. Signální): the verse "G C Emi" (sung twice, so it collapses
+  // to one group) + the chorus "Ami C G D" + its closing couplet "F B Dmi"
+  // (also sung twice, collapsing to one group) -> stored/rendered as
+  // "G C Emi | Ami C G D | F B Dmi".
+
+  // Ordered chord names found across a block's lines. A fresh regex per
+  // line avoids lastIndex leaking between lines (the same literal, reused
+  // across iterations of a loop, keeps its lastIndex from the previous line).
+  function blockChordSeq(lines) {
+    var chords = [];
+    for (var i = 0; i < lines.length; i++) {
+      var re = /data-chord="([^"]+)"/g;
+      var m;
+      while ((m = re.exec(lines[i])) !== null) chords.push(m[1]);
+    }
+    return chords;
+  }
+
+  // Collapses one block's ordered chord sequence into groups:
+  //   a) collapse adjacent identical chords ("A A B" -> "A B"),
+  //   b) scan left to right; at each position look for the SHORTEST phrase
+  //      (length 2 .. floor((n-i)/2)) that immediately repeats itself. When
+  //      found, close whatever's accumulated so far into its own group, emit
+  //      the phrase as a group of its own, and consume every contiguous
+  //      repeat of it. Shortest-first matters: "A B A B A B A B" collapses
+  //      to a single ["A","B"] group, not ["A","B","A","B"] - a length-4
+  //      phrase also "repeats" there, but the length-2 one is found first
+  //      and consumes the whole run.
+  function collapseSection(seq) {
+    var s = [];
+    for (var i = 0; i < seq.length; i++) {
+      if (i === 0 || seq[i] !== seq[i - 1]) s.push(seq[i]);
+    }
+
+    function samePhrase(a, b, plen) {
+      for (var k = 0; k < plen; k++) {
+        if (s[a + k] !== s[b + k]) return false;
+      }
+      return true;
+    }
+
+    var n = s.length;
+    var groups = [];
+    var acc = [];
+    var pos = 0;
+    while (pos < n) {
+      var maxPlen = Math.floor((n - pos) / 2);
+      var matchedPlen = 0;
+      for (var plen = 2; plen <= maxPlen; plen++) {
+        if (samePhrase(pos, pos + plen, plen)) { matchedPlen = plen; break; }
+      }
+      if (matchedPlen) {
+        var reps = 2;
+        while (pos + reps * matchedPlen + matchedPlen <= n &&
+               samePhrase(pos, pos + reps * matchedPlen, matchedPlen)) {
+          reps++;
+        }
+        if (acc.length) { groups.push(acc); acc = []; }
+        groups.push(s.slice(pos, pos + matchedPlen));
+        pos += reps * matchedPlen;
+      } else {
+        acc.push(s[pos]);
+        pos++;
+      }
+    }
+    if (acc.length) groups.push(acc);
+    return groups;
+  }
+
+  function deriveProgression(html) {
+    var blocks = parseBlocks(html);
+
+    var allGroups = [];
+    blocks.forEach(function (b) {
+      allGroups = allGroups.concat(collapseSection(blockChordSeq(b.lines)));
+    });
+
+    // Global dedup: an identical group (same chords, same order) is only
+    // ever emitted once, at its first occurrence.
+    var seen = {};
+    var deduped = [];
+    allGroups.forEach(function (g) {
+      var key = g.join('\x00');
+      if (seen[key]) return;
+      seen[key] = true;
+      deduped.push(g);
+    });
+
+    // Prune fragments: drop a group that is fully contained, as a
+    // contiguous run, inside a group already kept (e.g. a leftover lone
+    // "Ami" after an earlier "C Ami" group). Conservative - only ever drops
+    // a group whose chords are all already visible elsewhere, in the same
+    // order.
+    function isContiguousIn(small, big) {
+      if (small.length === 0 || small.length > big.length) return false;
+      for (var start = 0; start + small.length <= big.length; start++) {
+        var ok = true;
+        for (var k = 0; k < small.length; k++) {
+          if (big[start + k] !== small[k]) { ok = false; break; }
+        }
+        if (ok) return true;
+      }
+      return false;
+    }
+
+    var kept = [];
+    deduped.forEach(function (g) {
+      var isFragment = kept.some(function (big) { return isContiguousIn(g, big); });
+      if (!isFragment) kept.push(g);
+    });
+
+    return kept;
+  }
+
+  // "G C Emi | Ami C G D | F B Dmi"
+  function progressionToText(prog) {
+    if (!prog || !prog.length) return '';
+    return prog.map(function (g) { return g.join(' '); }).join(' | ');
+  }
+
+  // Groups split ONLY on "|" (never "/" - that's a slash-chord character,
+  // e.g. "C/G"); tokens within a group split on whitespace. Empty groups
+  // (blank between two "|", or a leading/trailing "|") are dropped.
+  function parseProgressionText(text) {
+    if (!text) return [];
+    var out = [];
+    String(text).split('|').forEach(function (part) {
+      var tokens = part.trim().split(/\s+/).filter(function (t) { return t !== ''; });
+      if (tokens.length) out.push(tokens);
+    });
+    return out;
+  }
+
   var api = {
     transform: transform,
     hasSections: hasSections,
     parseBlocks: parseBlocks,
     normalizeBreaks: normalizeBreaks,
+    deriveProgression: deriveProgression,
+    progressionToText: progressionToText,
+    parseProgressionText: parseProgressionText,
     _matchMarker: matchMarker,
     _compareText: compareText,
-    _isMultiplier: function (s) { return MULT_RE.test(s); }
+    _isMultiplier: function (s) { return MULT_RE.test(s); },
+    _collapseSection: collapseSection
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

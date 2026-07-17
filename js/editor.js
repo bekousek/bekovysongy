@@ -49,6 +49,8 @@
   const editAuthor = document.getElementById('edit-author');
   const editCapo = document.getElementById('edit-capo');
   const editLanguage = document.getElementById('edit-language');
+  const editProgression = document.getElementById('edit-progression');
+  const btnProgressionAuto = document.getElementById('btn-progression-auto');
   const editorArea = document.getElementById('editor-area');
   const editorBody = document.getElementById('editor-body');
   const editorPreview = document.getElementById('editor-preview');
@@ -83,8 +85,9 @@
   //
   // entry shape: { isNew, rawHtml (song file as fetched; null for new songs),
   //   title, author, capo (int, 0 = none), language, body (<pre> innerHTML),
-  //   baseTitle, baseAuthor, baseCapo, baseLanguage, baseBody (values at
-  //   load time / last successful save - used to detect dirtiness) }
+  //   progression (#edit-progression's raw text, e.g. "G C | Ami D"),
+  //   baseTitle, baseAuthor, baseCapo, baseLanguage, baseBody, baseProgression
+  //   (values at load time / last successful save - used to detect dirtiness) }
   const pendingEdits = new Map();
 
   // Slugs whose "checked" flag has been flipped from its last-persisted
@@ -167,6 +170,12 @@
     editAuthor.addEventListener('input', syncCurrentEdits);
     editCapo.addEventListener('input', syncCurrentEdits);
     editLanguage.addEventListener('change', syncCurrentEdits);
+    editProgression.addEventListener('input', syncCurrentEdits);
+    btnProgressionAuto.addEventListener('click', () => {
+      if (!currentSong) return;
+      editProgression.value = SongSections.progressionToText(SongSections.deriveProgression(editorArea.innerHTML));
+      syncCurrentEdits();
+    });
 
     // Keyboard shortcuts: Ctrl/Cmd+S saves the open song, +Shift saves all.
     document.addEventListener('keydown', (e) => {
@@ -383,7 +392,8 @@
   // === Pending-edit / dirty-state helpers ===
   function isEditDirty(e) {
     return e.isNew || e.title !== e.baseTitle || e.author !== e.baseAuthor ||
-      e.capo !== e.baseCapo || e.language !== e.baseLanguage || e.body !== e.baseBody;
+      e.capo !== e.baseCapo || e.language !== e.baseLanguage || e.body !== e.baseBody ||
+      e.progression !== e.baseProgression;
   }
 
   function isDirty(slug) {
@@ -408,6 +418,7 @@
     e.capo = parseInt(editCapo.value, 10) || 0;
     e.language = editLanguage.value;
     e.body = editorArea.innerHTML;
+    e.progression = editProgression.value;
     refreshDirtyUI();
     schedulePreview();
   }
@@ -462,6 +473,7 @@
       editAuthor.value = cached.author;
       editCapo.value = cached.capo || '';
       editLanguage.value = cached.language;
+      editProgression.value = cached.progression || '';
       editorArea.innerHTML = cached.body;
       renderPreview();
       filterSongList();
@@ -476,6 +488,10 @@
     editAuthor.value = song.author || '';
     editCapo.value = (song.tags && song.tags.capo) ? song.tags.capo : '';
     editLanguage.value = (song.tags && song.tags.language) ? song.tags.language : '';
+    // song.progression comes from the already-loaded songs.json listing
+    // (like title/author/tags above), not the per-song GitHub fetch below.
+    const progressionText = SongSections.progressionToText(song.progression || []);
+    editProgression.value = progressionText;
 
     setStatus('Načítám...', '');
 
@@ -506,11 +522,13 @@
         title: song.title,
         author: song.author || '',
         capo, language, body,
+        progression: progressionText,
         baseTitle: song.title,
         baseAuthor: song.author || '',
         baseCapo: capo,
         baseLanguage: language,
-        baseBody: body
+        baseBody: body,
+        baseProgression: progressionText
       });
 
       filterSongList();
@@ -836,8 +854,9 @@
     pendingEdits.set(slug, {
       isNew: true,
       rawHtml: null,
-      title, author, capo, language, body: '',
-      baseTitle: null, baseAuthor: null, baseCapo: null, baseLanguage: null, baseBody: null
+      title, author, capo, language, body: '', progression: '',
+      baseTitle: null, baseAuthor: null, baseCapo: null, baseLanguage: null, baseBody: null,
+      baseProgression: null
     });
 
     newSongDialog.close();
@@ -856,6 +875,17 @@
     let m;
     while ((m = re.exec(body)) !== null) chords.add(m[1]);
     return Array.from(chords);
+  }
+
+  // songs.json's grouped "progression" for a pending entry: a non-blank
+  // #edit-progression is authoritative (manual edits win), otherwise it's
+  // derived fresh from the current body - same rule the ↻ button uses,
+  // just without overwriting the input field. Shared by buildMergedSongsJson
+  // (what gets committed) and performSave's bookkeeping (what's mirrored
+  // into the in-memory song list) so the two can never disagree.
+  function progressionForEntry(e) {
+    const text = (e.progression || '').trim();
+    return text ? SongSections.parseProgressionText(text) : SongSections.deriveProgression(e.body);
   }
 
   // Rebuilds songs/<slug>.html for one pending entry. Brand-new songs use
@@ -954,6 +984,9 @@
         song.tags.capo = e.capo || false;
         if (e.language) song.tags.language = e.language;
         song.chords = extractChords(e.body);
+        const progression = progressionForEntry(e);
+        if (progression.length) song.progression = progression;
+        else delete song.progression;
       }
 
       if (local && (pendingChecked.has(slug) || (e && e.isNew))) {
@@ -999,6 +1032,9 @@
           local.tags.capo = e.capo || false;
           if (e.language) local.tags.language = e.language;
           local.chords = extractChords(e.body);
+          const progression = progressionForEntry(e);
+          if (progression.length) local.progression = progression;
+          else delete local.progression;
         }
         e.isNew = false;
         if (builtHtml.has(slug)) e.rawHtml = builtHtml.get(slug);
@@ -1008,6 +1044,7 @@
         e.baseCapo = e.capo;
         e.baseLanguage = e.language;
         e.baseBody = e.body;
+        e.baseProgression = e.progression;
       }
       pendingChecked.delete(slug);
     }

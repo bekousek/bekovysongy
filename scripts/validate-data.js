@@ -112,6 +112,28 @@ for (const s of songs) {
   if (!Array.isArray(s.chords)) fail(`songs.json: "${s.slug}" is missing a chords array`);
   if (!s.tags || typeof s.tags.language !== 'string') warn(`songs.json: "${s.slug}" has no tags.language`);
   if ('checked' in s && typeof s.checked !== 'boolean') fail(`songs.json: "${s.slug}" has a non-boolean "checked" field`);
+
+  // progression is optional (omitted for chordless songs), but when present
+  // must be a non-empty array of non-empty arrays of non-empty strings -
+  // e.g. [["G","C","Emi"],["Ami","C","G","D"]].
+  if ('progression' in s) {
+    const p = s.progression;
+    if (!Array.isArray(p) || p.length === 0) {
+      fail(`songs.json: "${s.slug}" has an invalid "progression" (must be a non-empty array of groups)`);
+    } else {
+      p.forEach((group, gi) => {
+        if (!Array.isArray(group) || group.length === 0) {
+          fail(`songs.json: "${s.slug}" progression group ${gi} must be a non-empty array of chords`);
+          return;
+        }
+        group.forEach((chord, ci) => {
+          if (typeof chord !== 'string' || !chord.trim()) {
+            fail(`songs.json: "${s.slug}" progression group ${gi} chord ${ci} must be a non-empty string`);
+          }
+        });
+      });
+    }
+  }
 }
 
 // === Report ===

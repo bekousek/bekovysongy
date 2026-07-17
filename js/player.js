@@ -86,7 +86,15 @@
 
   // === Mobile chord bar (sticky top bar replacing the hidden nav) ===
   // Injected at runtime so the ~570 static song pages don't need editing.
-  function buildChordBar() {
+  // Chords are grouped by section - songs.json's "progression" field, with a
+  // separator chip between groups - instead of one flat deduped list, so the
+  // bar reads like "G C Emi │ Ami C G D │ F B Dmi". The bar's skeleton (back
+  // arrow + empty chip strip) is built synchronously so it never waits on
+  // the songs.json fetch below; chips are filled in once the progression is
+  // known, falling back to deriving it straight from the song's own text
+  // (rawBody, captured before buildSections() rewrites the <pre>) if the
+  // fetch fails or songs.json has no progression for this song yet.
+  function buildChordBar(rawBody) {
     const main = document.querySelector('main.song-page');
     if (!main) return;
 
@@ -117,29 +125,166 @@
     });
     bar.appendChild(back);
 
-    // Unique chords, first-seen document order. Scoped to .song-text so the
-    // bar's own chips can never be re-collected.
-    const seen = new Set();
     const chips = document.createElement('div');
     chips.className = 'chord-bar-chips';
-    main.querySelectorAll('.song-text .chord').forEach((el) => {
-      const name = el.dataset.chord;
-      if (!name || seen.has(name)) return;
-      seen.add(name);
-      const chip = document.createElement('span');
-      chip.className = 'chord';          // opts into transpose + tooltip
-      chip.dataset.chord = name;
-      chip.textContent = name;
-      chips.appendChild(chip);
-    });
-    if (seen.size) bar.appendChild(chips);
+    bar.appendChild(chips);
 
     document.body.insertBefore(bar, main);
     document.body.classList.add('has-chord-bar');
+
+    function renderGroups(groups) {
+      chips.innerHTML = '';
+      let any = false;
+      groups.forEach((group, i) => {
+        if (i > 0) {
+          const sep = document.createElement('span');
+          sep.className = 'chord-bar-sep';
+          sep.setAttribute('aria-hidden', 'true');
+          chips.appendChild(sep);
+        }
+        group.forEach((name) => {
+          if (!name) return;
+          any = true;
+          const chip = document.createElement('span');
+          chip.className = 'chord';          // opts into transpose + tooltip
+          chip.dataset.chord = name;
+          chip.textContent = name;
+          chips.appendChild(chip);
+        });
+      });
+      chips.style.display = any ? '' : 'none';
+
+      // The chips above never went through applyTranspose() - refresh them
+      // from the currently active offset so they don't show root chords
+      // while the rest of the song is already transposed. currentTranspose/
+      // applyTranspose are declared further down this IIFE, but this always
+      // runs from the fetch callback below, i.e. after the whole IIFE (incl.
+      // those declarations) has finished its synchronous run.
+      if (currentTranspose !== 0) applyTranspose(0);
+    }
+
+    // Song pages are always ".../songs/<slug>.html".
+    const slug = location.pathname.split('/').pop().replace(/\.html$/, '');
+
+    fetch('../songs.json')
+      .then((r) => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then((data) => {
+        const entry = (data.songs || []).find((s) => s.slug === slug);
+        const prog = entry && Array.isArray(entry.progression) && entry.progression.length
+          ? entry.progression
+          : (window.SongSections ? SongSections.deriveProgression(rawBody) : []);
+        renderGroups(prog);
+      })
+      .catch(() => {
+        renderGroups(window.SongSections ? SongSections.deriveProgression(rawBody) : []);
+      });
   }
 
+  // === "More" (⋯) overflow menu ===
+  // The static player bar ships with .player-metronome/.player-tuner/
+  // .player-bug (and, from here, a new .player-fontsize) as top-level
+  // sections; on narrow screens there isn't room to keep all of them inline
+  // and still fit the bar on one row. Rather than duplicate markup for two
+  // layouts, this moves those sections into a collapsible panel appended at
+  // the end of the bar - CSS then decides with `display: contents` whether
+  // the panel is an invisible wrapper (desktop: sections look exactly like
+  // today, plus the new font-size control) or an actual dropdown (mobile).
+  // Must run before the handler-wiring code below, which finds its buttons
+  // via getElementById - unaffected by which parent they live under, so
+  // moving the nodes here first is safe.
+  function buildMoreMenu() {
+    const bar = document.getElementById('player-bar');
+    if (!bar) return;
+
+    const more = document.createElement('div');
+    more.className = 'player-section player-more';
+    more.innerHTML =
+      '<button class="btn-player" id="more-toggle" aria-label="Další nástroje" ' +
+      'title="Další nástroje" aria-expanded="false">' +
+      '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">' +
+      '<circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>' +
+      '</button>' +
+      '<div class="player-more-panel" id="more-panel"></div>';
+    bar.appendChild(more);
+
+    const toggle = more.querySelector('#more-toggle');
+    const panel = more.querySelector('#more-panel');
+
+    // New font-size control (behaviour wired up further down, once
+    // #font-dec/#font-value/#font-inc exist) - built here so it can take
+    // its place as the panel's first section.
+    const fontSize = document.createElement('div');
+    fontSize.className = 'player-section player-fontsize';
+    fontSize.innerHTML =
+      '<span class="player-label">Velikost textu</span>' +
+      '<button class="btn-transpose" id="font-dec" aria-label="Zmenšit text" title="Zmenšit text">A−</button>' +
+      '<span id="font-value">100 %</span>' +
+      '<button class="btn-transpose" id="font-inc" aria-label="Zvětšit text" title="Zvětšit text">A+</button>';
+    panel.appendChild(fontSize);
+
+    // Move the existing sections in after it, in order, labelling each one
+    // (they only ever had an icon + control before - fine inline, but a
+    // stacked panel row needs the label to stay legible).
+    [
+      ['player-metronome', 'Metronom'],
+      ['player-tuner', 'Ladička'],
+      ['player-bug', 'Nahlásit chybu']
+    ].forEach(([cls, labelText]) => {
+      const section = bar.querySelector('.' + cls);
+      if (!section) return;
+      if (!section.querySelector('.player-label')) {
+        const label = document.createElement('span');
+        label.className = 'player-label';
+        label.textContent = labelText;
+        section.insertBefore(label, section.firstChild);
+      }
+      panel.appendChild(section);
+    });
+
+    // Open/close - same dropdown pattern as the chord filter on the song
+    // list (js/table.js's #chord-filter-btn / .chord-filter-dropdown).
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = panel.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.player-more')) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    // Tuner and bug-report open their own fullscreen overlay on top of
+    // everything - close the panel so it doesn't linger behind it. BPM and
+    // font-size are meant to be adjusted with the panel still open, so
+    // clicks there (and everywhere else in the panel) leave it be.
+    panel.addEventListener('click', (e) => {
+      if (e.target.closest('#tuner-toggle') || e.target.closest('.player-bug')) {
+        panel.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Raw markup of the song text, captured before buildSections() below
+  // transforms it (it rewrites the <pre>'s innerHTML into labelled section
+  // markup, destroying the original marker text) - buildChordBar's fallback
+  // deriver needs the pristine version.
+  const songTextEl = document.querySelector('.song-text');
+  const rawSongBody = songTextEl ? songTextEl.innerHTML : '';
+
   buildSections();
-  buildChordBar();
+  buildChordBar(rawSongBody);
+  buildMoreMenu();
 
   // Chord parsing/transposition lives in chord-theory.js (shared with the
   // editor's song-cleanup.js), loaded before this script.
@@ -171,6 +316,43 @@
   if (transposeDown) {
     transposeDown.addEventListener('click', () => applyTranspose(-1));
   }
+
+  // === Font size ===
+  // Independent of transpose; applied as a CSS custom property so
+  // .song-text (and its <=768px override) can scale off of it without JS
+  // touching every line of the song. #font-dec/#font-value/#font-inc live
+  // inside the panel buildMoreMenu() just built.
+  const FONT_SCALE_KEY = 'song_font_scale';
+  const FONT_SCALE_MIN = 70;
+  const FONT_SCALE_MAX = 150;
+  const FONT_SCALE_STEP = 10;
+  const fontDec = document.getElementById('font-dec');
+  const fontInc = document.getElementById('font-inc');
+  const fontValue = document.getElementById('font-value');
+
+  function loadFontScale() {
+    const saved = parseInt(localStorage.getItem(FONT_SCALE_KEY), 10);
+    if (!saved || saved < FONT_SCALE_MIN || saved > FONT_SCALE_MAX) return 100;
+    return saved;
+  }
+
+  let fontScale = loadFontScale();
+
+  function applyFontScale() {
+    document.documentElement.style.setProperty('--song-font-scale', fontScale / 100);
+    if (fontValue) fontValue.textContent = fontScale + ' %';
+  }
+
+  function setFontScale(next) {
+    fontScale = Math.max(FONT_SCALE_MIN, Math.min(FONT_SCALE_MAX, next));
+    localStorage.setItem(FONT_SCALE_KEY, String(fontScale));
+    applyFontScale();
+  }
+
+  applyFontScale(); // apply immediately (before first paint) so the text never jumps
+
+  if (fontDec) fontDec.addEventListener('click', () => setFontScale(fontScale - FONT_SCALE_STEP));
+  if (fontInc) fontInc.addEventListener('click', () => setFontScale(fontScale + FONT_SCALE_STEP));
 
   // === Autoscroll ===
   let scrollInterval = null;
@@ -220,6 +402,10 @@
   let metronomeRunning = false;
   const metronomeToggle = document.getElementById('metronome-toggle');
   const bpmInput = document.getElementById('bpm-input');
+  // Metronome lives inside the ⋯ panel on mobile, where a running state
+  // would otherwise be invisible until the panel is opened - mirror it onto
+  // the toggle itself.
+  const moreToggle = document.getElementById('more-toggle');
 
   function playClick() {
     if (!metronomeCtx) metronomeCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -244,6 +430,7 @@
     metronomeInterval = setInterval(playClick, interval);
     metronomeRunning = true;
     metronomeToggle.classList.add('active');
+    if (moreToggle) moreToggle.classList.add('has-active');
   }
 
   function stopMetronome() {
@@ -253,6 +440,7 @@
     }
     metronomeRunning = false;
     if (metronomeToggle) metronomeToggle.classList.remove('active');
+    if (moreToggle) moreToggle.classList.remove('has-active');
   }
 
   if (metronomeToggle) {
