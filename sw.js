@@ -19,7 +19,7 @@
  * button), so the install-time precache above isn't the only way in - useful
  * right before going offline, or to retry songs that failed the first time.
  */
-const CACHE_NAME = 'bekovysongy-v4';
+const CACHE_NAME = 'bekovysongy-v5';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [

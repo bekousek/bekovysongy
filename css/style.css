@@ -1068,6 +1068,13 @@ a:hover {
   color: var(--success);
 }
 
+/* Dimmed while holding the last reading through a brief silence between
+   plucks, instead of flickering back to idle. */
+.tuner-note.stale {
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+
 .tuner-note-oct {
   font-size: 1.85rem;
   font-weight: 600;
@@ -1211,6 +1218,36 @@ a:hover {
 
 .tuner-string.tuned small {
   color: var(--success);
+}
+
+/* Persistent ✓ once a string has been held in tune - distinct from the
+   transient .tuned highlight above, survives after the needle moves on. */
+.tuner-string.done {
+  position: relative;
+  border-color: var(--success);
+}
+
+.tuner-string.done::after {
+  content: '✓';
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--success);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* Chip tap = manual target lock (overrides auto-detection for a while). */
+.tuner-string.manual {
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5);
 }
 
 .tuner-hint {
