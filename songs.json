@@ -4928,6 +4928,27 @@
       ]
     },
     {
+      "title": "Holka v mým sklepě",
+      "slug": "holka-v-mym-sklepe",
+      "author": "Řezník/Pondělníci",
+      "chords": [
+        "Dmi",
+        "C",
+        "G"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "progression": [
+        [
+          "Dmi",
+          "C",
+          "G"
+        ]
+      ]
+    },
+    {
       "title": "Holky pitomý",
       "slug": "holky-pitomy",
       "author": "Poletime",
