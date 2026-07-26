@@ -6,6 +6,83 @@
 
   const REPO_PATH_PREFIX = 'songs/';
   const SONGS_JSON_PATH = 'songs.json';
+
+  // === Song status ===
+  // Four buckets in the sidebar, in workflow order. The first two are
+  // drafts: a návrh has nothing but a title, a "k vytvoření" song is one
+  // I've committed to writing. Neither has a songs/<slug>.html file, so
+  // neither may leak onto the public site (js/table.js, the sitemap and the
+  // SW precache all filter them out).
+  //
+  // Persisted minimally, so adding this costs zero diff on the ~580 existing
+  // entries: the two public states keep using the old boolean ("checked":
+  // true, or the field absent), and only the two new ones write an explicit
+  // "status". statusOf() reads either shape.
+  const STATUSES = [
+    { id: 'navrh', label: 'Návrhy', draft: true },
+    { id: 'k-vytvoreni', label: 'K vytvoření', draft: true },
+    { id: 'ke-kontrole', label: 'Ke kontrole', draft: false },
+    { id: 'zkontrolovano', label: 'Zkontrolováno', draft: false }
+  ];
+  const STATUS_IDS = STATUSES.map(s => s.id);
+  const DRAFT_IDS = STATUSES.filter(s => s.draft).map(s => s.id);
+
+  function statusOf(song) {
+    if (song && STATUS_IDS.indexOf(song.status) !== -1) return song.status;
+    return song && song.checked ? 'zkontrolovano' : 'ke-kontrole';
+  }
+
+  function isDraftStatusId(status) {
+    return DRAFT_IDS.indexOf(status) !== -1;
+  }
+
+  function isDraft(song) {
+    return isDraftStatusId(statusOf(song));
+  }
+
+  function statusLabel(id) {
+    const s = STATUSES.find(x => x.id === id);
+    return s ? s.label : id;
+  }
+
+  // Writes `status` onto a songs.json entry (in memory or about to be
+  // committed) in whichever of the two shapes above applies.
+  function applyStatus(song, status) {
+    if (status === 'zkontrolovano') {
+      delete song.status;
+      song.checked = true;
+    } else if (status === 'ke-kontrole') {
+      delete song.status;
+      delete song.checked;
+    } else {
+      song.status = status;
+      delete song.checked;
+    }
+  }
+
+  // === Interpreti (multi-artist) ===
+  // "authors" is the canonical list when present; a song written before this
+  // existed just has the single "author" string. Both are always written on
+  // save (author = the joined display form) so nothing that reads only
+  // "author" - the static song pages, older tooling - has to change.
+  function authorsOf(song) {
+    if (song && Array.isArray(song.authors)) {
+      const list = song.authors.map(a => String(a).trim()).filter(a => a !== '');
+      if (list.length) return list;
+    }
+    const single = song && song.author ? String(song.author).trim() : '';
+    return single ? [single] : [];
+  }
+
+  function authorsText(list) {
+    return (list || []).join(', ');
+  }
+
+  function applyAuthors(target, list) {
+    target.author = authorsText(list);
+    if (list.length > 1) target.authors = list.slice();
+    else delete target.authors;
+  }
   // Override via localStorage('gh_branch') to dry-run saves against a
   // scratch branch instead of main - the deploy workflow only runs on main,
   // so nothing deploys while testing this way.
@@ -26,12 +103,9 @@
   const ghRepoInput = document.getElementById('gh-repo');
   const saveTokenBtn = document.getElementById('save-token-btn');
   const editorSearch = document.getElementById('editor-search');
-  const songListUnchecked = document.getElementById('song-list-unchecked');
-  const songListChecked = document.getElementById('song-list-checked');
-  const countUnchecked = document.getElementById('count-unchecked');
-  const countChecked = document.getElementById('count-checked');
-  const sectionUnchecked = document.getElementById('section-unchecked');
-  const sectionChecked = document.getElementById('section-checked');
+  const listSort = document.getElementById('list-sort');
+  const listFilter = document.getElementById('list-filter');
+  const songListWrap = document.getElementById('song-list-wrap');
   const btnNewSong = document.getElementById('btn-new-song');
   const btnSaveAll = document.getElementById('btn-save-all');
   const saveAllCount = document.getElementById('save-all-count');
@@ -41,12 +115,14 @@
   const newAuthorInput = document.getElementById('new-author');
   const newCapoInput = document.getElementById('new-capo');
   const newLanguageSelect = document.getElementById('new-language');
+  const newStatusSelect = document.getElementById('new-status');
   const newSongSlugPreview = document.getElementById('new-song-slug-preview');
   const btnNewCancel = document.getElementById('btn-new-cancel');
   const editorPlaceholder = document.getElementById('editor-placeholder');
   const editorActive = document.getElementById('editor-active');
   const editTitle = document.getElementById('edit-title');
-  const editAuthor = document.getElementById('edit-author');
+  const editAuthors = document.getElementById('edit-authors');
+  const editAuthorInput = document.getElementById('edit-author');
   const editCapo = document.getElementById('edit-capo');
   const editLanguage = document.getElementById('edit-language');
   const editProgression = document.getElementById('edit-progression');
@@ -60,6 +136,12 @@
   const btnPreview = document.getElementById('btn-preview');
   const chordInput = document.getElementById('chord-input');
   const btnInsertChord = document.getElementById('btn-insert-chord');
+  const chordHotbar = document.getElementById('chord-hotbar');
+  const btnHotbarReset = document.getElementById('btn-hotbar-reset');
+  const sectionNameInput = document.getElementById('section-name');
+  const sectionBtnPreview = document.getElementById('section-btn-preview');
+  const btnInsertSection = document.getElementById('btn-insert-section');
+  const btnInsertRepeat = document.getElementById('btn-insert-repeat');
   const btnFixSpacing = document.getElementById('btn-fix-spacing');
   const btnRemoveEmpty = document.getElementById('btn-remove-empty');
   const btnTransposeDown = document.getElementById('btn-transpose-down');
@@ -83,18 +165,50 @@
   // as a content cache so switching songs never needs a re-fetch and never
   // discards unsaved edits (unlike the old confirm-to-discard flow).
   //
-  // entry shape: { isNew, rawHtml (song file as fetched; null for new songs),
-  //   title, author, capo (int, 0 = none), language, body (<pre> innerHTML),
+  // entry shape: { isNew, rawHtml (song file as fetched; null for new songs
+  //   and for drafts that have none yet), title, authors (string[]),
+  //   capo (int, 0 = none), language, body (<pre> innerHTML),
   //   progression (#edit-progression's raw text, e.g. "G C | Ami D"),
-  //   baseTitle, baseAuthor, baseCapo, baseLanguage, baseBody, baseProgression
-  //   (values at load time / last successful save - used to detect dirtiness) }
+  //   baseTitle, baseAuthors, baseCapo, baseLanguage, baseBody,
+  //   baseProgression (values at load time / last successful save - used to
+  //   detect dirtiness) }
   const pendingEdits = new Map();
 
-  // Slugs whose "checked" flag has been flipped from its last-persisted
-  // value (toggle semantics: present = flipped, absent = at persisted
-  // value). Never contains isNew slugs - a new song's checked state is
-  // whatever's on its (not-yet-pushed) songs.json entry already.
-  const pendingChecked = new Set();
+  // slug -> the status the song had when songs.json was loaded (or when it
+  // was last saved). A song is status-dirty while statusOf() differs from
+  // this; the live value lives on the allSongs entry itself, so the sidebar
+  // can move it between sections the moment it changes.
+  const baseStatus = new Map();
+
+  // Sidebar list controls.
+  let listSortMode = localStorage.getItem('editor_list_sort') || 'title';
+  let listStatusFilter = '';
+  const sectionOpen = new Map(STATUS_IDS.map(id => [
+    id, localStorage.getItem('editor_section_' + id) !== 'closed'
+  ]));
+
+  // Chord hotbar: the buttons under "Vložit akord". Reordered by dragging,
+  // extended by inserting a chord that isn't on it yet, and refilled from
+  // the song's own chords whenever a song with chords is opened.
+  const DEFAULT_HOTBAR = ['Ami', 'Emi', 'C', 'G', 'D', 'F', 'E', 'H'];
+  const HOTBAR_MAX = 14;
+  let hotbar = loadHotbar();
+
+  function loadHotbar() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('chord_hotbar'));
+      if (Array.isArray(saved) && saved.length) {
+        return saved.map(String).filter(c => c.trim() !== '').slice(0, HOTBAR_MAX);
+      }
+    } catch (e) { /* corrupt entry - fall back to the defaults */ }
+    return DEFAULT_HOTBAR.slice();
+  }
+
+  function saveHotbar() {
+    try {
+      localStorage.setItem('chord_hotbar', JSON.stringify(hotbar));
+    } catch (e) { /* storage disabled - the bar still works for this session */ }
+  }
 
   // === Init ===
   function init() {
@@ -109,6 +223,17 @@
 
     saveTokenBtn.addEventListener('click', saveToken);
     editorSearch.addEventListener('input', filterSongList);
+    listSort.value = listSortMode;
+    listSort.addEventListener('change', () => {
+      listSortMode = listSort.value;
+      localStorage.setItem('editor_list_sort', listSortMode);
+      filterSongList();
+    });
+    listFilter.addEventListener('change', () => {
+      listStatusFilter = listFilter.value;
+      filterSongList();
+    });
+    buildListSections();
     btnSave.addEventListener('click', saveCurrentSong);
     btnSaveAll.addEventListener('click', saveAll);
     btnPreview.addEventListener('click', togglePreview);
@@ -130,22 +255,25 @@
       }
     });
 
-    // Quick chord buttons + number-key hints (1..9)
-    document.querySelectorAll('.btn-quick-chord').forEach((btn, i) => {
-      btn.addEventListener('click', () => insertChord(btn.dataset.chord));
-      if (i < 9) {
-        btn.title = 'Zkratka: ' + (i + 1);
-        const hint = document.createElement('span');
-        hint.className = 'key-hint';
-        hint.textContent = (i + 1);
-        btn.prepend(hint);
-      }
+    renderHotbar();
+    btnHotbarReset.addEventListener('click', () => {
+      hotbar = DEFAULT_HOTBAR.slice();
+      saveHotbar();
+      renderHotbar();
     });
 
-    // Section marker buttons (insert R: / R1: / S: / B: at the line start)
-    document.querySelectorAll('.btn-section').forEach(btn => {
-      btn.addEventListener('click', () => insertSectionMarker(btn.dataset.marker));
+    // Section fences: "//<name>" ... "<name>//" around the selection (or an
+    // empty pair with the caret inside), and the repeat pair "//:" / "://".
+    sectionNameInput.addEventListener('input', updateSectionButton);
+    sectionNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        insertFence(sectionNameInput.value.trim());
+      }
     });
+    updateSectionButton();
+    btnInsertSection.addEventListener('click', () => insertFence(sectionNameInput.value.trim()));
+    btnInsertRepeat.addEventListener('click', () => insertFence(SongSections.REPEAT_NAME));
 
     // Cleanup + transpose buttons
     btnFixSpacing.addEventListener('click', () => applyCleanup(SongCleanup.normalizeChordSpacing));
@@ -167,15 +295,23 @@
 
     // Metadata edits didn't mark anything dirty before - now they do too.
     editTitle.addEventListener('input', syncCurrentEdits);
-    editAuthor.addEventListener('input', syncCurrentEdits);
+    bindAuthorChips();
     editCapo.addEventListener('input', syncCurrentEdits);
     editLanguage.addEventListener('change', syncCurrentEdits);
     editProgression.addEventListener('input', syncCurrentEdits);
     btnProgressionAuto.addEventListener('click', () => {
       if (!currentSong) return;
-      editProgression.value = SongSections.progressionToText(SongSections.deriveProgression(editorArea.innerHTML));
+      editProgression.value = SongSections.progressionToText(SongSections.deriveProgression(readBody()));
       syncCurrentEdits();
     });
+
+    // The per-song category popover closes on any click elsewhere, on Esc,
+    // and whenever the list scrolls out from under it.
+    document.addEventListener('click', closeStatusMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeStatusMenu();
+    });
+    songListWrap.addEventListener('scroll', closeStatusMenu);
 
     // Keyboard shortcuts: Ctrl/Cmd+S saves the open song, +Shift saves all.
     document.addEventListener('keydown', (e) => {
@@ -194,14 +330,17 @@
       }
     });
 
-    // Handle chord deletion - delete whole chord span on backspace
+    // Enter/Shift+Enter, chord deletion, and paste-as-plain-text all keep
+    // the contenteditable down to text nodes + chord spans.
     editorArea.addEventListener('keydown', handleEditorKeydown);
+    editorArea.addEventListener('paste', handlePaste);
 
     // New-song dialog
     btnNewSong.addEventListener('click', () => {
       newSongForm.reset();
       newCapoInput.value = '0';
       newLanguageSelect.value = 'CZ';
+      newStatusSelect.value = 'ke-kontrole';
       newSongSlugPreview.textContent = '';
       newSongDialog.showModal();
     });
@@ -325,24 +464,76 @@
       const resp = await fetch('../songs.json');
       const data = await resp.json();
       allSongs = data.songs;
-      renderSongList(allSongs);
+      allSongs.forEach(s => baseStatus.set(s.slug, statusOf(s)));
+      filterSongList();
     } catch (e) {
       setStatus('Chyba při načítání songs.json', 'error');
     }
   }
 
+  // One <details> per status, built once; filterSongList() only refills the
+  // <ul>s so the open/closed state and scroll position survive re-renders.
+  const listSections = new Map();
+
+  function buildListSections() {
+    STATUSES.forEach(st => {
+      const details = document.createElement('details');
+      details.className = 'song-section';
+      details.open = sectionOpen.get(st.id);
+      details.addEventListener('toggle', () => {
+        sectionOpen.set(st.id, details.open);
+        localStorage.setItem('editor_section_' + st.id, details.open ? 'open' : 'closed');
+      });
+
+      const summary = document.createElement('summary');
+      summary.textContent = st.label + ' ';
+      const count = document.createElement('span');
+      count.className = 'section-count';
+      summary.appendChild(count);
+      details.appendChild(summary);
+
+      const ul = document.createElement('ul');
+      ul.className = 'song-list';
+      details.appendChild(ul);
+
+      songListWrap.appendChild(details);
+      listSections.set(st.id, { details, ul, count });
+    });
+  }
+
+  const csCollator = new Intl.Collator('cs', { sensitivity: 'base' });
+
+  function sortForList(songs) {
+    const sorted = songs.slice();
+    sorted.sort((a, b) => {
+      if (listSortMode === 'author') {
+        const cmp = csCollator.compare(authorsText(authorsOf(a)), authorsText(authorsOf(b)));
+        return cmp !== 0 ? cmp : csCollator.compare(a.title, b.title);
+      }
+      const cmp = csCollator.compare(a.title, b.title);
+      return listSortMode === 'title-desc' ? -cmp : cmp;
+    });
+    return sorted;
+  }
+
   function renderSongList(songs) {
-    const unchecked = songs.filter(s => !s.checked);
-    const checked = songs.filter(s => s.checked);
-    fillList(songListUnchecked, unchecked);
-    fillList(songListChecked, checked);
-    countUnchecked.textContent = '(' + unchecked.length + ')';
-    countChecked.textContent = '(' + checked.length + ')';
+    const sorted = sortForList(songs);
+    STATUSES.forEach(st => {
+      const sec = listSections.get(st.id);
+      const inSection = listStatusFilter && listStatusFilter !== st.id
+        ? []
+        : sorted.filter(s => statusOf(s) === st.id);
+      fillList(sec.ul, inSection);
+      sec.count.textContent = '(' + inSection.length + ')';
+      // A section filtered away entirely is hidden, not shown as "(0)".
+      sec.details.hidden = !!listStatusFilter && listStatusFilter !== st.id;
+    });
   }
 
   function fillList(ul, songs) {
     ul.innerHTML = '';
     songs.forEach(song => {
+      const status = statusOf(song);
       const li = document.createElement('li');
       li.dataset.slug = song.slug;
 
@@ -354,27 +545,92 @@
       main.appendChild(titleSpan);
       const authorSpan = document.createElement('span');
       authorSpan.className = 'song-list-author';
-      authorSpan.textContent = song.author || '';
+      authorSpan.textContent = authorsText(authorsOf(song));
       main.appendChild(authorSpan);
+      if (song.note) {
+        const noteSpan = document.createElement('span');
+        noteSpan.className = 'song-list-note';
+        noteSpan.textContent = song.note;
+        main.appendChild(noteSpan);
+      }
       li.appendChild(main);
 
+      // ✓ advances one step along the workflow; on the last step it toggles
+      // back, so "zkontrolováno" stays a checkbox the way it always was.
+      const next = nextStatus(status);
       const toggle = document.createElement('button');
       toggle.type = 'button';
-      toggle.className = 'btn-check-toggle' + (song.checked ? ' on' : '');
+      toggle.className = 'btn-check-toggle' + (status === 'zkontrolovano' ? ' on' : '');
       toggle.textContent = '✓';
-      toggle.title = song.checked ? 'Vrátit ke kontrole' : 'Označit jako zkontrolováno';
-      toggle.setAttribute('aria-pressed', String(!!song.checked));
+      toggle.title = 'Přesunout do: ' + statusLabel(next);
+      toggle.setAttribute('aria-pressed', String(status === 'zkontrolovano'));
       toggle.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        toggleChecked(song);
+        setSongStatus(song, next);
       });
       li.appendChild(toggle);
+
+      const menu = document.createElement('button');
+      menu.type = 'button';
+      menu.className = 'btn-song-menu';
+      menu.textContent = '⋯';
+      menu.title = 'Přesunout do jiné kategorie';
+      menu.setAttribute('aria-haspopup', 'true');
+      menu.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        openStatusMenu(menu, song);
+      });
+      li.appendChild(menu);
 
       if (isDirty(song.slug)) li.classList.add('modified');
       if (currentSong && currentSong.slug === song.slug) li.classList.add('active');
       li.addEventListener('click', () => loadSong(song));
       ul.appendChild(li);
     });
+  }
+
+  function nextStatus(status) {
+    if (status === 'zkontrolovano') return 'ke-kontrole';
+    return STATUS_IDS[STATUS_IDS.indexOf(status) + 1] || 'ke-kontrole';
+  }
+
+  // Little popover listing all four categories, anchored under the ⋯ button.
+  let openMenuEl = null;
+
+  function closeStatusMenu() {
+    if (openMenuEl) {
+      openMenuEl.remove();
+      openMenuEl = null;
+    }
+  }
+
+  function openStatusMenu(anchor, song) {
+    const wasFor = openMenuEl && openMenuEl.dataset.slug === song.slug;
+    closeStatusMenu();
+    if (wasFor) return; // second click on the same ⋯ closes it
+
+    const current = statusOf(song);
+    const menu = document.createElement('div');
+    menu.className = 'status-menu';
+    menu.dataset.slug = song.slug;
+    STATUSES.forEach(st => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'status-menu-item' + (st.id === current ? ' current' : '');
+      item.textContent = st.label;
+      item.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        closeStatusMenu();
+        if (st.id !== current) setSongStatus(song, st.id);
+      });
+      menu.appendChild(item);
+    });
+
+    const rect = anchor.getBoundingClientRect();
+    menu.style.top = (rect.bottom + 4) + 'px';
+    menu.style.left = Math.max(8, rect.right - 150) + 'px';
+    document.body.appendChild(menu);
+    openMenuEl = menu;
   }
 
   function refreshListItemDirty(slug) {
@@ -391,20 +647,26 @@
 
   // === Pending-edit / dirty-state helpers ===
   function isEditDirty(e) {
-    return e.isNew || e.title !== e.baseTitle || e.author !== e.baseAuthor ||
+    return e.isNew || e.title !== e.baseTitle ||
+      authorsText(e.authors) !== authorsText(e.baseAuthors) ||
       e.capo !== e.baseCapo || e.language !== e.baseLanguage || e.body !== e.baseBody ||
       e.progression !== e.baseProgression;
   }
 
+  function isStatusDirty(slug) {
+    const song = allSongs.find(s => s.slug === slug);
+    return !!song && baseStatus.has(slug) && statusOf(song) !== baseStatus.get(slug);
+  }
+
   function isDirty(slug) {
     const e = pendingEdits.get(slug);
-    return (e ? isEditDirty(e) : false) || pendingChecked.has(slug);
+    return (e ? isEditDirty(e) : false) || isStatusDirty(slug);
   }
 
   function getDirtySlugs() {
     const out = new Set();
     pendingEdits.forEach((e, slug) => { if (isEditDirty(e)) out.add(slug); });
-    pendingChecked.forEach(slug => out.add(slug));
+    allSongs.forEach(s => { if (isStatusDirty(s.slug)) out.add(s.slug); });
     return Array.from(out);
   }
 
@@ -414,23 +676,18 @@
     const e = pendingEdits.get(currentSong.slug);
     if (!e) return; // load failed earlier - edits aren't tracked, can't be saved
     e.title = editTitle.value;
-    e.author = editAuthor.value;
+    e.authors = readAuthorChips();
     e.capo = parseInt(editCapo.value, 10) || 0;
     e.language = editLanguage.value;
-    e.body = editorArea.innerHTML;
+    e.body = readBody();
     e.progression = editProgression.value;
     refreshDirtyUI();
     schedulePreview();
   }
 
-  function toggleChecked(song) {
-    song.checked = !song.checked; // live value shown in the sidebar right away
-    const e = pendingEdits.get(song.slug);
-    if (!e || !e.isNew) {
-      if (pendingChecked.has(song.slug)) pendingChecked.delete(song.slug);
-      else pendingChecked.add(song.slug);
-    }
-    filterSongList(); // song jumps to the other section immediately
+  function setSongStatus(song, status) {
+    applyStatus(song, status); // live value, so the sidebar moves it at once
+    filterSongList();
     refreshDirtyUI();
   }
 
@@ -449,14 +706,90 @@
   function filterSongList() {
     const q = normalizeForSearch(editorSearch.value.trim());
     const filtered = allSongs.filter(s =>
-      normalizeForSearch(s.title + ' ' + s.author).includes(q)
+      normalizeForSearch(s.title + ' ' + authorsText(authorsOf(s))).includes(q)
     );
     renderSongList(filtered);
     if (q) {
       // Make sure search hits in a collapsed section are visible.
-      sectionUnchecked.open = true;
-      sectionChecked.open = true;
+      listSections.forEach(sec => { sec.details.open = true; });
     }
+  }
+
+  // === Interpret chips ===
+  // The author field is a list, not a string: each interpret is its own chip
+  // so the song list can show "Nedvědi, Karel Plíhal" as two artists rather
+  // than one oddly-named band.
+  function readAuthorChips() {
+    return Array.from(editAuthors.querySelectorAll('.author-chip'))
+      .map(chip => chip.dataset.author)
+      .filter(a => a && a.trim() !== '');
+  }
+
+  function renderAuthorChips(list) {
+    editAuthors.querySelectorAll('.author-chip').forEach(c => c.remove());
+    list.forEach(name => {
+      const chip = document.createElement('span');
+      chip.className = 'author-chip';
+      chip.dataset.author = name;
+
+      const label = document.createElement('span');
+      label.className = 'author-chip-name';
+      label.textContent = name;
+      chip.appendChild(label);
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'author-chip-del';
+      del.textContent = '×';
+      del.title = 'Odebrat interpreta';
+      del.addEventListener('click', () => {
+        chip.remove();
+        syncCurrentEdits();
+      });
+      chip.appendChild(del);
+
+      editAuthors.insertBefore(chip, editAuthorInput);
+    });
+  }
+
+  // Commits whatever is typed in the trailing input as one or more chips
+  // (a pasted "A, B" splits). Returns true if anything was added.
+  function commitAuthorInput() {
+    const parts = editAuthorInput.value.split(',').map(s => s.trim()).filter(s => s !== '');
+    if (!parts.length) {
+      editAuthorInput.value = '';
+      return false;
+    }
+    const existing = readAuthorChips();
+    parts.forEach(p => { if (existing.indexOf(p) === -1) existing.push(p); });
+    renderAuthorChips(existing);
+    editAuthorInput.value = '';
+    syncCurrentEdits();
+    return true;
+  }
+
+  function bindAuthorChips() {
+    editAuthorInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        commitAuthorInput();
+        return;
+      }
+      // Backspace in an empty field pulls the last chip back for editing,
+      // the way tag inputs normally behave.
+      if (e.key === 'Backspace' && editAuthorInput.value === '') {
+        const chips = editAuthors.querySelectorAll('.author-chip');
+        const last = chips[chips.length - 1];
+        if (last) {
+          e.preventDefault();
+          editAuthorInput.value = last.dataset.author;
+          last.remove();
+          syncCurrentEdits();
+        }
+      }
+    });
+    // Leaving the field must not silently drop half-typed input.
+    editAuthorInput.addEventListener('blur', commitAuthorInput);
   }
 
   // === Load Song ===
@@ -470,11 +803,13 @@
       // Already opened this session (or brand new) - restore from memory,
       // no fetch, no discard prompt.
       editTitle.value = cached.title;
-      editAuthor.value = cached.author;
+      renderAuthorChips(cached.authors);
+      editAuthorInput.value = '';
       editCapo.value = cached.capo || '';
       editLanguage.value = cached.language;
       editProgression.value = cached.progression || '';
-      editorArea.innerHTML = cached.body;
+      setBody(cached.body);
+      syncHotbarToSong(song, cached.body);
       renderPreview();
       filterSongList();
       setStatus(
@@ -485,13 +820,43 @@
     }
 
     editTitle.value = song.title;
-    editAuthor.value = song.author || '';
+    renderAuthorChips(authorsOf(song));
+    editAuthorInput.value = '';
     editCapo.value = (song.tags && song.tags.capo) ? song.tags.capo : '';
     editLanguage.value = (song.tags && song.tags.language) ? song.tags.language : '';
     // song.progression comes from the already-loaded songs.json listing
     // (like title/author/tags above), not the per-song GitHub fetch below.
     const progressionText = SongSections.progressionToText(song.progression || []);
     editProgression.value = progressionText;
+
+    const capo = (song.tags && typeof song.tags.capo === 'number') ? song.tags.capo : 0;
+    const language = (song.tags && song.tags.language) || '';
+
+    function startEditing(rawHtml, body) {
+      setBody(body);
+      syncHotbarToSong(song, body);
+      renderPreview();
+      pendingEdits.set(song.slug, {
+        isNew: false,
+        rawHtml: rawHtml,
+        title: song.title,
+        authors: authorsOf(song),
+        capo, language,
+        // Read back the normalized markup (setBody sanitizes, and the
+        // browser can reflow raw HTML on assignment) so later dirty-checks
+        // compare like with like instead of diffing against the
+        // pre-normalization regex capture.
+        body: readBody(),
+        progression: progressionText,
+        baseTitle: song.title,
+        baseAuthors: authorsOf(song),
+        baseCapo: capo,
+        baseLanguage: language,
+        baseBody: readBody(),
+        baseProgression: progressionText
+      });
+      filterSongList();
+    }
 
     setStatus('Načítám...', '');
 
@@ -507,33 +872,17 @@
         return;
       }
 
-      editorArea.innerHTML = m[1];
-      renderPreview();
-      // Read back the normalized markup (the browser can reflow raw HTML on
-      // assignment) so later dirty-checks compare like with like instead of
-      // diffing against the pre-normalization regex capture.
-      const body = editorArea.innerHTML;
-      const capo = (song.tags && typeof song.tags.capo === 'number') ? song.tags.capo : 0;
-      const language = (song.tags && song.tags.language) || '';
-
-      pendingEdits.set(song.slug, {
-        isNew: false,
-        rawHtml: html,
-        title: song.title,
-        author: song.author || '',
-        capo, language, body,
-        progression: progressionText,
-        baseTitle: song.title,
-        baseAuthor: song.author || '',
-        baseCapo: capo,
-        baseLanguage: language,
-        baseBody: body,
-        baseProgression: progressionText
-      });
-
-      filterSongList();
+      startEditing(html, m[1]);
       setStatus(`Načteno: ${song.title}`, 'success');
     } catch (e) {
+      // A draft (návrh / k vytvoření) legitimately has no songs/*.html yet -
+      // that's the whole point, it's a title waiting for a text. Open it
+      // empty so it can be written; anything else is a real load failure.
+      if (e.status === 404 && isDraft(song)) {
+        startEditing(null, '');
+        setStatus(`${statusLabel(statusOf(song))}: ${song.title} — text zatím prázdný`, '');
+        return;
+      }
       // Deliberately no pendingEdits entry on failure - saveCurrentSong()
       // refuses to save a song with no entry, so an error message can never
       // get written into the file in place of real content.
@@ -541,32 +890,113 @@
     }
   }
 
+  // === The editing surface ===
+  // .editor-area holds exactly two kinds of node: text nodes containing real
+  // "\n" characters (the area is white-space: pre-wrap, so they render as
+  // line breaks), and chord <span>s. Nothing else - no <div>, no <br>, no
+  // pasted formatting. That invariant is what makes the editor and the live
+  // preview agree: sections.js sees the very same lines the caret moves
+  // through. setBody() enforces it on the way in, readBody() on the way out.
+  function makeChordSpan(name) {
+    const span = document.createElement('span');
+    span.className = 'chord';
+    span.dataset.chord = name;
+    span.textContent = name;
+    span.contentEditable = 'false';
+    return span;
+  }
+
+  function sanitizeBody(html) {
+    const src = document.createElement('div');
+    // normalizeBreaks turns <br>/<div>/<p> and &nbsp; into "\n" and plain
+    // spaces while leaving chord spans alone - the same function sections.js
+    // parses with, so both sides see identical line breaks.
+    src.innerHTML = SongSections.normalizeBreaks(html);
+
+    const out = document.createElement('div');
+    (function visit(node, into) {
+      Array.prototype.forEach.call(node.childNodes, (n) => {
+        if (n.nodeType === Node.TEXT_NODE) {
+          into.appendChild(document.createTextNode(n.nodeValue));
+        } else if (n.nodeType === Node.ELEMENT_NODE) {
+          const chord = n.dataset && n.dataset.chord;
+          if (chord) into.appendChild(makeChordSpan(chord));
+          else visit(n, into); // unwrap anything else, keep its text
+        }
+      });
+    })(src, out);
+
+    return out.innerHTML;
+  }
+
+  function setBody(html) {
+    editorArea.innerHTML = sanitizeBody(html || '');
+  }
+
+  // contenteditable="false" is an editing affordance (it makes a chord
+  // atomic under the caret), not song data - strip it so songs/*.html stays
+  // exactly as clean as it is today.
+  function readBody() {
+    return editorArea.innerHTML.replace(/ contenteditable="false"/g, '');
+  }
+
+  function insertNodeAtCaret(node) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount || !editorArea.contains(sel.anchorNode)) {
+      editorArea.appendChild(node);
+    } else {
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(node);
+    }
+    placeCaretAfter(node);
+  }
+
+  function placeCaretAfter(node) {
+    const sel = window.getSelection();
+    const range = document.createRange();
+    range.setStartAfter(node);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    editorArea.focus();
+  }
+
+  // Plain text at the caret. Used by Enter, paste and the fence buttons, so
+  // all three produce the same kind of content.
+  function insertTextAtCaret(text) {
+    if (!text) return;
+    insertNodeAtCaret(document.createTextNode(text));
+  }
+
   // === Chord insertion ===
   function insertChord(chordName) {
     if (!chordName) return;
 
+    editorArea.focus();
     const sel = window.getSelection();
     if (!sel.rangeCount) return;
-    if (!editorArea.contains(sel.anchorNode)) {
-      editorArea.focus();
-    }
 
     const range = sel.getRangeAt(0);
 
-    const span = document.createElement('span');
-    span.className = 'chord';
-    span.dataset.chord = chordName;
-    span.textContent = chordName;
-    span.contentEditable = 'false';
+    const span = makeChordSpan(chordName);
 
-    // Insert space before if needed
+    // Insert a space before the chord unless there already is one. The caret
+    // can sit inside a text node (normal typing) or between children (right
+    // after a previous programmatic insert) - both have to be looked at, or
+    // a chord dropped straight after a word glues itself onto it.
     const before = range.startContainer;
-    if (before.nodeType === Node.TEXT_NODE && before.textContent.length > 0) {
-      const charBefore = before.textContent[range.startOffset - 1];
-      if (charBefore && charBefore !== ' ' && charBefore !== '\n') {
-        range.insertNode(document.createTextNode(' '));
-        range.collapse(false);
-      }
+    let charBefore = null;
+    if (before.nodeType === Node.TEXT_NODE) {
+      charBefore = before.textContent[range.startOffset - 1];
+    } else if (range.startOffset > 0) {
+      const prev = before.childNodes[range.startOffset - 1];
+      if (prev && prev.nodeType === Node.TEXT_NODE) charBefore = prev.textContent.slice(-1);
+      else if (prev) charBefore = 'x'; // an element (another chord) - needs a space
+    }
+    if (charBefore && charBefore !== ' ' && charBefore !== '\n') {
+      range.insertNode(document.createTextNode(' '));
+      range.collapse(false);
     }
 
     range.insertNode(span);
@@ -575,53 +1005,170 @@
     const spaceAfter = document.createTextNode(' ');
     span.after(spaceAfter);
 
-    // Move cursor after the space
-    range.setStartAfter(spaceAfter);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
+    placeCaretAfter(spaceAfter);
 
     chordInput.value = '';
+    addToHotbar(chordName);
     if (currentSong) syncCurrentEdits();
   }
 
-  // === Section markers ===
-  // Insert a section marker (R:, R1:, S:, B:, ...) on its own line at the caret.
-  function insertSectionMarker(marker) {
-    if (!marker) return;
+  // === Chord hotbar ===
+  // A chord I just typed goes to the front of the bar, because the next
+  // thing I do with a new chord is use it again. One that's already there
+  // keeps its slot - the number shortcuts would be useless if every insert
+  // reshuffled them.
+  function addToHotbar(chordName) {
+    if (!chordName || hotbar.indexOf(chordName) !== -1) return;
+    hotbar.unshift(chordName);
+    if (hotbar.length > HOTBAR_MAX) hotbar.length = HOTBAR_MAX;
+    saveHotbar();
+    renderHotbar();
+  }
+
+  // Opening a song puts its own chords on the bar, in the order they're
+  // first played, then tops the bar up with what was there before so the
+  // usual suspects stay within reach.
+  function syncHotbarToSong(song, body) {
+    const fromBody = extractChords(body || '');
+    const chords = fromBody.length ? fromBody : (song && Array.isArray(song.chords) ? song.chords : []);
+    if (!chords.length) return;
+
+    const next = chords.slice(0, HOTBAR_MAX);
+    hotbar.concat(DEFAULT_HOTBAR).forEach(c => {
+      if (next.length < HOTBAR_MAX && next.indexOf(c) === -1) next.push(c);
+    });
+    hotbar = next;
+    saveHotbar();
+    renderHotbar();
+  }
+
+  let hotbarDragFrom = -1;
+
+  function renderHotbar() {
+    chordHotbar.innerHTML = '';
+    hotbar.forEach((chord, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-sm btn-quick-chord';
+      btn.dataset.chord = chord;
+      btn.dataset.index = i;
+      btn.draggable = true;
+      btn.title = (i < 9 ? 'Zkratka: ' + (i + 1) + ' · ' : '') +
+        'Táhni pro přesun · pravé tlačítko odebere';
+
+      if (i < 9) {
+        const hint = document.createElement('span');
+        hint.className = 'key-hint';
+        hint.textContent = (i + 1);
+        btn.appendChild(hint);
+      }
+      btn.appendChild(document.createTextNode(chord));
+
+      btn.addEventListener('click', () => insertChord(chord));
+      btn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        hotbar.splice(i, 1);
+        saveHotbar();
+        renderHotbar();
+      });
+
+      btn.addEventListener('dragstart', (e) => {
+        hotbarDragFrom = i;
+        btn.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        // Firefox only starts a drag once some data is set.
+        e.dataTransfer.setData('text/plain', chord);
+      });
+      btn.addEventListener('dragend', () => {
+        hotbarDragFrom = -1;
+        btn.classList.remove('dragging');
+      });
+      btn.addEventListener('dragover', (e) => {
+        if (hotbarDragFrom === -1) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        btn.classList.add('drop-target');
+      });
+      btn.addEventListener('dragleave', () => btn.classList.remove('drop-target'));
+      btn.addEventListener('drop', (e) => {
+        e.preventDefault();
+        btn.classList.remove('drop-target');
+        if (hotbarDragFrom === -1 || hotbarDragFrom === i) return;
+        const [moved] = hotbar.splice(hotbarDragFrom, 1);
+        hotbar.splice(i, 0, moved);
+        hotbarDragFrom = -1;
+        saveHotbar();
+        renderHotbar();
+      });
+
+      chordHotbar.appendChild(btn);
+    });
+  }
+
+  // === Section fences ===
+  // "//R" ... "R//" around the selection, or an empty pair with the caret
+  // parked inside it. The repeat pair ("//:" / "://") is the same thing with
+  // name ":", so one function covers both buttons.
+  function updateSectionButton() {
+    const name = sectionNameInput.value.trim() || 'R';
+    sectionBtnPreview.textContent = '//' + name + ' … ' + name + '//';
+  }
+
+  function insertFence(name) {
+    if (!name) return;
+    const repeat = name === SongSections.REPEAT_NAME;
+    const open = '//' + name;
+    const close = name + '//';
+
     editorArea.focus();
     const sel = window.getSelection();
-    if (!sel.rangeCount || !editorArea.contains(sel.anchorNode)) {
-      // No caret in the editor: append at the end.
-      editorArea.appendChild(document.createTextNode('\n' + marker + ' '));
+    const range = sel.rangeCount && editorArea.contains(sel.anchorNode) ? sel.getRangeAt(0) : null;
+
+    // A repeat brackets the selected text inline; a section wraps whole
+    // lines, so its markers get lines of their own.
+    const sep = repeat ? ' ' : '\n';
+    const lineStart = atLineStart(range);
+
+    if (range && !range.collapsed) {
+      // extractContents (not toString) - the selection is usually a chorus,
+      // and a chorus is full of chord spans that must survive being fenced.
+      const frag = range.extractContents();
+      const head = document.createTextNode((lineStart ? '' : '\n') + open + sep);
+      const tail = document.createTextNode(sep + close);
+      frag.insertBefore(head, frag.firstChild);
+      frag.appendChild(tail);
+      range.insertNode(frag);
+      placeCaretAfter(tail);
     } else {
-      const range = sel.getRangeAt(0);
-      range.deleteContents();
-
-      // Start a new line unless the caret already sits at the start of one.
-      let atLineStart = true;
-      const node = range.startContainer;
-      if (node.nodeType === Node.TEXT_NODE && range.startOffset > 0) {
-        const ch = node.textContent[range.startOffset - 1];
-        if (ch && ch !== '\n') atLineStart = false;
-      }
-
-      const tn = document.createTextNode((atLineStart ? '' : '\n') + marker + ' ');
-      range.insertNode(tn);
-      range.setStartAfter(tn);
-      range.collapse(true);
+      // Empty pair: put the caret on the line (or between the brackets)
+      // where the text is about to go.
+      const head = document.createTextNode((lineStart ? '' : '\n') + open + sep);
+      const tail = document.createTextNode(sep + close);
+      insertNodeAtCaret(head);
+      insertNodeAtCaret(tail);
+      const r = document.createRange();
+      r.setStartBefore(tail);
+      r.collapse(true);
       sel.removeAllRanges();
-      sel.addRange(range);
+      sel.addRange(r);
     }
 
     if (currentSong) syncCurrentEdits();
+  }
+
+  function atLineStart(range) {
+    if (!range) return true;
+    const node = range.startContainer;
+    if (node.nodeType !== Node.TEXT_NODE || range.startOffset === 0) return true;
+    const ch = node.textContent[range.startOffset - 1];
+    return !ch || ch === '\n';
   }
 
   // === Cleanup / transpose actions ===
   function applyCleanup(fn) {
     if (!currentSong) return;
     try {
-      editorArea.innerHTML = fn(editorArea.innerHTML);
+      setBody(fn(readBody()));
       syncCurrentEdits();
       setStatus('Upraveno (zatím neuloženo)', '');
     } catch (e) {
@@ -636,15 +1183,13 @@
     btnToggleShortcuts.classList.toggle('active', chordShortcutsEnabled);
   }
 
-  // Number keys 1..9 insert the matching toolbar chord at the caret.
+  // Number keys 1..9 insert the matching hotbar chord at the caret.
   function handleChordShortcut(e) {
     if (!chordShortcutsEnabled || isEditorHidden()) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (!/^[1-9]$/.test(e.key)) return;
-    const btns = document.querySelectorAll('.btn-quick-chord');
     const idx = parseInt(e.key, 10) - 1;
-    if (idx >= btns.length) return;
-    const chord = btns[idx].dataset.chord;
+    const chord = hotbar[idx];
     if (!chord) return;
     e.preventDefault();
     insertChord(chord);
@@ -652,6 +1197,19 @@
 
   // === Editor keydown handling ===
   function handleEditorKeydown(e) {
+    // Enter = new paragraph (a blank line, which is what separates blocks in
+    // a song), Shift+Enter = plain line break inside the same paragraph. The
+    // browser's own Enter handling wraps things in <div>/<br> differently
+    // depending on where the caret is, which is exactly what made this
+    // unpredictable - so it never gets to run.
+    if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      insertTextAtCaret(e.shiftKey ? '\n' : '\n\n');
+      scrollCaretIntoView();
+      if (currentSong) syncCurrentEdits();
+      return;
+    }
+
     // When backspace is pressed and cursor is right after a chord span, delete the whole span
     if (e.key === 'Backspace') {
       const sel = window.getSelection();
@@ -687,6 +1245,30 @@
     }
   }
 
+  // Programmatic insertion doesn't scroll the caret into view the way typing
+  // does; nudge it so Enter at the bottom of a long song doesn't type blind.
+  function scrollCaretIntoView() {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const rect = sel.getRangeAt(0).getBoundingClientRect();
+    if (!rect.height && !rect.top) return; // collapsed at a break - no useful box
+    const box = editorArea.getBoundingClientRect();
+    if (rect.bottom > box.bottom - 8) editorArea.scrollTop += (rect.bottom - box.bottom) + 40;
+    else if (rect.top < box.top + 8) editorArea.scrollTop -= (box.top - rect.top) + 40;
+  }
+
+  // Paste is plain text only. Pasting a verse off a chord site otherwise
+  // brings that site's markup - fonts, colours, tables - into the song.
+  function handlePaste(e) {
+    e.preventDefault();
+    const clip = e.clipboardData || window.clipboardData;
+    const text = clip ? clip.getData('text/plain') : '';
+    if (!text) return;
+    insertTextAtCaret(text.replace(/\r\n?/g, '\n'));
+    scrollCaretIntoView();
+    if (currentSong) syncCurrentEdits();
+  }
+
   // === Live preview ===
   // Renders the song exactly like the live page (shared SongSections
   // transform + site CSS) and decorates it with editor-only controls:
@@ -720,7 +1302,7 @@
   function renderPreview() {
     clearTimeout(previewTimer);
     if (!previewOn) return;
-    const src = editorArea.innerHTML;
+    const src = readBody();
     if (window.SongSections && SongSections.hasSections(src)) {
       editorPreview.innerHTML = SongSections.transform(src);
       editorPreview.classList.toggle('show-repeats', !previewCollapsed.checked);
@@ -732,6 +1314,7 @@
   }
 
   function sectionLabelOf(block) {
+    if (block.label) return block.label;
     const base = block.type === 'refren' ? 'R' : block.type === 'bridge' ? 'B' : 'S';
     return base + block.id + ':';
   }
@@ -741,6 +1324,10 @@
   //  - a marked section with a merged continuation gets "⤵ odpojit konec",
   //  - a lowercase-starting block right after a section is flagged as a
   //    suspected chorus continuation (dashed outline, button always visible).
+  //
+  // All three are about the legacy indent convention for "what still belongs
+  // to this section". A fenced section states its own end, so it gets none
+  // of them.
   function decoratePreview(src) {
     const blocks = SongSections.parseBlocks(src);
     const kids = editorPreview.children;
@@ -761,7 +1348,7 @@
       const b = blocks[i];
       const prev = blocks[i - 1];
 
-      if (!b.marker && prev && prev.marker) {
+      if (!b.marker && prev && prev.marker && !prev.fenced) {
         const lbl = sectionLabelOf(prev);
         kids[i].appendChild(makeBtn(
           'join', i, '⤴ do ' + lbl,
@@ -775,7 +1362,7 @@
         }
       }
 
-      if (b.marker && b.lines.indexOf('') > 0) {
+      if (b.marker && !b.fenced && b.lines.indexOf('') > 0) {
         kids[i].appendChild(makeBtn(
           'detach', i, '⤵ odpojit konec',
           'Odpojit poslední připojený blok ze sekce (stane se z něj samostatná sloka)'
@@ -801,7 +1388,7 @@
   // "Joined" is stored as indentation - the convention old songs already use
   // and sections.js already parses (and dedents for display).
   function applySectionAction(act, idx) {
-    const src = editorArea.innerHTML;
+    const src = readBody();
     const lines = SongSections.normalizeBreaks(src).split('\n');
     const blocks = SongSections.parseBlocks(src);
     const b = blocks[idx];
@@ -829,7 +1416,7 @@
       }
     }
 
-    editorArea.innerHTML = lines.join('\n');
+    setBody(lines.join('\n'));
     syncCurrentEdits();
     renderPreview();
   }
@@ -838,24 +1425,30 @@
   function createNewSong() {
     const title = newTitleInput.value.trim();
     if (!title) return;
-    const author = newAuthorInput.value.trim();
+    const authors = newAuthorInput.value.split(',').map(s => s.trim()).filter(s => s !== '');
     const capo = parseInt(newCapoInput.value, 10) || 0;
     const language = newLanguageSelect.value || 'CZ';
+    const status = newStatusSelect.value || 'ke-kontrole';
 
     const taken = new Set(allSongs.map(s => s.slug));
     const slug = SongTemplate.uniqueSlug(SongTemplate.slugify(title), taken);
 
     // Lives only in memory until Uložit/Uložit vše pushes it - insert
     // sorted so the sidebar and a future songs.json diff both read sanely.
-    const song = { title, slug, author, chords: [], tags: { capo: capo || false, language }, checked: false };
+    const song = { title, slug, chords: [], tags: { capo: capo || false, language } };
+    applyAuthors(song, authors);
+    applyStatus(song, status);
     const idx = allSongs.findIndex(s => s.title.toLowerCase() > title.toLowerCase());
     if (idx === -1) allSongs.push(song); else allSongs.splice(idx, 0, song);
+    // A brand-new song is dirty through isNew, so its "base" status is
+    // whatever it was created with - it only counts as moved if I move it.
+    baseStatus.set(slug, status);
 
     pendingEdits.set(slug, {
       isNew: true,
       rawHtml: null,
-      title, author, capo, language, body: '', progression: '',
-      baseTitle: null, baseAuthor: null, baseCapo: null, baseLanguage: null, baseBody: null,
+      title, authors, capo, language, body: '', progression: '',
+      baseTitle: null, baseAuthors: null, baseCapo: null, baseLanguage: null, baseBody: null,
       baseProgression: null
     });
 
@@ -893,7 +1486,8 @@
   // saveToGitHub always used, against the cached rawHtml (no re-fetch needed).
   function buildSongHtml(slug, e) {
     const title = e.title.trim() || e.baseTitle || 'Bez názvu';
-    const author = e.author.trim();
+    // The song page shows one author line; several interprets join with ", ".
+    const author = authorsText(e.authors);
     const capo = e.capo || 0;
 
     if (e.isNew || e.rawHtml == null) {
@@ -959,9 +1553,21 @@
     return html;
   }
 
+  // A draft is done waiting the moment it has a text: saving one with a body
+  // promotes it to "ke kontrole" and gives it a real songs/<slug>.html.
+  // That's the workflow ("čeká, dokud k ní nepřidám text"), and it's also
+  // what keeps the save honest - a draft writes no HTML file, so a body left
+  // on a draft would be silently dropped.
+  function statusForSave(song, e) {
+    const status = statusOf(song);
+    const hasBody = !!(e && e.body && e.body.trim() !== '');
+    if (isDraftStatusId(status) && hasBody) return 'ke-kontrole';
+    return status;
+  }
+
   // Fetches a FRESH songs.json and applies pending state for ONLY the given
   // slugs, so a per-song save can never leak some other song's unrelated
-  // pending edits or checked-toggle into the committed file.
+  // pending edits or status change into the committed file.
   async function buildMergedSongsJson(slugs) {
     const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
 
@@ -979,7 +1585,7 @@
 
       if (e && isEditDirty(e)) {
         song.title = e.title.trim() || e.baseTitle || 'Bez názvu';
-        song.author = e.author.trim();
+        applyAuthors(song, e.authors);
         if (!song.tags) song.tags = {};
         song.tags.capo = e.capo || false;
         if (e.language) song.tags.language = e.language;
@@ -989,10 +1595,7 @@
         else delete song.progression;
       }
 
-      if (local && (pendingChecked.has(slug) || (e && e.isNew))) {
-        if (local.checked) song.checked = true;
-        else delete song.checked; // absence = "ke kontrole", keeps the file minimal
-      }
+      if (local) applyStatus(song, statusForSave(local, e));
     }
 
     return JSON.stringify(data, null, 2);
@@ -1006,13 +1609,18 @@
 
     for (const slug of slugs) {
       const e = pendingEdits.get(slug);
-      if (e && isEditDirty(e)) {
+      const local = allSongs.find(s => s.slug === slug);
+      // A draft has no public page - writing one would put an unfinished
+      // song on the site and break validate-data.js's file/JSON pairing in
+      // the other direction. Only its songs.json entry moves.
+      const wantsFile = !local || !isDraftStatusId(statusForSave(local, e));
+      if (e && isEditDirty(e) && wantsFile) {
         const html = buildSongHtml(slug, e);
         builtHtml.set(slug, html);
         files.push({ path: `${REPO_PATH_PREFIX}${slug}.html`, content: html });
       }
-      // A slug that's only checked-toggled (not e/isEditDirty) contributes
-      // no HTML file - only its songs.json entry changes.
+      // A slug that's only been moved between categories (not isEditDirty)
+      // contributes no HTML file either - only its songs.json entry changes.
     }
     files.push({ path: SONGS_JSON_PATH, content: await buildMergedSongsJson(slugs) });
 
@@ -1023,11 +1631,15 @@
     for (const slug of slugs) {
       const e = pendingEdits.get(slug);
       const local = allSongs.find(s => s.slug === slug);
+      if (local) {
+        applyStatus(local, statusForSave(local, e));
+        baseStatus.set(slug, statusOf(local));
+      }
       if (e) {
         const title = e.title.trim() || e.baseTitle || 'Bez názvu';
         if (local) {
           local.title = title;
-          local.author = e.author.trim();
+          applyAuthors(local, e.authors);
           if (!local.tags) local.tags = {};
           local.tags.capo = e.capo || false;
           if (e.language) local.tags.language = e.language;
@@ -1040,13 +1652,12 @@
         if (builtHtml.has(slug)) e.rawHtml = builtHtml.get(slug);
         e.title = title;
         e.baseTitle = title;
-        e.baseAuthor = e.author;
+        e.baseAuthors = e.authors.slice();
         e.baseCapo = e.capo;
         e.baseLanguage = e.language;
         e.baseBody = e.body;
         e.baseProgression = e.progression;
       }
-      pendingChecked.delete(slug);
     }
 
     filterSongList();
@@ -1055,6 +1666,9 @@
 
   async function saveCurrentSong() {
     if (!currentSong || !ghToken) return;
+    // Ctrl+S doesn't blur the interpret field, so an artist typed but not yet
+    // turned into a chip would otherwise never make it into the save.
+    commitAuthorInput();
     const e = pendingEdits.get(currentSong.slug);
     if (!e) {
       setStatus('Píseň se nenačetla, nelze uložit', 'error');
@@ -1072,8 +1686,15 @@
     try {
       const title = e.title.trim() || e.baseTitle;
       const message = (e.isNew ? 'Add: ' : 'Edit: ') + title;
+      const before = statusOf(currentSong);
       await performSave([currentSong.slug], message);
-      setStatus(`Uloženo: ${title}`, 'success');
+      const after = statusOf(currentSong);
+      setStatus(
+        after === before
+          ? `Uloženo: ${title}`
+          : `Uloženo: ${title} — přesunuto do „${statusLabel(after)}“`,
+        'success'
+      );
     } catch (err) {
       setStatus(`Chyba: ${err.message}`, 'error');
       console.error(err);
@@ -1085,6 +1706,7 @@
 
   async function saveAll() {
     if (!ghToken) return;
+    commitAuthorInput();
     const slugs = getDirtySlugs();
     if (!slugs.length) return;
 
@@ -1179,7 +1801,9 @@
     const resp = await fetch(`https://api.github.com${path}`, opts);
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      throw new Error(err.message || `GitHub API ${resp.status}`);
+      const e = new Error(err.message || `GitHub API ${resp.status}`);
+      e.status = resp.status; // callers distinguish "no such file" from "no network"
+      throw e;
     }
     return resp.json();
   }

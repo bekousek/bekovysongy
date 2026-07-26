@@ -169,3 +169,125 @@ test('normalizeBreaks (via hasSections) treats <br>/<div> as line breaks', () =>
   assert.equal(SongSections.hasSections('Verse one<br>R: Chorus'), true);
   assert.equal(SongSections.hasSections('<div>Verse one</div><div>R: Chorus</div>'), true);
 });
+
+// === Fenced sections: //R ... R// ===
+
+test('fence: markers never appear in the body and delimit exactly one block', () => {
+  const blocks = SongSections.parseBlocks('//R\nChorus line\nR//\n\nVerse');
+  assert.equal(blocks.length, 2);
+  assert.equal(blocks[0].marker, true);
+  assert.equal(blocks[0].fenced, true);
+  assert.deepEqual(blocks[0].lines, ['Chorus line']);
+  assert.equal(blocks[1].marker, false);
+  const out = SongSections.transform('//R\nChorus line\nR//');
+  assert.doesNotMatch(out, /\/\//);
+  assert.match(out, /<span class="section-body">Chorus line<\/span>/);
+});
+
+test('fence: a blank line inside the fence does NOT end the section', () => {
+  const blocks = SongSections.parseBlocks('//R\nfirst half\n\nsecond half\nR//');
+  assert.equal(blocks.length, 1);
+  assert.equal(blocks[0].lines.join('\n'), 'first half\n\nsecond half');
+});
+
+test('fence: name decides the type, R/S/B share identity with the legacy markers', () => {
+  assert.deepEqual(SongSections._fenceIdentity('R'), { type: 'refren', id: '', label: 'R:' });
+  assert.deepEqual(SongSections._fenceIdentity('R2'), { type: 'refren', id: '2', label: 'R2:' });
+  assert.deepEqual(SongSections._fenceIdentity('S1'), { type: 'sloka', id: '1', label: 'S1:' });
+  assert.deepEqual(SongSections._fenceIdentity('B'), { type: 'bridge', id: '', label: 'B:' });
+  assert.deepEqual(SongSections._fenceIdentity('Coda'), { type: 'custom', id: 'CODA', label: 'Coda:' });
+});
+
+test('fence: an arbitrary name renders as a labelled custom section', () => {
+  const out = SongSections.transform('//Coda\nlast lines\nCoda//');
+  assert.match(out, /class="song-section section-custom" data-section="custom\|CODA"/);
+  assert.match(out, /<span class="section-label">Coda:<\/span>/);
+  assert.match(out, /<span class="section-body">last lines<\/span>/);
+});
+
+test('fence: "//R//" on one line is a repeat, filled from the definition', () => {
+  const out = SongSections.transform('//R\nChorus body\nR//\n\nVerse\n\n//R//');
+  const classes = out.match(/section-refren( is-repeat)?/g);
+  assert.deepEqual(classes, ['section-refren', 'section-refren is-repeat']);
+  const bodies = [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
+  assert.equal(bodies[bodies.length - 1], 'Chorus body');
+});
+
+test('fence: "//R 2x//" keeps the play count as a visible note', () => {
+  const out = SongSections.transform('//R\nChorus body\nR//\n\nVerse\n\n//R 2x//');
+  assert.match(out, /is-repeat has-note/);
+  assert.match(out, /<span class="section-note">2x<\/span>/);
+});
+
+test('fence: a legacy R: block and a //R fence are the same identity', () => {
+  const out = SongSections.transform('//R\nChorus body\nR//\n\nVerse\n\nR:');
+  const classes = out.match(/section-refren( is-repeat)?/g);
+  assert.deepEqual(classes, ['section-refren', 'section-refren is-repeat']);
+});
+
+test('fence: an unterminated fence gives way to the next one', () => {
+  // The state the editor is in between typing "//R" and typing "R//".
+  const blocks = SongSections.parseBlocks('//R\nabc\n//S\ndef');
+  assert.equal(blocks.length, 2);
+  assert.deepEqual(blocks[0].lines, ['abc']);
+  assert.deepEqual(blocks[1].lines, ['def']);
+  assert.equal(blocks[1].label, 'S:');
+});
+
+test('fence: an empty section with no definition is a heading, not a repeat', () => {
+  const out = SongSections.transform('//VYBRNKÁVÁNÍ//\n\nVerse');
+  assert.match(out, /section-custom is-heading/);
+  assert.doesNotMatch(out, /is-repeat/);
+  assert.match(out, /<span class="section-label">VYBRNKÁVÁNÍ:<\/span>/);
+});
+
+test('fence: "//" inside a lyric line is left alone', () => {
+  const blocks = SongSections.parseBlocks('a // b\nnormal line');
+  assert.equal(blocks.length, 1);
+  assert.equal(blocks[0].marker, false);
+});
+
+test('fenceCloseAt: matches the fence name, a bare "//", but never a repeat close', () => {
+  assert.equal(SongSections._fenceCloseAt('R//', 'R'), 0);
+  assert.equal(SongSections._fenceCloseAt('text R//', 'R'), 5);
+  assert.equal(SongSections._fenceCloseAt('//', 'R'), 0);
+  assert.equal(SongSections._fenceCloseAt(' 2x//', 'R'), 3); // "2x" stays body
+  assert.equal(SongSections._fenceCloseAt('line two ://', 'R'), -1);
+  assert.equal(SongSections._fenceCloseAt('plain line', 'R'), -1);
+});
+
+// === Repeats: //: ... :// rendered as |: ... :| ===
+
+test('repeat: "//:" and "://" render as the sheet-music brackets', () => {
+  const out = SongSections.transform('//: první řádek\ndruhý řádek ://');
+  assert.match(out, /<span class="repeat-mark">\|:<\/span> první řádek/);
+  assert.match(out, /druhý řádek <span class="repeat-mark">:\|<\/span>/);
+  assert.doesNotMatch(out, /\/\//);
+});
+
+test('repeat: text glued straight onto "//:" still opens a repeat', () => {
+  // How the songs that already use this notation are written.
+  const out = SongSections.transform('//:Obzor neklesne níž\ntext ://');
+  assert.match(out, /<span class="repeat-mark">\|:<\/span>Obzor neklesne níž/);
+  const blocks = SongSections.parseBlocks('//:Obzor neklesne níž\ntext ://');
+  assert.equal(blocks.length, 1);
+  assert.equal(blocks[0].marker, false, 'a repeat is not a section');
+});
+
+test('repeat: works inside a section fence without closing it', () => {
+  const blocks = SongSections.parseBlocks('//R\n//: hook ://\nmore\nR//');
+  assert.equal(blocks.length, 1);
+  assert.deepEqual(blocks[0].lines, ['//: hook ://', 'more']);
+  const out = SongSections.transform('//R\n//: hook ://\nmore\nR//');
+  assert.match(out, /<span class="repeat-mark">\|:<\/span> hook <span class="repeat-mark">:\|<\/span>/);
+});
+
+test('hasSections: true for a plain song that only uses repeat brackets', () => {
+  assert.equal(SongSections.hasRepeatMarks('//: line ://'), true);
+  assert.equal(SongSections.hasSections('//: line ://'), true);
+  assert.equal(SongSections.hasSections('plain line\n\nanother'), false);
+});
+
+test('hasSections: true for a fenced song with no legacy markers', () => {
+  assert.equal(SongSections.hasSections('//R\nbody\nR//'), true);
+});

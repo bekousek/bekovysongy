@@ -56,7 +56,16 @@ for (const s of songs) {
 }
 
 // === songs.json -> file existence ===
+// Drafts are the exception: a "navrh" is an idea and a "k-vytvoreni" song is
+// one I've committed to writing, and neither has a page yet. They're
+// admin-only (filtered out of js/table.js, the sitemap and the SW precache),
+// so a missing file is their normal state - but a draft that DOES have a
+// page is fine too (a song demoted back out of review keeps its file).
+const DRAFT_STATUSES = ['navrh', 'k-vytvoreni'];
+const isDraft = (s) => DRAFT_STATUSES.includes(s.status);
+
 for (const s of songs) {
+  if (isDraft(s)) continue;
   const fp = path.join(SONGS_DIR, `${s.slug}.html`);
   if (!fs.existsSync(fp)) {
     fail(`songs.json references "${s.slug}" but songs/${s.slug}.html does not exist`);
@@ -112,6 +121,28 @@ for (const s of songs) {
   if (!Array.isArray(s.chords)) fail(`songs.json: "${s.slug}" is missing a chords array`);
   if (!s.tags || typeof s.tags.language !== 'string') warn(`songs.json: "${s.slug}" has no tags.language`);
   if ('checked' in s && typeof s.checked !== 'boolean') fail(`songs.json: "${s.slug}" has a non-boolean "checked" field`);
+
+  // status: only the two draft values are ever written (the public states
+  // stay on the older "checked" boolean), and the two must not disagree.
+  if ('status' in s) {
+    if (!DRAFT_STATUSES.includes(s.status)) {
+      fail(`songs.json: "${s.slug}" has an unknown status "${s.status}" (expected one of ${DRAFT_STATUSES.join(', ')})`);
+    } else if (s.checked) {
+      fail(`songs.json: "${s.slug}" is both status "${s.status}" and checked:true`);
+    }
+  }
+
+  // authors: optional, but when present must be a non-empty array of
+  // non-empty strings, and "author" must stay in sync as its joined form
+  // (the static song pages and older tooling only read "author").
+  if ('authors' in s) {
+    if (!Array.isArray(s.authors) || s.authors.length === 0 ||
+        s.authors.some(a => typeof a !== 'string' || !a.trim())) {
+      fail(`songs.json: "${s.slug}" has an invalid "authors" (must be a non-empty array of non-empty strings)`);
+    } else if (s.authors.join(', ') !== (s.author || '')) {
+      fail(`songs.json: "${s.slug}" has "author" out of sync with "authors" (${JSON.stringify(s.author)} vs ${JSON.stringify(s.authors.join(', '))})`);
+    }
+  }
 
   // progression is optional (omitted for chordless songs), but when present
   // must be a non-empty array of non-empty arrays of non-empty strings -

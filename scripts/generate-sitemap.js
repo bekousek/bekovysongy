@@ -17,12 +17,17 @@ function escapeXml(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// Drafts (status "navrh" / "k-vytvoreni") are admin-only ideas with no
+// songs/<slug>.html behind them - listing them would put 404s in the sitemap.
+const DRAFT_STATUSES = ['navrh', 'k-vytvoreni'];
+const published = data.songs.filter(s => !DRAFT_STATUSES.includes(s.status));
+
 const urls = [
   `${SITE}/`,
   `${SITE}/na-kytaru/`,
   `${SITE}/na-foukaci-harmoniku/`,
   `${SITE}/na-kalimbu/`,
-  ...data.songs.map(s => `${SITE}/songs/${s.slug}.html`),
+  ...published.map(s => `${SITE}/songs/${s.slug}.html`),
 ];
 
 const body = urls.map(u => `  <url>\n    <loc>${escapeXml(u)}</loc>\n  </url>`).join('\n');

@@ -54,21 +54,27 @@
     <div class="editor-sidebar" id="sidebar">
       <div class="sidebar-header">
         <input type="text" id="editor-search" class="filter-input" placeholder="Hledat píseň..." style="width:100%">
+        <div class="sidebar-filters">
+          <select id="list-sort" class="list-select" title="Řazení seznamu">
+            <option value="title">Název A→Z</option>
+            <option value="title-desc">Název Z→A</option>
+            <option value="author">Interpret A→Z</option>
+          </select>
+          <select id="list-filter" class="list-select" title="Zobrazit jen jednu kategorii">
+            <option value="">Všechny kategorie</option>
+            <option value="navrh">Návrhy</option>
+            <option value="k-vytvoreni">K vytvoření</option>
+            <option value="ke-kontrole">Ke kontrole</option>
+            <option value="zkontrolovano">Zkontrolováno</option>
+          </select>
+        </div>
         <div class="sidebar-actions">
           <button type="button" class="btn-editor" id="btn-new-song">+ Nová píseň</button>
           <button type="button" class="btn-editor btn-save" id="btn-save-all" disabled>Uložit vše <span id="save-all-count"></span></button>
         </div>
       </div>
-      <div class="song-list-wrap" id="song-list-wrap">
-        <details class="song-section" id="section-unchecked" open>
-          <summary>Ke kontrole <span class="section-count" id="count-unchecked"></span></summary>
-          <ul class="song-list" id="song-list-unchecked"></ul>
-        </details>
-        <details class="song-section" id="section-checked" open>
-          <summary>Zkontrolováno <span class="section-count" id="count-checked"></span></summary>
-          <ul class="song-list" id="song-list-checked"></ul>
-        </details>
-      </div>
+      <!-- The four status sections are built by editor.js from STATUSES. -->
+      <div class="song-list-wrap" id="song-list-wrap"></div>
     </div>
 
     <div class="editor-main" id="editor-main">
@@ -80,7 +86,13 @@
         <div class="editor-topbar">
           <div class="editor-song-info">
             <input type="text" id="edit-title" class="edit-title-input" placeholder="Název písně">
-            <input type="text" id="edit-author" class="edit-author-input" placeholder="Autor">
+            <!-- One chip per interpret; the trailing input adds another.
+                 Enter / čárka / Tab potvrdí, Backspace v prázdném poli smaže
+                 poslední. -->
+            <div class="author-chips" id="edit-authors">
+              <input type="text" id="edit-author" class="author-chip-input" placeholder="Interpret"
+                     title="Enter nebo čárka přidá dalšího interpreta">
+            </div>
             <div class="editor-meta-row">
               <label>Capo: <input type="number" id="edit-capo" class="edit-meta-input" min="0" max="12" placeholder="–"></label>
               <label>Jazyk:
@@ -111,20 +123,17 @@
           </div>
         </div>
 
-        <!-- Chord toolbar -->
+        <!-- Chord toolbar. The hotbar itself is built by editor.js: inserting
+             a chord that isn't on it puts it in front, the buttons can be
+             dragged to renumber them, and opening a song fills it with that
+             song's own chords in play order. -->
         <div class="chord-toolbar" id="chord-toolbar">
           <span class="toolbar-label">Vložit akord:</span>
           <input type="text" id="chord-input" class="chord-input" placeholder="Ami" maxlength="10">
           <button type="button" class="btn-sm" id="btn-insert-chord">Vložit</button>
           <span class="toolbar-sep">|</span>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="Ami">Ami</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="Emi">Emi</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="C">C</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="G">G</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="D">D</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="F">F</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="E">E</button>
-          <button type="button" class="btn-sm btn-quick-chord" data-chord="H">H</button>
+          <div class="chord-hotbar" id="chord-hotbar"></div>
+          <button type="button" class="btn-sm" id="btn-hotbar-reset" title="Vrátit výchozí akordy na liště">↺</button>
         </div>
 
         <!-- Cleanup + transpose toolbar -->
@@ -143,12 +152,15 @@
         <!-- Section markers toolbar -->
         <div class="chord-toolbar" id="section-toolbar">
           <span class="toolbar-label">Sekce:</span>
-          <button type="button" class="btn-sm btn-section" data-marker="R:" title="Refrén (s textem = definice, samotné R: = opakování)">R:</button>
-          <button type="button" class="btn-sm btn-section" data-marker="R1:" title="1. refrén">R1:</button>
-          <button type="button" class="btn-sm btn-section" data-marker="R2:" title="2. refrén">R2:</button>
-          <button type="button" class="btn-sm btn-section" data-marker="S:" title="Sloka">S:</button>
-          <button type="button" class="btn-sm btn-section" data-marker="B:" title="Bridge">B:</button>
-          <span class="toolbar-hint">Samotné <code>R:</code> (i&nbsp;<code>R: 2x</code>) = opakování; stejný text se sbalí sám, jiný text zůstane viditelný. Co patří k&nbsp;refrénu, připojíš tlačítkem v&nbsp;náhledu.</span>
+          <input type="text" id="section-name" class="chord-input section-name-input" value="R" maxlength="12"
+                 title="Libovolný název: R, R2, S1, B, Coda…">
+          <button type="button" class="btn-sm btn-section" id="btn-insert-section">Ohradit <span id="section-btn-preview">//R … R//</span></button>
+          <span class="toolbar-sep">|</span>
+          <button type="button" class="btn-sm btn-section" id="btn-insert-repeat" title="Repetice – v textu se ukáže jako |: … :|">Repetice //: … ://</button>
+          <span class="toolbar-hint">
+            Sekce se ohradí <code>//R</code> na začátku a <code>R//</code> na&nbsp;konci – značky se v&nbsp;písni nezobrazí a prázdný řádek uvnitř sekci neukončí.
+            Samotné <code>//R//</code> (i&nbsp;<code>//R 2x//</code>) znamená „tady se refrén opakuje“.
+          </span>
         </div>
 
         <!-- Editor area + live preview -->
@@ -180,8 +192,8 @@
         <input type="text" id="new-title" class="filter-input" required>
       </label>
       <label class="dialog-field">
-        Autor
-        <input type="text" id="new-author" class="filter-input">
+        Interpret <span class="dialog-hint">(víc interpretů odděl čárkou)</span>
+        <input type="text" id="new-author" class="filter-input" placeholder="Nedvědi, Karel Plíhal">
       </label>
       <div class="dialog-row">
         <label class="dialog-field">
@@ -195,6 +207,14 @@
             <option value="EN">EN</option>
             <option value="SK">SK</option>
             <option value="PL">PL</option>
+          </select>
+        </label>
+        <label class="dialog-field">
+          Kategorie
+          <select id="new-status" class="edit-meta-input">
+            <option value="ke-kontrole" selected>Ke kontrole</option>
+            <option value="navrh">Návrh</option>
+            <option value="k-vytvoreni">K vytvoření</option>
           </select>
         </label>
       </div>

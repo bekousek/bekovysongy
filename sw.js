@@ -19,7 +19,7 @@
  * button), so the install-time precache above isn't the only way in - useful
  * right before going offline, or to retry songs that failed the first time.
  */
-const CACHE_NAME = 'bekovysongy-v5';
+const CACHE_NAME = 'bekovysongy-v6';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [
@@ -61,7 +61,11 @@ async function precacheAll(onProgress) {
   try {
     const res = await fetch(BASE + 'songs.json');
     const data = await res.json();
-    const slugs = data.songs.map((s) => s.slug);
+    // Admin-only drafts ("navrh" / "k-vytvoreni") have no page to cache -
+    // every one of them would just be a 404 counted as a failure below.
+    const slugs = data.songs
+      .filter((s) => s.status !== 'navrh' && s.status !== 'k-vytvoreni')
+      .map((s) => s.slug);
     total = slugs.length;
     if (onProgress) onProgress(0, total);
 

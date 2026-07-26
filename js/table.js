@@ -35,6 +35,27 @@
     }
   }
 
+  // Admin-only statuses. A "návrh" / "k vytvoření" song is a title waiting
+  // for a text - it has no songs/<slug>.html at all, so it must never reach
+  // the table (its link would 404). Everything else, including entries with
+  // no "status" field, is public.
+  const DRAFT_STATUSES = ['navrh', 'k-vytvoreni'];
+
+  function isPublic(song) {
+    return DRAFT_STATUSES.indexOf(song.status) === -1;
+  }
+
+  // Interprets, newest shape first: "authors" is the canonical list, the
+  // legacy "author" string is a single artist.
+  function authorsOf(song) {
+    if (Array.isArray(song.authors)) {
+      const list = song.authors.map(a => String(a).trim()).filter(a => a !== '');
+      if (list.length) return list;
+    }
+    const single = song.author ? String(song.author).trim() : '';
+    return single ? [single] : [];
+  }
+
   const tbody = document.getElementById('songs-tbody');
   const searchInput = document.getElementById('search-input');
   const langFilter = document.getElementById('lang-filter');
@@ -54,7 +75,7 @@
       return r.json();
     })
     .then(data => {
-      allSongs = data.songs;
+      allSongs = data.songs.filter(isPublic);
       collectChords();
       buildChordFilter();
       applyFilters();
@@ -132,7 +153,7 @@
     filteredSongs = allSongs.filter(song => {
       // Text search
       if (query) {
-        const haystack = normalizeForSearch(song.title + ' ' + song.author);
+        const haystack = normalizeForSearch(song.title + ' ' + authorsOf(song).join(' '));
         if (!haystack.includes(query)) return false;
       }
       // Language
@@ -164,7 +185,8 @@
           cmp = csCollator.compare(a.title, b.title);
           break;
         case 'author':
-          cmp = csCollator.compare(a.author, b.author);
+          // Sorted by the first-billed artist, the one the eye lands on.
+          cmp = csCollator.compare(authorsOf(a)[0] || '', authorsOf(b)[0] || '');
           break;
         case 'chords':
           cmp = a.chords.length - b.chords.length;
@@ -201,18 +223,21 @@
       titleLink.textContent = song.title;
       tdTitle.appendChild(titleLink);
 
-      // Author
+      // Author(s) - one clickable chip per interpret, so a song credited to
+      // two artists doesn't read as one band with a comma in its name, and
+      // clicking either one filters by just that artist.
       const tdAuthor = document.createElement('td');
-      if (song.author) {
+      authorsOf(song).forEach((name, i) => {
+        if (i > 0) tdAuthor.appendChild(document.createTextNode(', '));
         const authorSpan = document.createElement('span');
         authorSpan.className = 'song-author-link';
-        authorSpan.textContent = song.author;
+        authorSpan.textContent = name;
         authorSpan.addEventListener('click', () => {
-          searchInput.value = song.author;
+          searchInput.value = name;
           applyFilters();
         });
         tdAuthor.appendChild(authorSpan);
-      }
+      });
 
       // Chords - grouped by section (song.progression) when available, with
       // a separator between groups; otherwise the flat deduped list, as

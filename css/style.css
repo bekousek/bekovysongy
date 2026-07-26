@@ -618,9 +618,12 @@ a:hover {
 .section-body {
   display: block;
 }
-/* Refrén and bridge are indented; an unmarked verse stays at the baseline. */
+/* Every labelled section reserves a left gutter its label sits in; an
+   unmarked verse stays at the baseline with no gutter. */
 .section-refren,
-.section-bridge {
+.section-bridge,
+.section-sloka,
+.section-custom {
   padding-left: 2.4em;
 }
 .section-bridge {
@@ -631,6 +634,31 @@ a:hover {
   left: 0;
   top: 0;
   font-style: normal;
+  user-select: none;
+}
+/* A freely-named section ("//Coda", "//VYBRNKÁVÁNÍ") has a label far too
+   wide for that gutter, so it gets its own line above the body instead. */
+.section-custom > .section-head {
+  position: static;
+  display: block;
+  margin-left: -2.4em;
+}
+/* A marker with no body at all is a heading the author wrote to name a
+   passage, not a collapsed repeat - keep the label in the text flow. */
+.song-section.is-heading > .section-head {
+  position: static;
+  display: inline-block;
+  margin-left: -2.4em;
+}
+.song-section.is-heading > .section-body {
+  display: none;
+}
+
+/* Repetice: "//:" / "://" in the source, |: and :| on screen. Dimmer than a
+   chord so the two kinds of marginalia stay tellable apart at a glance. */
+.repeat-mark {
+  color: var(--text-muted);
+  font-weight: 700;
   user-select: none;
 }
 .section-label {

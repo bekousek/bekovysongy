@@ -1,13 +1,39 @@
 /**
  * sections.js - Render song sections (refrén / sloka / bridge) from markers.
  *
- * Songs are authored as the inner HTML of <pre class="song-text">, where blocks
- * are separated by blank lines and a block may start with a section marker on
- * its first line:
+ * Songs are authored as the inner HTML of <pre class="song-text">. There are
+ * two ways to mark a section, and both are understood:
  *
- *   R:  / R1: / R2: / Ref: / Ref.   -> refrén (chorus)   [indented]
- *   B:  / B1: / Bridge:             -> bridge             [indented]
- *   S:  / S1: / Sloka:              -> sloka (verse)      [labelled, baseline]
+ * 1. FENCES (preferred, explicit - the author says exactly where a section
+ *    starts and ends, and the markers never show up in the rendered text):
+ *
+ *      //R    ...  R//     -> refrén (chorus)   [indented]
+ *      //R2   ...  R2//    -> 2. refrén
+ *      //S1   ...  S1//    -> 1. sloka          [labelled, baseline]
+ *      //B    ...  B//     -> bridge            [indented, italic]
+ *      //Coda ...  Coda//  -> any other name    [labelled, baseline]
+ *      //:    ...  ://     -> repetice, rendered inline as |: ... :|
+ *
+ *    "//NAME" opens and "NAME//" closes (a bare "//" closes whatever is
+ *    open). NAME is any run of characters that is neither whitespace nor
+ *    "/", which is why ":" is just another name and the repeat pair falls
+ *    out of the very same rule. Markers are only recognized at the very
+ *    start (open) or very end (close) of a line, so a "//" inside lyrics is
+ *    harmless. Blank lines inside a fence do NOT end it - that is the whole
+ *    point of fencing. "//R//" (or "//R 2x//") on one line is an empty
+ *    section, i.e. "the chorus repeats here".
+ *
+ *    Repeats ("//:" ... "://") are deliberately NOT structural: they are a
+ *    line-level annotation that renders as |: and :| wherever it appears,
+ *    including inside a section fence.
+ *
+ * 2. LEGACY PREFIX MARKERS, kept working for the ~570 songs written before
+ *    fences existed. Blocks are separated by blank lines and a block may
+ *    start with a marker on its first line:
+ *
+ *      R:  / R1: / R2: / Ref: / Ref.   -> refrén (chorus)   [indented]
+ *      B:  / B1: / Bridge:             -> bridge             [indented]
+ *      S:  / S1: / Sloka:              -> sloka (verse)      [labelled, baseline]
  *
  * An unmarked block is a plain verse (baseline, no label). Blocks that share a
  * marker identity (type + number) relate to the first block of that identity
@@ -42,6 +68,26 @@
   // win over "R"/"S"). Optional number, then ":" or ".".
   var MARKER_RE = /^[ \t]*(Refr[ée]n|Ref|R|Sloka|Slo|S|Bridge|Br|B)[ \t]*(\d*)[ \t]*[:.]/i;
 
+  // Fence name reserved for repetice ("//:" ... "://"), handled as inline
+  // marks rather than as a section.
+  var REPEAT_NAME = ':';
+
+  // "//NAME" at the start of a line. NAME is anything but whitespace, "/"
+  // and ":" - ":" is excluded so that "//:Obzor neklesne níž" reads as a
+  // repeat opening a line of lyrics, not as a section named ":Obzor". A
+  // colon typed right after the name ("//R:") is swallowed as punctuation.
+  var FENCE_OPEN_RE = /^[ \t]*\/\/([^\s\/:]+):?/;
+  var REPEAT_OPEN_RE = /^[ \t]*\/\/:/;
+
+  // "//" at the very end of a line, optionally preceded by an echo of the
+  // fence's own name ("R//").
+  var FENCE_END_RE = /\/\/[ \t]*$/;
+  var REPEAT_CLOSE_RE = /:\/\/[ \t]*$/;
+
+  // The known section-type tokens a fence name may use, so "//Refren" and
+  // "//R2" land on the same identity as the legacy "Refrén:" / "R2:".
+  var FENCE_TYPE_RE = /^(Refr[ée]n|Ref|R|Sloka|Slo|S|Bridge|Br|B)(\d*)$/i;
+
   // A bare play-count annotation: "2x", "(2x)", "2×", "x3", "3X."
   var MULT_RE = /^\(?\s*(?:\d{1,2}\s*[x×]|[x×]\s*\d{1,2})\s*\)?\.?$/i;
 
@@ -74,6 +120,47 @@
   // that usually follows the colon.
   function stripMarkerPrefix(line) {
     return line.replace(MARKER_RE, '').replace(/^[ \t]/, '');
+  }
+
+  function sameName(a, b) {
+    return String(a).toLowerCase() === String(b).toLowerCase();
+  }
+
+  // Identity + label for a fence name. Known tokens (R/S/B and their long
+  // forms, with an optional number) reuse the legacy type+id identity so a
+  // song may mix "//R" and "R:" and still collapse repeats correctly; any
+  // other name becomes a custom section labelled with the name as typed.
+  function fenceIdentity(name) {
+    var m = name.match(FENCE_TYPE_RE);
+    if (m) {
+      var type = classifyType(m[1]);
+      if (type) return { type: type, id: m[2] || '', label: labelText(type, m[2] || '') };
+    }
+    return { type: 'custom', id: name.toUpperCase(), label: name + ':' };
+  }
+
+  // "//NAME" opening a section fence on this line -> { name, end } (end =
+  // index just past the marker), or null. A repeat opener ("//:") is not a
+  // section and reports null.
+  function matchFenceOpen(line) {
+    if (REPEAT_OPEN_RE.test(line)) return null;
+    var m = line.match(FENCE_OPEN_RE);
+    if (!m) return null;
+    return { name: m[1], end: m[0].length };
+  }
+
+  // Index at which the marker closing the fence named `name` starts in
+  // `text`, or -1 if this line doesn't close it. Whatever precedes that
+  // index is still body content, so "//R 2x//" keeps its "2x".
+  function fenceCloseAt(text, name) {
+    // A repeat's "://" is an inline mark, never the end of a section.
+    if (REPEAT_CLOSE_RE.test(text)) return -1;
+    var m = text.match(FENCE_END_RE);
+    if (!m) return -1;
+    var before = text.slice(0, m.index);
+    var echo = before.match(/([^\s\/:]+)[ \t]*$/);
+    if (echo && sameName(echo[1], name)) return echo.index;
+    return m.index;
   }
 
   function leadingWs(line) {
@@ -124,42 +211,96 @@
   }
 
   // Split the song into ordered blocks. A block is
-  // { marker, type, id, lines, srcStart, srcEnd }.
+  // { marker, fenced, type, id, label, lines, srcStart, srcEnd }.
   function parseBlocks(html) {
     var lines = normalizeBreaks(html).split('\n');
     var blocks = [];
-    var cur = null;
+    var cur = null;    // current unfenced block (blank-line delimited)
+    var fence = null;  // current fenced section, if any
 
     function push() {
       if (cur) { blocks.push(cur); cur = null; }
     }
 
+    function openFence(name, i) {
+      var ident = fenceIdentity(name);
+      return {
+        marker: true, fenced: true, name: name,
+        type: ident.type, id: ident.id, label: ident.label,
+        lines: [], srcStart: i, srcEnd: i
+      };
+    }
+
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
+
+      if (fence) {
+        var at = fenceCloseAt(line, fence.name);
+        if (at !== -1) {
+          var tail = line.slice(0, at).replace(/[ \t]+$/, '');
+          if (!isBlank(tail)) fence.lines.push(tail);
+          fence.srcEnd = i;
+          blocks.push(fence);
+          fence = null;
+          continue;
+        }
+        // An unterminated fence gives way to the next one rather than
+        // swallowing the rest of the song (this is the state the editor is
+        // in for every keystroke between typing "//R" and typing "R//").
+        var reopen = matchFenceOpen(line);
+        if (!reopen) {
+          fence.lines.push(line);
+          fence.srcEnd = i;
+          continue;
+        }
+        blocks.push(fence);
+        fence = null;
+      }
+
+      var op = matchFenceOpen(line);
+      if (op) {
+        push();
+        fence = openFence(op.name, i);
+        var after = line.slice(op.end);
+        var closeAt = fenceCloseAt(after, op.name);
+        if (closeAt !== -1) {
+          // Opened and closed on one line: "//R//", "//R 2x//", "//B text B//".
+          var inner = after.slice(0, closeAt).trim();
+          if (inner !== '') fence.lines.push(inner);
+          blocks.push(fence);
+          fence = null;
+        } else if (!isBlank(after)) {
+          fence.lines.push(after.replace(/^[ \t]/, ''));
+        }
+        continue;
+      }
+
       var mk = matchMarker(line);
       if (mk) {
         push();
-        cur = { marker: true, type: mk.type, id: mk.id, lines: [stripMarkerPrefix(line)], srcStart: i, srcEnd: i };
+        cur = { marker: true, fenced: false, type: mk.type, id: mk.id, label: labelText(mk.type, mk.id), lines: [stripMarkerPrefix(line)], srcStart: i, srcEnd: i };
       } else if (isBlank(line)) {
         push();
       } else {
-        if (!cur) cur = { marker: false, type: null, id: '', lines: [], srcStart: i, srcEnd: i };
+        if (!cur) cur = { marker: false, fenced: false, type: null, id: '', label: '', lines: [], srcStart: i, srcEnd: i };
         cur.lines.push(line);
         cur.srcEnd = i;
       }
     }
     push();
+    if (fence) blocks.push(fence); // still being typed - render what's there
 
     // Merge an indented unmarked block back into the preceding marker block:
     // songs separate the two halves of a long chorus with a blank line but
     // keep the continuation indented, so it belongs to the chorus, not a
     // verse. (This is also what the editor's "připojit k sekci" writes.)
     // The indent is only a join-marker - strip the continuation's own common
-    // indent so it lines up with the rest of the section body.
+    // indent so it lines up with the rest of the section body. Fenced
+    // sections are exempt: their boundaries are stated explicitly.
     var merged = [];
     blocks.forEach(function (b) {
       var prev = merged[merged.length - 1];
-      if (!b.marker && prev && prev.marker) {
+      if (!b.marker && prev && prev.marker && !prev.fenced) {
         var firstNonBlank = null;
         var min = Infinity;
         for (var j = 0; j < b.lines.length; j++) {
@@ -181,17 +322,21 @@
     blocks = merged;
 
     // Dedent the body of marker blocks (the indent is a source convention;
-    // the visual indent is done in CSS). The first line already had its
-    // marker stripped, so dedent is computed from the remaining lines.
+    // the visual indent is done in CSS). For a legacy block the first line
+    // already had its marker stripped and sits at column 0, so dedent is
+    // computed from the remaining lines; a fenced block has no such line and
+    // is dedented as a whole.
     blocks.forEach(function (b) {
-      if (!b.marker || b.lines.length < 2) return;
+      if (!b.marker) return;
+      var from = b.fenced ? 0 : 1;
+      if (b.lines.length <= from) return;
       var min = Infinity;
-      for (var j = 1; j < b.lines.length; j++) {
+      for (var j = from; j < b.lines.length; j++) {
         if (isBlank(b.lines[j])) continue;
         min = Math.min(min, leadingWs(b.lines[j]));
       }
       if (min === Infinity || min === 0) return;
-      for (var k = 1; k < b.lines.length; k++) {
+      for (var k = from; k < b.lines.length; k++) {
         b.lines[k] = b.lines[k].slice(min);
       }
     });
@@ -202,6 +347,31 @@
   function labelText(type, id) {
     var base = type === 'refren' ? 'R' : type === 'bridge' ? 'B' : 'S';
     return base + id + ':';
+  }
+
+  // Repetice: the source writes "//:" / "://" (two characters no one types
+  // by accident in lyrics), the reader sees the usual sheet-music brackets.
+  // Applied at render time on the final body, so it works inside a section
+  // fence, inside a plain verse, and inside a repeat filled in from its
+  // definition alike. Line-anchored, so a stray "//" mid-line is left alone.
+  var REPEAT_OPEN_HTML = '<span class="repeat-mark">|:</span>';
+  var REPEAT_CLOSE_HTML = '<span class="repeat-mark">:|</span>';
+
+  function renderRepeatMarks(html) {
+    if (html.indexOf('//') === -1) return html;
+    return html.split('\n').map(function (line) {
+      return line
+        .replace(/^([ \t]*)\/\/:/, '$1' + REPEAT_OPEN_HTML)
+        .replace(/:\/\/([ \t]*)$/, REPEAT_CLOSE_HTML + '$1');
+    }).join('\n');
+  }
+
+  function hasRepeatMarks(html) {
+    var lines = normalizeBreaks(html).split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      if (REPEAT_OPEN_RE.test(lines[i]) || REPEAT_CLOSE_RE.test(lines[i])) return true;
+    }
+    return false;
   }
 
   function transform(html) {
@@ -229,7 +399,7 @@
     var out = '';
     blocks.forEach(function (b, i) {
       if (!b.marker) {
-        out += '<div class="song-section section-plain">' + b.lines.join('\n') + '</div>';
+        out += '<div class="song-section section-plain">' + renderRepeatMarks(b.lines.join('\n')) + '</div>';
         return;
       }
 
@@ -240,15 +410,21 @@
       var isRepeat = false;
       var note = '';
 
+      // An empty section with no definition anywhere in the song isn't a
+      // repeat of anything - it's a standalone heading the author wrote to
+      // mark a passage ("//VYBRNKÁVÁNÍ//"). Rendering it as a collapsed
+      // repeat pill would promise content that doesn't exist.
+      var hasDef = defIdx[key] != null;
+
       if (!isDef) {
         if (plain === '') {
-          isRepeat = true;
-          body = defBody[key] != null ? defBody[key] : '';
+          isRepeat = hasDef;
+          body = hasDef ? defBody[key] : '';
         } else if (MULT_RE.test(plain)) {
           isRepeat = true;
           note = plain;
-          body = defBody[key] != null ? defBody[key] : '';
-        } else if (defIdx[key] != null && compareText(body) === defNorm[key]) {
+          body = hasDef ? defBody[key] : '';
+        } else if (hasDef && compareText(body) === defNorm[key]) {
           isRepeat = true; // written out in full, but identical -> collapsible
         }
         // else: variant chorus / chord run - keep it visible, no collapsing.
@@ -256,23 +432,25 @@
 
       var cls = 'song-section section-' + b.type +
         (isRepeat ? ' is-repeat' : '') +
-        (note ? ' has-note' : '');
+        (note ? ' has-note' : '') +
+        (!isRepeat && plainText(body) === '' ? ' is-heading' : '');
       out += '<div class="' + cls + '" data-section="' + escAttr(key) + '">' +
         '<span class="section-head">' +
-        '<span class="section-label">' + labelText(b.type, b.id) + '</span>' +
+        '<span class="section-label">' + escHtml(b.label || labelText(b.type, b.id)) + '</span>' +
         (note ? '<span class="section-note">' + escHtml(note) + '</span>' : '') +
         '</span>' +
-        '<span class="section-body">' + body + '</span>' +
+        '<span class="section-body">' + renderRepeatMarks(body) + '</span>' +
         '</div>';
     });
 
     return out;
   }
 
-  // True if the song actually uses any section markers (so callers can skip the
-  // toggle UI for plain songs).
+  // True if the song uses anything this module renders - section markers of
+  // either flavour, or repeat brackets - so callers can leave a genuinely
+  // plain song's <pre> untouched.
   function hasSections(html) {
-    return parseBlocks(html).some(function (b) { return b.marker; });
+    return parseBlocks(html).some(function (b) { return b.marker; }) || hasRepeatMarks(html);
   }
 
   // === Chord progression (grouped, per section) ===
@@ -420,12 +598,16 @@
   var api = {
     transform: transform,
     hasSections: hasSections,
+    hasRepeatMarks: hasRepeatMarks,
     parseBlocks: parseBlocks,
     normalizeBreaks: normalizeBreaks,
     deriveProgression: deriveProgression,
     progressionToText: progressionToText,
     parseProgressionText: parseProgressionText,
+    REPEAT_NAME: REPEAT_NAME,
     _matchMarker: matchMarker,
+    _fenceIdentity: fenceIdentity,
+    _fenceCloseAt: fenceCloseAt,
     _compareText: compareText,
     _isMultiplier: function (s) { return MULT_RE.test(s); },
     _collapseSection: collapseSection
