@@ -209,6 +209,47 @@
   padding: 0;
 }
 
+/* ✗ on a draft row: the "no" half of triaging the Návrhy list, so it stays
+   visible next to the ✓ rather than hiding until hover. */
+.btn-delete-draft {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-delete-draft:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* "Vrátit" next to the "Smazáno: …" status line. */
+.status-undo {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.status-undo:hover {
+  border-color: var(--accent);
+}
+
 /* "Move to another category" opener. Kept faint until the row is hovered so
    a 900-item list doesn't turn into a wall of dots. */
 .btn-song-menu {

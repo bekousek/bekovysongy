@@ -45,6 +45,13 @@
     return s ? s.label : id;
   }
 
+  // Czech counts split three ways (1 / 2-4 / 5+), and the verb agrees with
+  // the noun - "smazán 1 návrh", "smazány 2 návrhy", "smazáno 5 návrhů".
+  function plural(n, one, few, many) {
+    if (n === 1) return one;
+    return n >= 2 && n <= 4 ? few : many;
+  }
+
   // Writes `status` onto a songs.json entry (in memory or about to be
   // committed) in whichever of the two shapes above applies.
   function applyStatus(song, status) {
@@ -180,6 +187,14 @@
   // can move it between sections the moment it changes.
   const baseStatus = new Map();
 
+  // Drafts thrown away with the ✗ button, kept until the next save so they
+  // can be put back. Insertion-ordered, and undo pops the last one - that
+  // makes triaging a long Návrhy list forgiving: a misclick is one click
+  // back, and several misclicks unwind in order.
+  //
+  // entry shape: { song (the songs.json entry), idx (its place in allSongs) }
+  const pendingDeletes = new Map();
+
   // Sidebar list controls.
   let listSortMode = localStorage.getItem('editor_list_sort') || 'title';
   let listStatusFilter = '';
@@ -312,6 +327,17 @@
       if (e.key === 'Escape') closeStatusMenu();
     });
     songListWrap.addEventListener('scroll', closeStatusMenu);
+
+    // Ctrl+Z takes back the last ✗ - but only outside a text field, where it
+    // still has to mean the browser's own undo.
+    document.addEventListener('keydown', (e) => {
+      if (!(e.ctrlKey || e.metaKey) || e.shiftKey || e.key.toLowerCase() !== 'z') return;
+      if (!pendingDeletes.size) return;
+      const el = document.activeElement;
+      if (el && (el.isContentEditable || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return;
+      e.preventDefault();
+      undoLastDelete();
+    });
 
     // Keyboard shortcuts: Ctrl/Cmd+S saves the open song, +Shift saves all.
     document.addEventListener('keydown', (e) => {
@@ -570,6 +596,22 @@
       });
       li.appendChild(toggle);
 
+      // ✗ throws the draft away. Only drafts get it: they're the ones being
+      // triaged, and they're the only songs with no songs/<slug>.html behind
+      // them, so a stray click can't take a finished song's page with it.
+      if (isDraftStatusId(status)) {
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn-delete-draft';
+        del.textContent = '✗';
+        del.title = 'Smazat „' + song.title + '“ ze seznamu';
+        del.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          deleteDraft(song);
+        });
+        li.appendChild(del);
+      }
+
       const menu = document.createElement('button');
       menu.type = 'button';
       menu.className = 'btn-song-menu';
@@ -667,6 +709,9 @@
     const out = new Set();
     pendingEdits.forEach((e, slug) => { if (isEditDirty(e)) out.add(slug); });
     allSongs.forEach(s => { if (isStatusDirty(s.slug)) out.add(s.slug); });
+    // A deleted draft is only removed from songs.json on the next save, so
+    // it has to count as unsaved work (and hold up the beforeunload warning).
+    pendingDeletes.forEach((d, slug) => out.add(slug));
     return Array.from(out);
   }
 
@@ -689,6 +734,66 @@
     applyStatus(song, status); // live value, so the sidebar moves it at once
     filterSongList();
     refreshDirtyUI();
+  }
+
+  // === Throwing a draft away ===
+  // Drops the row immediately (no confirm dialog - clicking through a few
+  // hundred návrhy has to stay one click per song) and offers "Vrátit" in
+  // the status bar. Nothing leaves the browser until Uložit / Uložit vše.
+  function deleteDraft(song) {
+    if (!isDraft(song)) return;
+    const idx = allSongs.indexOf(song);
+    if (idx === -1) return;
+
+    allSongs.splice(idx, 1);
+    pendingDeletes.set(song.slug, { song, idx });
+
+    // The editor can't stay open on a song that's no longer in the list.
+    if (currentSong && currentSong.slug === song.slug) {
+      currentSong = null;
+      editorActive.style.display = 'none';
+      editorPlaceholder.style.display = '';
+    }
+
+    filterSongList();
+    refreshDirtyUI();
+    showDeleteUndo();
+  }
+
+  function undoLastDelete() {
+    const slugs = Array.from(pendingDeletes.keys());
+    const slug = slugs[slugs.length - 1];
+    if (!slug) return;
+    const { song, idx } = pendingDeletes.get(slug);
+    pendingDeletes.delete(slug);
+    allSongs.splice(Math.min(idx, allSongs.length), 0, song);
+    filterSongList();
+    refreshDirtyUI();
+    showDeleteUndo();
+  }
+
+  // Status line naming the most recent deletion, with the undo button that
+  // unwinds the stack one at a time.
+  function showDeleteUndo() {
+    const slugs = Array.from(pendingDeletes.keys());
+    if (!slugs.length) {
+      setStatus('Smazání vráceno', '');
+      return;
+    }
+    const last = pendingDeletes.get(slugs[slugs.length - 1]);
+    const n = slugs.length;
+    setStatus(
+      `Smazáno: ${last.song.title}` +
+      (n > 1 ? ` (celkem ${n} ${plural(n, 'návrh', 'návrhy', 'návrhů')} ke smazání)` : '') + ' ',
+      ''
+    );
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'status-undo';
+    btn.textContent = 'Vrátit';
+    btn.title = 'Vrátit poslední smazání (Ctrl+Z)';
+    btn.addEventListener('click', undoLastDelete);
+    editorStatus.appendChild(btn);
   }
 
   // Strip diacritics so e.g. "zelva" matches "želva" - handy on mobile
@@ -1572,6 +1677,12 @@
     const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
 
     for (const slug of slugs) {
+      if (pendingDeletes.has(slug)) {
+        const at = data.songs.findIndex(s => s.slug === slug);
+        if (at !== -1) data.songs.splice(at, 1);
+        continue;
+      }
+
       const e = pendingEdits.get(slug);
       const local = allSongs.find(s => s.slug === slug);
       let song = data.songs.find(s => s.slug === slug);
@@ -1601,6 +1712,31 @@
     return JSON.stringify(data, null, 2);
   }
 
+  // songs/*.html paths that must disappear along with the deleted entries.
+  // A draft normally has no page at all, but one demoted back out of review
+  // keeps its file - leaving that behind would orphan it, which is exactly
+  // what scripts/validate-data.js fails CI over. Rather than guess, ask the
+  // repo which of them actually exist (one listing request, only when
+  // something is being deleted).
+  async function filesToDelete(slugs) {
+    const deleting = slugs.filter(slug => pendingDeletes.has(slug));
+    if (!deleting.length) return [];
+
+    let present;
+    try {
+      const listing = await ghAPI(`/repos/${ghRepo}/contents/${REPO_PATH_PREFIX.replace(/\/$/, '')}?ref=${BRANCH}`);
+      present = new Set(listing.map(f => f.name));
+    } catch (err) {
+      // Couldn't check - deleting the JSON entry while leaving an unknown
+      // file behind would break the build, so don't guess.
+      throw new Error('Nepodařilo se ověřit soubory písní před smazáním: ' + err.message);
+    }
+
+    return deleting
+      .filter(slug => present.has(slug + '.html'))
+      .map(slug => ({ path: `${REPO_PATH_PREFIX}${slug}.html`, remove: true }));
+  }
+
   // Commits every dirty HTML file among `slugs` plus one merged songs.json,
   // in a single atomic commit (one push = one deploy, no desync).
   async function performSave(slugs, message) {
@@ -1608,6 +1744,7 @@
     const builtHtml = new Map();
 
     for (const slug of slugs) {
+      if (pendingDeletes.has(slug)) continue; // going away, not being written
       const e = pendingEdits.get(slug);
       const local = allSongs.find(s => s.slug === slug);
       // A draft has no public page - writing one would put an unfinished
@@ -1622,6 +1759,7 @@
       // A slug that's only been moved between categories (not isEditDirty)
       // contributes no HTML file either - only its songs.json entry changes.
     }
+    files.push(...await filesToDelete(slugs));
     files.push({ path: SONGS_JSON_PATH, content: await buildMergedSongsJson(slugs) });
 
     await commitFiles(files, message);
@@ -1629,6 +1767,14 @@
     // Bookkeeping: rebase each saved slug's pending entry onto its new
     // "clean" state, and reflect the same fields into allSongs.
     for (const slug of slugs) {
+      if (pendingDeletes.has(slug)) {
+        // It's gone from songs.json now; forget it entirely so it can't
+        // come back as a stale cache entry or an undo target.
+        pendingDeletes.delete(slug);
+        pendingEdits.delete(slug);
+        baseStatus.delete(slug);
+        continue;
+      }
       const e = pendingEdits.get(slug);
       const local = allSongs.find(s => s.slug === slug);
       if (local) {
@@ -1715,16 +1861,44 @@
     setStatus('Ukládám na GitHub...', 'saving');
 
     try {
-      const titles = slugs.map(slug => {
+      const removed = slugs.filter(slug => pendingDeletes.has(slug));
+      const edited = slugs.filter(slug => !pendingDeletes.has(slug));
+      const titleOf = (slug) => {
+        const d = pendingDeletes.get(slug);
+        if (d) return d.song.title;
         const e = pendingEdits.get(slug);
         const local = allSongs.find(s => s.slug === slug);
         return (e && e.title) || (local && local.title) || slug;
-      });
-      const message = slugs.length === 1
-        ? `Edit: ${titles[0]}`
-        : `Edit: ${slugs.length} písní (${titles.slice(0, 3).join(', ')}${slugs.length > 3 ? ', …' : ''})`;
+      };
+      const list = (arr) =>
+        `${arr.map(titleOf).slice(0, 3).join(', ')}${arr.length > 3 ? ', …' : ''}`;
+
+      // Say plainly what left the songbook - a deletion shouldn't hide
+      // inside a commit message that only says "Edit".
+      const parts = [];
+      if (edited.length) {
+        parts.push(edited.length === 1
+          ? `Edit: ${titleOf(edited[0])}`
+          : `Edit: ${edited.length} písní (${list(edited)})`);
+      }
+      if (removed.length) {
+        parts.push(removed.length === 1
+          ? `Remove: ${titleOf(removed[0])}`
+          : `Remove: ${removed.length} ${plural(removed.length, 'návrh', 'návrhy', 'návrhů')} (${list(removed)})`);
+      }
+      const message = parts.join('; ');
+
+      const e = edited.length;
+      const d = removed.length;
+      const savedMsg = `${plural(e, 'Uložena', 'Uloženy', 'Uloženo')} ${e} ${plural(e, 'píseň', 'písně', 'písní')}`;
+      const delMsg = `${plural(d, 'smazán', 'smazány', 'smazáno')} ${d} ${plural(d, 'návrh', 'návrhy', 'návrhů')}`;
       await performSave(slugs, message);
-      setStatus(`Uloženo ${slugs.length} písní`, 'success');
+      setStatus(
+        e && d ? `${savedMsg}, ${delMsg}`
+          : d ? delMsg.charAt(0).toUpperCase() + delMsg.slice(1)
+            : savedMsg,
+        'success'
+      );
     } catch (err) {
       setStatus(`Chyba: ${err.message}`, 'error');
       console.error(err);
@@ -1742,6 +1916,10 @@
 
   // Commit several files in ONE commit via the Git Data API
   // (blob -> tree with base_tree -> commit -> update ref). One push = one deploy.
+  //
+  // A file entry is either { path, content } to write or { path, remove: true }
+  // to delete - a tree entry with sha: null is how the Git Data API removes a
+  // path from base_tree.
   async function commitFiles(files, message) {
     const ref = await ghAPI(`/repos/${ghRepo}/git/ref/heads/${BRANCH}`);
     const baseCommitSha = ref.object.sha;
@@ -1750,6 +1928,10 @@
 
     const blobShas = [];
     for (const f of files) {
+      if (f.remove) {
+        blobShas.push(null);
+        continue;
+      }
       const blob = await ghAPI(`/repos/${ghRepo}/git/blobs`, 'POST', {
         content: utf8ToBase64(f.content),
         encoding: 'base64'
