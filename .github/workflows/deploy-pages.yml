@@ -61,6 +61,10 @@ jobs:
           cp -r na-kytaru na-foukaci-harmoniku na-kalimbu _site/
           cp songs.json _site/
           node scripts/generate-sitemap.js > _site/sitemap.xml
+          # Lyrics index for the song list's full-text search. Generated here
+          # rather than committed: songs/*.html changes on every save from
+          # /admin, so a committed copy would go stale between deploys.
+          node scripts/build-search-index.js > _site/search-index.json
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

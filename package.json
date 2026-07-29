@@ -4,7 +4,8 @@
   "description": "Bekovy songy - zpevnik s akordy (static site)",
   "scripts": {
     "test": "node --test",
-    "validate": "node scripts/validate-data.js"
+    "validate": "node scripts/validate-data.js",
+    "build-index": "node scripts/build-search-index.js > search-index.json"
   },
   "engines": {
     "node": ">=18"

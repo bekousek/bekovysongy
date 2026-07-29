@@ -34,7 +34,10 @@
     <div class="filters">
       <div class="filter-group">
         <label for="search-input">Hledat</label>
-        <input type="text" id="search-input" class="filter-input" placeholder="Název nebo autor...">
+        <input type="text" id="search-input" class="filter-input"
+               placeholder="Název, interpret nebo úryvek textu..."
+               aria-describedby="search-hint">
+        <p class="filter-hint" id="search-hint">Nevíš název? Napiš řádek, který si pamatuješ.</p>
       </div>
 
       <div class="filter-group chord-filter-wrapper">

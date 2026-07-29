@@ -19,7 +19,7 @@
  * button), so the install-time precache above isn't the only way in - useful
  * right before going offline, or to retry songs that failed the first time.
  */
-const CACHE_NAME = 'bekovysongy-v7';
+const CACHE_NAME = 'bekovysongy-v8';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [
@@ -54,6 +54,16 @@ async function precacheAll(onProgress) {
     await cache.addAll(APP_SHELL);
   } catch (e) {
     // A shell asset is missing/unreachable - songs are still worth caching.
+  }
+
+  // The lyrics index for the song list's full-text search. Cached on its own
+  // rather than in APP_SHELL above: it's generated at deploy time, so on a
+  // local checkout it doesn't exist, and one addAll rejection would take the
+  // whole shell down with it.
+  try {
+    await cache.add(BASE + 'search-index.json');
+  } catch (e) {
+    // Not deployed (or offline) - search falls back to names only.
   }
 
   let total = 0;

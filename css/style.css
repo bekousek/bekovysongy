@@ -277,6 +277,12 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+.filter-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
 .filter-input,
 .filter-select {
   background: var(--bg-light);
@@ -563,6 +569,50 @@ a:hover {
   text-align: center;
   color: var(--danger);
   padding: 2rem 1rem;
+}
+
+.table-empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 2rem 1rem;
+}
+
+/* === Full-text hits === */
+/* Songs found by a line of their lyrics rather than by name sit below their
+   own heading row, each carrying the line that matched. */
+.songs-table .lyric-group-head td {
+  padding-top: 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.songs-table .lyric-group-head:hover td {
+  background: none;
+}
+
+.song-lyric-hit {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+  /* One line, clipped - the point is to recognize the song, not to read it.
+     Capped against the viewport as well as in characters, so on a phone it
+     can't stretch the title column and shove the other columns off-screen. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: min(46ch, 60vw);
+}
+
+.song-lyric-hit mark {
+  background: rgba(230, 126, 34, 0.25);
+  color: var(--accent);
+  border-radius: 2px;
+  padding: 0 0.1em;
 }
 
 /* === Song Page === */
