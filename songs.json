@@ -4377,6 +4377,17 @@
       ]
     },
     {
+      "title": "Děvka",
+      "slug": "devka",
+      "author": "Brixtn",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Dům u vycházejícího slunce",
       "slug": "dum-u-vychazejiciho-slunce",
       "author": "",
