@@ -1,17 +1,6 @@
 {
   "songs": [
     {
-      "title": "(Sittin' on) The Dock of the Bay",
-      "slug": "sittin-on-the-dock-of-the-bay",
-      "author": "Otis Redding",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "1, 2, 3, 4, 5, 6",
       "slug": "a1-2-3-4-5-6",
       "author": "Chinaski",
@@ -348,7 +337,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Africa",
@@ -359,7 +348,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Aida",
@@ -416,7 +405,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Alenka v říši divů",
@@ -427,7 +416,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Alice se dala na pití",
@@ -521,17 +510,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "American Pie",
-      "slug": "american-pie",
-      "author": "Don McLean",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Amerika",
@@ -759,28 +737,6 @@
           "E"
         ]
       ]
-    },
-    {
-      "title": "Anežka",
-      "slug": "anezka",
-      "author": "Tomáš Klus",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Angels",
-      "slug": "angels",
-      "author": "Robbie Williams",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Ani k stáru",
