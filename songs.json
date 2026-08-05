@@ -17055,6 +17055,17 @@
       "status": "navrh"
     },
     {
+      "title": "Safe and Sound",
+      "slug": "safe-and-sound",
+      "author": "",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "navrh"
+    },
+    {
       "title": "Safír",
       "slug": "safir",
       "author": "Calin a Viktor Sheen",
@@ -19511,6 +19522,17 @@
       "title": "The Boxer",
       "slug": "the-boxer",
       "author": "Simon & Garfunkel",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "navrh"
+    },
+    {
+      "title": "The Night We Met",
+      "slug": "the-night-we-met",
+      "author": "Lord Huron",
       "chords": [],
       "tags": {
         "capo": false,
