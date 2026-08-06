@@ -348,6 +348,11 @@
       }
     });
 
+    // Triage keys. Registered after the shortcuts above so the modifier
+    // combinations are already handled; this one ignores them anyway.
+    document.addEventListener('keydown', handleTriageKey);
+    SongPreview.onChange(refreshPlayButtons);
+
     // Warn before closing/reloading the tab with unsaved edits anywhere.
     window.addEventListener('beforeunload', (e) => {
       if (getDirtySlugs().length > 0) {
@@ -491,6 +496,9 @@
       const data = await resp.json();
       allSongs = data.songs;
       allSongs.forEach(s => baseStatus.set(s.slug, statusOf(s)));
+      // Previews are optional decoration on the list, so the song list must
+      // not wait on them - or break if song-previews.json isn't generated.
+      SongPreview.load().then(() => filterSongList());
       filterSongList();
     } catch (e) {
       setStatus('Chyba při načítání songs.json', 'error');
@@ -517,6 +525,17 @@
       count.className = 'section-count';
       summary.appendChild(count);
       details.appendChild(summary);
+
+      // Návrhy is the bucket that gets triaged, so the keys are spelled out
+      // right where they're used - nobody remembers four shortcuts from a
+      // README.
+      if (st.id === 'navrh') {
+        const hint = document.createElement('p');
+        hint.className = 'triage-hint';
+        hint.innerHTML = '<kbd>␣</kbd> přehrát · <kbd>↑</kbd><kbd>↓</kbd> pohyb · '
+          + '<kbd>→</kbd> k vytvoření · <kbd>←</kbd> smazat';
+        details.appendChild(hint);
+      }
 
       const ul = document.createElement('ul');
       ul.className = 'song-list';
@@ -554,6 +573,8 @@
       // A section filtered away entirely is hidden, not shown as "(0)".
       sec.details.hidden = !!listStatusFilter && listStatusFilter !== st.id;
     });
+    markTriageCursor();
+    refreshPlayButtons();
   }
 
   function fillList(ul, songs) {
@@ -580,6 +601,42 @@
         main.appendChild(noteSpan);
       }
       li.appendChild(main);
+
+      // Drafts get "listen before you judge" controls: a 30s preview where
+      // one was found, and a YouTube search either way - for the songs with
+      // no preview, and for when half a minute isn't enough to decide.
+      if (isDraftStatusId(status)) {
+        const preview = window.SongPreview && SongPreview.get(song.slug);
+        if (preview) {
+          const play = document.createElement('button');
+          play.type = 'button';
+          play.className = 'btn-preview-play';
+          play.dataset.slug = song.slug;
+          play.textContent = '▶';
+          // A title-only match is the right song by a different performer -
+          // fine for recognising a melody, but say so rather than surprise
+          // him with an unexpected voice.
+          play.title = (preview.match === 'title' ? 'Jiný interpret: ' : '')
+            + preview.track + ' / ' + preview.artist + ' (mezerník)';
+          if (preview.match === 'title') play.classList.add('is-cover');
+          play.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            setTriageCursor(song.slug);
+            SongPreview.toggle(song.slug);
+          });
+          li.appendChild(play);
+        }
+
+        const yt = document.createElement('a');
+        yt.className = 'btn-yt-search' + (preview ? '' : ' no-preview');
+        yt.href = SongPreview.youtubeUrl(song.title, authorsText(authorsOf(song)));
+        yt.target = '_blank';
+        yt.rel = 'noopener';
+        yt.textContent = '↗';
+        yt.title = preview ? 'Najít na YouTube' : 'Náhled se nenašel – najít na YouTube';
+        yt.addEventListener('click', (ev) => ev.stopPropagation());
+        li.appendChild(yt);
+      }
 
       // ✓ advances one step along the workflow; on the last step it toggles
       // back, so "zkontrolováno" stays a checkbox the way it always was.
@@ -634,6 +691,114 @@
   function nextStatus(status) {
     if (status === 'zkontrolovano') return 'ke-kontrole';
     return STATUS_IDS[STATUS_IDS.indexOf(status) + 1] || 'ke-kontrole';
+  }
+
+  // === Triage ===
+  // Going through a few hundred návrhy is: hear it, keep it or bin it, next.
+  // Doing that with the mouse costs a round trip to the row and back for
+  // every song, so the same loop runs off the keyboard - ↑/↓ to move,
+  // mezerník to listen, →/← to judge - and judging plays the next one
+  // straight away, so the hands never leave the arrow keys.
+  //
+  // The cursor is a slug rather than an element: every judgement re-renders
+  // the list, and a remembered <li> would be stale by the time it lands.
+  let triageSlug = null;
+
+  function triageSection() {
+    const sec = listSections.get('navrh');
+    if (!sec || sec.details.hidden || !sec.details.open) return null;
+    return sec;
+  }
+
+  // Rows in the order they're on screen, so the cursor follows whatever
+  // sorting, search and filtering are currently in force.
+  function triageRows() {
+    const sec = triageSection();
+    return sec ? Array.from(sec.ul.children) : [];
+  }
+
+  function markTriageCursor() {
+    songListWrap.querySelectorAll('li.triage-cursor')
+      .forEach(li => li.classList.remove('triage-cursor'));
+    if (!triageSlug) return;
+    const sec = triageSection();
+    if (!sec) return;
+    const li = sec.ul.querySelector('li[data-slug="' + CSS.escape(triageSlug) + '"]');
+    if (li) li.classList.add('triage-cursor');
+  }
+
+  function setTriageCursor(slug, opts) {
+    triageSlug = slug;
+    markTriageCursor();
+    if (!slug) return;
+    const sec = triageSection();
+    const li = sec && sec.ul.querySelector('li[data-slug="' + CSS.escape(slug) + '"]');
+    // 'instant': the stylesheet scrolls smoothly, which here would trail the
+    // cursor by a row or two while judging at speed.
+    if (li) li.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    if (opts && opts.play) SongPreview.play(slug);
+  }
+
+  function moveTriage(delta) {
+    const rows = triageRows();
+    if (!rows.length) return;
+    const at = rows.findIndex(li => li.dataset.slug === triageSlug);
+    const next = at === -1
+      ? 0
+      : Math.max(0, Math.min(rows.length - 1, at + delta));
+    setTriageCursor(rows[next].dataset.slug);
+  }
+
+  // ✓/✗ on the row under the cursor, then move on. Both paths re-render the
+  // list, so the follow-up row is worked out from the old order first.
+  function judgeTriage(accept) {
+    const rows = triageRows();
+    const at = rows.findIndex(li => li.dataset.slug === triageSlug);
+    if (at === -1) return;
+    const song = allSongs.find(s => s.slug === triageSlug);
+    if (!song || !isDraft(song)) return;
+
+    const after = rows[at + 1] || rows[at - 1];
+    const afterSlug = after ? after.dataset.slug : null;
+
+    SongPreview.stop();
+    if (accept) setSongStatus(song, nextStatus(statusOf(song)));
+    else deleteDraft(song);
+
+    // Autoplay only on a judgement: it's a deliberate keypress, so the
+    // browser allows the sound, and it's the one moment he wants the next
+    // song immediately. Plain ↑/↓ stays silent for scanning the list.
+    setTriageCursor(afterSlug, { play: true });
+  }
+
+  function refreshPlayButtons() {
+    const playing = window.SongPreview ? SongPreview.playing() : null;
+    songListWrap.querySelectorAll('.btn-preview-play').forEach(btn => {
+      const on = btn.dataset.slug === playing;
+      btn.classList.toggle('playing', on);
+      btn.textContent = on ? '■' : '▶';
+    });
+  }
+
+  function handleTriageKey(e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const el = document.activeElement;
+    if (el && (el.isContentEditable || el.tagName === 'INPUT'
+      || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) return;
+    if (!triageSection()) return;
+
+    switch (e.key) {
+      case 'ArrowDown': e.preventDefault(); moveTriage(1); break;
+      case 'ArrowUp': e.preventDefault(); moveTriage(-1); break;
+      case ' ':
+        e.preventDefault();
+        if (!triageSlug) { moveTriage(1); }
+        if (triageSlug) SongPreview.toggle(triageSlug);
+        break;
+      case 'ArrowRight': e.preventDefault(); judgeTriage(true); break;
+      case 'ArrowLeft': e.preventDefault(); judgeTriage(false); break;
+      default: break;
+    }
   }
 
   // Little popover listing all four categories, anchored under the ⋯ button.

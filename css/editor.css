@@ -233,6 +233,100 @@
   color: var(--danger);
 }
 
+/* === Triage previews === */
+
+/* ▶ on a draft row, playing the 30s preview from song-previews.json. Sits
+   left of the ✓/✗ pair: listen first, then judge. */
+.btn-preview-play {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.6rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-preview-play:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-preview-play.playing {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Preview found by title alone, i.e. someone else's recording. Still worth
+   playing to recognise the tune - just flagged so the voice isn't a shock. */
+.btn-preview-play.is-cover {
+  border-style: dashed;
+}
+
+/* YouTube fallback: faint when there's a preview to play instead, and lit up
+   when it's the only way to hear the song. */
+.btn-yt-search {
+  flex-shrink: 0;
+  width: 18px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  opacity: 0.35;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.song-list li:hover .btn-yt-search {
+  opacity: 1;
+}
+
+.btn-yt-search:hover {
+  color: var(--accent);
+}
+
+.btn-yt-search.no-preview {
+  opacity: 0.9;
+  color: var(--accent);
+}
+
+/* Key legend at the top of the Návrhy list. */
+.triage-hint {
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.triage-hint kbd {
+  display: inline-block;
+  min-width: 1.1em;
+  padding: 0 0.2em;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font);
+  font-size: 0.9em;
+  text-align: center;
+  color: var(--text);
+}
+
+/* Keyboard cursor for triage. Distinct from .active (the song open in the
+   editor) - during a triage run the two are usually different rows. */
+.song-list li.triage-cursor {
+  background: rgba(230, 126, 34, 0.12);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
 /* "Vrátit" next to the "Smazáno: …" status line. */
 .status-undo {
   margin-left: 0.5rem;

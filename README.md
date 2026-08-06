@@ -25,11 +25,12 @@ a otevřít `http://localhost:8137/`.
 | `index.html`, `na-kytaru/`, `na-foukaci-harmoniku/`, `na-kalimbu/` | veřejné stránky |
 | `songs/*.html` | jednotlivé písně (statické HTML, generované/editované) |
 | `songs.json` | metadata a akordy všech písní (čte je `js/table.js`, `admin/`) |
-| `js/` | `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `table.js` (seznam písní), `player.js` (transpozice/metronom/ladička), `editor.js` (admin) |
+| `js/` | `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `table.js` (seznam písní), `player.js` (transpozice/metronom/ladička), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
 | `css/` | `style.css` (celý web), `editor.css` (jen admin) |
+| `song-previews.json` | 30s ukázky k návrhům pro triage v `/admin` (viz níže) |
 | `admin/` | in-browser editor, viz níže |
 | `test/` | `node --test` sada pro `sections.js`/`song-cleanup.js`/`chords.js` |
-| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js` |
+| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js` |
 | `transfer_songs.py`, `verify_songs.py`, `staging_server.py` | pipeline pro import písní (níže) |
 | `.github/workflows/deploy-pages.yml` | CI: testy → validace dat → deploy na GitHub Pages |
 
@@ -42,6 +43,30 @@ npm run validate # cross-check songs.json vs. songs/*.html, hledá poškozená d
 
 Obojí běží v CI před každým deployem (viz `deploy-pages.yml`) — pushnutá
 změna, která testy nebo validaci nesplní, se nenasadí.
+
+## Náhledy pro triage návrhů
+
+Projít stovky návrhů znamená každý si nejdřív poslechnout. `/admin` proto umí
+u každého návrhu přehrát 30s ukázku přímo v řádku a hodnotit z klávesnice
+(<kbd>␣</kbd> přehrát, <kbd>↑</kbd><kbd>↓</kbd> pohyb, <kbd>→</kbd> do
+„K vytvoření", <kbd>←</kbd> smazat).
+
+```bash
+npm run build-previews            # dohledá jen dosud nevyřešené návrhy
+npm run build-previews -- --recheck # zkusí znovu i dřívější propadáky
+```
+
+Skript se ptá iTunes Search API (zdarma, bez klíče) a výsledek zapisuje do
+`song-previews.json`. Hledá dvakrát: „název + interpret" (`match: "exact"`),
+a když nic, tak jen podle názvu (`match: "title"` — obvykle cover od jiného
+interpreta, na poznání melodie ale stačí; v UI je označený čárkovaně).
+Návrhy bez ukázky mají v řádku odkaz na vyhledávání na YouTube.
+
+Na rozdíl od `search-index.json` se `song-previews.json` **commituje**:
+dohledání je stovky volání proti dost přísnému rate limitu, takže se dělá
+jednou, ne při každém deployi. Skript je proto resumovatelný — průběžně
+zapisuje, hotové návrhy přeskakuje a zpomaluje se, když API začne škrtit —
+a klidně se pustí víckrát za sebou.
 
 ## Datová pipeline (import písní)
 

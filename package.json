@@ -5,7 +5,8 @@
   "scripts": {
     "test": "node --test",
     "validate": "node scripts/validate-data.js",
-    "build-index": "node scripts/build-search-index.js > search-index.json"
+    "build-index": "node scripts/build-search-index.js > search-index.json",
+    "build-previews": "node scripts/build-previews.js"
   },
   "engines": {
     "node": ">=18"
