@@ -532,8 +532,9 @@
       if (st.id === 'navrh') {
         const hint = document.createElement('p');
         hint.className = 'triage-hint';
+        // Left-to-right in the same order as the ✗ / ✓ buttons on each row.
         hint.innerHTML = '<kbd>␣</kbd> přehrát · <kbd>↑</kbd><kbd>↓</kbd> pohyb · '
-          + '<kbd>→</kbd> k vytvoření · <kbd>←</kbd> smazat';
+          + '<kbd>←</kbd> smazat · <kbd>→</kbd> k vytvoření';
         details.appendChild(hint);
       }
 
@@ -638,6 +639,26 @@
         li.appendChild(yt);
       }
 
+      // ✗ throws the draft away. Only drafts get it: they're the ones being
+      // triaged, and they're the only songs with no songs/<slug>.html behind
+      // them, so a stray click can't take a finished song's page with it.
+      //
+      // Sits left of the ✓ to line the buttons up with the keys that do the
+      // same thing: ← is reject, → is accept. Non-draft rows have no ✗, so
+      // there the ✓ is simply the only button.
+      if (isDraftStatusId(status)) {
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn-delete-draft';
+        del.textContent = '✗';
+        del.title = 'Smazat „' + song.title + '“ ze seznamu (←)';
+        del.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          deleteDraft(song);
+        });
+        li.appendChild(del);
+      }
+
       // ✓ advances one step along the workflow; on the last step it toggles
       // back, so "zkontrolováno" stays a checkbox the way it always was.
       const next = nextStatus(status);
@@ -645,29 +666,14 @@
       toggle.type = 'button';
       toggle.className = 'btn-check-toggle' + (status === 'zkontrolovano' ? ' on' : '');
       toggle.textContent = '✓';
-      toggle.title = 'Přesunout do: ' + statusLabel(next);
+      toggle.title = 'Přesunout do: ' + statusLabel(next)
+        + (isDraftStatusId(status) ? ' (→)' : '');
       toggle.setAttribute('aria-pressed', String(status === 'zkontrolovano'));
       toggle.addEventListener('click', (ev) => {
         ev.stopPropagation();
         setSongStatus(song, next);
       });
       li.appendChild(toggle);
-
-      // ✗ throws the draft away. Only drafts get it: they're the ones being
-      // triaged, and they're the only songs with no songs/<slug>.html behind
-      // them, so a stray click can't take a finished song's page with it.
-      if (isDraftStatusId(status)) {
-        const del = document.createElement('button');
-        del.type = 'button';
-        del.className = 'btn-delete-draft';
-        del.textContent = '✗';
-        del.title = 'Smazat „' + song.title + '“ ze seznamu';
-        del.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          deleteDraft(song);
-        });
-        li.appendChild(del);
-      }
 
       const menu = document.createElement('button');
       menu.type = 'button';
