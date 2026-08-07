@@ -59,7 +59,9 @@ jobs:
           cp index.html 404.html robots.txt sw.js offline.html manifest.json _site/
           cp -r css js assets songs admin _site/
           cp -r na-kytaru na-foukaci-harmoniku na-kalimbu _site/
-          cp songs.json _site/
+          # song-previews.json is fetched at runtime by js/song-preview.js, so
+          # unlike the rest of the triage tooling it has to be published.
+          cp songs.json song-previews.json _site/
           node scripts/generate-sitemap.js > _site/sitemap.xml
           # Lyrics index for the song list's full-text search. Generated here
           # rather than committed: songs/*.html changes on every save from
