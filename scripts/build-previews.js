@@ -77,6 +77,10 @@ function normalize(str) {
     .replace(COMBINING_MARKS_RE, '')
     .toLowerCase()
     .replace(/[([{].*?[)\]}]/g, ' ')
+    // Spell out "&" before punctuation goes: the two sides routinely disagree
+    // ("Safe and Sound" in songs.json, "Safe & Sound" in the catalogue), and
+    // dropping it would leave "safe sound", which matches neither.
+    .replace(/&/g, ' and ')
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
