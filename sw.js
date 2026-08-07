@@ -19,7 +19,14 @@
  * button), so the install-time precache above isn't the only way in - useful
  * right before going offline, or to retry songs that failed the first time.
  */
-const CACHE_NAME = 'bekovysongy-v8';
+// Bump on every change to a JS/CSS/HTML asset - activate deletes every cache
+// that isn't this name, and that's the only thing that makes returning
+// visitors load new code on the *first* visit instead of the second.
+//
+// Not being in APP_SHELL is no exemption: the runtime handler below caches
+// whatever it fetches, so admin-only files (js/editor.js, css/editor.css)
+// end up cached just the same, and cache-first then serves them stale.
+const CACHE_NAME = 'bekovysongy-v9';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [
@@ -139,7 +146,12 @@ self.addEventListener('fetch', (event) => {
   // random-pick/search pool all read from it, and cache-first could otherwise
   // serve a returning visitor a stale song list indefinitely). Falls back to
   // cache only when offline.
-  if (url.pathname.endsWith('/songs.json')) {
+  //
+  // song-previews.json rides along: it's regenerated whenever new návrhy are
+  // triaged, and it'd be a cache bump every time otherwise - for a file only
+  // /admin reads, and only while online.
+  if (url.pathname.endsWith('/songs.json')
+      || url.pathname.endsWith('/song-previews.json')) {
     event.respondWith(
       fetch(event.request, { cache: 'no-cache' })
         .then((response) => {
