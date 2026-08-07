@@ -841,17 +841,6 @@
       ]
     },
     {
-      "title": "Ascalona",
-      "slug": "ascalona",
-      "author": "Kapitán Kid",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Atentát",
       "slug": "atentat",
       "author": "Kryštof",
@@ -935,7 +924,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Až na měsíc",
@@ -979,7 +968,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Až se k nám právo vrátí",
@@ -1020,7 +1009,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Babinský",
@@ -1152,17 +1141,6 @@
           "A"
         ]
       ]
-    },
-    {
-      "title": "Bad moon rising",
-      "slug": "bad-moon-rising",
-      "author": "Creedence Clearwater Revival",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Barbora píše z tábora",
@@ -1317,7 +1295,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Believer",
@@ -1381,7 +1359,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Bitva o Karlův most",
@@ -2069,7 +2047,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Bílá velryba",
@@ -23467,17 +23445,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "Árie měsíce",
-      "slug": "arie-mesice",
-      "author": "Waldemar Matuška",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Úplně levej",
