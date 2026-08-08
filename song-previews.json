@@ -21,10 +21,11 @@
       "match": "exact"
     },
     "a-star-is-born": {
-      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/62/8c/e7628cb0-04de-2807-2f25-7136676889e8/mzaf_667740808608553924.plus.aac.p.m4a",
-      "track": "A Star Is Born",
-      "artist": "Cheryl Freeman, LaChanze, Vaneese Thomas, Lillias White & Roz Ryan",
-      "match": "title"
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0c/cc/ed/0ccced59-6e6f-f0a0-0c9a-d20bfd475052/mzaf_26600833784075363.plus.aac.p.m4a",
+      "track": "Shallow",
+      "artist": "Lady Gaga & Bradley Cooper",
+      "match": "exact",
+      "locked": true
     },
     "a-ty-tam": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2e/2c/5b/2e2c5be6-5893-7ff2-e8da-44e81ee17bb0/mzaf_16193038795668861457.plus.aac.p.m4a",
@@ -33,10 +34,8 @@
       "match": "exact"
     },
     "a1-2-3-4-5-6": {
-      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/92/7b/d6/927bd673-0dcc-fdfe-fa3e-f21eb7136053/mzaf_2393962723885654936.plus.aac.p.m4a",
-      "track": "1-2-3-4-5-6",
-      "artist": "Rocket Juice & The Moon",
-      "match": "title"
+      "match": "none",
+      "locked": true
     },
     "a1-signalni": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/31/a9/c9/31a9c9f2-5f03-071a-ca10-b228ffb67411/mzaf_14375219302476387479.plus.aac.p.m4a",
