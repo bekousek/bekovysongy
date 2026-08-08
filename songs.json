@@ -449,7 +449,8 @@
           "G",
           "A"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "All the small things",
@@ -470,6 +471,11 @@
           "G",
           "F",
           "G"
+        ],
+        [
+          "C",
+          "G",
+          "F"
         ]
       ]
     },
