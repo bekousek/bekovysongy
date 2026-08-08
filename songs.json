@@ -4810,12 +4810,16 @@
     {
       "title": "Hafo",
       "slug": "hafo",
-      "author": "Frank Wild & Kafuu",
+      "author": "Frank Wild, Kafuu",
       "chords": [],
       "tags": {
-        "capo": false,
+        "capo": 1,
         "language": "CZ"
-      }
+      },
+      "authors": [
+        "Frank Wild",
+        "Kafuu"
+      ]
     },
     {
       "title": "Hakuna Matata",
