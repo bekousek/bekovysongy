@@ -3704,11 +3704,28 @@
       "title": "Druide",
       "slug": "druide",
       "author": "Krucipüsk",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "A",
+        "C",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
-      }
+      },
+      "progression": [
+        [
+          "Emi",
+          "A"
+        ],
+        [
+          "Emi",
+          "C",
+          "Emi",
+          "G"
+        ]
+      ]
     },
     {
       "title": "Duality",
