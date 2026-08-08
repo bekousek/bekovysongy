@@ -68,6 +68,17 @@
             <option value="zkontrolovano">Zkontrolováno</option>
           </select>
         </div>
+        <!-- Own row: three selects side by side in a 280px sidebar are too
+             narrow to read. Orthogonal to the category filter above, so the
+             two combine. -->
+        <div class="sidebar-filters">
+          <select id="preview-filter" class="list-select" title="Filtrovat podle stavu ukázky">
+            <option value="">Ukázka: vše</option>
+            <option value="review">Jen ke kontrole (jiný interpret)</option>
+            <option value="none">Jen bez ukázky</option>
+            <option value="locked">Jen ručně vybrané</option>
+          </select>
+        </div>
         <div class="sidebar-actions">
           <button type="button" class="btn-editor" id="btn-new-song">+ Nová píseň</button>
           <button type="button" class="btn-editor btn-save" id="btn-save-all" disabled>Uložit vše <span id="save-all-count"></span></button>

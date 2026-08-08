@@ -133,6 +133,7 @@
   const editorSearch = document.getElementById('editor-search');
   const listSort = document.getElementById('list-sort');
   const listFilter = document.getElementById('list-filter');
+  const previewFilter = document.getElementById('preview-filter');
   const songListWrap = document.getElementById('song-list-wrap');
   const btnNewSong = document.getElementById('btn-new-song');
   const btnSaveAll = document.getElementById('btn-save-all');
@@ -219,6 +220,9 @@
   // Sidebar list controls.
   let listSortMode = localStorage.getItem('editor_list_sort') || 'title';
   let listStatusFilter = '';
+  // Deliberately not persisted: it hides most of the songbook, and coming
+  // back to a near-empty list days later reads as data loss, not a filter.
+  let listPreviewFilter = '';
   const sectionOpen = new Map(STATUS_IDS.map(id => [
     id, localStorage.getItem('editor_section_' + id) !== 'closed'
   ]));
@@ -268,6 +272,13 @@
     listFilter.addEventListener('change', () => {
       listStatusFilter = listFilter.value;
       filterSongList();
+    });
+    previewFilter.addEventListener('change', () => {
+      listPreviewFilter = previewFilter.value;
+      filterSongList();
+      // Narrowing to a handful of rows is pointless if they're inside a
+      // collapsed section.
+      if (listPreviewFilter) listSections.forEach(sec => { sec.details.open = true; });
     });
     buildListSections();
     btnSave.addEventListener('click', saveCurrentSong);
@@ -1168,10 +1179,28 @@
     return s.normalize('NFD').replace(COMBINING_MARKS_RE, '').toLowerCase();
   }
 
+  // Narrows the list to one preview state. Checking a few hundred matches by
+  // eye means hunting for dashed rings down a list of hundreds; "ke kontrole"
+  // turns that into a short list of exactly the ones the matcher guessed at.
+  function matchesPreviewFilter(song) {
+    if (!listPreviewFilter) return true;
+    const p = window.SongPreview && SongPreview.get(song.slug);
+    const raw = window.SongPreview && SongPreview.all()[song.slug];
+    switch (listPreviewFilter) {
+      // Someone else's recording, picked automatically - the state where a
+      // genuinely wrong song hides. Hand-picked ones drop out: they're done.
+      case 'review': return !!p && p.match === 'title' && !p.locked;
+      case 'none': return !p;
+      case 'locked': return !!(raw && raw.locked);
+      default: return true;
+    }
+  }
+
   function filterSongList() {
     const q = normalizeForSearch(editorSearch.value.trim());
     const filtered = allSongs.filter(s =>
       normalizeForSearch(s.title + ' ' + authorsText(authorsOf(s))).includes(q)
+      && matchesPreviewFilter(s)
     );
     renderSongList(filtered);
     if (q) {
