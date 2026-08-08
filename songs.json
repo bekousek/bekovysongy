@@ -10898,17 +10898,6 @@
       ]
     },
     {
-      "title": "Modlitba za vodu",
-      "slug": "modlitba-za-vodu",
-      "author": "Hradišťan",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Modrá",
       "slug": "modra",
       "author": "Žlutý pes",
@@ -11049,17 +11038,6 @@
       ]
     },
     {
-      "title": "Mount Everest",
-      "slug": "mount-everest",
-      "author": "Žlutý pes",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Movin´  on",
       "slug": "movin-on",
       "author": "Support Lesbiens",
@@ -11098,17 +11076,6 @@
           "F#mi"
         ]
       ]
-    },
-    {
-      "title": "Mr. Brightside",
-      "slug": "mr-brightside",
-      "author": "The Killers",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Mraky, domy, les",
@@ -11192,7 +11159,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Musíš bejt na sebe hodnej",
@@ -11258,17 +11225,6 @@
           "C"
         ]
       ]
-    },
-    {
-      "title": "My blood",
-      "slug": "my-blood",
-      "author": "Twenty One Pilots",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "My děti ze stanice Bullerbyn",
@@ -11754,28 +11710,6 @@
       ]
     },
     {
-      "title": "Můj rodný dům",
-      "slug": "muj-rodny-dum",
-      "author": "Pavel Bobek",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Můj svět",
-      "slug": "muj-svet",
-      "author": "Chinaski",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Můj čas",
       "slug": "muj-cas",
       "author": "Hana Zagorová (ze seriálu Sanitka)",
@@ -12232,17 +12166,6 @@
       ]
     },
     {
-      "title": "Nahý",
-      "slug": "nahy",
-      "author": "Richard Müller",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "SK"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Napojen",
       "slug": "napojen",
       "author": "Tomáš Klus",
@@ -12285,7 +12208,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh",
+      "status": "k-vytvoreni",
       "note": "odrhovačka"
     },
     {
@@ -12341,18 +12264,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "Nebe na zemi",
-      "slug": "nebe-na-zemi",
-      "author": "Jan Werich a Jiří Voskovec",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Nebude to lahké",
@@ -12363,7 +12275,7 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Nedotýkej se mě",
@@ -12523,7 +12435,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Nesmělý chlapec",
@@ -12583,17 +12495,6 @@
       ]
     },
     {
-      "title": "Nevidomá dívka",
-      "slug": "nevidoma-divka",
-      "author": "Karel Kryl",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Neviem byť sám",
       "slug": "neviem-byt-sam",
       "author": "Elán",
@@ -12633,17 +12534,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "Nezacházej slunce",
-      "slug": "nezachazej-slunce",
-      "author": "Žalman & spol.",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Než tě rozkradou",
@@ -12792,17 +12682,6 @@
           "A"
         ]
       ]
-    },
-    {
-      "title": "No woman, no cry",
-      "slug": "no-woman-no-cry",
-      "author": "Bob Marley",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Nosorožec",
@@ -13030,17 +12909,6 @@
       ]
     },
     {
-      "title": "Něco o lásce",
-      "slug": "neco-o-lasce",
-      "author": "Pavel Dobeš",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Něgdy",
       "slug": "negdy",
       "author": "Mňága a Žďorp",
@@ -13150,17 +13018,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "Ob-La-Di, Ob-La-Da",
-      "slug": "ob-la-di-ob-la-da",
-      "author": "The Beatles",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
     },
     {
       "title": "Obchodník s deštěm",
@@ -13425,17 +13282,6 @@
       ]
     },
     {
-      "title": "Oranžový expres",
-      "slug": "oranzovy-expres",
-      "author": "Greenhorns",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Osmá barva duhy",
       "slug": "osma-barva-duhy",
       "author": "Jaromír Nohavica",
@@ -13482,17 +13328,6 @@
       ]
     },
     {
-      "title": "Osmý den",
-      "slug": "osmy-den",
-      "author": "Olympic",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Ostravo",
       "slug": "ostravo",
       "author": "Jaromír Nohavica",
@@ -13522,17 +13357,6 @@
           "Dmi"
         ]
       ]
-    },
-    {
-      "title": "Otec",
-      "slug": "otec",
-      "author": "Para",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "SK"
-      },
-      "status": "navrh"
     },
     {
       "title": "Otevřená zlomenina srdečního svalu",
@@ -13569,39 +13393,6 @@
       ]
     },
     {
-      "title": "Otevři oči",
-      "slug": "otevri-oci",
-      "author": "Wanastowi Vjecy",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Outsider waltz",
-      "slug": "outsider-waltz",
-      "author": "Wabi Daněk",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Ovčia koža",
-      "slug": "ovcia-koza",
-      "author": "Ploštín Punk",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "SK"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Pane prezidente",
       "slug": "pane-prezidente",
       "author": "",
@@ -13610,7 +13401,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Panenka",
@@ -13726,17 +13517,6 @@
       ]
     },
     {
-      "title": "Parta bláznů",
-      "slug": "parta-blaznu",
-      "author": "Folk-lok",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Passenger",
       "slug": "passenger",
       "author": "Iggy Pop",
@@ -13797,7 +13577,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Paš o paňori",
@@ -13869,17 +13649,6 @@
           "D"
         ]
       ]
-    },
-    {
-      "title": "Pedro se vrací",
-      "slug": "pedro-se-vraci",
-      "author": "Wohnout",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Pejsek",
@@ -14029,17 +13798,6 @@
       ]
     },
     {
-      "title": "Placky",
-      "slug": "placky",
-      "author": "Pokáč",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Plakala",
       "slug": "plakala",
       "author": "Divokej Bill",
@@ -14089,39 +13847,6 @@
       ]
     },
     {
-      "title": "Plaváček",
-      "slug": "plavacek",
-      "author": "Karel Kryl",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Plán",
-      "slug": "plan",
-      "author": "Kryštof",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Pláž",
-      "slug": "plaz",
-      "author": "Kamelot",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Po schodoch",
       "slug": "po-schodoch",
       "author": "Richard Müller",
@@ -14130,7 +13855,7 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Pochod marodů",
@@ -14249,17 +13974,6 @@
           "Ami"
         ]
       ]
-    },
-    {
-      "title": "Podléhám",
-      "slug": "podleham",
-      "author": "Chinaski",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Podvod",
@@ -14442,7 +14156,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Pojďme se napít",
@@ -14713,17 +14427,6 @@
       ]
     },
     {
-      "title": "Poslední kovboj",
-      "slug": "posledni-kovboj",
-      "author": "Michal Tučný",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Potkal jsem tě po letech",
       "slug": "potkal-jsem-te-po-letech",
       "author": "Chinaski",
@@ -14806,17 +14509,6 @@
       ]
     },
     {
-      "title": "Pověst havrana",
-      "slug": "povest-havrana",
-      "author": "Kamelot",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Pověste ho vejš",
       "slug": "poveste-ho-vejs",
       "author": "Michal Tučný",
@@ -14862,7 +14554,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Praha Vídeň",
@@ -14979,7 +14671,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh",
+      "status": "k-vytvoreni",
       "note": "filmová"
     },
     {
@@ -15065,7 +14757,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Proměny",
@@ -15250,7 +14942,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Punčocháče",
@@ -15261,7 +14953,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Purpura",
@@ -15272,7 +14964,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Pánu Bohu do oken",
@@ -15283,29 +14975,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "Pár havraních copánků",
-      "slug": "par-havranich-copanku",
-      "author": "Suchý & Šlitr",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Pár minut",
-      "slug": "par-minut",
-      "author": "COP",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Pár přátel",
@@ -15316,7 +14986,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Pátá",
@@ -15327,18 +14997,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "Píseň o rose",
-      "slug": "pisen-o-rose",
-      "author": "Suchý & Šlitr",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Píseň proti trudomyslnosti",
@@ -15373,17 +15032,6 @@
           "D"
         ]
       ]
-    },
-    {
-      "title": "Píseň, co mě učil listopad",
-      "slug": "pisen-co-me-ucil-listopad",
-      "author": "Wabi Daněk",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Písnička",
@@ -15593,7 +15241,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Půlnoční",
@@ -15642,7 +15290,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Raci v práci",
@@ -15811,17 +15459,6 @@
       ]
     },
     {
-      "title": "Redemption song",
-      "slug": "redemption-song",
-      "author": "Bob Marley",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Reklama na ticho",
       "slug": "reklama-na-ticho",
       "author": "Pavol Habera & Team",
@@ -15830,18 +15467,7 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "René, já a Rudolf",
-      "slug": "rene-ja-a-rudolf",
-      "author": "Jiří Schelinger",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Replay",
@@ -15880,7 +15506,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Riptide",
@@ -15909,17 +15535,6 @@
           "Fmaj7"
         ]
       ]
-    },
-    {
-      "title": "Rock'n'roll pro Beethovena",
-      "slug": "rock-n-roll-pro-beethovena",
-      "author": "Ivan Hlas",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Rodné lány",
@@ -15960,7 +15575,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Rosa na kolejích",
@@ -16180,7 +15795,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Ráno",
@@ -16217,17 +15832,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "Ráno bylo stejný",
-      "slug": "rano-bylo-stejny",
-      "author": "Žalman & spol.",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Růže z papíru",
@@ -16276,18 +15880,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "S tím bláznem si nic nezačínej",
-      "slug": "s-tim-blaznem-si-nic-nezacinej",
-      "author": "Pavel Bobek",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Safe and Sound",
@@ -16328,17 +15921,6 @@
           "G"
         ]
       ]
-    },
-    {
-      "title": "Salome",
-      "slug": "salome",
-      "author": "Karel Kryl",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Salám banán",
@@ -16511,17 +16093,6 @@
       ]
     },
     {
-      "title": "Save tonight",
-      "slug": "save-tonight",
-      "author": "Eagle-Eye Cherry",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Saxana",
       "slug": "saxana",
       "author": "Petra Černocká",
@@ -16530,7 +16101,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Sbohem galánečko",
@@ -16641,7 +16212,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Schovaná",
@@ -16652,7 +16223,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Seděla Anička na větvičce",
@@ -16698,17 +16269,6 @@
       ]
     },
     {
-      "title": "Selfmademan",
-      "slug": "selfmademan",
-      "author": "Hop Trop",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Sen",
       "slug": "sen",
       "author": "Lucie",
@@ -16752,7 +16312,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Severní vítr",
@@ -16839,28 +16399,6 @@
           "E"
         ]
       ]
-    },
-    {
-      "title": "Siluety",
-      "slug": "siluety",
-      "author": "Mandrage",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
-      "title": "Skládanka",
-      "slug": "skladanka",
-      "author": "Honza Nedvěd",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Skřítkové tesaři",
@@ -16982,18 +16520,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Sliby se maj plnit o Vánocích",
       "slug": "sliby-se-maj-plnit-o-vanocich",
-      "author": "Rybičky 48",
+      "author": "Janek Ledecký",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Slunečný hrob",
@@ -17040,17 +16578,6 @@
       ]
     },
     {
-      "title": "Slunovrat",
-      "slug": "slunovrat",
-      "author": "Brontosauři",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Slzy tvý mámy",
       "slug": "slzy-tvy-mamy",
       "author": "Olympic",
@@ -17059,18 +16586,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
-    },
-    {
-      "title": "Smoke on the water",
-      "slug": "smoke-on-the-water",
-      "author": "Deep Purple",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Snad jsem to zavinil já",
@@ -17081,7 +16597,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh",
+      "status": "k-vytvoreni",
       "note": "též jako Otázky"
     },
     {
@@ -17093,7 +16609,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Snow (Hey Oh)",
@@ -17104,7 +16620,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Snowman",
@@ -17169,7 +16685,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Somewhere over the rainbow",
@@ -17211,7 +16727,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Sound of silence",
@@ -17353,7 +16869,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Spím v obilí",
@@ -17487,7 +17003,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Stairway to heaven",
