@@ -2234,7 +2234,7 @@
     {
       "title": "Centuries",
       "slug": "centuries",
-      "author": "Fall Out Boys",
+      "author": "Fall Out Boy",
       "chords": [
         "Em",
         "Ami",
@@ -3576,7 +3576,7 @@
     {
       "title": "Dont worry, be happy",
       "slug": "dont-worry-be-happy",
-      "author": "Bobby Mcferrin",
+      "author": "Bobby McFerrin",
       "chords": [
         "G",
         "Ami",
@@ -4880,9 +4880,9 @@
       ]
     },
     {
-      "title": "Hangign tree",
+      "title": "The Hanging Tree",
       "slug": "hangign-tree",
-      "author": "Hames Newton Howard",
+      "author": "James Newton Howard",
       "chords": [
         "Ami",
         "Dmi",
@@ -5013,7 +5013,7 @@
     {
       "title": "Here comes the sun",
       "slug": "here-comes-the-sun",
-      "author": "The BeatlesCapo 2",
+      "author": "The Beatles",
       "chords": [
         "D",
         "G",
@@ -5126,7 +5126,7 @@
     {
       "title": "Hey, soul sister",
       "slug": "hey-soul-sister",
-      "author": "Hey, soul sister",
+      "author": "Train",
       "chords": [
         "C",
         "G",
@@ -6213,7 +6213,7 @@
     {
       "title": "I want it that way",
       "slug": "i-want-it-that-way",
-      "author": "Backstreet boys",
+      "author": "Backstreet Boys",
       "chords": [
         "Emi",
         "C",
@@ -6538,7 +6538,7 @@
     {
       "title": "Jako kotě si příst",
       "slug": "jako-kote-si-prist",
-      "author": "JIří Grossmann",
+      "author": "Jiří Grossmann",
       "chords": [
         "C",
         "F",
@@ -7366,7 +7366,7 @@
     {
       "title": "Jupí, čerte",
       "slug": "jupi-certe",
-      "author": "Greenhorn",
+      "author": "Greenhorns",
       "chords": [
         "G",
         "C",
@@ -8539,7 +8539,7 @@
       ]
     },
     {
-      "title": "Kocábka",
+      "title": "Stará archa (Kocábka)",
       "slug": "kocabka",
       "author": "Spirituál Kvintet",
       "chords": [
@@ -11647,7 +11647,7 @@
       ]
     },
     {
-      "title": "Míle a míle",
+      "title": "Vítr to ví",
       "slug": "mile-a-mile",
       "author": "Waldemar Matuška",
       "chords": [
@@ -16725,7 +16725,7 @@
     {
       "title": "Somewhere over the rainbow",
       "slug": "somewhere-over-the-rainbow",
-      "author": "Israel Kamakawiwo Ole\\&#039;",
+      "author": "Israel Kamakawiwoʻole",
       "chords": [
         "C",
         "Emi",
@@ -17070,34 +17070,6 @@
           "F",
           "G",
           "C"
-        ]
-      ]
-    },
-    {
-      "title": "Stará archa (Kocábka)",
-      "slug": "stara-archa-kocabka",
-      "author": "Spirituál Kvintet",
-      "chords": [
-        "D7",
-        "G"
-      ],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "progression": [
-        [
-          "D7",
-          "G"
-        ],
-        [
-          "G",
-          "D7"
-        ],
-        [
-          "G",
-          "D7",
-          "G"
         ]
       ]
     },
@@ -20846,7 +20818,7 @@
     {
       "title": "Yesterday",
       "slug": "yesterday",
-      "author": "Beatles",
+      "author": "The Beatles",
       "chords": [
         "C",
         "E",
@@ -21330,59 +21302,6 @@
           "G",
           "Ami",
           "F"
-        ]
-      ]
-    },
-    {
-      "title": "Zbirka zvadlejch ruzi",
-      "slug": "zbirka-zvadlejch-ruzi",
-      "author": "Wanastowi Vjecy",
-      "chords": [
-        "G",
-        "D",
-        "A",
-        "C",
-        "E",
-        "F"
-      ],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "progression": [
-        [
-          "G",
-          "D"
-        ],
-        [
-          "G",
-          "D",
-          "A"
-        ],
-        [
-          "A",
-          "G",
-          "D"
-        ],
-        [
-          "G",
-          "A"
-        ],
-        [
-          "C",
-          "D",
-          "A"
-        ],
-        [
-          "C",
-          "D",
-          "E"
-        ],
-        [
-          "F",
-          "D",
-          "A",
-          "G"
         ]
       ]
     },
