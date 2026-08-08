@@ -1674,6 +1674,17 @@
       ]
     },
     {
+      "title": "Bring me to life",
+      "slug": "bring-me-to-life",
+      "author": "Evanescence",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Buchet je spousta",
       "slug": "buchet-je-spousta",
       "author": "Kouzla králů",
@@ -4372,6 +4383,17 @@
       "tags": {
         "capo": false,
         "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Fireflies",
+      "slug": "fireflies",
+      "author": "Owl City",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
       },
       "status": "k-vytvoreni"
     },
@@ -9669,6 +9691,17 @@
       "tags": {
         "capo": false,
         "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Lonely Day",
+      "slug": "lonely-day",
+      "author": "System of a Down",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
       },
       "status": "k-vytvoreni"
     },
