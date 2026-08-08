@@ -19139,7 +19139,7 @@
       ]
     },
     {
-      "title": "Ukolébavka",
+      "title": "Ukolébavka pro Kubu a Lenku",
       "slug": "ukolebavka",
       "author": "Jaromír Nohavica",
       "chords": [
@@ -19582,9 +19582,7 @@
         "C",
         "Dmi",
         "E",
-        "F",
-        "CEF",
-        "CGC"
+        "F"
       ],
       "tags": {
         "capo": false,
