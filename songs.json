@@ -21176,13 +21176,13 @@
       "author": "Elán",
       "chords": [
         "A",
-        "Hmi",
         "D",
+        "F#mi",
         "E",
-        "F#mi"
+        "Hmi"
       ],
       "tags": {
-        "capo": false,
+        "capo": 4,
         "language": "CZ"
       },
       "progression": [
@@ -21296,23 +21296,19 @@
       },
       "progression": [
         [
-          "C"
-        ],
-        [
-          "G"
-        ],
-        [
-          "F",
-          "C"
-        ],
-        [
-          "F",
           "C",
           "G"
         ],
         [
           "F",
-          "C",
+          "C"
+        ],
+        [
+          "G",
+          "F",
+          "C"
+        ],
+        [
           "G",
           "F",
           "G"
@@ -22819,7 +22815,7 @@
     {
       "title": "Žijeme len raz",
       "slug": "zijeme-len-raz",
-      "author": "Ego",
+      "author": "Ego, Robert Burian",
       "chords": [
         "F",
         "C",
@@ -22845,12 +22841,16 @@
           "Dmi",
           "B"
         ]
+      ],
+      "authors": [
+        "Ego",
+        "Robert Burian"
       ]
     },
     {
       "title": "Žili byli bratři tři",
       "slug": "zili-byli-bratri-tri",
-      "author": "",
+      "author": "Tomáš Klus, Vojtěch Dyk",
       "chords": [
         "G",
         "D7",
@@ -22913,12 +22913,16 @@
           "D7",
           "G"
         ]
+      ],
+      "authors": [
+        "Tomáš Klus",
+        "Vojtěch Dyk"
       ]
     },
     {
       "title": "Život je jen náhoda",
       "slug": "zivot-je-jen-nahoda",
-      "author": "Ježek + Voskovec + Werich",
+      "author": "Jaroslav Ježek, Jiří Voskovec, Jan Werich",
       "chords": [
         "G",
         "B",
@@ -23041,6 +23045,11 @@
           "G",
           "G6"
         ]
+      ],
+      "authors": [
+        "Jaroslav Ježek",
+        "Jiří Voskovec",
+        "Jan Werich"
       ]
     }
   ]
