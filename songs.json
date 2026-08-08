@@ -230,18 +230,21 @@
           "Emi",
           "D"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "A star is born (Shallow)",
       "slug": "a-star-is-born",
-      "author": "Lady Gaga & Bradley Cooper",
+      "author": "Lady Gaga, Bradley Cooper",
       "chords": [
         "Emi",
         "D",
         "G",
         "C",
-        "Ami"
+        "Ami",
+        "Hmi",
+        "A"
       ],
       "tags": {
         "capo": false,
@@ -262,8 +265,19 @@
           "G",
           "D",
           "Emi"
+        ],
+        [
+          "Hmi",
+          "D",
+          "A",
+          "Emi"
         ]
-      ]
+      ],
+      "authors": [
+        "Lady Gaga",
+        "Bradley Cooper"
+      ],
+      "checked": true
     },
     {
       "title": "A ty tam",
@@ -286,7 +300,8 @@
           "Dmi",
           "Ami"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Ach Bože z nebe",
@@ -306,22 +321,13 @@
         [
           "Dmi",
           "G",
-          "C"
-        ],
-        [
-          "Dmi",
-          "A",
-          "Dmi"
-        ],
-        [
-          "Dmi",
-          "G",
           "C",
           "Dmi",
           "A",
           "Dmi"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Ach synku, synku",
@@ -381,16 +387,10 @@
         [
           "Ami",
           "Hmi",
-          "Emi",
-          "Ami",
-          "D",
-          "Hmi",
-          "G",
-          "C",
-          "Ami",
-          "Hmi"
+          "Emi"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Akordy",
