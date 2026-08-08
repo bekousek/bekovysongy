@@ -19623,14 +19623,14 @@
       "slug": "velrybarska-vyprava",
       "author": "Pacifik",
       "chords": [
-        "E",
-        "A",
-        "H7",
-        "C#mi",
-        "F#mi"
+        "D",
+        "G",
+        "A7",
+        "Hmi",
+        "Emi"
       ],
       "tags": {
-        "capo": false,
+        "capo": 2,
         "language": "CZ"
       },
       "progression": [
@@ -19952,9 +19952,6 @@
           "H",
           "D",
           "A"
-        ],
-        [
-          "EHDA"
         ]
       ]
     },
@@ -20198,24 +20195,24 @@
     {
       "title": "Víla Vivi",
       "slug": "vila-vivi",
-      "author": "Kašpárek v rohlíku",
+      "author": "Kašpárek V Rohlíku",
       "chords": [
-        "Ebmi",
-        "Db",
-        "Gb",
-        "Ab",
-        "B7",
-        "Ab7",
-        "Gb6",
-        "Bsus4",
-        "Ebmi/Db",
-        "Ebmi/Gb",
-        "Ebmi/Ab",
-        "Bmi",
-        "Ebmi/B"
+        "Dmi",
+        "C",
+        "F",
+        "G",
+        "A7",
+        "G7",
+        "F6",
+        "Asus4",
+        "Dmi/C",
+        "Dmi/F",
+        "Dmi/G",
+        "Ami",
+        "Dmi/A"
       ],
       "tags": {
-        "capo": false,
+        "capo": 1,
         "language": "CZ"
       },
       "progression": [
@@ -20567,7 +20564,7 @@
         "Ami"
       ],
       "tags": {
-        "capo": true,
+        "capo": false,
         "language": "EN"
       },
       "progression": [
