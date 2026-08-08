@@ -1,7 +1,67 @@
 {
-  "generated": "2026-08-07T01:52:15.970Z",
-  "total": 324,
+  "generated": "2026-08-08T14:52:28.317Z",
+  "total": 907,
   "previews": {
+    "1982": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5f/13/1e/5f131e64-4570-7c6c-e4f0-4240f5c113ba/mzaf_17636339602012144413.plus.aac.p.m4a",
+      "track": "1982",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
+    "5-policajtu": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/14/97/1b/14971b89-8dfb-f74e-b76b-a875692b84d2/mzaf_696571578518514541.plus.aac.p.m4a",
+      "track": "5 Policajtů",
+      "artist": "Jablkoň",
+      "match": "exact"
+    },
+    "a-pak": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/73/7c/56/737c5629-cefd-8220-4ca0-7c103117c262/mzaf_761838537222635665.plus.aac.p.m4a",
+      "track": "A Pak (feat. Tamara Klusová)",
+      "artist": "Tomas Klus",
+      "match": "exact"
+    },
+    "a-star-is-born": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/62/8c/e7628cb0-04de-2807-2f25-7136676889e8/mzaf_667740808608553924.plus.aac.p.m4a",
+      "track": "A Star Is Born",
+      "artist": "Cheryl Freeman, LaChanze, Vaneese Thomas, Lillias White & Roz Ryan",
+      "match": "title"
+    },
+    "a-ty-tam": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/2e/2c/5b/2e2c5be6-5893-7ff2-e8da-44e81ee17bb0/mzaf_16193038795668861457.plus.aac.p.m4a",
+      "track": "A Ty Tam",
+      "artist": "Žd'orp, Mňága & Mňága a Žďorp",
+      "match": "exact"
+    },
+    "a1-2-3-4-5-6": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/92/7b/d6/927bd673-0dcc-fdfe-fa3e-f21eb7136053/mzaf_2393962723885654936.plus.aac.p.m4a",
+      "track": "1-2-3-4-5-6",
+      "artist": "Rocket Juice & The Moon",
+      "match": "title"
+    },
+    "a1-signalni": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/31/a9/c9/31a9c9f2-5f03-071a-ca10-b228ffb67411/mzaf_14375219302476387479.plus.aac.p.m4a",
+      "track": "1.Signalni",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "a1970": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0d/f2/5b/0df25baa-efe1-4909-66bb-d778a0df7963/mzaf_11194311646240138212.plus.aac.p.m4a",
+      "track": "1970",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "a7-years": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/15/71/af/1571af0b-19e7-00a2-452d-8c146b88bab3/mzaf_1010696746274902629.plus.aac.p.m4a",
+      "track": "7 Years",
+      "artist": "Lukas Graham",
+      "match": "exact"
+    },
+    "ach-boze-z-nebe": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/00/f8/fe/00f8fe96-c1cf-228f-87c6-5e8508c1eb7e/mzaf_8267522654828247899.plus.aac.p.m4a",
+      "track": "Ach Boze Z Nebe",
+      "artist": "Čechomor",
+      "match": "exact"
+    },
     "ach-synku-synku": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/26/e0/79/26e079c9-a511-3e5c-c951-3eac5a6b5072/mzaf_4558470929577517780.plus.aac.p.m4a",
       "track": "Ach Synku, Synku",
@@ -12,6 +72,12 @@
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/12/e5/ba/12e5ba45-05c1-7060-25a8-c9b718e7f6e8/mzaf_4488601364870711408.plus.aac.p.m4a",
       "track": "Africa",
       "artist": "Toto",
+      "match": "exact"
+    },
+    "aida": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4b/8a/50/4b8a50cb-9389-608b-c229-546ce1d688a3/mzaf_13089083544828582338.plus.aac.p.m4a",
+      "track": "Aida",
+      "artist": "Tři Sestry",
       "match": "exact"
     },
     "akordy": {
@@ -26,6 +92,78 @@
       "artist": "Karel Zich",
       "match": "exact"
     },
+    "alice-se-dala-na-piti": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5b/75/61/5b756172-2687-3bb8-bb82-de71ae37f759/mzaf_6775681552925353336.plus.aac.p.m4a",
+      "track": "Alice Se Dala Na Pití",
+      "artist": "Sto zvirat",
+      "match": "exact"
+    },
+    "all-the-small-things": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8d/76/90/8d769061-a65b-6031-6236-d1ed857bfb23/mzaf_15213586158754899777.plus.aac.p.m4a",
+      "track": "All the Small Things",
+      "artist": "blink-182",
+      "match": "exact"
+    },
+    "amazonka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8d/62/2c/8d622c86-89c6-d883-23b8-66a901a261b5/mzaf_6640045070454702456.plus.aac.p.m4a",
+      "track": "Amazonka",
+      "artist": "Hop trop",
+      "match": "exact"
+    },
+    "amerika": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e1/c7/b4/e1c7b44c-b5e7-b89e-6825-f596dad8e016/mzaf_14656177955982569824.plus.aac.p.m4a",
+      "track": "Amerika (Mastered by 2013)",
+      "artist": "Lucie",
+      "match": "exact"
+    },
+    "andel": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6b/43/85/6b4385ee-c60f-c1c8-20e5-31b71ce5c5a3/mzaf_17460330444488165129.plus.aac.p.m4a",
+      "track": "Anděl",
+      "artist": "Karel Kryl",
+      "match": "exact"
+    },
+    "andel-kerndlova": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/90/c4/e6/90c4e680-fdf9-3721-b760-58af9b9c45e7/mzaf_10951969609135220351.plus.aac.p.m4a",
+      "track": "Andel (Lust for Life)",
+      "artist": "Tereza Kerndlova",
+      "match": "exact"
+    },
+    "andel-mirai": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/08/4f/ab084f15-16d4-b832-cc0f-b5fbc2721d4a/mzaf_16138402383529580707.plus.aac.p.m4a",
+      "track": "Anděl",
+      "artist": "Mirai",
+      "match": "exact"
+    },
+    "andel2": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ad/61/1e/ad611ee2-738e-6d1a-4fd4-aefdd9cd11e4/mzaf_8528344698584638389.plus.aac.p.m4a",
+      "track": "Anděl",
+      "artist": "Xindl X",
+      "match": "exact"
+    },
+    "andele": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/77/dc/0b/77dc0b8b-41cb-9dbc-9459-47401ac8f366/mzaf_13775269042274602817.plus.aac.p.m4a",
+      "track": "Andele",
+      "artist": "Wanastowi Vjecy",
+      "match": "exact"
+    },
+    "andelska": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/11/86/4c1186fe-a7e7-218e-e79f-93ac415299ee/mzaf_13867549231457592859.plus.aac.p.m4a",
+      "track": "Andělská",
+      "artist": "Zuzana Navarova & Koa",
+      "match": "exact"
+    },
+    "ani-k-staru": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/4e/da/49/4eda49f5-faa0-2b05-6fea-8eb8eac2bd97/mzaf_4567643201765443800.plus.aac.p.m4a",
+      "track": "Ani K Stáru",
+      "artist": "Jaroslav Uhlíř & Zdeněk Svěrák",
+      "match": "exact"
+    },
+    "antidepresivni-rybicka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/19/61/15/19611591-d9c8-a969-4038-367894e5a58c/mzaf_9775232400762731788.plus.aac.p.m4a",
+      "track": "Antidepresivni Rybicka",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
     "arie-mesice": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/72/b2/65/72b2659f-b300-e635-b8fe-07f356d50c8f/mzaf_8812556591377502142.plus.aac.p.m4a",
       "track": "Árie Měsíce",
@@ -38,16 +176,46 @@
       "artist": "František Nedvěd",
       "match": "title"
     },
+    "atentat": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/39/d3/6a/39d36a03-247c-b229-cd12-a40530d9a275/mzaf_10177496945453647486.plus.aac.p.m4a",
+      "track": "Atentat",
+      "artist": "Kryštof",
+      "match": "exact"
+    },
+    "autobus": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d3/18/9e/d3189e2d-7bae-91c2-003e-6706cec916bd/mzaf_3103169816122812269.plus.aac.p.m4a",
+      "track": "Autobus",
+      "artist": "Zrní",
+      "match": "exact"
+    },
+    "ayo-technology": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b4/2c/37/b42c3783-3d21-9f04-3156-f5bd451b85fb/mzaf_6477329072570900884.plus.aac.p.m4a",
+      "track": "Ayo Technology",
+      "artist": "Milow",
+      "match": "exact"
+    },
     "az": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f7/99/4a/f7994a57-1531-6dfc-9f72-062b953e18b8/mzaf_12124660695202735230.plus.aac.p.m4a",
       "track": "Až...",
       "artist": "Katapult",
       "match": "exact"
     },
+    "az-na-mesic": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/12/67/b2/1267b296-8ef1-a866-4b6a-de66127789af/mzaf_6064769383412637401.plus.aac.p.m4a",
+      "track": "Až na měsíc",
+      "artist": "Čí je to vina?",
+      "match": "title"
+    },
     "az-po-usi": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/28/08/692808ce-714d-6c2d-5a17-64b3f128b2e3/mzaf_17748522540468746665.plus.aac.p.m4a",
       "track": "Až po uši",
       "artist": "Slavíček",
+      "match": "exact"
+    },
+    "az-se-k-nam-pravo-vrati": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/49/f9/b7/49f9b781-6558-c7c8-82c5-b5ace3026016/mzaf_1515299722035350877.plus.aac.p.m4a",
+      "track": "Až Se K Nám Právo Vrátí",
+      "artist": "Spirituál Kvintet",
       "match": "exact"
     },
     "az-to-se-mnu-sekne": {
@@ -56,10 +224,34 @@
       "artist": "NOHAVICA JAROMIR",
       "match": "title"
     },
+    "babi-leto-bez-bab": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/db/1d/d8/db1dd86f-dbdc-c830-feb8-d84449e790e6/mzaf_12022610304554040270.plus.aac.p.m4a",
+      "track": "Babí Léto Bez Bab",
+      "artist": "Xavier Baumaxa",
+      "match": "exact"
+    },
+    "babinsky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c7/18/f9/c718f94b-f850-34e0-6e2b-daf0d7c14855/mzaf_12645710466493758661.plus.aac.p.m4a",
+      "track": "Babinský s.r.o.",
+      "artist": "YBCA",
+      "match": "title"
+    },
+    "bad-liar": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/80/af/3d/80af3d69-32d7-b2e9-6854-5c28e20f6bbd/mzaf_646143266605713442.plus.aac.p.m4a",
+      "track": "Bad Liar",
+      "artist": "Imagine Dragons",
+      "match": "exact"
+    },
     "bad-moon-rising": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/a8/8d/3da88d1e-a1bc-2f61-769b-fcb5aa41db22/mzaf_475634348118506853.plus.aac.p.m4a",
       "track": "Bad Moon Rising",
       "artist": "Creedence Clearwater Revival",
+      "match": "exact"
+    },
+    "bajecna-zenska": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c7/78/1d/c7781d1d-0568-a1b6-9760-902c716995ad/mzaf_15304144261207494981.plus.aac.p.m4a",
+      "track": "Báječná Ženská",
+      "artist": "Michal Tučný & Tučňáci",
       "match": "exact"
     },
     "bara": {
@@ -68,11 +260,53 @@
       "artist": "Kabát",
       "match": "exact"
     },
+    "barbora-pise-z-tabora": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/dc/75/92/dc75927b-ce96-14bb-ee01-b46dcba2d80d/mzaf_15744929144249881251.plus.aac.p.m4a",
+      "track": "Barbora Pise Z Tabora",
+      "artist": "Zdenek Sverak, Jaroslav Uhlir & Sedmihlasek",
+      "match": "exact"
+    },
+    "barevny-smerovky-do-zitra": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/b1/de/c0/b1dec048-b482-593a-8cca-cf039d2b1496/mzaf_13950847278662850996.plus.aac.p.m4a",
+      "track": "Barevný směrovky do zítra",
+      "artist": "Mňága a Žďorp",
+      "match": "exact"
+    },
+    "batalion": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ed/c4/b2/edc4b2e5-0e50-46be-1b92-dec6aaac419e/mzaf_4812858041993176899.plus.aac.p.m4a",
+      "track": "Batalion",
+      "artist": "Spirituál Kvintet",
+      "match": "exact"
+    },
+    "because-i-got-high": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4d/90/6a/4d906a7e-9dda-5765-fbe7-f36c119fdda0/mzaf_10039903506191354888.plus.aac.p.m4a",
+      "track": "Because I Got High (Palmdale Sessions)",
+      "artist": "Afroman",
+      "match": "exact"
+    },
+    "bedna-vod-whisky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/28/f1/e5/28f1e562-35d1-1daa-1ecf-bbe999403830/mzaf_14091748124514106473.plus.aac.p.m4a",
+      "track": "Bedna Od Whisky",
+      "artist": "Miki Ryvola",
+      "match": "exact"
+    },
     "bejvavalo": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f6/4d/77/f64d7799-a912-24fd-cfb2-8dcc682b839a/mzaf_17796272717028799831.plus.aac.p.m4a",
       "track": "Bejvávalo Dobře",
       "artist": "Iveta Bartosova & Ladislav Štaidl",
       "match": "title"
+    },
+    "believer": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4a/c9/eb/4ac9eba9-96df-a189-44f3-60f1d2b1e3d3/mzaf_6650674544001894318.plus.aac.p.m4a",
+      "track": "Believer (Live in Vegas)",
+      "artist": "Imagine Dragons",
+      "match": "exact"
+    },
+    "benzinka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/60/7d/60/607d60e2-e61c-cae3-6e6d-802a8f0c94bc/mzaf_15314950159631611254.plus.aac.p.m4a",
+      "track": "Benzinka",
+      "artist": "Vypsana fixa",
+      "match": "exact"
     },
     "beskyde-beskyde": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8e/f8/8b/8ef88bed-808b-c026-7197-9b4b12ffc2b8/mzaf_17607235244679897103.plus.aac.p.m4a",
@@ -84,6 +318,18 @@
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a2/bd/78/a2bd7869-c865-8e5e-7d9d-aaa032847c3e/mzaf_16369635809691425151.plus.aac.p.m4a",
       "track": "Bila velryba",
       "artist": "Michal Hruza",
+      "match": "exact"
+    },
+    "bitva-o-karluv-most": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e3/80/3c/e3803c4f-77c9-d4dc-eabf-095e74f4206a/mzaf_4132824981396963236.plus.aac.p.m4a",
+      "track": "Bitva O Karlův Most",
+      "artist": "Michal Prokop & Framus Five",
+      "match": "exact"
+    },
+    "blaznova-ukolebavka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/64/f6/b0/64f6b032-3060-7fab-baca-c6f439455958/mzaf_13223669151134886803.plus.aac.p.m4a",
+      "track": "Bláznova ukolébavka",
+      "artist": "Pavel Dydovič",
       "match": "exact"
     },
     "blizko-little-big-hornu": {
@@ -98,19 +344,67 @@
       "artist": "Bob Dylan",
       "match": "exact"
     },
+    "blues-o-spolykanych-slovech": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d7/12/ef/d712efdd-2f0d-24e4-9208-cb8cb41a27f4/mzaf_242313269742635818.plus.aac.p.m4a",
+      "track": "Blues O Spolykanych Slovech",
+      "artist": "Michal Prokop",
+      "match": "exact"
+    },
+    "bojim": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/80/9c/91/809c91fd-fea4-a198-58fb-56a085a2a241/mzaf_12386445379556572465.plus.aac.p.m4a",
+      "track": "Bojím",
+      "artist": "Zrní",
+      "match": "exact"
+    },
     "bon-soir-mademoiselle-paris": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/32/0c/20/320c20c3-af10-a12a-80d9-de179ab404e4/mzaf_1105796357084591695.plus.aac.p.m4a",
       "track": "Bon Soir Mademoiselle Paris",
       "artist": "Petr Muk",
       "match": "exact"
     },
+    "bones": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/36/0f/5f/360f5f1f-ef75-2a95-6a3d-8c57d4f39fc8/mzaf_17577034629718020372.plus.aac.p.m4a",
+      "track": "Bones",
+      "artist": "Imagine Dragons",
+      "match": "exact"
+    },
     "boreczech": {
       "match": "none"
+    },
+    "boty-proti-lasce": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/87/c5/ab/87c5abf9-4d29-7f0a-33b4-3971cc2b76a6/mzaf_18217519375307732525.plus.aac.p.m4a",
+      "track": "Boty Proti Lásce",
+      "artist": "Yvonne Přenosilová",
+      "match": "exact"
+    },
+    "boulevard-of-broken-dreams": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/22/0b/18/220b188c-3945-4938-f92d-79d75ac653e5/mzaf_17003015349445670556.plus.aac.p.m4a",
+      "track": "Boulevard of Broken Dreams",
+      "artist": "Vitamin String Quartet",
+      "match": "title"
+    },
+    "bratricku-zavirej-vratka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/3a/85/c9/3a85c922-b8db-84e4-8a6a-3b14ff68f5c6/mzaf_18057077877138109239.plus.aac.p.m4a",
+      "track": "Bratříčku, Zavírej Vrátka",
+      "artist": "Karel Kryl",
+      "match": "exact"
     },
     "bubetka": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/71/b0/e5/71b0e5bc-59b5-4682-e6cf-13ca3805622a/mzaf_7482296775370834281.plus.aac.p.m4a",
       "track": "Bubetka",
       "artist": "Vypsana fixa",
+      "match": "exact"
+    },
+    "buchet-je-spousta": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/92/a5/8c/92a58cd3-ea85-1bea-b4a1-5f498bf716ea/mzaf_1211189557778975781.plus.aac.p.m4a",
+      "track": "Buchet je Spousta",
+      "artist": "Jiří Bosák",
+      "match": "title"
+    },
+    "bud-a-nebe": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/e0/6b/05/e06b057b-4eac-705b-4461-3ebd9485f89d/mzaf_10645824158515925197.plus.aac.p.m4a",
+      "track": "Bud a Nebe",
+      "artist": "UDG",
       "match": "exact"
     },
     "budapest": {
@@ -119,10 +413,70 @@
       "artist": "George Ezra",
       "match": "exact"
     },
+    "bude-mi-lehka-zem": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/28/a1/68/28a168ae-c799-4449-e11c-33e9c1e7e388/mzaf_15085314144140433930.plus.aac.p.m4a",
+      "track": "Bude mi lehka zem (With Petr Hapka)",
+      "artist": "Petr Hapka & Jana Kirschner",
+      "match": "exact"
+    },
+    "budulinek-vs-galantni-jelen": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/44/d0/39/44d03912-ff4a-09f0-dd39-c748de8d2270/mzaf_5923445466213554158.plus.aac.p.m4a",
+      "track": "Budulínek vs. Galantní Jelen",
+      "artist": "Vojtaano",
+      "match": "title"
+    },
+    "bum-bum-bum": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8a/d2/65/8ad2653c-c34b-7af5-36f4-c8ad3ad403f8/mzaf_14245379852027584118.plus.aac.p.m4a",
+      "track": "Bum, bum, bum",
+      "artist": "Karel Gott",
+      "match": "exact"
+    },
+    "buraky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b5/f9/05/b5f90511-bfbc-e2ac-c7d8-14fdd761e83f/mzaf_12494504851042184724.plus.aac.p.m4a",
+      "track": "Buraky",
+      "artist": "Michal Tučný",
+      "match": "exact"
+    },
+    "burlaci": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/4a/97/4a/4a974a6e-4c6f-d47e-89e7-69d0553941a3/mzaf_7498007634294725078.plus.aac.p.m4a",
+      "track": "Burlaci",
+      "artist": "Kabát",
+      "match": "exact"
+    },
+    "byla-cesta-byla-uslapana": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/01/8e/b1/018eb182-183c-ceaa-834e-5b058b12c6ac/mzaf_8959688513376241205.plus.aac.p.m4a",
+      "track": "Byla Cesta, Byla Uslapana",
+      "artist": "Čechomor",
+      "match": "exact"
+    },
+    "californication": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/69/f9/c3/69f9c3ae-696a-7d03-145a-995aa19e75d2/mzaf_11967480468703182891.plus.aac.p.m4a",
+      "track": "Californication",
+      "artist": "Red Hot Chili Peppers",
+      "match": "exact"
+    },
     "can-t-stop": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/b0/a7/c6/b0a7c683-938c-c8ef-6e69-6ace4aeab936/mzaf_9096520743595187520.plus.aac.p.m4a",
       "track": "Can't Stop",
       "artist": "Red Hot Chili Peppers",
+      "match": "exact"
+    },
+    "cant-help-falling-in-love": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cd/8b/b0/cd8bb0f9-d255-c6b9-e55b-3403d135c638/mzaf_11483484905380371632.plus.aac.p.m4a",
+      "track": "Can't Help Falling In Love",
+      "artist": "Elvis Presley",
+      "match": "exact"
+    },
+    "carpe-diem": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ad/b8/82/adb882e5-af14-6f9f-ea43-a4a8b51d322e/mzaf_5881293171636609637.plus.aac.p.m4a",
+      "track": "Carpe Diem",
+      "artist": "Ag Flek",
+      "match": "exact"
+    },
+    "centuries": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/99/23/d3/9923d3ac-5cac-79d1-4a77-ec8fb7499b2b/mzaf_9922251089879156208.plus.aac.p.m4a",
+      "track": "Centuries",
+      "artist": "Fall Out Boy",
       "match": "exact"
     },
     "cerna-dira": {
@@ -155,11 +509,35 @@
       "artist": "Záviš",
       "match": "exact"
     },
+    "cest-la-vie": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/97/70/4c977056-8569-4f3d-ca1f-87590ee72646/mzaf_15691888534259235668.plus.aac.p.m4a",
+      "track": "C'Est La Vie",
+      "artist": "Karel Gott",
+      "match": "exact"
+    },
+    "cesta": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d1/b3/6d/d1b36d8f-3144-9ebf-7e47-abb9bec24539/mzaf_6930092187272448981.plus.aac.p.m4a",
+      "track": "Cesta",
+      "artist": "Kryštof & Tomas Klus",
+      "match": "exact"
+    },
     "cesta-2": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d1/b3/6d/d1b36d8f-3144-9ebf-7e47-abb9bec24539/mzaf_6930092187272448981.plus.aac.p.m4a",
       "track": "Cesta",
       "artist": "Kryštof & Tomas Klus",
       "match": "exact"
+    },
+    "cestou-do-jenkovic": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/64/90/93/64909376-2ed6-bed1-58df-a7cdb1776f45/mzaf_10002564611214260504.plus.aac.p.m4a",
+      "track": "Cestou Do Jenkovic",
+      "artist": "Raduza",
+      "match": "exact"
+    },
+    "chajda-mala": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9e/3a/cd/9e3acd36-817d-1b96-95e2-229b4f290939/mzaf_800536002781918992.plus.aac.p.m4a",
+      "track": "Chajda Malá",
+      "artist": "Dovedové",
+      "match": "title"
     },
     "chasing-cars": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b0/ad/0f/b0ad0f3b-1c7c-27f4-25eb-06ed232fce06/mzaf_15213746956420878583.plus.aac.p.m4a",
@@ -167,10 +545,40 @@
       "artist": "Snow Patrol",
       "match": "exact"
     },
+    "chci-ti-rict": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ca/6b/b1/ca6bb1e2-7bf3-8435-ba7d-87f63d2e0185/mzaf_15741798785277901129.plus.aac.p.m4a",
+      "track": "Chci Ti říct",
+      "artist": "Mig 21",
+      "match": "exact"
+    },
+    "chci-zas-v-tobe-spat": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/cd/0f/47/cd0f47fb-189f-7a34-1bea-1142e70a6246/mzaf_2453386806764852047.plus.aac.p.m4a",
+      "track": "Chci Zas V Tobe Spat (Opera Live 2003)",
+      "artist": "Lucie",
+      "match": "exact"
+    },
     "chemie": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/94/81/1d/94811d24-fd8d-fb1a-eb65-37d32d78e8cf/mzaf_16042944763146242720.plus.aac.p.m4a",
       "track": "Chemie",
       "artist": "Xindl X",
+      "match": "exact"
+    },
+    "chlapi-su": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d8/2f/d2/d82fd21d-a1e9-7741-69da-b87c3fa1ad4a/mzaf_11021148957173013424.plus.aac.p.m4a",
+      "track": "Chlapi Su Kokoti",
+      "artist": "Mucha",
+      "match": "exact"
+    },
+    "chodim-po-brodwayi": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/10/89/49/1089499a-23bc-00f3-a279-291f0af58aaf/mzaf_15275039696661934122.plus.aac.p.m4a",
+      "track": "Chodim po Broadwayi",
+      "artist": "Maxim Turbulenc",
+      "match": "title"
+    },
+    "chvalim-te-zeme-ma": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e6/36/6d/e6366d0d-af3f-d645-48d5-45f49cac2b16/mzaf_8460085706226413675.plus.aac.p.m4a",
+      "track": "Chvalim te, Zeme ma",
+      "artist": "Zdenek Sverak, Jaroslav Uhlir & Sedmihlasek",
       "match": "exact"
     },
     "chvile": {
@@ -191,6 +599,18 @@
       "artist": "Support Lesbiens",
       "match": "exact"
     },
+    "co-bylo-dal": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ae/f2/27/aef2271d-e880-4c99-65b1-3eab0d636fa7/mzaf_3985400894229362197.plus.aac.p.m4a",
+      "track": "Co Bylo Dál?",
+      "artist": "Jelen & Jana Kirschner",
+      "match": "exact"
+    },
+    "colorado": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9b/82/c3/9b82c3d0-d638-e7fd-f0dd-de2466eaec9d/mzaf_4394417710428098497.plus.aac.p.m4a",
+      "track": "Colorado",
+      "artist": "Kabát",
+      "match": "exact"
+    },
     "come-as-you-are": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e5/bd/f0/e5bdf017-f03c-3ba8-281b-933644481def/mzaf_13455919523694423223.plus.aac.p.m4a",
       "track": "Come As You Are (Remastered)",
@@ -203,10 +623,22 @@
       "artist": "Kabát",
       "match": "exact"
     },
+    "counting-stars": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8a/e6/26/8ae626cc-ede8-47d2-d86b-ce7fd562e4d1/mzaf_15251194521255976653.plus.aac.p.m4a",
+      "track": "Counting Stars",
+      "artist": "OneRepublic",
+      "match": "exact"
+    },
     "coz-takhle-dat-si-spenat": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/cb/57/14/cb5714da-6118-d6e1-355b-265ace7d4e5d/mzaf_7113448369191573204.plus.aac.p.m4a",
       "track": "Což Takhle Dát Si Špenát?",
       "artist": "Jiří Schelinger",
+      "match": "exact"
+    },
+    "creep": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/8d/e0/bb/8de0bb10-0593-83cc-4d2c-4e9f6ea9b575/mzaf_16440589638018943894.plus.aac.p.m4a",
+      "track": "Creep (Acoustic)",
+      "artist": "Radiohead",
       "match": "exact"
     },
     "cudzinka-v-tvojej-zemi": {
@@ -214,6 +646,9 @@
       "track": "Cudzinka V Tvojej Zemi",
       "artist": "Xindl X",
       "match": "exact"
+    },
+    "cukrarska-bossa-nova": {
+      "match": "none"
     },
     "cyrano": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/26/22/a6/2622a69e-7a9d-478b-3ac9-0421c9171578/mzaf_16819286201765336999.plus.aac.p.m4a",
@@ -227,16 +662,64 @@
       "artist": "Taxmeni",
       "match": "title"
     },
+    "dama-s-capem": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ad/e5/df/ade5df37-b76a-63f9-e8a5-b81f20798f14/mzaf_7538473393886290776.plus.aac.p.m4a",
+      "track": "Dáma S Čápem",
+      "artist": "Sto zvirat",
+      "match": "exact"
+    },
+    "dame-klukovi-skoly": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/de/60/3a/de603abf-d191-f928-253b-003cb586a23d/mzaf_2400229807674138122.plus.aac.p.m4a",
+      "track": "Dame Klukovi Skoly",
+      "artist": "Jiří Pecha, Jiri Labus & Jaroslava Kretschmerova",
+      "match": "title"
+    },
     "danse-macabre": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e4/2e/8e/e42e8e13-dff5-9c6a-7f83-f6b495a24c5b/mzaf_16886823918542360157.plus.aac.p.m4a",
       "track": "Danse macabre, Op. 40, R. 171",
       "artist": "Orchestre Symphonique de Montréal, Andrew Wan & Kent Nagano",
       "match": "title"
     },
+    "darling": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/70/37/db/7037dbdf-5915-53c9-e0dc-74b8080ee696/mzaf_1938944403173613438.plus.aac.p.m4a",
+      "track": "Darling",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
+    "darmodej": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4e/76/e6/4e76e617-9553-9d77-b7ad-086322e08dec/mzaf_10087418419501635977.plus.aac.p.m4a",
+      "track": "Darmodej",
+      "artist": "Jaromír Nohavica",
+      "match": "exact"
+    },
+    "datamtuja": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/90/f7/01/90f701b6-9c07-1d89-ec3d-a0e28fdf5f85/mzaf_15921096293365110167.plus.aac.p.m4a",
+      "track": "Dátamtůja",
+      "artist": "Xavier Baumaxa",
+      "match": "exact"
+    },
+    "david-a-golias": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/dd/42/90/dd4290c4-023d-54a7-70bc-4b0b23f15691/mzaf_7891535738173147054.plus.aac.p.m4a",
+      "track": "David A Goliáš",
+      "artist": "Jan Werich & Jiří Voskovec",
+      "match": "exact"
+    },
     "davno": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/6a/1c/8f/6a1c8fc4-ab13-c4a1-9d2f-e3d15ab0f095/mzaf_10570547648103390452.plus.aac.p.m4a",
       "track": "Davno",
       "artist": "Divokej Bill",
+      "match": "exact"
+    },
+    "de-nimes": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/e3/fa/f1/e3faf1fc-f6c4-4726-bb3f-c91a34be816b/mzaf_16559080836758565612.plus.aac.p.m4a",
+      "track": "De Nîmes",
+      "artist": "Raduza",
+      "match": "exact"
+    },
+    "dej-mi-vic-sve-lasky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/79/70/d3/7970d373-c5a3-81be-5980-e800ef528c5c/mzaf_1760670806167820329.plus.aac.p.m4a",
+      "track": "Dej Mi Víc Své Lásky",
+      "artist": "Olympic",
       "match": "exact"
     },
     "dekuji": {
@@ -245,16 +728,73 @@
       "artist": "Karel Kryl",
       "match": "exact"
     },
+    "delani": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ed/7e/4a/ed7e4adc-2fdc-d396-2eed-b082039853d5/mzaf_2152407534084855244.plus.aac.p.m4a",
+      "track": "Delani",
+      "artist": "Zdenek Sverak, Jaroslav Uhlir, Dětský sbor pana učitele Lapky & Orchestr Pavla Nikla",
+      "match": "exact"
+    },
+    "demons": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0c/05/40/0c05400b-b9cc-574d-76ff-0df495013a16/mzaf_12227049543571855758.plus.aac.p.m4a",
+      "track": "Demons (Imagine Dragons Remix)",
+      "artist": "Imagine Dragons",
+      "match": "exact"
+    },
+    "detaily": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/50/2e/3b/502e3b88-72c1-fded-d1d5-b285a2eb7f78/mzaf_13634063369790341359.plus.aac.p.m4a",
+      "track": "Detaily",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
     "devka": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/40/6b/13/406b13a4-b242-001d-1e13-ceaad9597308/mzaf_5048528448775966889.plus.aac.p.m4a",
       "track": "Děvka",
       "artist": "Komunál",
       "match": "title"
     },
+    "dezolat": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7e/85/5a/7e855a83-ae81-2360-9e64-942fe0387882/mzaf_6686983263246724422.plus.aac.p.m4a",
+      "track": "Dezolat",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
+    "diggi-diggi-hole": {
+      "match": "none"
+    },
+    "dinosaur": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/bc/d4/98/bcd4981b-532c-e44d-feb2-b5fa9fe09973/mzaf_1756194423211899238.plus.aac.p.m4a",
+      "track": "Dinosaur",
+      "artist": "Kruh 19",
+      "match": "exact"
+    },
     "dirty-old-town": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1c/4c/26/1c4c2658-8874-7a5c-ce27-76c588da3979/mzaf_11069673846995399427.plus.aac.p.m4a",
       "track": "Dirty Old Town",
       "artist": "The Pogues",
+      "match": "exact"
+    },
+    "divny-setkani": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/ac/80/ce/ac80ce5d-354f-db6a-484d-3356fa420c61/mzaf_16195346130577196287.plus.aac.p.m4a",
+      "track": "Divný Setkání",
+      "artist": "Půlnoční Meloun",
+      "match": "exact"
+    },
+    "divoke-kone": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/46/ce/64/46ce64ad-bc46-823c-1ebe-88f764ed3c69/mzaf_7886994766872880114.plus.aac.p.m4a",
+      "track": "Divoke kone",
+      "artist": "the.switch",
+      "match": "title"
+    },
+    "dlazebni-kostka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8b/4a/03/8b4a031e-2661-520a-ee5f-8185a2ea1489/mzaf_3091943757822157118.plus.aac.p.m4a",
+      "track": "Dlazebni Kostka",
+      "artist": "Brutus",
+      "match": "exact"
+    },
+    "dlouhej-kour": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/21/3e/c5/213ec5e4-fd93-84bb-b08c-62c95e1737d1/mzaf_1171138290416726037.plus.aac.p.m4a",
+      "track": "Dlouhej kour",
+      "artist": "Chinaski",
       "match": "exact"
     },
     "do-i-wanna-know": {
@@ -269,6 +809,30 @@
       "artist": "Tomas Klus",
       "match": "exact"
     },
+    "do-nebes": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/03/43/9f/03439fe2-0cf3-0ca2-3366-1d158a4fbb35/mzaf_1975801837988551277.plus.aac.p.m4a",
+      "track": "Do Nebes",
+      "artist": "Zuzana Navarova & KOA",
+      "match": "exact"
+    },
+    "dobrak-od-kosti": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/47/85/48/478548cb-c99d-8628-f0a8-03459503916f/mzaf_11789325525356885571.plus.aac.p.m4a",
+      "track": "Dobrak Od Kosti",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "dobre-rano": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8f/7f/0b/8f7f0b23-1ad4-df97-eafb-2ce3fe4ac931/mzaf_17974058911106503254.plus.aac.p.m4a",
+      "track": "Dobré Ráno",
+      "artist": "Tomas Klus",
+      "match": "exact"
+    },
+    "dokud-se-zpiva": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/16/93/f8/1693f891-bf0a-3ef5-6ce9-a60ffcf9c4df/mzaf_15286599913704030887.plus.aac.p.m4a",
+      "track": "Dokud Se Zpívá (Live)",
+      "artist": "Jaromír Nohavica",
+      "match": "exact"
+    },
     "dole-v-dole": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a9/47/62/a94762d7-1d35-16ae-8584-f4cdd44859b8/mzaf_16309346106246054261.plus.aac.p.m4a",
       "track": "Dole v Dole",
@@ -281,10 +845,28 @@
       "artist": "Divokej Bill",
       "match": "exact"
     },
+    "don-quijote": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/7a/62/b6/7a62b6f9-5b1c-6487-975e-a7f153969023/mzaf_4093209739424604036.plus.aac.p.m4a",
+      "track": "Don Quijote",
+      "artist": "Jarret",
+      "match": "exact"
+    },
     "don-t-look-back-in-anger": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/d0/65/3a/d0653a3e-af38-64a4-1dc6-449bf1422ca7/mzaf_15353115338721920613.plus.aac.p.m4a",
       "track": "Don't Look Back in Anger (Remastered)",
       "artist": "Oasis",
+      "match": "exact"
+    },
+    "dont-worry-be-happy": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a3/a1/9d/a3a19dca-c09d-c009-3052-f46933e5934f/mzaf_5078374611554355897.plus.aac.p.m4a",
+      "track": "Dont Worry, Be Happy (Japanese Ver.)",
+      "artist": "SF9",
+      "match": "title"
+    },
+    "dotknu-se-ohne": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d5/70/3b/d5703be5-8677-ec5b-8ce1-cd64aa438a61/mzaf_8697550791021295570.plus.aac.p.m4a",
+      "track": "Dotknu Se Ohne",
+      "artist": "Lucie",
       "match": "exact"
     },
     "dr-dam-di-dam": {
@@ -293,10 +875,28 @@
       "artist": "Václav Neckář",
       "match": "exact"
     },
+    "dragostea-din-tei": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/1f/96/63/1f96632c-6277-2d88-beb2-eb4398f48a00/mzaf_3698891952411092292.plus.aac.p.m4a",
+      "track": "Dragostea din tei",
+      "artist": "O-Zone",
+      "match": "exact"
+    },
     "drahy-muj": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/13/3f/00/133f0069-ccf8-71f9-0899-a47782def93f/mzaf_2631528502059766048.plus.aac.p.m4a",
       "track": "Drahý Můj",
       "artist": "Naďa Urbánková & Jiří Grossmann",
+      "match": "exact"
+    },
+    "drobna-paralela": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/93/7e/4a/937e4a3f-8bd0-e54e-1968-499beb4a118b/mzaf_4145485094020600472.plus.aac.p.m4a",
+      "track": "Drobna Paralela",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "druide": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/71/c2/7d71c271-279b-5fa7-1959-e9c3fb0ed0a3/mzaf_13342787137690851915.plus.aac.p.m4a",
+      "track": "Druide!",
+      "artist": "Krucipusk",
       "match": "exact"
     },
     "drzim-ti-miesto": {
@@ -305,16 +905,52 @@
       "artist": "Team",
       "match": "exact"
     },
+    "duality": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a3/86/c6/a386c6a3-f193-9bc7-33bf-0b5e11533886/mzaf_9011687842703869074.plus.aac.p.m4a",
+      "track": "Duality",
+      "artist": "Slipknot",
+      "match": "exact"
+    },
+    "duhova-vila": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/81/21/0d/81210de9-d64d-4127-0cf4-944b8f7f9687/mzaf_1659817095339280986.plus.aac.p.m4a",
+      "track": "Duhová Víla",
+      "artist": "Hana Zagorová & Petr Rezek",
+      "match": "exact"
+    },
     "dum-u-vychazejiciho-slunce": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f0/ea/7f/f0ea7fe5-d8da-67dc-e483-643ee083ac66/mzaf_8970929630684207058.plus.aac.p.m4a",
       "track": "Dům U Vycházejícího Slunce",
       "artist": "Jaromír Mayer",
       "match": "title"
     },
+    "duse-z-gumy": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6e/73/43/6e734322-56e5-3daa-ffbc-988eeeaf506d/mzaf_10629000819685465640.plus.aac.p.m4a",
+      "track": "Duse Z Gumy",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
     "dust-in-the-wind": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0d/04/24/0d04244f-f09c-1b5c-c6c2-9bd46ac0d730/mzaf_8662289516422956991.plus.aac.p.m4a",
       "track": "Dust In the Wind",
       "artist": "Kansas",
+      "match": "exact"
+    },
+    "duty-ale-free": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/17/c0/49/17c04920-3974-3c99-e0d9-5179ab5f1585/mzaf_2799515789371993675.plus.aac.p.m4a",
+      "track": "Duty Ale Free",
+      "artist": "Mňága a Žďorp",
+      "match": "exact"
+    },
+    "dva": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/15/42/3b/15423bda-218d-bc97-3a3d-c949eff126a3/mzaf_2733625592363988354.plus.aac.p.m4a",
+      "track": "Dva",
+      "artist": "Zrní",
+      "match": "exact"
+    },
+    "dva-havrani": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a6/f9/b6/a6f9b6b7-48d1-5da9-92c9-7b5f3644e9e0/mzaf_14850478760042460534.plus.aac.p.m4a",
+      "track": "Dva Havrani",
+      "artist": "Asonance",
       "match": "exact"
     },
     "dynamit": {
@@ -335,6 +971,12 @@
       "artist": "Greenhorns",
       "match": "exact"
     },
+    "eldorado": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6a/5b/e2/6a5be2c3-ba0b-3ff5-534b-e92343d4845e/mzaf_5818204225773741436.plus.aac.p.m4a",
+      "track": "Eldorádo",
+      "artist": "Waldemar Matuska",
+      "match": "exact"
+    },
     "elektricky-valcik": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/57/98/55/57985551-5ffb-d92d-ad79-452e4108a2cb/mzaf_15694961103361389706.plus.aac.p.m4a",
       "track": "Elektrický Valčík",
@@ -346,6 +988,12 @@
       "track": "Emigrant",
       "artist": "Vypsana fixa",
       "match": "title"
+    },
+    "enemy": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2f/78/a6/2f78a6fb-7fea-7cea-1659-bd42e48c1507/mzaf_9995295199673932651.plus.aac.p.m4a",
+      "track": "Enemy (From Arcane: League of Legends)",
+      "artist": "Imagine Dragons & JID",
+      "match": "exact"
     },
     "ententyky": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8c/80/38/8c8038df-1cc0-c867-07d5-baeb7304f5c5/mzaf_13833868478309155693.plus.aac.p.m4a",
@@ -359,10 +1007,28 @@
       "artist": "The Police",
       "match": "exact"
     },
+    "everyday-normal-guy-2": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/56/d2/70/56d27032-430d-4fa6-1fa2-7d0c3189a411/mzaf_10872173610686682028.plus.aac.p.m4a",
+      "track": "Everyday Normal Guy",
+      "artist": "Nudi tra i musicanti",
+      "match": "title"
+    },
+    "ex-s-oh-s": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9d/e7/c1/9de7c166-bd60-93b6-8123-9fc36bc2b77b/mzaf_13769538033881848034.plus.aac.p.m4a",
+      "track": "Ex's & Oh's",
+      "artist": "Elle King",
+      "match": "exact"
+    },
     "faded": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b1/80/15/b18015f8-329b-7c1d-957a-dad57d257232/mzaf_7706123648455463235.plus.aac.p.m4a",
       "track": "Faded",
       "artist": "Alan Walker",
+      "match": "exact"
+    },
+    "falling-slowly": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/93/37/1d/93371ded-9973-e608-f31b-8618f49b4739/mzaf_11613273655005975509.plus.aac.p.m4a",
+      "track": "Falling Slowly",
+      "artist": "Glen Hansard & Markéta Irglová",
       "match": "exact"
     },
     "fanynka": {
@@ -389,16 +1055,58 @@
       "artist": "Song for Memories",
       "match": "title"
     },
+    "flasinety": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5b/3f/2a/5b3f2a28-d257-6588-efbc-fb1ceae34aa7/mzaf_14677435073106127750.plus.aac.p.m4a",
+      "track": "Flašinety",
+      "artist": "Poletíme?",
+      "match": "exact"
+    },
+    "fly-away": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a8/2f/9f/a82f9fed-75f1-9a23-eb67-84893f36da60/mzaf_9924785785174000470.plus.aac.p.m4a",
+      "track": "Fly Away",
+      "artist": "Lenny Kravitz",
+      "match": "exact"
+    },
     "fotbal": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/79/db/87/79db874e-c61d-7d41-9db4-fb94ec2196d9/mzaf_12462262932009252207.plus.aac.p.m4a",
       "track": "Fotbal",
       "artist": "Jaromír Nohavica",
       "match": "title"
     },
+    "fousy": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/27/21/9f/27219f4a-bec5-a2b0-23db-341623d99adf/mzaf_8771342207483104576.plus.aac.p.m4a",
+      "track": "Fousy",
+      "artist": "Poletíme?",
+      "match": "exact"
+    },
+    "franky-dlouhan": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f9/b3/5a/f9b35a7e-6f71-6bc9-ce19-5c5d56ffc734/mzaf_10087172192412443642.plus.aac.p.m4a",
+      "track": "Frankie dlouhán",
+      "artist": "František Nedvěd",
+      "match": "title"
+    },
+    "franta-ma-pera": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/32/8f/88/328f88fb-7a46-d958-02ac-409133e12027/mzaf_6716812556481146025.plus.aac.p.m4a",
+      "track": "Franta Ma Pera (Quantanamera)",
+      "artist": "Wabi Danek",
+      "match": "exact"
+    },
     "frantisek": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/1b/b5/96/1bb59628-26ae-1261-8674-0cf4bce24707/mzaf_15898669680020358675.plus.aac.p.m4a",
       "track": "Frantisek",
       "artist": "Buty",
+      "match": "exact"
+    },
+    "frantiskovy-lazne": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0d/dd/6f/0ddd6f62-d3e9-2d04-026f-c93aeb330820/mzaf_1202341401136848272.plus.aac.p.m4a",
+      "track": "Frantiskovy Lazne",
+      "artist": "Mandrage",
+      "match": "exact"
+    },
+    "gangstafolk": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/76/d9/ba/76d9baaa-3ec4-804e-6daf-fcf4f1ebd3ca/mzaf_2591068595761051120.plus.aac.p.m4a",
+      "track": "Gangstafolk",
+      "artist": "Vojtaano",
       "match": "exact"
     },
     "generacni": {
@@ -413,10 +1121,22 @@
       "artist": "Daft Punk, Pharrell Williams & Nile Rodgers",
       "match": "exact"
     },
+    "globalni-oteplovani-ja-jsem-gay": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ac/46/cf/ac46cf53-a1ac-10ac-6082-ab8127c4bfd4/mzaf_12146796570577893700.plus.aac.p.m4a",
+      "track": "Globální Oteplování (Dechovkas)",
+      "artist": "Nightwork",
+      "match": "exact"
+    },
     "good-riddance-time-of-your-life": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ac/e0/63/ace06337-4a92-95e7-8d3f-3e5fb26f6f96/mzaf_7937591871523483438.plus.aac.p.m4a",
       "track": "Good Riddance (Time of Your Life) [Live]",
       "artist": "Green Day",
+      "match": "exact"
+    },
+    "gorale": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/72/75/55/7275553c-66f0-082f-0684-4e809712b36e/mzaf_4657515229828047306.plus.aac.p.m4a",
+      "track": "Gorale",
+      "artist": "Čechomor",
       "match": "exact"
     },
     "gronska-pisnicka": {
@@ -425,11 +1145,32 @@
       "artist": "Jaromír Nohavica",
       "match": "title"
     },
+    "hafo": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/9d/89/7f/9d897f3a-4098-95b8-704b-b7f83f24d631/mzaf_11093921009826513402.plus.aac.p.m4a",
+      "track": "Hafo (Slap House Remix)",
+      "artist": "Frank Wild & Kafuu",
+      "match": "exact"
+    },
+    "hakuna-matata": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/fa/cc/85/facc8530-00ad-05f0-ce97-b5831ca994a8/mzaf_1008114621335000072.plus.aac.p.m4a",
+      "track": "Hakuna Matata",
+      "artist": "Billy Eichner, Seth Rogen, JD McCrary & Donald Glover",
+      "match": "title"
+    },
     "haleluja": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/50/2e/83/502e83a2-f036-2404-dcd1-0da692bbf96a/mzaf_14161787161891921520.plus.aac.p.m4a",
       "track": "Haleluja",
       "artist": "Jakub Smolík",
       "match": "title"
+    },
+    "hallelujah": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/4d/95/03/4d95037f-5f75-2821-473e-9b4d621a54c8/mzaf_7276002928210446764.plus.aac.p.m4a",
+      "track": "Hallelujah",
+      "artist": "Leonard Cohen",
+      "match": "exact"
+    },
+    "hangign-tree": {
+      "match": "none"
     },
     "harfa": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/21/98/5f/21985fb9-0fe7-b9f7-e126-3a443ac8bc78/mzaf_724410786674262144.plus.aac.p.m4a",
@@ -443,10 +1184,37 @@
       "artist": "Creedence Clearwater Revival",
       "match": "exact"
     },
+    "hej-baro": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/de/bd/3a/debd3acd-3cee-0a63-8128-04aeeae5f147/mzaf_16630432742747882281.plus.aac.p.m4a",
+      "track": "Hej Báro",
+      "artist": "Těla",
+      "match": "exact"
+    },
+    "hej-macejko": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c7/bb/a4/c7bba4c4-367f-9fe2-c65c-3307da214b49/mzaf_6776806138998029409.plus.aac.p.m4a",
+      "track": "Hej, macejko, macejko",
+      "artist": "Senzus",
+      "match": "exact"
+    },
+    "hej-sokoly": {
+      "match": "none"
+    },
+    "here-comes-the-sun": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e7/bf/a0/e7bfa041-6e35-be4e-276e-df489781b5d4/mzaf_1668350712755343495.plus.aac.p.m4a",
+      "track": "Here Comes the Sun",
+      "artist": "The Beatles",
+      "match": "exact"
+    },
     "hero-of-war": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/2d/7e/dc2d7eb2-21bb-bab3-5157-bce0125c7eec/mzaf_17374686865463849504.plus.aac.p.m4a",
       "track": "Hero Of War",
       "artist": "Rise Against",
+      "match": "exact"
+    },
+    "heroes": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0b/c7/3b/0bc73be9-36e8-8fbd-3b34-e476db0bf09a/mzaf_14481786587565691083.plus.aac.p.m4a",
+      "track": "Heroes (Single Version)",
+      "artist": "David Bowie",
       "match": "exact"
     },
     "hey": {
@@ -461,10 +1229,46 @@
       "artist": "The Beatles",
       "match": "exact"
     },
+    "hey-soul-sister": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/22/b2/3b/22b23b2d-db40-0fa1-b714-140aff15ecbe/mzaf_699506205855316636.plus.aac.p.m4a",
+      "track": "Hey, Soul Sister",
+      "artist": "Train",
+      "match": "title"
+    },
     "hey-there-delilah": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c5/2d/c5/c52dc5be-1c0b-25c0-4458-bd255aed6a15/mzaf_15950647949647568451.plus.aac.p.m4a",
       "track": "Hey There Delilah",
       "artist": "Plain White T's",
+      "match": "exact"
+    },
+    "hey-ya": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bc/32/83/bc328389-2e39-9f39-7cd4-e1501938a78d/mzaf_5663538039270291614.plus.aac.p.m4a",
+      "track": "Hey Ya!",
+      "artist": "Outkast",
+      "match": "exact"
+    },
+    "high-hopes": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/1b/68/b1/1b68b142-72f1-9048-def9-2f47ac835675/mzaf_7291874581203092560.plus.aac.p.m4a",
+      "track": "High Hopes",
+      "artist": "Panic! At the Disco",
+      "match": "exact"
+    },
+    "hipik": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/76/f8/6f/76f86f10-6427-90e9-0264-1c1a23015786/mzaf_14878901687642110027.plus.aac.p.m4a",
+      "track": "Hipík",
+      "artist": "Vojtaano",
+      "match": "exact"
+    },
+    "hleda-se-zena": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6e/a4/b1/6ea4b18e-b8af-0122-0840-55152dcbc99c/mzaf_3591279026527895943.plus.aac.p.m4a",
+      "track": "Hleda se zena",
+      "artist": "Mandrage",
+      "match": "exact"
+    },
+    "hlidac-krav": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d0/4a/4d/d04a4d58-dfc7-f0ca-c487-d01ee9e57af5/mzaf_6188558900097889699.plus.aac.p.m4a",
+      "track": "Hlidac Krav",
+      "artist": "Jaromír Nohavica",
       "match": "exact"
     },
     "hlupak-vaha": {
@@ -479,16 +1283,73 @@
       "artist": "Jaroslav Uhlíř & Zdeněk Svěrák",
       "match": "exact"
     },
+    "ho-hey": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a1/9a/ee/a19aee35-cbb3-c47e-9e63-0b26473c5ff9/mzaf_11752666553586605937.plus.aac.p.m4a",
+      "track": "Ho Hey",
+      "artist": "The Lumineers",
+      "match": "exact"
+    },
+    "ho-ho-watanay": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/02/40/40/0240400f-a316-ebe7-5099-22df52902abc/mzaf_17797674902616580650.plus.aac.p.m4a",
+      "track": "Ho Ho Watanay",
+      "artist": "Pavel Zalman Lohonka",
+      "match": "title"
+    },
+    "hodinovy-hotel": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b3/f3/0c/b3f30c32-b7f6-4d9d-724e-23c0a74e99ca/mzaf_3591208993650747535.plus.aac.p.m4a",
+      "track": "Hodinovy Hotel",
+      "artist": "Mňága a Žďorp",
+      "match": "exact"
+    },
     "holka-modrooka": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/08/8c/1e/088c1e29-6ae3-c0b0-d106-a35ca5922e50/mzaf_10860667481706326082.plus.aac.p.m4a",
       "track": "Holka modrooká",
       "artist": "Karol a Kvído",
       "match": "title"
     },
+    "holka-s-lebkou": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/95/0d/4c/950d4ce3-5c54-1549-80f9-7c0fc82c984d/mzaf_14446216740874457624.plus.aac.p.m4a",
+      "track": "Holka S Lebkou",
+      "artist": "Vypsana fixa",
+      "match": "exact"
+    },
+    "holka-v-mym-sklepe": {
+      "match": "none"
+    },
+    "holky-pitomy": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/aa/cd/42/aacd42e6-c9a9-f5a0-5e01-f90b76e424f7/mzaf_10022983490813628585.plus.aac.p.m4a",
+      "track": "Holky pitomý",
+      "artist": "Poletíme?",
+      "match": "exact"
+    },
+    "holky-z-nasi-skolky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/86/7e/a6/867ea604-26a1-4b99-04d1-7936e0425189/mzaf_8325947376614715727.plus.aac.p.m4a",
+      "track": "Holky Z Naší Školky",
+      "artist": "Stanislav Hložek & Petr Kotvald",
+      "match": "exact"
+    },
+    "holubi-dum": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/99/b0/b1/99b0b16e-5f2d-7bd4-8a3b-db3e5f38ed0d/mzaf_3094783852622258347.plus.aac.p.m4a",
+      "track": "Holubí Dům",
+      "artist": "Jiří Schelinger",
+      "match": "exact"
+    },
+    "honky-tonky-blues": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/41/ea/27/41ea272e-439f-6367-8b04-0a96712e1cc8/mzaf_7078996354157179562.plus.aac.p.m4a",
+      "track": "Honky-Tonky Blues",
+      "artist": "Jiří Suchý & Jiri Slitr",
+      "match": "exact"
+    },
     "honolulu": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2c/1b/d8/2c1bd8e4-2fa4-6a89-0351-e8b716e8f06b/mzaf_4971403585568310348.plus.aac.p.m4a",
       "track": "Honolulu",
       "artist": "Kamelot",
+      "match": "exact"
+    },
+    "hot-n-cold": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/87/fe/94/87fe9455-1810-95da-2deb-7c93612becb1/mzaf_17317430426823132325.plus.aac.p.m4a",
+      "track": "Hot N Cold",
+      "artist": "Katy Perry",
       "match": "exact"
     },
     "hotel-california": {
@@ -497,10 +1358,40 @@
       "artist": "Eagles",
       "match": "exact"
     },
+    "houby": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/a2/8b/1d/a28b1d80-f4b3-9eed-8ca5-1b2b5d00f00c/mzaf_18197409194472396089.plus.aac.p.m4a",
+      "track": "Houby magický",
+      "artist": "Kabát",
+      "match": "title"
+    },
+    "house-of-gold": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e4/3a/3e/e43a3ea8-c80d-e316-c69c-f40131a84b82/mzaf_14618335615857652650.plus.aac.p.m4a",
+      "track": "House of Gold",
+      "artist": "twenty one pilots",
+      "match": "exact"
+    },
+    "house-of-the-rising-sun": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/db/ca/64/dbca647d-50e8-156a-93f7-ccfd2d490993/mzaf_9762298367494837965.plus.aac.p.m4a",
+      "track": "House of the Rising Sun",
+      "artist": "The Animals",
+      "match": "exact"
+    },
     "hrasek": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ef/bc/76/efbc761a-d240-090a-fa44-96af70c5310c/mzaf_9476633209807592824.plus.aac.p.m4a",
       "track": "Hrasek",
       "artist": "Brontosauri",
+      "match": "exact"
+    },
+    "hraz": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e2/3c/43/e23c43c9-64c5-0008-dcc7-7425e74480f8/mzaf_3815707100545147494.plus.aac.p.m4a",
+      "track": "Hraz",
+      "artist": "Brontosauri",
+      "match": "exact"
+    },
+    "hrdinsky-cin": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/0c/df/c5/0cdfc5fe-ffe8-41ce-b28b-718693b55f0c/mzaf_16523082422499238026.plus.aac.p.m4a",
+      "track": "Hrdinský Čin (feat. Jakub Ondra)",
+      "artist": "Pokáč",
       "match": "exact"
     },
     "hrisna-tela-kridla-motyli": {
@@ -509,10 +1400,64 @@
       "artist": "Aneta Langerová",
       "match": "exact"
     },
+    "hrobar": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/67/15/87/6715878e-4f34-2d06-7dd0-71d82b6050bd/mzaf_12298227132357765709.plus.aac.p.m4a",
+      "track": "Hrobař",
+      "artist": "Premier",
+      "match": "exact"
+    },
+    "hruska": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ee/2a/c6/ee2ac63b-ce7a-56cb-f8c4-d39f20c566a9/mzaf_17625589383540256035.plus.aac.p.m4a",
+      "track": "Hruska",
+      "artist": "Čechomor",
+      "match": "exact"
+    },
+    "hudsonsky-sify": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/af/54/9d/af549d5a-7b8c-1c4e-7436-49f11d53c47d/mzaf_7952646050877572357.plus.aac.p.m4a",
+      "track": "Hudsonsky sify",
+      "artist": "Echt!",
+      "match": "title"
+    },
+    "huslicky": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/ef/80/74/ef8074fd-409e-3c44-f694-10121f91d41f/mzaf_11743376555635452936.plus.aac.p.m4a",
+      "track": "Huslicky",
+      "artist": "Vlasta Redl",
+      "match": "exact"
+    },
+    "hvezda-na-vrbe": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/9b/34/6f/9b346f50-3dca-d120-7803-756bcb64f6de/mzaf_7107910214566087913.plus.aac.p.m4a",
+      "track": "Hvězda Na Vrbě",
+      "artist": "Bambini di Praga",
+      "match": "title"
+    },
+    "hvezdar": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/29/2b/9c/292b9c15-ae45-8c1b-b853-bdaba067a77a/mzaf_1053529763477464104.plus.aac.p.m4a",
+      "track": "Hvezdar",
+      "artist": "UDG",
+      "match": "exact"
+    },
     "hvezdy-nad-hlavou": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/40/86/1f/40861fc0-f8a9-6b83-1d17-1ab8ba240147/mzaf_9317083830464476862.plus.aac.p.m4a",
       "track": "Hvezdy Nad Hlavou",
       "artist": "Chinaski",
+      "match": "exact"
+    },
+    "hykal": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ea/a5/f8/eaa5f800-4329-6f14-bd26-bd4e482ab139/mzaf_12522895607990585064.plus.aac.p.m4a",
+      "track": "Hýkal",
+      "artist": "Zrní",
+      "match": "exact"
+    },
+    "i-bet-my-life": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1e/6b/4f/1e6b4fa9-dbef-d969-3870-7e5d8a227490/mzaf_17169606090993482221.plus.aac.p.m4a",
+      "track": "I Bet My Life",
+      "artist": "Imagine Dragons",
+      "match": "exact"
+    },
+    "i-cesta-muze-byt-cil": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/24/97/a5/2497a592-84ec-a1a7-a8bc-c3a8fa4ca69e/mzaf_5723625582950613210.plus.aac.p.m4a",
+      "track": "I Cesta Muze Byt Cil",
+      "artist": "Mňága a Žďorp",
       "match": "exact"
     },
     "i-hate-everything-about-you": {
@@ -527,10 +1472,58 @@
       "artist": "Jason Mraz",
       "match": "exact"
     },
+    "i-see-fire": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5d/a7/a1/5da7a15d-889d-0146-d95a-02106f28ca97/mzaf_5751473917397248266.plus.aac.p.m4a",
+      "track": "I See Fire",
+      "artist": "Ed Sheeran",
+      "match": "exact"
+    },
+    "i-want-it-that-way": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/24/ad/6f/24ad6f66-aabd-9869-3e74-4f9d2710e481/mzaf_11362968166883098583.plus.aac.p.m4a",
+      "track": "I Want It That Way",
+      "artist": "Backstreet Boys",
+      "match": "exact"
+    },
+    "i-will-survive": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/96/4e/43/964e43ce-ee49-aa99-7d27-5434c784d9a8/mzaf_5959778804469681533.plus.aac.p.m4a",
+      "track": "I Will Survive",
+      "artist": "Gloria Gaynor",
+      "match": "exact"
+    },
+    "i-will-wait": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/ee/86/60/ee86602c-819c-bafa-4c55-07b4ec8a521b/mzaf_8747934546723372926.plus.aac.p.m4a",
+      "track": "I Will Wait",
+      "artist": "Mumford & Sons",
+      "match": "exact"
+    },
+    "im-a-believer": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8a/fe/70/8afe70e7-668f-b674-7cb9-c91653486c6f/mzaf_12130408814718476286.plus.aac.p.m4a",
+      "track": "I'm a Believer",
+      "artist": "Smash Mouth",
+      "match": "exact"
+    },
     "imagine": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5a/54/35/5a54358c-9c9f-66db-fe4e-e677ba889f56/mzaf_264057399856026028.plus.aac.p.m4a",
       "track": "Imagine",
       "artist": "John Lennon",
+      "match": "exact"
+    },
+    "impossible": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fb/28/92/fb289232-970a-cc38-4c7f-46b73c6e819b/mzaf_11705813040977018069.plus.aac.p.m4a",
+      "track": "Impossible",
+      "artist": "James Arthur",
+      "match": "exact"
+    },
+    "in-the-end": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/17/ef/7e/17ef7ef9-8f1e-8be0-15c3-1d3e68b9b500/mzaf_5007591422695565025.plus.aac.p.m4a",
+      "track": "In the End",
+      "artist": "LINKIN PARK",
+      "match": "exact"
+    },
+    "inzenyrska": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d7/4e/34/d74e3483-8ed3-9fd8-ed43-f25c3beb399d/mzaf_15213227251953010090.plus.aac.p.m4a",
+      "track": "Inženýrská",
+      "artist": "Rangers",
       "match": "exact"
     },
     "inzerat": {
@@ -539,11 +1532,53 @@
       "artist": "Kryštof",
       "match": "exact"
     },
+    "ja-budu-chodit-po-spickach": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b3/62/18/b3621816-ec1e-595e-59b3-c7498e86d203/mzaf_15495104193611866826.plus.aac.p.m4a",
+      "track": "Já Budu Chodit Po Špičkách",
+      "artist": "Petr Novák",
+      "match": "exact"
+    },
     "ja-do-lesa-nepojedu": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6a/4d/f0/6a4df0eb-ec90-0fe0-cff6-0688fd33b3f7/mzaf_4519941526001672866.plus.aac.p.m4a",
       "track": "Já do lesa nepojedu",
       "artist": "Sleepy Baby",
       "match": "title"
+    },
+    "ja-s-tebou-zit-nebudu": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/86/69/bc/8669bc8a-f77b-0153-48e9-9f787aab3a4b/mzaf_17037921212082166302.plus.aac.p.m4a",
+      "track": "Ja s tebou žít nebudu (Live)",
+      "artist": "Zuzana Navarova & Nerez",
+      "match": "exact"
+    },
+    "ja-zadam": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/21/51/2f/21512fa0-6419-4935-dbbe-0aedc9c9d7b6/mzaf_17423061770110297063.plus.aac.p.m4a",
+      "track": "Já žádám",
+      "artist": "Jaromír Nohavica",
+      "match": "exact"
+    },
+    "jablone": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/10/f2/4d/10f24d50-e1d6-6ecf-4ce8-8a1caeb08a42/mzaf_15540748395809134101.plus.aac.p.m4a",
+      "track": "Jabloně",
+      "artist": "Zrní",
+      "match": "exact"
+    },
+    "jahody-mrazeny": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d7/b2/6c/d7b26c85-7748-8b78-af46-3e0b906a89a3/mzaf_17201946581003972331.plus.aac.p.m4a",
+      "track": "Jahody Mražený",
+      "artist": "Jiří Schelinger",
+      "match": "exact"
+    },
+    "jako-kote-si-prist": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f6/34/54/f63454cd-c6b9-292b-d7d0-862d110086b2/mzaf_10659210775344017236.plus.aac.p.m4a",
+      "track": "Jako Kotě Si Příst",
+      "artist": "Naďa Urbánková & Jiří Grossmann",
+      "match": "exact"
+    },
+    "jana-smutna": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8a/5c/07/8a5c079e-42b5-b238-9ef9-265f6205f642/mzaf_6699995814404212625.plus.aac.p.m4a",
+      "track": "Jana Smutná",
+      "artist": "Jananas",
+      "match": "exact"
     },
     "japonecka": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c8/db/6a/c8db6a43-7eaa-8ac0-a6ff-cc499597ede9/mzaf_2800232623228170144.plus.aac.p.m4a",
@@ -563,10 +1598,58 @@
       "artist": "Brontosauri",
       "match": "exact"
     },
+    "jaro": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/cc/f6/4cccf600-7721-1798-d4f8-4e6482336b03/mzaf_4793473216001890953.plus.aac.p.m4a",
+      "track": "Jaro",
+      "artist": "Ivan Halada & Fešáci",
+      "match": "exact"
+    },
+    "jarosovsky-pivovar": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a1/53/ae/a153ae55-363c-55bf-0316-5757941f0edf/mzaf_112261648595014242.plus.aac.p.m4a",
+      "track": "Jarošovský Pivovar",
+      "artist": "Argema",
+      "match": "exact"
+    },
+    "jasna-zprava": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/1e/fc/ec/1efcece9-a04e-a65d-dfa1-bc35ed89c271/mzaf_3524697747753169660.plus.aac.p.m4a",
+      "track": "Jasná Zpráva",
+      "artist": "Olympic",
+      "match": "exact"
+    },
+    "jdem-zpatky-do-lesu": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/f7/ea/60/f7ea6095-8179-f47d-9b1d-8f9c4cade1f9/mzaf_9143803897389942879.plus.aac.p.m4a",
+      "track": "Jdem zpátky do lesů",
+      "artist": "Zalman",
+      "match": "exact"
+    },
+    "jdou-po-mne-jdou": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/18/e0/08/18e00853-df1b-71fc-2035-f31b2c6721df/mzaf_2758216142096957632.plus.aac.p.m4a",
+      "track": "Jdou Po Mně Jdou (Live)",
+      "artist": "Jaromír Nohavica",
+      "match": "exact"
+    },
+    "je-mi-to-bracha": {
+      "match": "none"
+    },
+    "je-to-nemozne": {
+      "match": "none"
+    },
     "jede-jede-masinka": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a6/ce/3a/a6ce3ac6-2bd1-c694-fe0e-72f06d7b1c4b/mzaf_5936689008196765670.plus.aac.p.m4a",
       "track": "Jede Jede Masinka",
       "artist": "Maxim Turbulenc",
+      "match": "exact"
+    },
+    "jede-traktor": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/9a/57/bc/9a57bc67-1663-e705-4cd1-2439b50fabb5/mzaf_17962934668224716532.plus.aac.p.m4a",
+      "track": "Jede Traktor",
+      "artist": "BÉBA",
+      "match": "title"
+    },
+    "jedna-laska": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/cb/a7/e6/cba7e656-c07e-eab3-4555-a9a8557b1741/mzaf_8071916848665749045.plus.aac.p.m4a",
+      "track": "Jedna láska (feat. The Solid Vibes) [Akusticky]",
+      "artist": "Cocoman",
       "match": "exact"
     },
     "jednoducha": {
@@ -581,10 +1664,40 @@
       "artist": "Věra Špinarová",
       "match": "exact"
     },
+    "jednou": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b1/3d/8d/b13d8d44-b983-b042-bc82-9596a605edd7/mzaf_17665013482011594335.plus.aac.p.m4a",
+      "track": "Jednou",
+      "artist": "Vladimír Mišík",
+      "match": "exact"
+    },
     "jednou-budem-dal": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/ca/75/e6/ca75e62f-505c-e0fe-4162-e72366ba8cc4/mzaf_9548527690850964237.plus.aac.p.m4a",
       "track": "Jednou Budem Dál",
       "artist": "Spirituál Kvintet",
+      "match": "exact"
+    },
+    "jednou-mi-fotr-povida": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/e4/e6/1d/e4e61d94-9f9e-55cc-ab9c-17b9a9737105/mzaf_8672742994034741242.plus.aac.p.m4a",
+      "track": "Jednou mi fotr povídá",
+      "artist": "Ivan Hlas Trio",
+      "match": "exact"
+    },
+    "jednou-to-pomine": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/05/15/c5/0515c5b5-6faf-5151-3919-d6644cd77aa3/mzaf_770445659116285200.plus.aac.p.m4a",
+      "track": "Jednou To Pomine",
+      "artist": "Raduza",
+      "match": "exact"
+    },
+    "jednou2": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/23/c4/8a/23c48a93-fffd-e9c0-f300-238ac1848935/mzaf_11653455731204979526.plus.aac.p.m4a",
+      "track": "Jednou",
+      "artist": "Voxel",
+      "match": "exact"
+    },
+    "jelen2": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/41/39/76/413976ba-bbdb-f06b-838a-c8001f3316cb/mzaf_6729672327995067829.plus.aac.p.m4a",
+      "track": "Jelen",
+      "artist": "Jelen",
       "match": "exact"
     },
     "jerabiny": {
@@ -593,10 +1706,22 @@
       "artist": "Karel Kryl",
       "match": "exact"
     },
+    "jericho": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/cf/ef/dc/cfefdc34-d252-fbe5-1455-9c8454e42165/mzaf_5848384806011557133.plus.aac.p.m4a",
+      "track": "Jericho",
+      "artist": "David Stypka",
+      "match": "exact"
+    },
     "jesse-james": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/72/bd/a6/72bda659-f3cf-31c0-5031-06948d9447f6/mzaf_17623591743864673815.plus.aac.p.m4a",
       "track": "Jesse James",
       "artist": "Greenhorns & White Stars",
+      "match": "exact"
+    },
+    "jeste-jedno-kafe": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/6e/70/93/6e7093ba-9816-b888-f66f-c59513b0b3e5/mzaf_2647825984300269255.plus.aac.p.m4a",
+      "track": "Jeste jedno kafe",
+      "artist": "Robert Krestan & Druha Trava",
       "match": "exact"
     },
     "jeste-jednu-noc": {
@@ -605,10 +1730,34 @@
       "artist": "Jelen",
       "match": "exact"
     },
+    "jesterice": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/v4/f8/65/7d/f8657dd0-5f20-3b3f-b085-aa6e533ef478/mzaf_2924783494180772601.plus.aac.p.m4a",
+      "track": "Ještěřice, Pt. 1",
+      "artist": "Ladislav Pechar, František Merhaut & Jarmila Zrzavá",
+      "match": "title"
+    },
+    "jez": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c5/db/b1/c5dbb12b-f6fd-c3ba-503a-46a28aaf946d/mzaf_11649747870048398880.plus.aac.p.m4a",
+      "track": "Jez",
+      "artist": "Ivan Mládek & Banjo Band Ivana Mládka",
+      "match": "exact"
+    },
+    "jezis": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f0/ee/d8/f0eed8b4-3c04-9f7a-b9ad-83e5d0358bce/mzaf_15617052775832768950.plus.aac.p.m4a",
+      "track": "Ježíš",
+      "artist": "Mucha",
+      "match": "exact"
+    },
     "jo-tresne-zraly": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f6/fc/cd/f6fccdb8-42e2-c6ea-8714-3818b8844d13/mzaf_12503595402074978513.plus.aac.p.m4a",
       "track": "Jó, Třešně Zrály",
       "artist": "Waldemar Matuska",
+      "match": "exact"
+    },
+    "john-wood": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d1/10/81/d11081e2-6b6d-fcaf-4d7e-6cefea31ad3a/mzaf_10017453178095550264.plus.aac.p.m4a",
+      "track": "John Wood",
+      "artist": "Raduza",
       "match": "exact"
     },
     "joint": {
@@ -621,6 +1770,42 @@
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/43/ef/95/43ef956b-4a1c-8ab1-a843-4ac691dc45d9/mzaf_17631698820105622615.plus.aac.p.m4a",
       "track": "Jolene",
       "artist": "Dolly Parton",
+      "match": "exact"
+    },
+    "jozin-z-bazin": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b5/9f/82/b59f825b-c7e0-c35a-494f-0974243058fe/mzaf_14108484137898388951.plus.aac.p.m4a",
+      "track": "Jožin Z Bažin",
+      "artist": "Ivan Mladek",
+      "match": "exact"
+    },
+    "jupi-certe": {
+      "match": "none"
+    },
+    "kafe-s-mlikem": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/b9/6e/07/b96e0710-6e73-a3f5-c7cc-3b5bc1e07f24/mzaf_15713625386842841611.plus.aac.p.m4a",
+      "track": "Kafe S Mlikem",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "kalhotky-si-sundej": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/50/c2/97/50c297a2-8083-d3cb-9f82-04e941d5eb5f/mzaf_10525075320673888282.plus.aac.p.m4a",
+      "track": "Kalhotky si sundej",
+      "artist": "Mig 21",
+      "match": "exact"
+    },
+    "kam-jdes-s-tou-pilou": {
+      "match": "none"
+    },
+    "karavana-mraku": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/72/5e/34/725e34cc-1b55-8f92-3a5f-a81b0124d2bb/mzaf_17192688693559528969.plus.aac.p.m4a",
+      "track": "Karavana Mraků",
+      "artist": "Karel Kryl",
+      "match": "exact"
+    },
+    "karkulka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c9/9e/b4/c99eb430-7e5f-449c-660b-a305720fa2b7/mzaf_11564235833828261209.plus.aac.p.m4a",
+      "track": "Karkulka (Operka)",
+      "artist": "Jaroslav Uhlir, Zdenek Sverak, Lucie Tochackova, Filip Tvrzicky, Martin Klusak & Sedmihlasek",
       "match": "exact"
     },
     "karvina": {
@@ -653,8 +1838,38 @@
       "artist": "Kasparek v Rohliku",
       "match": "exact"
     },
+    "kazdy-rano": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2b/59/2a/2b592a87-26aa-cbc9-252f-32b40bf6629e/mzaf_5132097292790481165.plus.aac.p.m4a",
+      "track": "Každý Ráno",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
+    "kde-si-vcera-bol": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/d5/7a/fd/d57afda9-b52a-2905-1367-5b572d6d6b54/mzaf_6620683735302866848.plus.aac.p.m4a",
+      "track": "Kde si včera bol",
+      "artist": "Romstar Vyškov",
+      "match": "exact"
+    },
+    "kdo-vi-jestli": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f8/7a/7b/f87a7bda-ca57-2dff-2a23-844227e23b23/mzaf_4635492765450892913.plus.aac.p.m4a",
+      "track": "Kdo ví jestli",
+      "artist": "Kabát",
+      "match": "exact"
+    },
     "kdyby-byl-bavorov": {
       "match": "none"
+    },
+    "kdyby-se-v-komnatach": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c5/35/6b/c5356bfc-e189-9bfd-4c35-075e492e8489/mzaf_2980764461613336734.plus.aac.p.m4a",
+      "track": "Kdyby Se V Komnatách",
+      "artist": "Jaroslav Uhlíř & Zdeněk Svěrák",
+      "match": "exact"
+    },
+    "kdyby-tady-byla-takova-panenka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4d/b0/37/4db037e3-a45e-9425-29fd-607298aeb5fa/mzaf_6735491863837308036.plus.aac.p.m4a",
+      "track": "Kdyby tady byla takova panenka (feat. Misa Klimkova)",
+      "artist": "Petr Muk",
+      "match": "title"
     },
     "kdyz-jde-maly-bobr-spat": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/33/f2/00/33f20099-e335-9f63-ffa2-047e09bb1032/mzaf_8462097931838919767.plus.aac.p.m4a",
@@ -662,16 +1877,70 @@
       "artist": "Petr Skoumal",
       "match": "title"
     },
+    "kdyz-jsem-ja-slouzil": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4a/74/78/4a747883-693f-3dca-2bba-dd333986aac4/mzaf_4030547576889118889.plus.aac.p.m4a",
+      "track": "Když Jsem Já Sloužil",
+      "artist": "Dagmar Patrasová",
+      "match": "title"
+    },
+    "kdyz-me-brali-za-vojaka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/db/21/43/db214301-3b96-339e-d591-a4567fc25fa5/mzaf_7529890694130588798.plus.aac.p.m4a",
+      "track": "Když Mě Brali Za Vojáka (Live)",
+      "artist": "Jaromír Nohavica",
+      "match": "exact"
+    },
     "kdyz-nas-tata-hral": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/66/17/c3/6617c336-2b5d-7dc3-95cc-0e6482c9bb38/mzaf_13908545367602499571.plus.aac.p.m4a",
       "track": "Když Náš Táta Hrál",
       "artist": "Greenhorns",
       "match": "exact"
     },
+    "kdyz-nemuzes-tak-pridej": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/15/45/8e/15458e3e-ca18-3150-8102-19f0998a1617/mzaf_56038969978275690.plus.aac.p.m4a",
+      "track": "Když nemůžeš, tak přidej",
+      "artist": "Mirai",
+      "match": "exact"
+    },
+    "kdyz-se-nacancam": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/12/9d/93/129d93f7-c4ee-0d13-f1b9-cf1187afab34/mzaf_1008862105060503986.plus.aac.p.m4a",
+      "track": "Když Se Načančám",
+      "artist": "Heidi Janků",
+      "match": "title"
+    },
+    "kdyz-se-zamiluje-kun": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/82/17/7f/82177fd4-393c-f942-a4f7-e4ab87d4c316/mzaf_12362230814459038566.plus.aac.p.m4a",
+      "track": "Kdyz Se Zamiluje Kun",
+      "artist": "Zdenek Sverak, Jaroslav Uhlir & Sedmihlasek",
+      "match": "exact"
+    },
+    "kdyz-si-te-divko-predstavim": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/74/89/f7/7489f72d-72cb-7fee-77a9-4350544c0e60/mzaf_13500364832877420556.plus.aac.p.m4a",
+      "track": "Kdyz Si Te Divko Predstavim",
+      "artist": "Tomas Klus",
+      "match": "exact"
+    },
+    "kdyz-v-noci-snezi": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a7/23/51/a723514d-816c-82b0-27b7-6e6fab2213a1/mzaf_12334607306469346685.plus.aac.p.m4a",
+      "track": "Když v noci sněží",
+      "artist": "Jablkoň",
+      "match": "exact"
+    },
+    "klara": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/a7/29/b8/a729b887-1478-22fb-f240-216558d9f6d7/mzaf_16617557001265160404.plus.aac.p.m4a",
+      "track": "Klara",
+      "artist": "Chinaski",
+      "match": "exact"
+    },
     "klaunova-zpoved": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/27/92/a5/2792a574-b504-5317-9dc2-d6442c92448c/mzaf_1018803089322222382.plus.aac.p.m4a",
       "track": "Klaunova Zpověď",
       "artist": "Petr Novák",
+      "match": "exact"
+    },
+    "klidna-jako-voda": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7c/e3/8a/7ce38a1c-b8c0-3b93-6883-96f4b05bc0cd/mzaf_10695059103785428883.plus.aac.p.m4a",
+      "track": "Klidná jako voda",
+      "artist": "Jelen",
       "match": "exact"
     },
     "klobouk-ve-krovi": {
@@ -689,11 +1958,32 @@
     "kluci-kde-jste": {
       "match": "none"
     },
+    "kluziste": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8e/b0/dc/8eb0dc12-9229-2f06-1182-50fdf4d15c44/mzaf_10903855420828768436.plus.aac.p.m4a",
+      "track": "Kluziště",
+      "artist": "Karel Plíhal",
+      "match": "exact"
+    },
+    "knocking-on-heavens-door": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/8f/9e/92/8f9e9230-b930-87ae-b64a-edf7bfbe8235/mzaf_12216804446637211065.plus.aac.p.m4a",
+      "track": "Knocking on Heaven's Door",
+      "artist": "The Ghost of Johnny Cash",
+      "match": "title"
+    },
+    "kocabka": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/8d/38/ae/8d38ae05-b2cc-98f7-de58-9b7cecdcfdad/mzaf_8517372931960789496.plus.aac.p.m4a",
+      "track": "Kocábka",
+      "artist": "Effatha",
+      "match": "title"
+    },
     "kocovni-herci": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/9d/cb/1b/9dcb1b1c-f632-0c78-defc-c6fa9c38e4e1/mzaf_1887816926325429011.plus.aac.p.m4a",
       "track": "Kocovni Herci (Rainy Day People) [Live]",
       "artist": "Frantisek Nedved & Druhe podani",
       "match": "title"
+    },
+    "kolaz-divcich-jmen": {
+      "match": "none"
     },
     "korenova-zelenina": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/22/d3/ed/22d3ed4a-c908-87e1-a333-ac57028343c9/mzaf_4680484277699601414.plus.aac.p.m4a",

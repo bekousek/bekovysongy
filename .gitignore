@@ -8,3 +8,9 @@ Thumbs.db
 # derived from songs/*.html, so a committed copy would go stale on every
 # save from /admin.
 search-index.json
+
+# Likewise generated at deploy time, from song-previews.json (which IS
+# committed - resolving it costs hundreds of rate-limited API calls). This is
+# only the published-and-exact slice the songbook plays, so a committed copy
+# would just be a second thing to keep in sync.
+song-previews-public.json

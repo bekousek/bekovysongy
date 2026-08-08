@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 /**
- * build-previews.js - resolves a 30s audio preview for every draft song.
+ * build-previews.js - resolves a 30s audio preview for every song.
  *
- * Triaging a few hundred návrhy means listening to each one first, and most
- * of them say nothing by title alone. This walks the drafts in songs.json,
- * asks the iTunes Search API for each, and writes song-previews.json, which
- * the admin sidebar plays inline (js/song-preview.js).
+ * Two consumers: triaging a few hundred návrhy means listening to each one
+ * first (most say nothing by title alone), and the songbook's player bar
+ * offers the same preview on finished song pages. This walks songs.json, asks
+ * the iTunes Search API for each song, and writes song-previews.json.
+ *
+ * Only 'exact' matches reach the public site - see build-public-previews.js,
+ * which filters this file down at deploy time. A cover is good enough to
+ * recognise a tune while triaging, but not to serve to visitors.
  *
  * The API is free, needs no key and sends CORS headers, so this could also
  * run in the browser - it doesn't, deliberately. Resolving once at build time
@@ -27,6 +31,10 @@
  * flushed as it goes, so hitting the API's rate limit costs only the songs
  * not yet reached. Re-run it to pick up where it stopped.
  *
+ * An entry marked "locked": true is a hand-picked recording (chosen in /admin
+ * when the automatic match got the wrong song) and is never re-resolved, not
+ * even with --recheck.
+ *
  *   node scripts/build-previews.js            # only songs not resolved yet
  *   node scripts/build-previews.js --recheck  # also retry previous misses
  */
@@ -39,7 +47,6 @@ const ROOT = path.join(__dirname, '..');
 const SONGS_JSON = path.join(ROOT, 'songs.json');
 const OUT_JSON = path.join(ROOT, 'song-previews.json');
 
-const DRAFT_STATUSES = ['navrh', 'k-vytvoreni'];
 const MAX_RETRIES = 4;
 
 // The search API throttles somewhere around 20 requests a minute and stays
@@ -182,7 +189,10 @@ async function resolveSong(song) {
 
 async function main() {
   const data = JSON.parse(fs.readFileSync(SONGS_JSON, 'utf8'));
-  const drafts = data.songs.filter(s => DRAFT_STATUSES.includes(s.status));
+  // Every song, not just drafts: the songbook's player bar plays previews for
+  // finished songs too. A draft that gets published keeps the preview it was
+  // triaged with instead of having to be resolved a second time.
+  const songs = data.songs;
 
   let out = {};
   if (fs.existsSync(OUT_JSON)) {
@@ -193,20 +203,23 @@ async function main() {
     }
   }
 
-  // Drop entries whose song is no longer a draft (triaged or deleted), so the
-  // file doesn't grow stale keys forever.
-  const draftSlugs = new Set(drafts.map(s => s.slug));
+  // Drop entries for songs that left songs.json entirely (deleted drafts), so
+  // the file doesn't grow stale keys forever.
+  const known = new Set(songs.map(s => s.slug));
   Object.keys(out).forEach(slug => {
-    if (!draftSlugs.has(slug)) delete out[slug];
+    if (!known.has(slug)) delete out[slug];
   });
 
-  const todo = drafts.filter(s => {
-    const known = out[s.slug];
-    if (!known) return true;
-    return recheck && known.match === 'none';
+  // A hand-picked recording is never re-resolved, not even with --recheck:
+  // it's there precisely because the automatic match was wrong.
+  const todo = songs.filter(s => {
+    const hit = out[s.slug];
+    if (hit && hit.locked) return false;
+    if (!hit) return true;
+    return recheck && hit.match === 'none';
   });
 
-  process.stderr.write(`${drafts.length} návrhů, ${todo.length} k dohledání\n`);
+  process.stderr.write(`${songs.length} písní, ${todo.length} k dohledání\n`);
 
   let done = 0;
   let found = 0;
@@ -222,18 +235,18 @@ async function main() {
     }
 
     done++;
-    if (done % 10 === 0) flush(out, drafts.length);
+    if (done % 10 === 0) flush(out, songs.length);
     await sleep(delayMs);
   }
 
-  flush(out, drafts.length);
+  flush(out, songs.length);
 
   const exact = Object.values(out).filter(p => p.match === 'exact').length;
   const cover = Object.values(out).filter(p => p.match === 'title').length;
   const none = Object.values(out).filter(p => p.match === 'none').length;
   process.stderr.write(
     `\nhotovo: ${exact} přesně, ${cover} jiný interpret, ${none} nenalezeno `
-    + `(${Math.round((exact + cover) / drafts.length * 100)}% pokrytí)\n`
+    + `(${Math.round((exact + cover) / songs.length * 100)}% pokrytí)\n`
   );
   if (todo.length) process.stderr.write(`nově dohledáno: ${found}/${todo.length}\n`);
 }

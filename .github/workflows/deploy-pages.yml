@@ -67,6 +67,10 @@ jobs:
           # rather than committed: songs/*.html changes on every save from
           # /admin, so a committed copy would go stale between deploys.
           node scripts/build-search-index.js > _site/search-index.json
+          # The songbook's slice of song-previews.json: published songs with an
+          # exact match only. Generated rather than committed so it can't drift
+          # from the full file it's derived from.
+          node scripts/build-public-previews.js > _site/song-previews-public.json
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

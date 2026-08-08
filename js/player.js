@@ -275,6 +275,74 @@
     });
   }
 
+  // === Preview ("Ukázka") ===
+  // 30s clip from the iTunes catalogue, so you can check how the song
+  // actually goes before playing it. song-previews-public.json is generated
+  // at deploy time and holds only songs whose title AND performer matched
+  // (scripts/build-public-previews.js) - a cover of the right name would be
+  // worse than no button at all here.
+  //
+  // The button is injected only once a preview is known to exist: most of the
+  // work is the fetch, and a ▶ that turns out to play nothing is a worse
+  // result than a bar that never had one. Offline the fetch just fails and
+  // the bar stays as it was - which is right, since the audio itself lives on
+  // Apple's CDN and wouldn't play anyway.
+  const PLAY_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">'
+    + '<polygon points="6,4 20,12 6,20"/></svg>';
+  const STOP_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">'
+    + '<rect x="6" y="6" width="12" height="12" rx="1"/></svg>';
+
+  function injectPreviewButton() {
+    const bar = document.getElementById('player-bar');
+    if (!bar) return;
+    const slug = (location.pathname.match(/\/([^/]+)\.html$/) || [])[1];
+    if (!slug) return;
+
+    fetch('../song-previews-public.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const url = data && data.previews && data.previews[slug];
+        if (url) addPreviewSection(bar, url);
+      })
+      .catch(() => { /* offline or not deployed - no button, no error */ });
+  }
+
+  function addPreviewSection(bar, url) {
+    const section = document.createElement('div');
+    section.className = 'player-section player-preview';
+    section.innerHTML =
+      '<button class="btn-player" id="preview-toggle" title="Přehrát ukázku (30 s)" '
+      + 'aria-label="Přehrát ukázku">' + PLAY_ICON + '</button>'
+      + '<span class="player-label">Ukázka</span>';
+    bar.insertBefore(section, bar.firstChild);
+
+    const btn = section.querySelector('#preview-toggle');
+    const audio = new Audio(url);
+    audio.preload = 'none';
+    audio.volume = 0.8;
+
+    function setPlaying(on) {
+      btn.classList.toggle('active', on);
+      btn.innerHTML = on ? STOP_ICON : PLAY_ICON;
+      btn.title = on ? 'Zastavit ukázku' : 'Přehrát ukázku (30 s)';
+    }
+
+    btn.addEventListener('click', () => {
+      if (!audio.paused) {
+        audio.pause();
+        audio.currentTime = 0;
+        setPlaying(false);
+        return;
+      }
+      audio.currentTime = 0;
+      const started = audio.play();
+      if (started && started.catch) started.catch(() => setPlaying(false));
+      setPlaying(true);
+    });
+
+    ['ended', 'error'].forEach((ev) => audio.addEventListener(ev, () => setPlaying(false)));
+  }
+
   // Raw markup of the song text, captured before buildSections() below
   // transforms it (it rewrites the <pre>'s innerHTML into labelled section
   // markup, destroying the original marker text) - buildChordBar's fallback
@@ -285,6 +353,7 @@
   buildSections();
   buildChordBar(rawSongBody);
   buildMoreMenu();
+  injectPreviewButton();
 
   // Chord parsing/transposition lives in chord-theory.js (shared with the
   // editor's song-cleanup.js), loaded before this script.
