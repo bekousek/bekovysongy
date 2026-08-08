@@ -1417,17 +1417,6 @@
       ]
     },
     {
-      "title": "Blowin' in the wind",
-      "slug": "blowin-in-the-wind",
-      "author": "Bob Dylan",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Blues o spolykaných slovech",
       "slug": "blues-o-spolykanych-slovech",
       "author": "Michal Prokop",
@@ -1507,17 +1496,6 @@
       ]
     },
     {
-      "title": "Blízko Little Big Hornu",
-      "slug": "blizko-little-big-hornu",
-      "author": "Greenhorns",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Bojím",
       "slug": "bojim",
       "author": "Zrní",
@@ -1550,7 +1528,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Bones",
@@ -1594,7 +1572,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Boty proti lásce",
@@ -1696,17 +1674,6 @@
       ]
     },
     {
-      "title": "Bubetka",
-      "slug": "bubetka",
-      "author": "Vypsaná fixa",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "Buchet je spousta",
       "slug": "buchet-je-spousta",
       "author": "Kouzla králů",
@@ -1760,7 +1727,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Bude mi lehká zem",
@@ -2050,17 +2017,6 @@
       "status": "k-vytvoreni"
     },
     {
-      "title": "Bílá velryba",
-      "slug": "bila-velryba",
-      "author": "Michal Hrůza",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
-    },
-    {
       "title": "C'Est La Vie",
       "slug": "cest-la-vie",
       "author": "Karel Gott",
@@ -2223,7 +2179,7 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "navrh"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Carpe Diem",
@@ -2306,7 +2262,7 @@
     {
       "title": "Cesta",
       "slug": "cesta",
-      "author": "Kryštof",
+      "author": "Kryštof, Tomáš Klus",
       "chords": [
         "C",
         "G",
@@ -2343,18 +2299,11 @@
           "F",
           "G"
         ]
+      ],
+      "authors": [
+        "Kryštof",
+        "Tomáš Klus"
       ]
-    },
-    {
-      "title": "Cesta",
-      "slug": "cesta-2",
-      "author": "Tomáš Klus",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "navrh"
     },
     {
       "title": "Cestou do Jenkovic",
