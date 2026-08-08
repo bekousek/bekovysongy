@@ -11282,11 +11282,20 @@
       "title": "My děti ze stanice Bullerbyn",
       "slug": "my-deti-ze-stanice-bullerbyn",
       "author": "Květy",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "G"
+      ],
       "tags": {
         "capo": 1,
         "language": "CZ"
-      }
+      },
+      "progression": [
+        [
+          "Ami",
+          "G"
+        ]
+      ]
     },
     {
       "title": "Myslel jsem si, že je to láska",
