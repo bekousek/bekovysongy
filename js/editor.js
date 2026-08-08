@@ -6,6 +6,7 @@
 
   const REPO_PATH_PREFIX = 'songs/';
   const SONGS_JSON_PATH = 'songs.json';
+  const PREVIEWS_JSON_PATH = 'song-previews.json';
 
   // === Song status ===
   // Four buckets in the sidebar, in workflow order. The first two are
@@ -639,10 +640,10 @@
       }
       li.appendChild(main);
 
-      // Drafts get "listen before you judge" controls: a 30s preview where
-      // one was found, and a YouTube search either way - for the songs with
-      // no preview, and for when half a minute isn't enough to decide.
-      if (isDraftStatusId(status)) {
+      // "Listen before you judge" controls, on every row. Drafts need them to
+      // be triaged at all; finished songs need them to check that the preview
+      // the songbook plays is actually the right recording.
+      {
         const preview = window.SongPreview && SongPreview.get(song.slug);
         if (preview) {
           const play = document.createElement('button');
@@ -652,10 +653,13 @@
           play.textContent = '▶';
           // A title-only match is the right song by a different performer -
           // fine for recognising a melody, but say so rather than surprise
-          // him with an unexpected voice.
-          play.title = (preview.match === 'title' ? 'Jiný interpret: ' : '')
+          // him with an unexpected voice. It's also the state worth reviewing:
+          // the automatic fallback is where genuinely wrong songs come from,
+          // and the songbook hides these until they're confirmed by hand.
+          play.title = (preview.locked ? 'Vybráno ručně: ' : preview.match === 'title' ? 'Jiný interpret: ' : '')
             + preview.track + ' / ' + preview.artist + ' (mezerník)';
-          if (preview.match === 'title') play.classList.add('is-cover');
+          if (preview.match === 'title' && !preview.locked) play.classList.add('is-cover');
+          if (preview.locked) play.classList.add('is-locked');
           play.addEventListener('click', (ev) => {
             ev.stopPropagation();
             setTriageCursor(song.slug);
@@ -875,11 +879,158 @@
       menu.appendChild(item);
     });
 
+    const sep = document.createElement('div');
+    sep.className = 'status-menu-sep';
+    menu.appendChild(sep);
+
+    const pick = document.createElement('button');
+    pick.type = 'button';
+    pick.className = 'status-menu-item';
+    pick.textContent = 'Vybrat ukázku…';
+    pick.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      closeStatusMenu();
+      openPreviewPicker(song);
+    });
+    menu.appendChild(pick);
+
     const rect = anchor.getBoundingClientRect();
     menu.style.top = (rect.bottom + 4) + 'px';
     menu.style.left = Math.max(8, rect.right - 150) + 'px';
     document.body.appendChild(menu);
     openMenuEl = menu;
+  }
+
+  // === Preview picker ===
+  // The resolver takes the catalogue's first plausible answer, which is right
+  // most of the time and occasionally lands on a different song with the same
+  // name ("Placky" -> "Plačky"). This is the way out: search the catalogue
+  // live, audition the alternatives, pick one. The choice is stored with
+  // "locked": true, which build-previews.js never overwrites and the songbook
+  // treats as an exact match - a human vouched for it.
+  //
+  // Nothing here touches GitHub; the pick lands in pendingPreviews and rides
+  // along with the next Uložit, so a review session is one commit.
+  const pendingPreviews = new Map();
+  let previewDialog = null;
+
+  function openPreviewPicker(song) {
+    if (previewDialog) previewDialog.remove();
+
+    const dialog = document.createElement('dialog');
+    dialog.className = 'preview-picker';
+    dialog.innerHTML =
+      '<div class="picker-head">'
+      + '<h2></h2>'
+      + '<p class="picker-current"></p>'
+      + '</div>'
+      + '<div class="picker-search">'
+      + '<input type="text" class="filter-input" id="picker-query">'
+      + '<button type="button" class="btn-editor" id="picker-go">Hledat</button>'
+      + '</div>'
+      + '<div class="picker-results" id="picker-results"></div>'
+      + '<div class="picker-actions">'
+      + '<button type="button" class="btn-editor" id="picker-none">Bez ukázky</button>'
+      + '<button type="button" class="btn-editor" id="picker-close">Zavřít</button>'
+      + '</div>';
+    document.body.appendChild(dialog);
+    previewDialog = dialog;
+
+    const author = authorsText(authorsOf(song));
+    dialog.querySelector('h2').textContent = song.title;
+    const current = dialog.querySelector('.picker-current');
+    const now = SongPreview.get(song.slug);
+    current.textContent = now
+      ? 'Teď hraje: ' + now.track + ' / ' + now.artist
+        + (now.locked ? ' (vybráno ručně)' : now.match === 'title' ? ' (jiný interpret)' : '')
+      : 'Zatím bez ukázky';
+
+    const query = dialog.querySelector('#picker-query');
+    query.value = (song.title + ' ' + author).trim();
+    const results = dialog.querySelector('#picker-results');
+
+    function choose(entry) {
+      // One object for both sides: the row has to show the "locked" ring
+      // straight away, or a review pass can't tell which songs are already
+      // confirmed. (Search results carry album/year too - those are for the
+      // dialog only and don't belong in the committed file.)
+      const saved = entry
+        ? { url: entry.url, track: entry.track, artist: entry.artist, match: 'exact', locked: true }
+        : null;
+      SongPreview.set(song.slug, saved);
+      pendingPreviews.set(song.slug, saved);
+      close();
+      filterSongList();
+      refreshDirtyUI();
+      setStatus(entry
+        ? `Ukázka pro „${song.title}“: ${entry.track} / ${entry.artist} – ulož změny`
+        : `„${song.title}“ zůstane bez ukázky – ulož změny`, '');
+    }
+
+    function render(list) {
+      results.innerHTML = '';
+      if (!list.length) {
+        results.innerHTML = '<p class="picker-empty">Nic se nenašlo. Zkus jiný dotaz.</p>';
+        return;
+      }
+      list.forEach((r, i) => {
+        const row = document.createElement('div');
+        row.className = 'picker-row';
+
+        const play = document.createElement('button');
+        play.type = 'button';
+        play.className = 'btn-preview-play';
+        play.dataset.slug = 'picker-' + i;
+        play.textContent = '▶';
+        play.title = 'Poslechnout';
+        play.addEventListener('click', () => {
+          if (SongPreview.playing() === 'picker-' + i) SongPreview.stop();
+          else SongPreview.playUrl(r.url, 'picker-' + i);
+        });
+        row.appendChild(play);
+
+        const info = document.createElement('div');
+        info.className = 'picker-info';
+        info.innerHTML = '<span class="picker-track"></span><span class="picker-artist"></span>';
+        info.querySelector('.picker-track').textContent = r.track;
+        info.querySelector('.picker-artist').textContent =
+          r.artist + (r.album ? ' · ' + r.album : '') + (r.year ? ' · ' + r.year : '');
+        row.appendChild(info);
+
+        const take = document.createElement('button');
+        take.type = 'button';
+        take.className = 'btn-editor btn-save';
+        take.textContent = 'Vybrat';
+        take.addEventListener('click', () => choose(r));
+        row.appendChild(take);
+
+        results.appendChild(row);
+      });
+    }
+
+    function runSearch() {
+      results.innerHTML = '<p class="picker-empty">Hledám…</p>';
+      SongPreview.searchCatalogue(query.value).then(render);
+    }
+
+    function close() {
+      SongPreview.stop();
+      dialog.close();
+      dialog.remove();
+      if (previewDialog === dialog) previewDialog = null;
+    }
+
+    dialog.querySelector('#picker-go').addEventListener('click', runSearch);
+    query.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); runSearch(); }
+      e.stopPropagation(); // triage keys must not fire while typing here
+    });
+    dialog.querySelector('#picker-none').addEventListener('click', () => choose(null));
+    dialog.querySelector('#picker-close').addEventListener('click', close);
+    dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+
+    dialog.showModal();
+    runSearch();
   }
 
   function refreshListItemDirty(slug) {
@@ -889,7 +1040,9 @@
 
   function refreshDirtyUI() {
     if (currentSong) refreshListItemDirty(currentSong.slug);
-    const n = getDirtySlugs().length;
+    // Hand-picked previews are unsaved work too, even when they're the only
+    // thing pending and no song itself changed.
+    const n = new Set(getDirtySlugs().concat(Array.from(pendingPreviews.keys()))).size;
     saveAllCount.textContent = n ? '(' + n + ')' : '';
     btnSaveAll.disabled = n === 0;
   }
@@ -1895,6 +2048,24 @@
   // Fetches a FRESH songs.json and applies pending state for ONLY the given
   // slugs, so a per-song save can never leak some other song's unrelated
   // pending edits or status change into the committed file.
+  // Same read-modify-write as songs.json below: the file on GitHub is the
+  // base, not the copy this tab loaded. scripts/build-previews.js and other
+  // sessions both write it, and a whole-file overwrite from a stale copy
+  // would silently drop hundreds of resolved previews.
+  async function buildMergedPreviewsJson() {
+    const data = JSON.parse(await getFileContent(PREVIEWS_JSON_PATH));
+    data.previews = data.previews || {};
+    pendingPreviews.forEach((entry, slug) => {
+      data.previews[slug] = entry || { match: 'none', locked: true };
+    });
+    // Keep the key order the script writes, so a hand-pick shows up in the
+    // diff as one changed entry rather than a reshuffled file.
+    const sorted = {};
+    Object.keys(data.previews).sort().forEach(k => { sorted[k] = data.previews[k]; });
+    data.previews = sorted;
+    return JSON.stringify(data, null, 2) + '\n';
+  }
+
   async function buildMergedSongsJson(slugs) {
     const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
 
@@ -1983,8 +2154,15 @@
     }
     files.push(...await filesToDelete(slugs));
     files.push({ path: SONGS_JSON_PATH, content: await buildMergedSongsJson(slugs) });
+    if (pendingPreviews.size) {
+      files.push({ path: PREVIEWS_JSON_PATH, content: await buildMergedPreviewsJson() });
+    }
 
     await commitFiles(files, message);
+
+    // Hand-picked previews are committed now; SongPreview already holds the
+    // same values, so clearing the pending map is all that's left.
+    pendingPreviews.clear();
 
     // Bookkeeping: rebase each saved slug's pending entry onto its new
     // "clean" state, and reflect the same fields into allSongs.
@@ -2076,7 +2254,7 @@
     if (!ghToken) return;
     commitAuthorInput();
     const slugs = getDirtySlugs();
-    if (!slugs.length) return;
+    if (!slugs.length && !pendingPreviews.size) return;
 
     btnSave.disabled = true;
     btnSaveAll.disabled = true;
@@ -2107,6 +2285,12 @@
         parts.push(removed.length === 1
           ? `Remove: ${titleOf(removed[0])}`
           : `Remove: ${removed.length} ${plural(removed.length, 'návrh', 'návrhy', 'návrhů')} (${list(removed)})`);
+      }
+      if (pendingPreviews.size) {
+        const n = pendingPreviews.size;
+        parts.push(n === 1
+          ? `Ukázka: ${titleOf(Array.from(pendingPreviews.keys())[0])}`
+          : `Ukázky: ${n} ${plural(n, 'píseň', 'písně', 'písní')}`);
       }
       const message = parts.join('; ');
 

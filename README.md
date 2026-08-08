@@ -44,12 +44,40 @@ npm run validate # cross-check songs.json vs. songs/*.html, hledá poškozená d
 Obojí běží v CI před každým deployem (viz `deploy-pages.yml`) — pushnutá
 změna, která testy nebo validaci nesplní, se nenasadí.
 
-## Náhledy pro triage návrhů
+## Ukázky písní
 
-Projít stovky návrhů znamená každý si nejdřív poslechnout. `/admin` proto umí
-u každého návrhu přehrát 30s ukázku přímo v řádku a hodnotit z klávesnice
+30s úryvek z katalogu iTunes. Slouží dvěma věcem: projít stovky návrhů znamená
+každý si nejdřív poslechnout, a ve zpěvníku si člověk potřebuje ověřit, jak
+píseň jde, než ji začne hrát.
+
+**V `/admin`** má ▶ každý řádek. U návrhů se navíc hodnotí z klávesnice
 (<kbd>␣</kbd> přehrát, <kbd>↑</kbd><kbd>↓</kbd> pohyb, <kbd>→</kbd> do
 „K vytvoření", <kbd>←</kbd> smazat).
+
+**Ve zpěvníku** přibyla ▶ „Ukázka" do spodní lišty (vkládá `js/player.js` za
+běhu, soubory písní se nemění). Hraje jen tam, kde sedí název i interpret —
+`scripts/build-public-previews.js` při deployi vyrobí `song-previews-public.json`,
+mapu slug → url jen pro vydané písně s přesnou shodou. Cover od jiného
+interpreta na poznání melodie při trůvení stačí, ale návštěvníkovi se
+nenabízí.
+
+### Oprava špatné shody
+
+Matcher bere první věrohodnou odpověď katalogu, což občas trefí jinou píseň
+téhož názvu („A star is born (Shallow)" → muzikálové „A Star Is Born").
+V `/admin` je proto v <kbd>⋯</kbd> menu řádku **Vybrat ukázku…**: prohledá
+katalog živě, každého kandidáta si jde poslechnout a vybraný se uloží
+s `"locked": true`. Takový záznam `build-previews.js` nikdy nepřepíše (ani
+s `--recheck`) a zpěvník ho bere jako přesnou shodu — potvrdil ho člověk.
+Tlačítko **Bez ukázky** naopak zapíše `{"match": "none", "locked": true}`,
+když je automatická shoda špatná a nic lepšího v katalogu není.
+
+Volba se uloží až s nejbližším **Uložit** — celá kontrolní jízda je jeden
+commit. Zapisuje se read-modify-write proti verzi na GitHubu, ne proti kopii
+v prohlížeči, aby přepis nesmazal to, co mezitím doplnil skript.
+
+Poznámka: **kterou část písně ukázka hraje, ovlivnit nejde.** `previewUrl` je
+předstřižený ~30s soubor od vydavatele, bez parametru offsetu.
 
 ```bash
 npm run build-previews            # dohledá jen dosud nevyřešené návrhy
@@ -60,7 +88,7 @@ Skript se ptá iTunes Search API (zdarma, bez klíče) a výsledek zapisuje do
 `song-previews.json`. Hledá dvakrát: „název + interpret" (`match: "exact"`),
 a když nic, tak jen podle názvu (`match: "title"` — obvykle cover od jiného
 interpreta, na poznání melodie ale stačí; v UI je označený čárkovaně).
-Návrhy bez ukázky mají v řádku odkaz na vyhledávání na YouTube.
+Písně bez ukázky mají v řádku odkaz na vyhledávání na YouTube.
 
 Na rozdíl od `search-index.json` se `song-previews.json` **commituje**:
 dohledání je stovky volání proti dost přísnému rate limitu, takže se dělá

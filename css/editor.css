@@ -299,6 +299,119 @@
   color: var(--accent);
 }
 
+/* A recording chosen by hand. Solid ring, no dashes: it's settled, and the
+   songbook plays it regardless of what the matcher thought. */
+.btn-preview-play.is-locked {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.status-menu-sep {
+  height: 1px;
+  margin: 0.25rem 0.3rem;
+  background: var(--border);
+}
+
+/* === Preview picker === */
+
+.preview-picker {
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  max-width: 560px;
+  width: 100%;
+}
+
+.preview-picker::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.preview-picker h2 {
+  color: var(--accent);
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.picker-current {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 0.9rem;
+}
+
+.picker-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.picker-search .filter-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Caps the dialog instead of the page: a dozen results shouldn't push the
+   Zavřít button off screen. */
+.picker-results {
+  max-height: 46vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.picker-row:last-child {
+  border-bottom: none;
+}
+
+.picker-row:hover {
+  background: rgba(230, 126, 34, 0.07);
+}
+
+.picker-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.picker-track,
+.picker-artist {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-track {
+  font-size: 0.85rem;
+}
+
+.picker-artist {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.picker-empty {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.picker-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
 /* Key legend at the top of the Návrhy list. */
 .triage-hint {
   margin: 0;

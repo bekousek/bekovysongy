@@ -119,6 +119,62 @@
     youtubeUrl: function (title, author) {
       var q = (title + ' ' + (author || '')).trim();
       return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+    },
+
+    /** Every entry, for building the file to commit. */
+    all: function () {
+      return previews;
+    },
+
+    /**
+     * Replaces one song's preview locally (the editor commits the file
+     * separately). Pass null to record "this song has no usable preview".
+     */
+    set: function (slug, entry) {
+      if (currentSlug === slug) api.stop();
+      if (entry) previews[slug] = entry;
+      else previews[slug] = { match: 'none', locked: true };
+    },
+
+    /**
+     * Live catalogue search for picking a recording by hand. The build script
+     * does the same query offline, but here the point is to see the
+     * alternatives it passed over - so this returns them unfiltered, in the
+     * API's own order, and lets a human decide.
+     */
+    searchCatalogue: function (term) {
+      var url = 'https://itunes.apple.com/search?media=music&entity=song&limit=12&country=CZ'
+        + '&term=' + encodeURIComponent(term);
+      return fetch(url)
+        .then(function (r) { return r.ok ? r.json() : { results: [] }; })
+        .then(function (data) {
+          return (data.results || [])
+            .filter(function (r) { return r.previewUrl; })
+            .map(function (r) {
+              return {
+                url: r.previewUrl,
+                track: r.trackName,
+                artist: r.artistName,
+                album: r.collectionName || '',
+                year: (r.releaseDate || '').slice(0, 4)
+              };
+            });
+        })
+        .catch(function () { return []; });
+    },
+
+    /** Plays an arbitrary URL (a search candidate, not yet chosen). */
+    playUrl: function (url, key) {
+      var el = ensureAudio();
+      el.src = url;
+      currentSlug = key || url;
+      el.currentTime = 0;
+      var started = el.play();
+      if (started && started.catch) started.catch(function () {
+        currentSlug = null;
+        notify();
+      });
+      notify();
     }
   };
 
