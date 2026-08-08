@@ -90,6 +90,26 @@
     if (list.length > 1) target.authors = list.slice();
     else delete target.authors;
   }
+
+  // The new-song dialog keeps its interprets as one comma-separated string
+  // (the editor's field uses chips instead), so both the autocomplete and
+  // createNewSong() cut it up the same way.
+  function splitAuthors(text) {
+    return String(text || '').split(',').map(s => s.trim());
+  }
+
+  // Every interpret spelling the collection already uses, most used first.
+  // Rebuilt on demand rather than cached: one pass over the song list costs
+  // microseconds, and in exchange it's never stale - a name typed into another
+  // song a minute ago is offered here without a rebuild hook. Pending edits
+  // win over the songs.json entry they belong to.
+  function buildAuthorIndex() {
+    return AuthorSuggest.buildIndex(allSongs.map(s => {
+      const e = pendingEdits.get(s.slug);
+      return e ? e.authors : authorsOf(s);
+    }));
+  }
+
   // Override via localStorage('gh_branch') to dry-run saves against a
   // scratch branch instead of main - the deploy workflow only runs on main,
   // so nothing deploys while testing this way.
@@ -388,6 +408,22 @@
     newSongForm.addEventListener('submit', (e) => {
       e.preventDefault();
       createNewSong();
+    });
+
+    // Same suggestions in the dialog, only here the field is one
+    // comma-separated string: complete the segment after the last comma and
+    // leave the ones before it alone.
+    AuthorSuggest.attach(newAuthorInput, {
+      anchor: newAuthorInput.parentNode, // .ac-anchor wrapper in admin/index.html
+      candidates: buildAuthorIndex,
+      query: () => splitAuthors(newAuthorInput.value).pop(),
+      exclude: () => splitAuthors(newAuthorInput.value).slice(0, -1),
+      emptyText: 'Nový interpret – tenhle zápis tu ještě není',
+      pick: (name) => {
+        const parts = splitAuthors(newAuthorInput.value);
+        parts[parts.length - 1] = name;
+        newAuthorInput.value = parts.join(', ');
+      }
     });
   }
 
@@ -1045,6 +1081,21 @@
   }
 
   function bindAuthorChips() {
+    // Attached before the handlers below, because that's what lets Enter on a
+    // highlighted suggestion pick it instead of committing the typed prefix:
+    // the suggest listener stops the rest of this element's keydown listeners,
+    // and only listeners registered after it can be stopped.
+    AuthorSuggest.attach(editAuthorInput, {
+      anchor: editAuthors,
+      candidates: buildAuthorIndex,
+      exclude: readAuthorChips,
+      emptyText: 'Nový interpret – tenhle zápis tu ještě není',
+      pick: (name) => {
+        editAuthorInput.value = name;
+        commitAuthorInput();
+      }
+    });
+
     editAuthorInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ',') {
         e.preventDefault();
@@ -1701,7 +1752,7 @@
   function createNewSong() {
     const title = newTitleInput.value.trim();
     if (!title) return;
-    const authors = newAuthorInput.value.split(',').map(s => s.trim()).filter(s => s !== '');
+    const authors = splitAuthors(newAuthorInput.value).filter(s => s !== '');
     const capo = parseInt(newCapoInput.value, 10) || 0;
     const language = newLanguageSelect.value || 'CZ';
     const status = newStatusSelect.value || 'ke-kontrole';

@@ -193,7 +193,11 @@
       </label>
       <label class="dialog-field">
         Interpret <span class="dialog-hint">(víc interpretů odděl čárkou)</span>
-        <input type="text" id="new-author" class="filter-input" placeholder="Nedvědi, Karel Plíhal">
+        <!-- The wrapper is what the interpret našeptávač hangs its dropdown
+             from - it needs a positioned box the width of the input. -->
+        <span class="ac-anchor">
+          <input type="text" id="new-author" class="filter-input" placeholder="Nedvědi, Karel Plíhal">
+        </span>
       </label>
       <div class="dialog-row">
         <label class="dialog-field">
@@ -231,6 +235,7 @@
   <script src="../js/sections.js"></script>
   <script src="../js/song-template.js"></script>
   <script src="../js/song-preview.js"></script>
+  <script src="../js/author-suggest.js"></script>
   <script src="../js/editor.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
