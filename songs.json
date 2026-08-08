@@ -330,7 +330,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "lidová"
     },
     {
       "title": "Africa",
@@ -996,7 +997,7 @@
     {
       "title": "Až to se mnu sekne",
       "slug": "az-to-se-mnu-sekne",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -1288,7 +1289,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "lidová"
     },
     {
       "title": "Believer",
@@ -1352,7 +1354,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "moravská lidová"
     },
     {
       "title": "Bitva o Karlův most",
@@ -1515,7 +1518,7 @@
     {
       "title": "Bon soir mademoiselle Paris",
       "slug": "bon-soir-mademoiselle-paris",
-      "author": "Petr Muk",
+      "author": "Olympic",
       "chords": [],
       "tags": {
         "capo": false,
@@ -2478,7 +2481,7 @@
     {
       "title": "Chemie",
       "slug": "chemie",
-      "author": "Xindl-X",
+      "author": "Xindl X",
       "chords": [],
       "tags": {
         "capo": false,
@@ -2715,7 +2718,7 @@
     {
       "title": "Cudzinka v tvojej zemi",
       "slug": "cudzinka-v-tvojej-zemi",
-      "author": "Xindl-X",
+      "author": "Xindl X",
       "chords": [],
       "tags": {
         "capo": false,
@@ -2778,7 +2781,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "trampská/táborová"
     },
     {
       "title": "Darling",
@@ -3963,7 +3967,7 @@
     {
       "title": "Dysgrafik",
       "slug": "dysgrafik",
-      "author": "Xindl-X",
+      "author": "Xindl X",
       "chords": [],
       "tags": {
         "capo": false,
@@ -4156,7 +4160,7 @@
     {
       "title": "Dům u vycházejícího slunce",
       "slug": "dum-u-vychazejiciho-slunce",
-      "author": "",
+      "author": "Jaromír Mayer",
       "chords": [],
       "tags": {
         "capo": false,
@@ -4460,7 +4464,7 @@
     {
       "title": "Fotbal",
       "slug": "fotbal",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -5401,7 +5405,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "lidová"
     },
     {
       "title": "Holka s lebkou",
@@ -7414,7 +7419,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "lidová"
     },
     {
       "title": "Já s tebou žít nebudu",
@@ -8024,7 +8030,7 @@
     {
       "title": "Když jde malý bobr spát",
       "slug": "kdyz-jde-maly-bobr-spat",
-      "author": "",
+      "author": "Petr Skoumal",
       "chords": [],
       "tags": {
         "capo": false,
@@ -8359,7 +8365,7 @@
     {
       "title": "Klobouk ve křoví",
       "slug": "klobouk-ve-krovi",
-      "author": "Lucie",
+      "author": "Jan Werich a Jiří Voskovec",
       "chords": [],
       "tags": {
         "capo": false,
@@ -9240,7 +9246,7 @@
     {
       "title": "Ladovská zima",
       "slug": "ladovska-zima",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -10235,13 +10241,17 @@
     {
       "title": "Malé kotě",
       "slug": "male-kote",
-      "author": "Suchý & Šlitr",
+      "author": "Jiří Suchý, Jiří Šlitr",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jiří Suchý",
+        "Jiří Šlitr"
+      ]
     },
     {
       "title": "Mamko, nedávej mě mamko",
@@ -10379,13 +10389,17 @@
     {
       "title": "Marnivá sestřenice",
       "slug": "marniva-sestrenice",
-      "author": "Suchý & Šlitr",
+      "author": "Jiří Suchý, Jiří Šlitr",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jiří Suchý",
+        "Jiří Šlitr"
+      ]
     },
     {
       "title": "Matahari",
@@ -11175,17 +11189,6 @@
           "F"
         ]
       ]
-    },
-    {
-      "title": "Muchomůrky bílé",
-      "slug": "muchomurky-bile",
-      "author": "Umakart",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "CZ"
-      },
-      "status": "k-vytvoreni"
     },
     {
       "title": "Musíš bejt na sebe hodnej",
@@ -13421,7 +13424,7 @@
     {
       "title": "Pane prezidente",
       "slug": "pane-prezidente",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -13603,7 +13606,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "interpreta se nepodařilo ověřit"
     },
     {
       "title": "Paš o paňori",
@@ -14691,7 +14695,7 @@
     {
       "title": "Princezna ze mlejna",
       "slug": "princezna-ze-mlejna",
-      "author": "",
+      "author": "Filmová Hudba Cz",
       "chords": [],
       "tags": {
         "capo": false,
@@ -14984,13 +14988,17 @@
     {
       "title": "Purpura",
       "slug": "purpura",
-      "author": "Suchý & Šlitr",
+      "author": "Jiří Suchý, Jiří Šlitr",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jiří Suchý",
+        "Jiří Šlitr"
+      ]
     },
     {
       "title": "Pánu Bohu do oken",
@@ -15261,7 +15269,7 @@
     {
       "title": "Přítel",
       "slug": "pritel",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15310,7 +15318,7 @@
     {
       "title": "Racci",
       "slug": "racci",
-      "author": "Čermaque",
+      "author": "Cermaque",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15595,7 +15603,7 @@
     {
       "title": "Rodné údolí",
       "slug": "rodne-udoli",
-      "author": "",
+      "author": "Nedvědi",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15815,7 +15823,7 @@
     {
       "title": "Rána v trávě",
       "slug": "rana-v-trave",
-      "author": "Žalman & spol.",
+      "author": "Pavel Lohonka Žalman",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15911,7 +15919,7 @@
     {
       "title": "Safe and Sound",
       "slug": "safe-and-sound",
-      "author": "",
+      "author": "Taylor Swift",
       "chords": [],
       "tags": {
         "capo": false,
@@ -16623,8 +16631,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
-      "note": "též jako Otázky"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Snadné je žít",
@@ -18339,8 +18346,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
-      "note": "ověřit, zda to není totéž co Míle a míle na webu"
+      "status": "k-vytvoreni"
     },
     {
       "title": "To tá Hel'pa",
@@ -18519,7 +18525,7 @@
     {
       "title": "Tramp",
       "slug": "tramp",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -19834,7 +19840,7 @@
     {
       "title": "Vlaštovko, leť",
       "slug": "vlastovko-let",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -20549,17 +20555,6 @@
       ]
     },
     {
-      "title": "What's up",
-      "slug": "what-s-up",
-      "author": "4 non blondes",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "k-vytvoreni"
-    },
-    {
       "title": "Whatever it takes",
       "slug": "whatever-it-takes",
       "author": "Imagine Dragons",
@@ -21121,7 +21116,7 @@
     {
       "title": "Zajíci",
       "slug": "zajici",
-      "author": "",
+      "author": "Jaromír Nohavica",
       "chords": [],
       "tags": {
         "capo": false,
@@ -21560,13 +21555,17 @@
     {
       "title": "Zimní královna",
       "slug": "zimni-kralovna",
-      "author": "Arakain",
+      "author": "Arakain, Lucie Bílá",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Arakain",
+        "Lucie Bílá"
+      ]
     },
     {
       "title": "Zlatíčka",
@@ -22239,7 +22238,8 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "note": "táborová/skautská"
     },
     {
       "title": "Červená řeka",
