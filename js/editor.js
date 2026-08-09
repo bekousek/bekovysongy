@@ -2006,6 +2006,7 @@
   // of them.
   function decoratePreview(src) {
     const blocks = SongSections.parseBlocks(src);
+    const defIdx = SongSections.definitions(blocks);
     const kids = editorPreview.children;
     if (kids.length !== blocks.length) return; // markup out of sync - skip controls
 
@@ -2044,7 +2045,30 @@
           'Odpojit poslední připojený blok ze sekce (stane se z něj samostatná sloka)'
         ));
       }
+
+      // A collapsed repeat can be given a different last line without
+      // spelling the whole chorus out again - the usual "and the last chorus
+      // ends differently" case. The button writes the "..." form and selects
+      // the copied line, ready to be typed over.
+      if (isPlainRepeat(blocks, defIdx, i)) {
+        kids[i].appendChild(makeBtn(
+          'tail', i, '✎ jiný konec',
+          'Poslední řádek ' + sectionLabelOf(b) + ' jinak; zbytek se dál sbalí jako opakování'
+        ));
+      }
     }
+  }
+
+  // True for a block that repeats a section verbatim (empty body, or just a
+  // play count) and could therefore carry a changed ending instead.
+  function isPlainRepeat(blocks, defIdx, i) {
+    const b = blocks[i];
+    if (!b || !b.marker) return false;
+    const key = b.type + '|' + b.id;
+    if (defIdx[key] == null || defIdx[key] === i) return false;
+    if (SongSections.matchTail(b.lines)) return false; // already has one
+    const plain = b.lines.join('\n').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    return plain === '' || SongSections._isMultiplier(plain);
   }
 
   function handlePreviewClick(e) {
@@ -2070,6 +2094,11 @@
     const b = blocks[idx];
     if (!b) return;
 
+    if (act === 'tail') {
+      addChangedEnding(lines, blocks, idx);
+      return;
+    }
+
     if (act === 'join') {
       for (let i = b.srcStart; i <= b.srcEnd; i++) {
         if (lines[i].trim() !== '') lines[i] = '  ' + lines[i];
@@ -2092,7 +2121,48 @@
       }
     }
 
+    pushHistory('');
     setBody(lines.join('\n'));
+    syncCurrentEdits();
+    renderPreview();
+  }
+
+  // Turns a bare repeat ("//R//") into one with a changed ending:
+  //
+  //     //R
+  //     ...
+  //     <the chorus's last line, copied>
+  //     R//
+  //
+  // The copied line is left selected, so typing replaces it - which is the
+  // point, the new ending is nearly always a rewrite of the old one.
+  function addChangedEnding(lines, blocks, idx) {
+    const b = blocks[idx];
+    const defIdx = SongSections.definitions(blocks);
+    const def = blocks[defIdx[b.type + '|' + b.id]];
+    if (!def) return;
+
+    const defLast = def.lines.slice().reverse().find(l => l.trim() !== '');
+    if (!defLast) return;
+
+    // "//R" for a fence, and the same spelling for a legacy "R:" repeat -
+    // a changed ending is only expressible in the fenced form.
+    const name = b.fenced ? b.name
+      : (b.type === 'refren' ? 'R' : b.type === 'bridge' ? 'B' : 'S') + b.id;
+
+    const head = lines.slice(0, b.srcStart);
+    const inserted = ['//' + name, '...', defLast, name + '//'];
+    const next = head.concat(inserted, lines.slice(b.srcEnd + 1));
+
+    // Offsets of the copied line in the flat model, so it lands selected.
+    const before = head.concat(inserted.slice(0, 2)).join('\n') + '\n';
+    const from = SongEdit.parse(before).text.length;
+    const to = from + SongEdit.parse(defLast).text.length;
+
+    pushHistory('');
+    setBody(next.join('\n'));
+    editorArea.focus();
+    placeCaret(from, to);
     syncCurrentEdits();
     renderPreview();
   }

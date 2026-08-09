@@ -43,10 +43,28 @@
  *   - empty body ("R:" alone)                 -> repeat, expands to the definition
  *   - just a play count ("R: 2x", "R: (3x)")  -> repeat, the count stays visible
  *   - body text-identical to the definition   -> repeat, expands to its own body
+ *   - body opening with "..." (or "…")        -> repeat with a CHANGED ENDING
  *
  * Anything else with a reused identity (variant chorus, chord run) is NOT a
  * repeat and stays visible - collapsing it would hide lyrics/chords that exist
  * nowhere else in the song.
+ *
+ * The changed ending exists because the last chorus of a song so often ends
+ * on a different line, and spelling the whole chorus out again just for that
+ * loses the collapsing:
+ *
+ *      //R
+ *      ...
+ *      a víc už nechci nic.
+ *      R//
+ *
+ * "..." means "the chorus as before"; the lines under it replace as many
+ * lines at the END of the definition as were written (one line swaps the last
+ * line, two swap the last two). "//R ... a víc už nechci nic. R//" on one
+ * line means the same. The new ending is rendered twice: inside
+ * .section-body, which is the expanded chorus, and again in its own
+ * .section-tail, which is what stays on screen next to the collapsed pill -
+ * so a reader who has the chorus by heart still sees what changes.
  *
  * transform(innerHTML) -> innerHTML wrapped into <div class="song-section ...">.
  * Section markup: <span class="section-head"> holds the label (and the play
@@ -90,6 +108,11 @@
 
   // A bare play-count annotation: "2x", "(2x)", "2×", "x3", "3X."
   var MULT_RE = /^\(?\s*(?:\d{1,2}\s*[x×]|[x×]\s*\d{1,2})\s*\)?\.?$/i;
+
+  // "..." (or "…") opening a repeat's body: "the chorus as before, only it
+  // ends differently". What follows replaces as many lines at the END of the
+  // definition as were written - see applyTail().
+  var TAIL_RE = /^[ \t]*(?:\.\.\.|…)[ \t]*/;
 
   function stripTags(s) {
     return s.replace(/<[^>]*>/g, '');
@@ -374,23 +397,62 @@
     return false;
   }
 
-  function transform(html) {
-    var blocks = parseBlocks(html);
+  // The changed ending of a repeat, if it declares one: the "..." line and
+  // everything after it. Returns null when the body doesn't start with the
+  // marker. Tested against the tag-stripped text so a chord span later on the
+  // line can't interfere; the marker itself is plain text at the line start.
+  function matchTail(lines) {
+    var i = 0;
+    while (i < lines.length && isBlank(lines[i])) i++;
+    if (i >= lines.length) return null;
+    if (!TAIL_RE.test(stripTags(lines[i]))) return null;
 
-    // Pass 1: find each identity's definition - the FIRST block with a real
-    // body (not empty, not just "2x"). A bare "R:" may appear before the
-    // chorus is ever written out; two passes make the fill work anyway.
-    var defIdx = {};   // identity -> block index of the definition
-    var defBody = {};  // identity -> body html of the definition
-    var defNorm = {};  // identity -> comparable fingerprint of the definition
+    // "... a víc už nechci nic." on one line is the compact form; a bare
+    // "..." puts the new ending on the lines below.
+    var rest = lines[i].replace(TAIL_RE, '');
+    var out = isBlank(rest) ? [] : [rest];
+    return out.concat(lines.slice(i + 1)).filter(function (l, n, all) {
+      return !(isBlank(l) && n === all.length - 1);
+    });
+  }
+
+  // Definition body with its last lines swapped for the new ending - as many
+  // as were written, so a two-line ending replaces the last two lines.
+  function applyTail(defBodyHtml, tailLines) {
+    var lines = defBodyHtml.split('\n');
+    while (lines.length && isBlank(lines[lines.length - 1])) lines.pop();
+    var tail = tailLines.slice();
+    while (tail.length && isBlank(tail[tail.length - 1])) tail.pop();
+    if (!tail.length) return defBodyHtml;
+    var keep = Math.max(0, lines.length - tail.length);
+    return lines.slice(0, keep).concat(tail).join('\n');
+  }
+
+  // identity -> index of the block that defines it: the FIRST one with a real
+  // body (not empty, not just "2x", not merely a changed ending). A bare "R:"
+  // may appear before the chorus is ever written out, so this is its own pass.
+  function definitions(blocks) {
+    var defIdx = {};
     blocks.forEach(function (b, i) {
       if (!b.marker) return;
       var key = b.type + '|' + b.id;
       if (defIdx[key] != null) return;
-      var body = b.lines.join('\n');
-      var plain = plainText(body);
-      if (plain === '' || MULT_RE.test(plain)) return;
+      var plain = plainText(b.lines.join('\n'));
+      if (plain === '' || MULT_RE.test(plain) || matchTail(b.lines)) return;
       defIdx[key] = i;
+    });
+    return defIdx;
+  }
+
+  function transform(html) {
+    var blocks = parseBlocks(html);
+
+    // Pass 1: find each identity's definition and remember its body.
+    var defIdx = definitions(blocks);
+    var defBody = {};  // identity -> body html of the definition
+    var defNorm = {};  // identity -> comparable fingerprint of the definition
+    Object.keys(defIdx).forEach(function (key) {
+      var body = blocks[defIdx[key]].lines.join('\n');
       defBody[key] = body;
       defNorm[key] = compareText(body);
     });
@@ -409,6 +471,7 @@
       var isDef = defIdx[key] === i;
       var isRepeat = false;
       var note = '';
+      var tail = '';   // changed ending, shown next to the collapsed pill
 
       // An empty section with no definition anywhere in the song isn't a
       // repeat of anything - it's a standalone heading the author wrote to
@@ -417,7 +480,16 @@
       var hasDef = defIdx[key] != null;
 
       if (!isDef) {
-        if (plain === '') {
+        var tailLines = matchTail(b.lines);
+        if (tailLines && hasDef) {
+          // "The chorus, only it ends like this." Collapses like any other
+          // repeat, but the changed ending stays on screen while it's
+          // collapsed - that's the whole reason for writing it this way
+          // instead of spelling the chorus out again.
+          isRepeat = true;
+          tail = tailLines.join('\n');
+          body = applyTail(defBody[key], tailLines);
+        } else if (plain === '') {
           isRepeat = hasDef;
           body = hasDef ? defBody[key] : '';
         } else if (MULT_RE.test(plain)) {
@@ -433,12 +505,14 @@
       var cls = 'song-section section-' + b.type +
         (isRepeat ? ' is-repeat' : '') +
         (note ? ' has-note' : '') +
+        (tail ? ' has-tail' : '') +
         (!isRepeat && plainText(body) === '' ? ' is-heading' : '');
       out += '<div class="' + cls + '" data-section="' + escAttr(key) + '">' +
         '<span class="section-head">' +
         '<span class="section-label">' + escHtml(b.label || labelText(b.type, b.id)) + '</span>' +
         (note ? '<span class="section-note">' + escHtml(note) + '</span>' : '') +
         '</span>' +
+        (tail ? '<span class="section-tail">' + renderRepeatMarks(tail) + '</span>' : '') +
         '<span class="section-body">' + renderRepeatMarks(body) + '</span>' +
         '</div>';
     });
@@ -600,6 +674,8 @@
     hasSections: hasSections,
     hasRepeatMarks: hasRepeatMarks,
     parseBlocks: parseBlocks,
+    definitions: definitions,
+    matchTail: matchTail,
     normalizeBreaks: normalizeBreaks,
     deriveProgression: deriveProgression,
     progressionToText: progressionToText,

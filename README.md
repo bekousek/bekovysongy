@@ -174,6 +174,31 @@ In-browser editor pro úpravu existujících písní, chráněný dvěma vrstvam
 Uložení z editoru vytvoří jeden atomický commit (přes GitHub Git Data API) do
 `songs/<slug>.html` i `songs.json` zároveň, což spustí `deploy-pages.yml`.
 
+### Refrén, který podruhé končí jinak
+
+Poslední refrén má často obměněný poslední verš. Psát kvůli tomu celý refrén
+znovu znamená přijít o sbalování opakování, takže na to je zkratka:
+
+```
+//R
+...
+a víc už nechci nic.
+R//
+```
+
+`...` (nebo `…`) znamená „refrén jako předtím“; řádky pod ním nahradí stejný
+počet **posledních** řádků definice — jeden řádek vymění poslední řádek, dva
+vymění poslední dva. Na jeden řádek se to dá napsat jako
+`//R ... a víc už nechci nic. R//`.
+
+Sbalí se to jako každé jiné opakování, ale **změněný konec zůstane vidět**
+pod pilulkou (`.section-tail`) — je to jediné, co čtenář, který refrén umí,
+nemůže vědět. Rozbalený je konec už uvnitř textu, takže se druhá kopie
+skryje.
+
+V `/admin` na to je v náhledu tlačítko **✎ jiný konec**: zkopíruje poslední
+řádek refrénu do `...` tvaru a rovnou ho označí, takže se přepíše psaním.
+
 ### Jak se v editoru píše (`js/song-edit.js`)
 
 Textové pole je `contenteditable`, ale **editaci nedělá prohlížeč**. Každý

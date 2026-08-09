@@ -26,7 +26,7 @@
 // Not being in APP_SHELL is no exemption: the runtime handler below caches
 // whatever it fetches, so admin-only files (js/editor.js, css/editor.css)
 // end up cached just the same, and cache-first then serves them stale.
-const CACHE_NAME = 'bekovysongy-v18';
+const CACHE_NAME = 'bekovysongy-v19';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [

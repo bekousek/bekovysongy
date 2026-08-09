@@ -780,6 +780,22 @@ a:hover {
   display: block;
   padding-left: 2.4em;
 }
+
+/* A repeat with a changed ending ("//R ... a víc už nechci nic. R//"). The
+   new ending is the one thing about that chorus a reader can't know by
+   heart, so it stays under the collapsed pill on its own line. Expanded (or
+   peeked) it's already inside .section-body - showing it twice would read as
+   a stutter. */
+.section-tail {
+  display: none;
+}
+.song-text:not(.show-repeats) .is-repeat.has-tail .section-tail {
+  display: block;
+  padding-left: 2.4em;
+}
+.song-text:not(.show-repeats) .is-repeat.has-tail.peek .section-tail {
+  display: none;
+}
 .song-text.show-repeats .is-repeat .section-head {
   opacity: 0.85;
 }

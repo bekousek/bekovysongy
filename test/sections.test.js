@@ -291,3 +291,82 @@ test('hasSections: true for a plain song that only uses repeat brackets', () => 
 test('hasSections: true for a fenced song with no legacy markers', () => {
   assert.equal(SongSections.hasSections('//R\nbody\nR//'), true);
 });
+
+// === Repeat with a changed ending ("//R ... nový konec R//") ===
+
+const CHORUS = '//R\nKdyž jsi u mě,\nnic mi nechybí,\na víc už nechci nic.\nR//';
+
+test('changed ending: collapses like a repeat and keeps the new line visible', () => {
+  const out = SongSections.transform(
+    CHORUS + '\n\nsloka\n\n//R\n...\na pak už nechci nic.\nR//'
+  );
+  const blocks = out.match(/section-refren[^"]*/g);
+  assert.equal(blocks[0], 'section-refren');
+  assert.equal(blocks[1], 'section-refren is-repeat has-tail');
+  // The tail sits next to the pill, before the (hidden) full body.
+  assert.match(out, /<span class="section-tail">a pak už nechci nic\.<\/span>/);
+});
+
+test('changed ending: the body is the chorus with its last line swapped', () => {
+  const out = SongSections.transform(
+    CHORUS + '\n\n//R\n...\na pak už nechci nic.\nR//'
+  );
+  const body = out.split('section-tail">a pak už nechci nic.</span>')[1];
+  assert.match(body, /Když jsi u mě,\nnic mi nechybí,\na pak už nechci nic\./);
+  assert.doesNotMatch(body.split('</div>')[0], /a víc už nechci nic/);
+});
+
+test('changed ending: two lines replace the last two', () => {
+  const out = SongSections.transform(CHORUS + '\n\n//R\n...\nprvní jinak,\ndruhý jinak.\nR//');
+  const body = out.split('class="section-body"')[2];
+  assert.match(body, /Když jsi u mě,\nprvní jinak,\ndruhý jinak\./);
+  assert.doesNotMatch(body.split('</div>')[0], /nic mi nechybí/);
+});
+
+test('changed ending: the compact one-line form means the same', () => {
+  const wide = SongSections.transform(CHORUS + '\n\n//R\n...\na pak už nechci nic.\nR//');
+  const tight = SongSections.transform(CHORUS + '\n\n//R ... a pak už nechci nic. R//');
+  assert.equal(tight, wide);
+});
+
+test('changed ending: "…" is accepted as well as "..."', () => {
+  const dots = SongSections.transform(CHORUS + '\n\n//R ... a pak už nechci nic. R//');
+  const ell = SongSections.transform(CHORUS + '\n\n//R … a pak už nechci nic. R//');
+  assert.equal(ell, dots);
+});
+
+test('changed ending: chords in the new line survive', () => {
+  const chord = '<span class="chord" data-chord="Ami">Ami</span>';
+  const out = SongSections.transform(CHORUS + '\n\n//R\n...\n' + chord + ' a pak už nic.\nR//');
+  assert.match(out, /<span class="section-tail"><span class="chord" data-chord="Ami">/);
+});
+
+test('changed ending: without a definition it stays an ordinary visible block', () => {
+  const out = SongSections.transform('//R\n...\na pak už nechci nic.\nR//');
+  assert.doesNotMatch(out, /is-repeat/);
+  assert.doesNotMatch(out, /section-tail/);
+});
+
+test('changed ending: never counts as the definition of the chorus', () => {
+  // The "..." block comes first here; the real chorus below it still defines.
+  const out = SongSections.transform(
+    '//R\n...\na pak už nechci nic.\nR//\n\n' + CHORUS
+  );
+  const blocks = out.match(/section-refren[^"]*/g);
+  assert.equal(blocks[0], 'section-refren is-repeat has-tail');
+  assert.equal(blocks[1], 'section-refren');
+});
+
+test('changed ending: legacy R: definition works too', () => {
+  const out = SongSections.transform(
+    'R: první řádek\n   poslední řádek\n\n//R ... jiný konec R//'
+  );
+  assert.match(out, /is-repeat has-tail/);
+  assert.match(out, /první řádek\njiný konec/);
+});
+
+test('a plain "..." line outside a repeat is left alone', () => {
+  const out = SongSections.transform('sloka\n...\ndál');
+  assert.doesNotMatch(out, /section-tail/);
+  assert.match(out, /sloka\n\.\.\.\ndál/);
+});
