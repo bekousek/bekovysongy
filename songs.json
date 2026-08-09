@@ -332,7 +332,7 @@
     {
       "title": "Ach synku, synku",
       "slug": "ach-synku-synku",
-      "author": "",
+      "author": "lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -455,7 +455,7 @@
     {
       "title": "All the small things",
       "slug": "all-the-small-things",
-      "author": "Blink 182",
+      "author": "blink-182",
       "chords": [
         "C",
         "G",
@@ -1016,7 +1016,7 @@
     {
       "title": "Babinský",
       "slug": "babinsky",
-      "author": "Taborove Pisne",
+      "author": "lidová",
       "chords": [
         "D",
         "G",
@@ -1291,7 +1291,7 @@
     {
       "title": "Bejvávalo",
       "slug": "bejvavalo",
-      "author": "",
+      "author": "lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -1356,7 +1356,7 @@
     {
       "title": "Beskyde, Beskyde",
       "slug": "beskyde-beskyde",
-      "author": "",
+      "author": "moravská lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -2353,7 +2353,7 @@
     {
       "title": "Chajda malá",
       "slug": "chajda-mala",
-      "author": "",
+      "author": "trampská",
       "chords": [
         "A",
         "D",
@@ -2533,7 +2533,7 @@
     {
       "title": "Chodím po Broadwayi",
       "slug": "chodim-po-brodwayi",
-      "author": "",
+      "author": "americká lidová",
       "chords": [
         "D",
         "A",
@@ -2783,7 +2783,7 @@
     {
       "title": "Dajána",
       "slug": "dajana",
-      "author": "",
+      "author": "táborová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -3580,7 +3580,7 @@
       ]
     },
     {
-      "title": "Dont worry, be happy",
+      "title": "Don't worry, be happy",
       "slug": "dont-worry-be-happy",
       "author": "Bobby McFerrin",
       "chords": [
@@ -4134,7 +4134,7 @@
     {
       "title": "Dělání",
       "slug": "delani",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "D",
         "G",
@@ -4422,7 +4422,7 @@
     {
       "title": "Five hundred miles",
       "slug": "five-hundred-miles",
-      "author": "",
+      "author": "Hedy West",
       "chords": [],
       "tags": {
         "capo": false,
@@ -4843,7 +4843,7 @@
     {
       "title": "Hakuna Matata",
       "slug": "hakuna-matata",
-      "author": "Lví král",
+      "author": "Elton John a Tim Rice (Lví král)",
       "chords": [
         "F",
         "C",
@@ -4922,7 +4922,7 @@
     {
       "title": "The Hanging Tree",
       "slug": "hangign-tree",
-      "author": "James Newton Howard",
+      "author": "James Newton Howard (Hunger Games)",
       "chords": [
         "Ami",
         "Dmi",
@@ -4958,7 +4958,7 @@
     {
       "title": "Hej Báro",
       "slug": "hej-baro",
-      "author": "Liberecká těla",
+      "author": "Těla",
       "chords": [
         "G",
         "D",
@@ -5022,9 +5022,9 @@
       ]
     },
     {
-      "title": "HejSokoły",
+      "title": "Hej Sokoły",
       "slug": "hej-sokoly",
-      "author": "Ukrajina",
+      "author": "polská lidová",
       "chords": [
         "Ami",
         "E",
@@ -5301,7 +5301,7 @@
     {
       "title": "Hlupáku, najdu tě",
       "slug": "hlupaku-najdu-te",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -5441,7 +5441,7 @@
     {
       "title": "Holka modrooká",
       "slug": "holka-modrooka",
-      "author": "",
+      "author": "lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -6857,7 +6857,7 @@
     {
       "title": "Je mi to brácha",
       "slug": "je-mi-to-bracha",
-      "author": "Zpevnik",
+      "author": "Mucha",
       "chords": [
         "Dmi",
         "Gmi",
@@ -7322,7 +7322,7 @@
     {
       "title": "Ještěřice",
       "slug": "jesterice",
-      "author": "",
+      "author": "táborová",
       "chords": [
         "C",
         "G"
@@ -7455,7 +7455,7 @@
     {
       "title": "Já do lesa nepojedu",
       "slug": "ja-do-lesa-nepojedu",
-      "author": "",
+      "author": "lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -8008,7 +8008,7 @@
     {
       "title": "Kdyby se v komnatách",
       "slug": "kdyby-se-v-komnatach",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "C",
         "Gmi",
@@ -8083,7 +8083,7 @@
     {
       "title": "Když jsem já sloužil",
       "slug": "kdyz-jsem-ja-slouzil",
-      "author": "",
+      "author": "lidová",
       "chords": [
         "D",
         "A"
@@ -8183,7 +8183,7 @@
     {
       "title": "Když se načančám",
       "slug": "kdyz-se-nacancam",
-      "author": "Co takhle svatba, princi?",
+      "author": "Heidi Janků (Co takhle svatba, princi?)",
       "chords": [
         "A",
         "D",
@@ -9006,7 +9006,7 @@
     {
       "title": "Královské reggae",
       "slug": "kralovske-reggae",
-      "author": "O přincezně která ráčkovala",
+      "author": "Jan Čenský (O princezně, která ráčkovala)",
       "chords": [
         "D",
         "Hmi",
@@ -9502,7 +9502,7 @@
     {
       "title": "Let it go",
       "slug": "let-it-go",
-      "author": "Frozen",
+      "author": "Kristen Anderson-Lopez a Robert Lopez (Ledové království)",
       "chords": [
         "Emi",
         "C",
@@ -9924,7 +9924,7 @@
     {
       "title": "Lucky Boy",
       "slug": "lucky-boy",
-      "author": "Samotáři - Jan P. Muchow",
+      "author": "Jan P. Muchow (Samotáři)",
       "chords": [
         "C",
         "G",
@@ -11279,7 +11279,7 @@
       ]
     },
     {
-      "title": "Movin´  on",
+      "title": "Movin' on",
       "slug": "movin-on",
       "author": "Support Lesbiens",
       "chords": [
@@ -11358,7 +11358,7 @@
     {
       "title": "Mravenčí ukolébavka",
       "slug": "mravenci-ukolebavka",
-      "author": "Zpevnik",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
       "chords": [
         "C",
         "G",
@@ -11951,7 +11951,7 @@
     {
       "title": "Můj čas",
       "slug": "muj-cas",
-      "author": "Hana Zagorová (ze seriálu Sanitka)",
+      "author": "Hana Zagorová (Sanitka)",
       "chords": [
         "Ami",
         "G",
@@ -12441,7 +12441,7 @@
     {
       "title": "Nasral Franta na trabanta",
       "slug": "nasral-franta-na-trabanta",
-      "author": "",
+      "author": "lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -12668,7 +12668,7 @@
     {
       "title": "Není nutno",
       "slug": "neni-nutno",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Tři veteráni)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -12817,7 +12817,7 @@
     {
       "title": "Niagára",
       "slug": "niagara",
-      "author": "",
+      "author": "Eduard Ingriš",
       "chords": [
         "D",
         "A7",
@@ -13021,7 +13021,7 @@
     {
       "title": "Nám se stalo něco překrásného",
       "slug": "nam-se-stalo-neco-prekrasneho",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Lotrando a Zubejda)",
       "chords": [
         "C",
         "G",
@@ -13408,7 +13408,7 @@
     {
       "title": "Okoř",
       "slug": "okor",
-      "author": "",
+      "author": "trampská",
       "chords": [
         "D",
         "A7",
@@ -14101,7 +14101,7 @@
     {
       "title": "Planeta Zombie",
       "slug": "planeta-zombie",
-      "author": "",
+      "author": "FIZIstyle",
       "chords": [
         "Ami",
         "Dmi",
@@ -14214,7 +14214,7 @@
     {
       "title": "Pod dubem, za dubem",
       "slug": "pod-dubem-za-dubem",
-      "author": "Lotrando a Zubejda",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Lotrando a Zubejda)",
       "chords": [
         "Ami",
         "E",
@@ -14938,7 +14938,7 @@
     {
       "title": "Princezna ze mlejna",
       "slug": "princezna-ze-mlejna",
-      "author": "Filmová Hudba Cz",
+      "author": "Miloš Krkoška a Václav Bárta (Princezna ze mlejna)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15088,7 +15088,7 @@
     {
       "title": "Príbeh nekončí",
       "slug": "pribeh-nekonci",
-      "author": "Superstar 2010",
+      "author": "Pavol Habera (Česko Slovenská SuperStar)",
       "chords": [
         "C",
         "F",
@@ -16372,7 +16372,7 @@
     {
       "title": "Saxana",
       "slug": "saxana",
-      "author": "Petra Černocká",
+      "author": "Petra Černocká (Dívka na koštěti)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -16505,7 +16505,7 @@
     {
       "title": "Seděla Anička na větvičce",
       "slug": "sedela-anicka-na-vetvicce",
-      "author": "",
+      "author": "lidová",
       "chords": [
         "A",
         "E"
@@ -16594,7 +16594,7 @@
     {
       "title": "Severní vítr",
       "slug": "severni-vitr",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Vrchní, prchni!)",
       "chords": [
         "C",
         "Ami",
@@ -16640,7 +16640,7 @@
     {
       "title": "Shaun the sheep",
       "slug": "shaun-the-sheep",
-      "author": "",
+      "author": "Vic Reeves (Ovečka Shaun)",
       "chords": [
         "D",
         "A",
@@ -16680,7 +16680,7 @@
     {
       "title": "Skřítkové tesaři",
       "slug": "skritkove-tesari",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Ať žijí duchové!)",
       "chords": [
         "C",
         "F",
@@ -16709,7 +16709,7 @@
     {
       "title": "Sladké mámení",
       "slug": "sladke-mameni",
-      "author": "Filmová (S tebou mě baví svět)",
+      "author": "Helena Vondráčková (S tebou mě baví svět)",
       "chords": [
         "G",
         "D",
@@ -17008,7 +17008,7 @@
     {
       "title": "Sound of silence",
       "slug": "sound-of-silence",
-      "author": "Paul Simon",
+      "author": "Simon & Garfunkel",
       "chords": [
         "Ami",
         "G",
@@ -17100,7 +17100,7 @@
       ]
     },
     {
-      "title": "Spomal´",
+      "title": "Spomaľ",
       "slug": "spomal",
       "author": "Peha",
       "chords": [
@@ -17399,7 +17399,7 @@
     {
       "title": "Statistika",
       "slug": "statistika",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "D",
         "Hmi",
@@ -17650,7 +17650,7 @@
     {
       "title": "Stůl, prostřený stůl",
       "slug": "stul-prostreny-stul",
-      "author": "Doba Ledová 2 - Obleva",
+      "author": "Lionel Bart (Doba ledová 2: Obleva)",
       "chords": [
         "C",
         "Gmi7",
@@ -17831,7 +17831,7 @@
       ]
     },
     {
-      "title": "Sweet Child O´Mine",
+      "title": "Sweet Child O' Mine",
       "slug": "sweet-child-omine",
       "author": "Guns N' Roses",
       "chords": [
@@ -18443,7 +18443,7 @@
     {
       "title": "This is the life",
       "slug": "this-is-the-life",
-      "author": "Amy McDonald",
+      "author": "Amy Macdonald",
       "chords": [
         "Ami",
         "F",
@@ -18566,7 +18566,7 @@
     {
       "title": "To tá Hel'pa",
       "slug": "to-ta-helpa",
-      "author": "",
+      "author": "slovenská lidová",
       "chords": [
         "Ami",
         "Dmi",
@@ -18629,7 +18629,7 @@
     {
       "title": "Toss a coin to your witcher",
       "slug": "toss-a-coin-to-your-witcher",
-      "author": "The Witcher",
+      "author": "Joey Batey (Zaklínač)",
       "chords": [
         "Ami",
         "D",
@@ -18907,7 +18907,7 @@
     {
       "title": "Tu kytaru jsem koupil kvůli tobě",
       "slug": "tu-kytaru-jsem-koupil-kvuli-tobe",
-      "author": "Filmová Hudba Cz",
+      "author": "Václav Neckář (Pelíšky)",
       "chords": [
         "H7/4",
         "D",
@@ -19132,7 +19132,7 @@
     {
       "title": "Tři citrónky",
       "slug": "tri-citronky",
-      "author": "",
+      "author": "lidová",
       "chords": [
         "C",
         "Ami",
@@ -19161,7 +19161,7 @@
     {
       "title": "Tři kámošky psycholožky",
       "slug": "tri-kamosky-psycholozky",
-      "author": "Akusticke",
+      "author": "Poletíme?",
       "chords": [
         "G",
         "Emi",
@@ -19935,7 +19935,7 @@
     {
       "title": "Večerníček",
       "slug": "vecernicek",
-      "author": "Karel Černoch",
+      "author": "Karel Černoch (Večerníček)",
       "chords": [
         "C",
         "C7",
@@ -20514,7 +20514,7 @@
     {
       "title": "Vínečko bílé",
       "slug": "vinecko-bile",
-      "author": "",
+      "author": "moravská lidová",
       "chords": [],
       "tags": {
         "capo": false,
@@ -20741,7 +20741,7 @@
     {
       "title": "Wellerman",
       "slug": "wellerman",
-      "author": "Sea Shanty",
+      "author": "novozélandská lidová",
       "chords": [
         "Ami",
         "Dmi",
@@ -20820,9 +20820,9 @@
       ]
     },
     {
-      "title": "Whats up",
+      "title": "What's up",
       "slug": "whats-up",
-      "author": "4 non blondes",
+      "author": "4 Non Blondes",
       "chords": [
         "G",
         "Ami",
@@ -21158,7 +21158,7 @@
     {
       "title": "You've got a friend in me",
       "slug": "youve-got-a-friend-in-me",
-      "author": "Toy Story 4",
+      "author": "Randy Newman (Toy Story)",
       "chords": [
         "C",
         "G",
@@ -21247,7 +21247,7 @@
     {
       "title": "Zabili, zabili",
       "slug": "zabili-zabili",
-      "author": "Balada pro banditu",
+      "author": "Miloš Štědroň a Milan Uhde (Balada pro banditu)",
       "chords": [
         "C",
         "F",
@@ -21524,7 +21524,7 @@
     {
       "title": "Zavolejte stráže",
       "slug": "zavolejte-straze",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Ať žijí duchové!)",
       "chords": [
         "C",
         "G",
@@ -22417,7 +22417,7 @@
     {
       "title": "Červená se line záře",
       "slug": "cervena-se-line-zare",
-      "author": "",
+      "author": "táborová",
       "chords": [],
       "tags": {
         "capo": false,
