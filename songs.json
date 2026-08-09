@@ -19490,11 +19490,43 @@
       "title": "Variace na renesanční téma",
       "slug": "variace-na-renesancni-tema",
       "author": "Vladimír Mišík",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "F",
+        "G",
+        "C",
+        "Dmi7",
+        "D",
+        "Dmi",
+        "Emi7",
+        "Ami7",
+        "Ami6"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
-      }
+      },
+      "progression": [
+        [
+          "Ami",
+          "F",
+          "G"
+        ],
+        [
+          "C",
+          "G",
+          "Ami",
+          "Dmi7",
+          "D",
+          "Dmi",
+          "Emi7"
+        ],
+        [
+          "Ami",
+          "Ami7",
+          "Ami6"
+        ]
+      ]
     },
     {
       "title": "Ve skutečnosti",
