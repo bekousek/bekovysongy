@@ -104,7 +104,7 @@
     {
       "title": "1982",
       "slug": "1982",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "E",
         "C",
@@ -743,7 +743,7 @@
     {
       "title": "Ani k stáru",
       "slug": "ani-k-staru",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "F",
@@ -781,12 +781,16 @@
           "Emi",
           "C"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
       "title": "Antidepresivní rybička",
       "slug": "antidepresivni-rybicka",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "C",
         "Emi",
@@ -931,7 +935,7 @@
     {
       "title": "Až na měsíc",
       "slug": "az-na-mesic",
-      "author": "Viktor Sheen a Calin",
+      "author": "Viktor Sheen, Calin",
       "chords": [
         "Ami",
         "G",
@@ -959,6 +963,10 @@
           "F",
           "G"
         ]
+      ],
+      "authors": [
+        "Viktor Sheen",
+        "Calin"
       ]
     },
     {
@@ -1147,7 +1155,7 @@
     {
       "title": "Barbora píše z tábora",
       "slug": "barbora-pise-z-tabora",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "D",
         "A",
@@ -1181,6 +1189,10 @@
           "D",
           "D7"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -1333,7 +1345,7 @@
     {
       "title": "Benzínka",
       "slug": "benzinka",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "H",
         "G#",
@@ -2395,7 +2407,7 @@
     {
       "title": "Chci ti říct",
       "slug": "chci-ti-rict",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "Gmi",
         "C",
@@ -2558,7 +2570,7 @@
     {
       "title": "Chválím tě, Země má",
       "slug": "chvalim-te-zeme-ma",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "F",
@@ -2581,6 +2593,10 @@
           "F",
           "G"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -2795,7 +2811,7 @@
     {
       "title": "Darling",
       "slug": "darling",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "D",
         "A",
@@ -2862,7 +2878,7 @@
     {
       "title": "David a Goliáš",
       "slug": "david-a-golias",
-      "author": "Jan Werich a Jiří Voskovec",
+      "author": "Jaroslav Ježek, Jiří Voskovec, Jan Werich",
       "chords": [
         "C",
         "Ami",
@@ -2955,6 +2971,11 @@
           "G7",
           "C"
         ]
+      ],
+      "authors": [
+        "Jaroslav Ježek",
+        "Jiří Voskovec",
+        "Jan Werich"
       ]
     },
     {
@@ -3064,7 +3085,7 @@
     {
       "title": "Detaily",
       "slug": "detaily",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "Hmi",
         "G",
@@ -3087,7 +3108,7 @@
     {
       "title": "Dezolát",
       "slug": "dezolat",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "Emi",
         "C",
@@ -4038,7 +4059,7 @@
     {
       "title": "Dáme klukovi školy",
       "slug": "dame-klukovi-skoly",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "Ami",
         "Emi",
@@ -4073,6 +4094,10 @@
           "G",
           "C"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -4134,7 +4159,7 @@
     {
       "title": "Dělání",
       "slug": "delani",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "D",
         "G",
@@ -4245,13 +4270,17 @@
     {
       "title": "Elektrický valčík",
       "slug": "elektricky-valcik",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
+      ]
     },
     {
       "title": "Enemy",
@@ -4805,13 +4834,17 @@
     {
       "title": "Grónská písnička",
       "slug": "gronska-pisnicka",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
+      ]
     },
     {
       "title": "Hafo",
@@ -4843,7 +4876,7 @@
     {
       "title": "Hakuna Matata",
       "slug": "hakuna-matata",
-      "author": "Elton John a Tim Rice (Lví král)",
+      "author": "Elton John, Tim Rice (Lví král)",
       "chords": [
         "F",
         "C",
@@ -4921,7 +4954,7 @@
     },
     {
       "title": "The Hanging Tree",
-      "slug": "hangign-tree",
+      "slug": "hanging-tree",
       "author": "James Newton Howard (Hunger Games)",
       "chords": [
         "Ami",
@@ -5301,7 +5334,7 @@
     {
       "title": "Hlupáku, najdu tě",
       "slug": "hlupaku-najdu-te",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -5453,7 +5486,7 @@
     {
       "title": "Holka s lebkou",
       "slug": "holka-s-lebkou",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "C",
         "Ami",
@@ -5482,7 +5515,7 @@
     {
       "title": "Holka v mým sklepě",
       "slug": "holka-v-mym-sklepe",
-      "author": "Řezník/Pondělníci",
+      "author": "Řezník, Pondělníci",
       "chords": [
         "Dmi",
         "C",
@@ -5498,6 +5531,10 @@
           "C",
           "G"
         ]
+      ],
+      "authors": [
+        "Řezník",
+        "Pondělníci"
       ]
     },
     {
@@ -7623,7 +7660,7 @@
     {
       "title": "Kalhotky si sundej",
       "slug": "kalhotky-si-sundej",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "Ami",
         "G",
@@ -7773,7 +7810,7 @@
     {
       "title": "Karkulka",
       "slug": "karkulka",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "D",
         "Hmi",
@@ -7877,6 +7914,10 @@
         [
           "A7"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -8008,7 +8049,7 @@
     {
       "title": "Kdyby se v komnatách",
       "slug": "kdyby-se-v-komnatach",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "C",
         "Gmi",
@@ -8220,7 +8261,7 @@
     {
       "title": "Když se zamiluje kůň",
       "slug": "kdyz-se-zamiluje-kun",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "G",
@@ -8250,6 +8291,10 @@
           "Ami",
           "G"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -8407,13 +8452,18 @@
     {
       "title": "Klobouk ve křoví",
       "slug": "klobouk-ve-krovi",
-      "author": "Jan Werich a Jiří Voskovec",
+      "author": "Jaroslav Ježek, Jiří Voskovec, Jan Werich",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jaroslav Ježek",
+        "Jiří Voskovec",
+        "Jan Werich"
+      ]
     },
     {
       "title": "Kluziště",
@@ -8556,7 +8606,7 @@
     {
       "title": "Knocking on Heaven's door",
       "slug": "knocking-on-heavens-door",
-      "author": "Guns N' Roses",
+      "author": "Bob Dylan",
       "chords": [
         "G",
         "D",
@@ -8609,7 +8659,7 @@
     {
       "title": "Koláž dívčích jmen",
       "slug": "kolaz-divcich-jmen",
-      "author": "Kolektiv autorů",
+      "author": "Waldemar Matuška, Traband, Těla, Jelen, Michal Hrůza, Chinaski, Tomáš Klus, Ivan Mládek",
       "chords": [
         "C",
         "Ami",
@@ -8717,6 +8767,16 @@
           "F",
           "C"
         ]
+      ],
+      "authors": [
+        "Waldemar Matuška",
+        "Traband",
+        "Těla",
+        "Jelen",
+        "Michal Hrůza",
+        "Chinaski",
+        "Tomáš Klus",
+        "Ivan Mládek"
       ]
     },
     {
@@ -8882,7 +8942,7 @@
     {
       "title": "Krabička",
       "slug": "krabicka",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "G",
         "D",
@@ -9443,7 +9503,7 @@
     {
       "title": "Lepší než almužna",
       "slug": "lepsi-nez-almuzna",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "F",
@@ -9486,6 +9546,10 @@
           "G",
           "C"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -9502,7 +9566,7 @@
     {
       "title": "Let it go",
       "slug": "let-it-go",
-      "author": "Kristen Anderson-Lopez a Robert Lopez (Ledové království)",
+      "author": "Kristen Anderson-Lopez, Robert Lopez (Ledové království)",
       "chords": [
         "Emi",
         "C",
@@ -9620,6 +9684,10 @@
           "G",
           "A"
         ]
+      ],
+      "authors": [
+        "Kašpárek v rohlíku",
+        "Lenka Dusilová"
       ]
     },
     {
@@ -9672,7 +9740,7 @@
     {
       "title": "Limity",
       "slug": "limity",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "C",
         "Ami",
@@ -10319,7 +10387,7 @@
     {
       "title": "Malotraktorem",
       "slug": "malotraktorem",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "D",
         "G",
@@ -10908,6 +10976,10 @@
           "Ami",
           "G"
         ]
+      ],
+      "authors": [
+        "Josef Zíma",
+        "Karel Štědrý"
       ]
     },
     {
@@ -10985,7 +11057,7 @@
     {
       "title": "Misty Mountains cold",
       "slug": "misty-mountains",
-      "author": "Clamavi De Profundis",
+      "author": "Howard Shore, J. R. R. Tolkien (Hobit)",
       "chords": [
         "Ami",
         "G",
@@ -11022,7 +11094,7 @@
     {
       "title": "Mléčný bar",
       "slug": "mlecny-bar",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "G",
@@ -11050,6 +11122,10 @@
           "C7",
           "F"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -11358,7 +11434,7 @@
     {
       "title": "Mravenčí ukolébavka",
       "slug": "mravenci-ukolebavka",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [
         "C",
         "G",
@@ -11389,6 +11465,10 @@
           "C",
           "F"
         ]
+      ],
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
       ]
     },
     {
@@ -11739,7 +11819,7 @@
     {
       "title": "Máma se vrací",
       "slug": "mama-se-vraci",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "C",
         "Emi",
@@ -11800,7 +11880,7 @@
     {
       "title": "Mávej",
       "slug": "mavej",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "C",
         "Emi",
@@ -11855,7 +11935,7 @@
       ]
     },
     {
-      "title": "Vítr to ví",
+      "title": "Míle a míle",
       "slug": "mile-a-mile",
       "author": "Waldemar Matuška",
       "chords": [
@@ -11892,7 +11972,7 @@
     {
       "title": "Měla krátkou ofinu",
       "slug": "mela-kratkou-ofinu",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "G",
         "D",
@@ -12099,7 +12179,7 @@
     {
       "title": "Na kameni kámen",
       "slug": "na-kameni-kamen",
-      "author": "Nedvědi",
+      "author": "Brontosauři",
       "chords": [
         "C",
         "F",
@@ -12343,7 +12423,7 @@
     {
       "title": "Nagasaki Hirošima",
       "slug": "nagasaki-hirosima",
-      "author": "Mňága a Žďorp / Karel Plíhal",
+      "author": "Mňága a Žďorp, Karel Plíhal",
       "chords": [
         "C",
         "G",
@@ -12374,6 +12454,10 @@
           "G",
           "F"
         ]
+      ],
+      "authors": [
+        "Mňága a Žďorp",
+        "Karel Plíhal"
       ]
     },
     {
@@ -12668,7 +12752,7 @@
     {
       "title": "Není nutno",
       "slug": "neni-nutno",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Tři veteráni)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Tři veteráni)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -13021,7 +13105,7 @@
     {
       "title": "Nám se stalo něco překrásného",
       "slug": "nam-se-stalo-neco-prekrasneho",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Lotrando a Zubejda)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Lotrando a Zubejda)",
       "chords": [
         "C",
         "G",
@@ -13849,8 +13933,7 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
-      "note": "interpreta se nepodařilo ověřit"
+      "status": "k-vytvoreni"
     },
     {
       "title": "Paš o paňori",
@@ -14214,7 +14297,7 @@
     {
       "title": "Pod dubem, za dubem",
       "slug": "pod-dubem-za-dubem",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Lotrando a Zubejda)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Lotrando a Zubejda)",
       "chords": [
         "Ami",
         "E",
@@ -14251,7 +14334,7 @@
     {
       "title": "Podvod",
       "slug": "podvod",
-      "author": "Nedvědi",
+      "author": "Brontosauři",
       "chords": [
         "Emi",
         "Ami",
@@ -14362,7 +14445,7 @@
     },
     {
       "title": "Pohádka",
-      "slug": "pohadka3",
+      "slug": "pohadka2",
       "author": "Support Lesbiens",
       "chords": [
         "Ami",
@@ -14938,7 +15021,7 @@
     {
       "title": "Princezna ze mlejna",
       "slug": "princezna-ze-mlejna",
-      "author": "Miloš Krkoška a Václav Bárta (Princezna ze mlejna)",
+      "author": "Miloš Krkoška, Václav Bárta (Princezna ze mlejna)",
       "chords": [],
       "tags": {
         "capo": false,
@@ -15178,7 +15261,7 @@
     {
       "title": "Ptáčata",
       "slug": "ptacata",
-      "author": "Nedvědi",
+      "author": "Brontosauři",
       "chords": [
         "G",
         "C",
@@ -15279,7 +15362,7 @@
     {
       "title": "Píseň proti trudomyslnosti",
       "slug": "pisen-proti-trudomyslnosti",
-      "author": "Jára Cimrman",
+      "author": "Zdeněk Svěrák (Dobytí severního pólu)",
       "chords": [
         "D",
         "A7",
@@ -15846,7 +15929,7 @@
     {
       "title": "Rodné údolí",
       "slug": "rodne-udoli",
-      "author": "Nedvědi",
+      "author": "Brontosauři",
       "chords": [],
       "tags": {
         "capo": false,
@@ -16173,7 +16256,7 @@
     {
       "title": "Safír",
       "slug": "safir",
-      "author": "Calin a Viktor Sheen",
+      "author": "Calin, Viktor Sheen",
       "chords": [
         "Ami",
         "F",
@@ -16197,6 +16280,10 @@
           "C",
           "G"
         ]
+      ],
+      "authors": [
+        "Calin",
+        "Viktor Sheen"
       ]
     },
     {
@@ -16297,7 +16384,7 @@
     {
       "title": "Samurajské meče",
       "slug": "samurajske-mece",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "Ami",
         "Emi",
@@ -16494,7 +16581,7 @@
     {
       "title": "Schovaná",
       "slug": "schovana",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [],
       "tags": {
         "capo": false,
@@ -16594,7 +16681,7 @@
     {
       "title": "Severní vítr",
       "slug": "severni-vitr",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Vrchní, prchni!)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Vrchní, prchni!)",
       "chords": [
         "C",
         "Ami",
@@ -16680,7 +16767,7 @@
     {
       "title": "Skřítkové tesaři",
       "slug": "skritkove-tesari",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Ať žijí duchové!)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Ať žijí duchové!)",
       "chords": [
         "C",
         "F",
@@ -16743,7 +16830,7 @@
     },
     {
       "title": "Slavíci z Madridu",
-      "slug": "prazdna-stranka",
+      "slug": "slavici-z-madridu",
       "author": "Waldemar Matuška",
       "chords": [
         "Dmi",
@@ -16766,7 +16853,7 @@
     {
       "title": "Slepic pírka",
       "slug": "slepic-pirka",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "F#mi",
         "D",
@@ -16879,7 +16966,7 @@
     {
       "title": "Snadné je žít",
       "slug": "snadne-je-zit",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [],
       "tags": {
         "capo": false,
@@ -16966,7 +17053,7 @@
     {
       "title": "Somewhere over the rainbow",
       "slug": "somewhere-over-the-rainbow",
-      "author": "Israel Kamakawiwoʻole",
+      "author": "Harold Arlen, E. Y. Harburg (Čaroděj ze země Oz)",
       "chords": [
         "C",
         "Emi",
@@ -17284,7 +17371,7 @@
     {
       "title": "Stand by me",
       "slug": "stand-by-me",
-      "author": "John Lennon",
+      "author": "Ben E. King",
       "chords": [
         "C",
         "Ami",
@@ -17399,7 +17486,7 @@
     {
       "title": "Statistika",
       "slug": "statistika",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Princové jsou na draka)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Princové jsou na draka)",
       "chords": [
         "D",
         "Hmi",
@@ -17592,7 +17679,7 @@
     {
       "title": "Stánky",
       "slug": "stanky",
-      "author": "Ptáčata",
+      "author": "Brontosauři",
       "chords": [
         "A",
         "D",
@@ -17828,6 +17915,10 @@
           "C",
           "C#mi"
         ]
+      ],
+      "authors": [
+        "Tata Bojs",
+        "Vladimír 518"
       ]
     },
     {
@@ -18240,7 +18331,7 @@
     {
       "title": "Tančím",
       "slug": "tancim",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "E",
         "F",
@@ -18321,13 +18412,18 @@
     {
       "title": "Ten dělá to a ten zas tohle",
       "slug": "ten-dela-to-a-ten-zas-tohle",
-      "author": "Jan Werich",
+      "author": "Jaroslav Ježek, Jiří Voskovec, Jan Werich",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jaroslav Ježek",
+        "Jiří Voskovec",
+        "Jan Werich"
+      ]
     },
     {
       "title": "Tereza",
@@ -18564,7 +18660,7 @@
       "status": "k-vytvoreni"
     },
     {
-      "title": "To tá Hel'pa",
+      "title": "To tá Heľpa",
       "slug": "to-ta-helpa",
       "author": "slovenská lidová",
       "chords": [
@@ -18794,13 +18890,17 @@
     {
       "title": "Trpasličí svatba",
       "slug": "trpaslici-svatba",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Zdeněk Svěrák",
+        "Jaroslav Uhlíř"
+      ]
     },
     {
       "title": "Trubadůrská",
@@ -18964,7 +19064,7 @@
     {
       "title": "Tulácký ráno",
       "slug": "tulacky-rano",
-      "author": "Honza Nedvěd",
+      "author": "Brontosauři",
       "chords": [
         "Ami",
         "Emi",
@@ -19667,7 +19767,7 @@
     {
       "title": "Valčíček",
       "slug": "valcicek",
-      "author": "Nedvědi",
+      "author": "Brontosauři",
       "chords": [
         "A",
         "E",
@@ -19736,7 +19836,7 @@
     {
       "title": "Ve skutečnosti",
       "slug": "ve-skutecnosti",
-      "author": "Mňága a Žďorp / Květy",
+      "author": "Mňága a Žďorp, Květy",
       "chords": [
         "Ami",
         "C",
@@ -19754,6 +19854,10 @@
           "F",
           "G"
         ]
+      ],
+      "authors": [
+        "Mňága a Žďorp",
+        "Květy"
       ]
     },
     {
@@ -19894,7 +19998,7 @@
     {
       "title": "Venkovan kluk",
       "slug": "venkovan-kluk",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [],
       "tags": {
         "capo": false,
@@ -20031,7 +20135,7 @@
     {
       "title": "Vlajky vlají",
       "slug": "vlajky-vlaji",
-      "author": "Mig 21",
+      "author": "MIG 21",
       "chords": [
         "Dmi",
         "Ami",
@@ -20776,7 +20880,7 @@
     {
       "title": "What shall we do with the drunken sailor",
       "slug": "what-shall-we-do-with-the-drunken-sailor",
-      "author": "Waldemar Matuška",
+      "author": "námořnická lidová",
       "chords": [
         "Ami",
         "G",
@@ -21247,7 +21351,7 @@
     {
       "title": "Zabili, zabili",
       "slug": "zabili-zabili",
-      "author": "Miloš Štědroň a Milan Uhde (Balada pro banditu)",
+      "author": "Miloš Štědroň, Milan Uhde (Balada pro banditu)",
       "chords": [
         "C",
         "F",
@@ -21524,7 +21628,7 @@
     {
       "title": "Zavolejte stráže",
       "slug": "zavolejte-straze",
-      "author": "Zdeněk Svěrák a Jaroslav Uhlíř (Ať žijí duchové!)",
+      "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Ať žijí duchové!)",
       "chords": [
         "C",
         "G",
@@ -22524,7 +22628,7 @@
     {
       "title": "Čtyři slunce",
       "slug": "ctyri-slunce",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "Emi",
         "C",
@@ -22751,13 +22855,18 @@
     {
       "title": "Šaty dělaj člověka",
       "slug": "saty-delaj-cloveka",
-      "author": "Jan Werich a Jiří Voskovec",
+      "author": "Jaroslav Ježek, Jiří Voskovec, Jan Werich",
       "chords": [],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "authors": [
+        "Jaroslav Ježek",
+        "Jiří Voskovec",
+        "Jan Werich"
+      ]
     },
     {
       "title": "Šenkýřka",
@@ -22961,7 +23070,7 @@
     {
       "title": "Šůrka mikrofon",
       "slug": "surka-mikrofon",
-      "author": "Vypsaná fixa",
+      "author": "Vypsaná fiXa",
       "chords": [
         "G",
         "D",
