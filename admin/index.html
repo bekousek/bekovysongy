@@ -122,6 +122,14 @@
               </label>
               <button type="button" class="btn-sm" id="btn-progression-auto" title="Odvodit z textu písně">↻</button>
             </div>
+            <!-- Interní poznámka: jen pro mě, na web se nikam nedostane. -->
+            <div class="editor-note-row">
+              <label>Poznámka:
+                <input type="text" id="edit-note" class="edit-note-input"
+                       placeholder="Interní poznámka – na webu není vidět"
+                       title="Vidíš ji jen tady v editoru; v seznamu se u písně objeví tečka.">
+              </label>
+            </div>
           </div>
           <div class="editor-actions">
             <button type="button" class="btn-editor" id="btn-preview" title="Náhled">
@@ -243,6 +251,7 @@
 
   <script src="../js/chord-theory.js"></script>
   <script src="../js/song-cleanup.js"></script>
+  <script src="../js/song-edit.js"></script>
   <script src="../js/sections.js"></script>
   <script src="../js/song-template.js"></script>
   <script src="../js/song-preview.js"></script>

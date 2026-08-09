@@ -1,0 +1,1163 @@
+{
+  "_readme": "Písně, které už jednou byly navržené a Ondra je NEchce. Slouží jako paměť pro generování dalších návrhů: než nějakou píseň navrhneš, ověř, že tu není (porovnávej název i interpreta – tentýž song se občas jmenuje podle prvního verše). Soubor se needituje ručně: /admin ho doplní pokaždé, když se smaže návrh tlačítkem ✗. Není součástí veřejného webu (chybí v allowlistu .github/workflows/deploy-pages.yml) ani se nikde nezobrazuje v adminu.",
+  "rejected": [
+    {
+      "title": "(Sittin' on) The Dock of the Bay",
+      "author": "Otis Redding",
+      "slug": "sittin-on-the-dock-of-the-bay",
+      "date": "2026-08-05",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "American Pie",
+      "author": "Don McLean",
+      "slug": "american-pie",
+      "date": "2026-08-05",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Anežka",
+      "author": "Tomáš Klus",
+      "slug": "anezka",
+      "date": "2026-08-05",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Angels",
+      "author": "Robbie Williams",
+      "slug": "angels",
+      "date": "2026-08-05",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ascalona",
+      "author": "Kapitán Kid",
+      "slug": "ascalona",
+      "date": "2026-08-07",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Bad moon rising",
+      "author": "Creedence Clearwater Revival",
+      "slug": "bad-moon-rising",
+      "date": "2026-08-07",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Blowin' in the wind",
+      "author": "Bob Dylan",
+      "slug": "blowin-in-the-wind",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Blízko Little Big Hornu",
+      "author": "Greenhorns",
+      "slug": "blizko-little-big-hornu",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Bubetka",
+      "author": "Vypsaná fixa",
+      "slug": "bubetka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Bílá velryba",
+      "author": "Michal Hrůza",
+      "slug": "bila-velryba",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Cesta",
+      "author": "Tomáš Klus",
+      "slug": "cesta-2",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Chvíle",
+      "author": "Hop Trop",
+      "slug": "chvile",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Cliché",
+      "author": "Support Lesbiens",
+      "slug": "cliche",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Danse macabre",
+      "author": "",
+      "slug": "danse-macabre",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Dolsin",
+      "author": "Divokej Bill",
+      "slug": "dolsin",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Don't look back in anger",
+      "author": "Oasis",
+      "slug": "don-t-look-back-in-anger",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Dr. Dam Di Dam",
+      "author": "Václav Neckář",
+      "slug": "dr-dam-di-dam",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Drahý můj",
+      "author": "Naďa Urbánková",
+      "slug": "drahy-muj",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Držím ti miesto",
+      "author": "Team",
+      "slug": "drzim-ti-miesto",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Dust in the wind",
+      "author": "Kansas",
+      "slug": "dust-in-the-wind",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Dynamit",
+      "author": "Olympic",
+      "slug": "dynamit",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Děkuji",
+      "author": "Karel Kryl",
+      "slug": "dekuji",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "El Paso",
+      "author": "Greenhorns",
+      "slug": "el-paso",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Emigrant",
+      "author": "UDG",
+      "slug": "emigrant",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ententýky",
+      "author": "Chinaski",
+      "slug": "ententyky",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Every breath you take",
+      "author": "The Police",
+      "slug": "every-breath-you-take",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Fast car",
+      "author": "Tracy Chapman",
+      "slug": "fast-car",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Father and son",
+      "author": "Cat Stevens",
+      "slug": "father-and-son",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Generační",
+      "author": "Brontosauři",
+      "slug": "generacni",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Halelujá",
+      "author": "",
+      "slug": "haleluja",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Harfa",
+      "author": "Asonance",
+      "slug": "harfa",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Have you ever seen the rain",
+      "author": "Creedence Clearwater Revival",
+      "slug": "have-you-ever-seen-the-rain",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Hey",
+      "author": "Pixies",
+      "slug": "hey",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Hey there Delilah",
+      "author": "Plain White T's",
+      "slug": "hey-there-delilah",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Honolulu",
+      "author": "Kamelot",
+      "slug": "honolulu",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Hotel California",
+      "author": "Eagles",
+      "slug": "hotel-california",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Hrášek",
+      "author": "Brontosauři",
+      "slug": "hrasek",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Imagine",
+      "author": "John Lennon",
+      "slug": "imagine",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Japonečka",
+      "author": "",
+      "slug": "japonecka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jarmila",
+      "author": "Pavel Dobeš",
+      "slug": "jarmila",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jednoduchá",
+      "author": "Tomáš Klus",
+      "slug": "jednoducha",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jednoho dne se vrátíš",
+      "author": "Věra Špinarová",
+      "slug": "jednoho-dne-se-vratis",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jesse James",
+      "author": "Greenhorns",
+      "slug": "jesse-james",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jeřabiny",
+      "author": "Karel Kryl",
+      "slug": "jerabiny",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Joint",
+      "author": "Kabát",
+      "slug": "joint",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Jolene",
+      "author": "Dolly Parton",
+      "slug": "jolene",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kaskadér",
+      "author": "Elán",
+      "slug": "kaskader",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Katarze",
+      "author": "Slza",
+      "slug": "katarze",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kawasaki a delfín",
+      "author": "Kašpárek v rohlíku",
+      "slug": "kawasaki-a-delfin",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kdyby byl Bavorov",
+      "author": "",
+      "slug": "kdyby-byl-bavorov",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Klaunova zpověď",
+      "author": "Petr Novák",
+      "slug": "klaunova-zpoved",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Klokočí",
+      "author": "Suchý & Šlitr",
+      "slug": "klokoci",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kluci, kde jste?",
+      "author": "Rybičky 48",
+      "slug": "kluci-kde-jste",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Koukej se hnout",
+      "author": "Pacifik",
+      "slug": "koukej-se-hnout",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kočovní herci",
+      "author": "Nedvědi",
+      "slug": "kocovni-herci",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Kořenová zelenina",
+      "author": "Krausberry",
+      "slug": "korenova-zelenina",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Leaving on a jet plane",
+      "author": "John Denver",
+      "slug": "leaving-on-a-jet-plane",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Let it be",
+      "author": "The Beatles",
+      "slug": "let-it-be",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Letokruhy",
+      "author": "Traktor",
+      "slug": "letokruhy",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Lásko",
+      "author": "Divokej Bill",
+      "slug": "lasko-2",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Lásko!",
+      "author": "Karel Kryl",
+      "slug": "lasko",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Lásko, voníš deštěm",
+      "author": "Marie Rottrová",
+      "slug": "lasko-vonis-destem",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Malagelo",
+      "author": "Ivan Hlas",
+      "slug": "malagelo",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Maluj zase obrázky",
+      "author": "Hana Zagorová",
+      "slug": "maluj-zase-obrazky",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Malá díra v hlavě",
+      "author": "Daniel Landa",
+      "slug": "mala-dira-v-hlave",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mao C Tung",
+      "author": "Horkýže Slíže",
+      "slug": "mao-c-tung",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Maruška",
+      "author": "Malomocnost Prázdnoty",
+      "slug": "maruska",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "May day",
+      "author": "Folk-lok Taboo",
+      "slug": "may-day",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mississippi blues",
+      "author": "Pacifik",
+      "slug": "mississippi-blues",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mistr světa",
+      "author": "Pokáč",
+      "slug": "mistr-sveta",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Modlitba za vodu",
+      "author": "Hradišťan",
+      "slug": "modlitba-za-vodu",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mount Everest",
+      "author": "Žlutý pes",
+      "slug": "mount-everest",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mr. Brightside",
+      "author": "The Killers",
+      "slug": "mr-brightside",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Muchomůrky bílé",
+      "author": "Umakart",
+      "slug": "muchomurky-bile",
+      "date": "2026-08-08",
+      "reason": "duplicita",
+      "duplicateOf": "houby",
+      "note": "ve zpěvníku už je jako „Houby“ (Garáž)"
+    },
+    {
+      "title": "My blood",
+      "author": "Twenty One Pilots",
+      "slug": "my-blood",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Mávátka",
+      "author": "",
+      "slug": "mavatka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Máš chuť majoránky",
+      "author": "Karel Zich",
+      "slug": "mas-chut-majoranky",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Místečko",
+      "author": "Čechomor",
+      "slug": "mistecko",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Můj rodný dům",
+      "author": "Pavel Bobek",
+      "slug": "muj-rodny-dum",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Můj svět",
+      "author": "Chinaski",
+      "slug": "muj-svet",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Nahý",
+      "author": "Richard Müller",
+      "slug": "nahy",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Nebe na zemi",
+      "author": "Jan Werich a Jiří Voskovec",
+      "slug": "nebe-na-zemi",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Nevidomá dívka",
+      "author": "Karel Kryl",
+      "slug": "nevidoma-divka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Nezacházej slunce",
+      "author": "Žalman & spol.",
+      "slug": "nezachazej-slunce",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "No woman, no cry",
+      "author": "Bob Marley",
+      "slug": "no-woman-no-cry",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Něco o lásce",
+      "author": "Pavel Dobeš",
+      "slug": "neco-o-lasce",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ob-La-Di, Ob-La-Da",
+      "author": "The Beatles",
+      "slug": "ob-la-di-ob-la-da",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Oranžový expres",
+      "author": "Greenhorns",
+      "slug": "oranzovy-expres",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Osmý den",
+      "author": "Olympic",
+      "slug": "osmy-den",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Otec",
+      "author": "Para",
+      "slug": "otec",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Otevřená zlomenina srdečního svalu",
+      "author": "Wanastowi Vjecy",
+      "slug": "otevrena-zlomenina-srdecniho-svalu-2",
+      "date": "2026-07-19",
+      "reason": "duplicita",
+      "duplicateOf": "otevrena-zlomenina-srdecniho-svalu",
+      "note": "ve zpěvníku už je jako „Otevřená zlomenina srdečního svalu“ (Wanastowi Vjecy)"
+    },
+    {
+      "title": "Otevři oči",
+      "author": "Wanastowi Vjecy",
+      "slug": "otevri-oci",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Outsider waltz",
+      "author": "Wabi Daněk",
+      "slug": "outsider-waltz",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ovčia koža",
+      "author": "Ploštín Punk",
+      "slug": "ovcia-koza",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Parta bláznů",
+      "author": "Folk-lok",
+      "slug": "parta-blaznu",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Pedro se vrací",
+      "author": "Wohnout",
+      "slug": "pedro-se-vraci",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Placky",
+      "author": "Pokáč",
+      "slug": "placky",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Plaváček",
+      "author": "Karel Kryl",
+      "slug": "plavacek",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Plán",
+      "author": "Kryštof",
+      "slug": "plan",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Pláž",
+      "author": "Kamelot",
+      "slug": "plaz",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Podléhám",
+      "author": "Chinaski",
+      "slug": "podleham",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Poslední kovboj",
+      "author": "Michal Tučný",
+      "slug": "posledni-kovboj",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Pověst havrana",
+      "author": "Kamelot",
+      "slug": "povest-havrana",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Pár havraních copánků",
+      "author": "Suchý & Šlitr",
+      "slug": "par-havranich-copanku",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Pár minut",
+      "author": "COP",
+      "slug": "par-minut",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Píseň o rose",
+      "author": "Suchý & Šlitr",
+      "slug": "pisen-o-rose",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Píseň, co mě učil listopad",
+      "author": "Wabi Daněk",
+      "slug": "pisen-co-me-ucil-listopad",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Redemption song",
+      "author": "Bob Marley",
+      "slug": "redemption-song",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "René, já a Rudolf",
+      "author": "Jiří Schelinger",
+      "slug": "rene-ja-a-rudolf",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Rock'n'roll pro Beethovena",
+      "author": "Ivan Hlas",
+      "slug": "rock-n-roll-pro-beethovena",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ráno bylo stejný",
+      "author": "Žalman & spol.",
+      "slug": "rano-bylo-stejny",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "S tím bláznem si nic nezačínej",
+      "author": "Pavel Bobek",
+      "slug": "s-tim-blaznem-si-nic-nezacinej",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Salome",
+      "author": "Karel Kryl",
+      "slug": "salome",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Save tonight",
+      "author": "Eagle-Eye Cherry",
+      "slug": "save-tonight",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Selfmademan",
+      "author": "Hop Trop",
+      "slug": "selfmademan",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Siluety",
+      "author": "Mandrage",
+      "slug": "siluety",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Skládanka",
+      "author": "Honza Nedvěd",
+      "slug": "skladanka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Slunovrat",
+      "author": "Brontosauři",
+      "slug": "slunovrat",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Smoke on the water",
+      "author": "Deep Purple",
+      "slug": "smoke-on-the-water",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Stairway to heaven",
+      "author": "Led Zeppelin",
+      "slug": "stairway-to-heaven",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Stará archa (Kocábka)",
+      "author": "Spirituál Kvintet",
+      "slug": "stara-archa-kocabka",
+      "date": "2026-08-08",
+      "reason": "duplicita",
+      "duplicateOf": "kocabka",
+      "note": "ve zpěvníku už je jako „Stará archa (Kocábka)“ (Spirituál Kvintet)"
+    },
+    {
+      "title": "Starý muž",
+      "author": "",
+      "slug": "stary-muz",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Stříhali dohola malého chlapečka",
+      "author": "Vladimír Mišík",
+      "slug": "strihali-dohola-maleho-chlapecka",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Svatava",
+      "author": "",
+      "slug": "svatava",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Svědomí",
+      "author": "Kryštof",
+      "slug": "svedomi",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Sweet Caroline",
+      "author": "Neil Diamond",
+      "slug": "sweet-caroline",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Tak už mi má holka mává",
+      "author": "Pacifik",
+      "slug": "tak-uz-mi-ma-holka-mava",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Tam u nebeských bran",
+      "author": "Michal Tučný",
+      "slug": "tam-u-nebeskych-bran",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Tamaryšek",
+      "author": "Chinaski",
+      "slug": "tamarysek",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Tancuj, tancuj",
+      "author": "",
+      "slug": "tancuj-tancuj",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "The Boxer",
+      "author": "Simon & Garfunkel",
+      "slug": "the-boxer",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "To všechno vodnes čas",
+      "author": "Waldemar Matuška",
+      "slug": "to-vsechno-vodnes-cas",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Under the bridge",
+      "author": "Red Hot Chili Peppers",
+      "slug": "under-the-bridge",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Use somebody",
+      "author": "Kings of Leon",
+      "slug": "use-somebody",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Už dlouho nemluvíš",
+      "author": "Vypsaná fixa",
+      "slug": "uz-dlouho-nemluvis",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vinárna u Valdštejna",
+      "author": "Chinaski",
+      "slug": "vinarna-u-valdstejna",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vlčí srdce",
+      "author": "Jelen",
+      "slug": "vlci-srdce",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vojín XY hlásí příchod",
+      "author": "Katapult",
+      "slug": "vojin-xy-hlasi-prichod",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vítr do plachet",
+      "author": "Marek Ztracený",
+      "slug": "vitr-do-plachet",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vítr to ví",
+      "author": "Waldemar Matuška",
+      "slug": "vitr-to-vi",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Všech vandráků múza",
+      "author": "Žalman & spol.",
+      "slug": "vsech-vandraku-muza",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Vůně léta",
+      "author": "Fragment",
+      "slug": "vune-leta",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Wagon wheel",
+      "author": "Old Crow Medicine Show",
+      "slug": "wagon-wheel",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Wehikuł czasu",
+      "author": "Dżem",
+      "slug": "wehikul-czasu",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "What's up",
+      "author": "4 non blondes",
+      "slug": "what-s-up",
+      "date": "2026-08-08",
+      "reason": "duplicita",
+      "duplicateOf": "whats-up",
+      "note": "ve zpěvníku už je jako „Whats up“ (4 non blondes)"
+    },
+    {
+      "title": "Whiskey in the jar",
+      "author": "",
+      "slug": "whiskey-in-the-jar",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Whisky, to je moje gusto",
+      "author": "Greenhorns",
+      "slug": "whisky-to-je-moje-gusto",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Wind of change",
+      "author": "Scorpions",
+      "slug": "wind-of-change",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Za chvíli už budu v dáli",
+      "author": "Greenhorns",
+      "slug": "za-chvili-uz-budu-v-dali",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Zachraňte koně",
+      "author": "Kamelot",
+      "slug": "zachrante-kone",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Zadarmo",
+      "author": "Chinaski",
+      "slug": "zadarmo",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Zbirka zvadlejch ruzi",
+      "author": "Wanastowi Vjecy",
+      "slug": "zbirka-zvadlejch-ruzi",
+      "date": "2026-08-08",
+      "reason": "duplicita",
+      "duplicateOf": "sbirka-zvadlejch-ruzi",
+      "note": "ve zpěvníku už je jako „Sbírka zvadlejch růží“ (Wanastowi Vjecy)"
+    },
+    {
+      "title": "Zejtra je taky den",
+      "author": "Pokáč",
+      "slug": "zejtra-je-taky-den",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Zelená",
+      "author": "Tři sestry",
+      "slug": "zelena",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Země antilop",
+      "author": "Kamelot",
+      "slug": "zeme-antilop",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Zrození hvězd",
+      "author": "Kamelot",
+      "slug": "zrozeni-hvezd",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Závod",
+      "author": "Vypsaná fixa",
+      "slug": "zavod",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Árie měsíce",
+      "author": "Waldemar Matuška",
+      "slug": "arie-mesice",
+      "date": "2026-08-07",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Černobílý svět",
+      "author": "Totální nasazení",
+      "slug": "cernobily-svet",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Červený most",
+      "author": "Záviš",
+      "slug": "cerveny-most",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ľudia nie sú zlí",
+      "author": "IMT Smile",
+      "slug": "ludia-nie-su-zli",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Šatna",
+      "author": "Chinaski",
+      "slug": "satna",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Ženy",
+      "author": "Kryštof",
+      "slug": "zeny",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    },
+    {
+      "title": "Žily",
+      "author": "No Name",
+      "slug": "zily",
+      "date": "2026-08-08",
+      "reason": "odmítnuto"
+    }
+  ]
+}

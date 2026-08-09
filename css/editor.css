@@ -183,13 +183,15 @@
   color: var(--accent);
 }
 
-/* Free-text remark carried by an imported návrh ("ověř, zda ≠ …"). */
+/* "There's a note on this one" - the text itself lives in the tooltip and in
+   #edit-note, so a row with a note stays exactly as tall as one without. */
 .song-list li .song-list-note {
-  display: block;
   font-size: 0.7rem;
+  color: var(--text-dim);
+  cursor: help;
+}
+.song-list li:hover .song-list-note {
   color: var(--accent);
-  opacity: 0.8;
-  margin-top: 0.1rem;
 }
 
 .btn-check-toggle {
@@ -644,6 +646,43 @@ select.edit-meta-input {
 
 .edit-progression-input:focus {
   border-color: var(--accent);
+}
+
+/* Same full-width row for the internal note. Deliberately quieter than the
+   fields above it - it's a remark to myself, not song data. */
+.editor-note-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 100%;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.editor-note-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-note-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.25rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: var(--font);
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+}
+
+.edit-note-input:focus {
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .edit-title-input {

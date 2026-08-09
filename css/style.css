@@ -686,17 +686,30 @@ a:hover {
   font-style: normal;
   user-select: none;
 }
-/* A freely-named section ("//Coda", "//VYBRNKÁVÁNÍ") has a label far too
-   wide for that gutter, so it gets its own line above the body instead. */
+/* A freely-named section ("//M", "//Coda", "//VYBRNKÁVÁNÍ") reads like R and
+   B: the label sits in the gutter and the text starts on the same line. It
+   floats rather than being absolutely positioned because the name can be any
+   length - a short one ("M:") fits in the gutter and costs the body nothing,
+   a long one pushes only the first line to the right instead of taking a
+   whole line of its own. */
 .section-custom > .section-head {
   position: static;
-  display: block;
+  float: left;
   margin-left: -2.4em;
+  padding-right: 0.5em;
+}
+/* Contain that float: an empty or one-line section would otherwise let the
+   label hang over whatever follows. */
+.section-custom::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 /* A marker with no body at all is a heading the author wrote to name a
    passage, not a collapsed repeat - keep the label in the text flow. */
 .song-section.is-heading > .section-head {
   position: static;
+  float: none;
   display: inline-block;
   margin-left: -2.4em;
 }
@@ -723,6 +736,7 @@ a:hover {
    line: label pulled back to the left edge, body starts on the next line. */
 .song-section.has-note .section-head {
   position: static;
+  float: none;
   display: inline-block;
   margin-left: -2.4em;
 }
@@ -736,6 +750,7 @@ a:hover {
 }
 .song-text:not(.show-repeats) .is-repeat .section-head {
   position: static;
+  float: none;
   display: inline-block;
   margin-left: 0;
   padding: 0 0.65em;

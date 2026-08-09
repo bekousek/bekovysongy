@@ -25,9 +25,10 @@ a otevřít `http://localhost:8137/`.
 | `index.html`, `na-kytaru/`, `na-foukaci-harmoniku/`, `na-kalimbu/` | veřejné stránky |
 | `songs/*.html` | jednotlivé písně (statické HTML, generované/editované) |
 | `songs.json` | metadata a akordy všech písní (čte je `js/table.js`, `admin/`) |
-| `js/` | `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `table.js` (seznam písní), `player.js` (transpozice/metronom/ladička), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
+| `js/` | `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `table.js` (seznam písní), `player.js` (transpozice/metronom/ladička), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
 | `css/` | `style.css` (celý web), `editor.css` (jen admin) |
 | `song-previews.json` | 30s ukázky k návrhům pro triage v `/admin` (viz níže) |
+| `navrhy-zamitnute.json` | odmítnuté návrhy písní — paměť pro generování dalších (viz níže) |
 | `admin/` | in-browser editor, viz níže |
 | `test/` | `node --test` sada pro `sections.js`/`song-cleanup.js`/`chords.js` |
 | `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js` |
@@ -103,6 +104,29 @@ jednou, ne při každém deployi. Skript je proto resumovatelný — průběžn�
 zapisuje, hotové návrhy přeskakuje a zpomaluje se, když API začne škrtit —
 a klidně se pustí víckrát za sebou.
 
+## Odmítnuté návrhy (`navrhy-zamitnute.json`)
+
+Seznam písní, které už jednou byly navržené a **nechci je**. Existuje kvůli
+jediné věci: než se vygeneruje další dávka návrhů, projde se tenhle soubor,
+aby se v ní neobjevilo znovu to, co už jsem jednou odmítl.
+
+```json
+{ "title": "American Pie", "author": "Don McLean", "slug": "american-pie",
+  "date": "2026-08-05", "reason": "odmítnuto" }
+```
+
+Porovnávej **název i interpreta** — tentýž song se ve zpěvníku občas jmenuje
+podle prvního verše, takže shoda názvů sama o sobě nestačí. `reason` je buď
+`odmítnuto` (nechci ji), nebo `duplicita` (už ve zpěvníku je, jen pod jiným
+názvem — pak je u ní `duplicateOf` se slugem té, která zůstala).
+
+Needituje se ručně: `/admin` do něj přidá každý návrh smazaný tlačítkem ✗,
+ve stejném commitu, ve kterém ho odebere ze `songs.json`. Původní obsah je
+zpětně poskládaný z historie `songs.json` v gitu.
+
+Soubor **není** ve veřejném webu (chybí v allowlistu
+`.github/workflows/deploy-pages.yml`) a nikde se nezobrazuje ani v adminu.
+
 ## Datová pipeline (import písní)
 
 Písně vznikají dvěma cestami: ručně přes `/admin`, nebo importem z externích
@@ -149,6 +173,29 @@ In-browser editor pro úpravu existujících písní, chráněný dvěma vrstvam
 
 Uložení z editoru vytvoří jeden atomický commit (přes GitHub Git Data API) do
 `songs/<slug>.html` i `songs.json` zároveň, což spustí `deploy-pages.yml`.
+
+### Jak se v editoru píše (`js/song-edit.js`)
+
+Textové pole je `contenteditable`, ale **editaci nedělá prohlížeč**. Každý
+`beforeinput` se odchytí a přepočítá na plochý model: text písně jako jeden
+řetězec, ve kterém je každý akord **jeden znak**. Jeden stisk klávesy proto
+vždycky smaže právě jednu věc — písmeno, nebo celý akord.
+
+Důvod je měřitelný: Chrome si s akordy jako `contenteditable="false"` spany
+neporadí. Delete na konci řádku, pod kterým řádek začíná akordem, smazal
+konec řádku i ten akord; výběr, jehož oba konce padly dovnitř akordů, nešel
+smazat vůbec; a smazání ručně vybraného `\n` umazalo znak před ním. V modelu
+nic z toho nastat nemůže — proto se tam počítá všechno, včetně Enteru,
+vkládání akordů a ohrazování sekcí (`//R … R//`).
+
+Z toho plyne i vlastní **undo/redo** (Ctrl+Z / Ctrl+Shift+Z, Ctrl+Y):
+prohlížečové by stejně nefungovalo, protože o všech těchto úpravách neví —
+undo po vložení akordu vracelo to, co se psalo *před ním*, a akord nechávalo
+být. Souvislé psaní se slučuje do jednoho kroku.
+
+Model je čistě řetězcový (žádný DOM), takže je otestovaný v
+`test/song-edit.test.js`; `js/editor.js` k němu dodává jen převod kurzoru na
+offset a zpátky.
 
 ## Nasazení
 

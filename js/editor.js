@@ -7,6 +7,11 @@
   const REPO_PATH_PREFIX = 'songs/';
   const SONGS_JSON_PATH = 'songs.json';
   const PREVIEWS_JSON_PATH = 'song-previews.json';
+  // Memory of thrown-away návrhy, so the next batch of generated suggestions
+  // doesn't hand back what's already been turned down. Never fetched by the
+  // site or shown anywhere in here - it exists purely to be read later, and
+  // it isn't in the deploy allowlist, so it never leaves the repository.
+  const REJECTED_JSON_PATH = 'navrhy-zamitnute.json';
 
   // === Song status ===
   // Four buckets in the sidebar, in workflow order. The first two are
@@ -156,6 +161,7 @@
   const editLanguage = document.getElementById('edit-language');
   const editProgression = document.getElementById('edit-progression');
   const btnProgressionAuto = document.getElementById('btn-progression-auto');
+  const editNote = document.getElementById('edit-note');
   const editorArea = document.getElementById('editor-area');
   const editorBody = document.getElementById('editor-body');
   const editorPreview = document.getElementById('editor-preview');
@@ -198,9 +204,10 @@
   //   and for drafts that have none yet), title, authors (string[]),
   //   capo (int, 0 = none), language, body (<pre> innerHTML),
   //   progression (#edit-progression's raw text, e.g. "G C | Ami D"),
+  //   note (internal remark, songs.json only - never rendered on the site),
   //   baseTitle, baseAuthors, baseCapo, baseLanguage, baseBody,
-  //   baseProgression (values at load time / last successful save - used to
-  //   detect dirtiness) }
+  //   baseProgression, baseNote (values at load time / last successful save -
+  //   used to detect dirtiness) }
   const pendingEdits = new Map();
 
   // slug -> the status the song had when songs.json was loaded (or when it
@@ -346,6 +353,7 @@
     editCapo.addEventListener('input', syncCurrentEdits);
     editLanguage.addEventListener('change', syncCurrentEdits);
     editProgression.addEventListener('input', syncCurrentEdits);
+    editNote.addEventListener('input', syncCurrentEdits);
     btnProgressionAuto.addEventListener('click', () => {
       if (!currentSong) return;
       editProgression.value = SongSections.progressionToText(SongSections.deriveProgression(readBody()));
@@ -393,8 +401,12 @@
       }
     });
 
-    // Enter/Shift+Enter, chord deletion, and paste-as-plain-text all keep
-    // the contenteditable down to text nodes + chord spans.
+    // Every edit to the song text goes through the flat model in
+    // js/song-edit.js (see handleBeforeInput) - that's what keeps the
+    // contenteditable down to text nodes + chord spans and makes a chord
+    // behave as one indivisible character. Ctrl+Z/Ctrl+Y drive this
+    // editor's own history, and paste stays plain text.
+    editorArea.addEventListener('beforeinput', handleBeforeInput);
     editorArea.addEventListener('keydown', handleEditorKeydown);
     editorArea.addEventListener('paste', handlePaste);
 
@@ -643,11 +655,21 @@
       authorSpan.className = 'song-list-author';
       authorSpan.textContent = authorsText(authorsOf(song));
       main.appendChild(authorSpan);
-      if (song.note) {
-        const noteSpan = document.createElement('span');
-        noteSpan.className = 'song-list-note';
-        noteSpan.textContent = song.note;
-        main.appendChild(noteSpan);
+      // An internal note is marked, not printed: the rows have to stay one
+      // line tall to scroll through 750 of them, and the note itself is
+      // mostly a reminder to my future self ("ověř, zda ≠ …"). The full text
+      // is one hover away, and in the editor when the song is open. Pending
+      // edits win, so typing a note lights the row up straight away.
+      const pending = pendingEdits.get(song.slug);
+      const noteText = ((pending ? pending.note : song.note) || '').trim();
+      if (noteText) {
+        const noteMark = document.createElement('span');
+        noteMark.className = 'song-list-note';
+        noteMark.textContent = '✎';
+        noteMark.title = noteText;
+        noteMark.setAttribute('aria-label', 'Poznámka: ' + noteText);
+        titleSpan.appendChild(document.createTextNode(' '));
+        titleSpan.appendChild(noteMark);
       }
       li.appendChild(main);
 
@@ -1067,7 +1089,7 @@
     return e.isNew || e.title !== e.baseTitle ||
       authorsText(e.authors) !== authorsText(e.baseAuthors) ||
       e.capo !== e.baseCapo || e.language !== e.baseLanguage || e.body !== e.baseBody ||
-      e.progression !== e.baseProgression;
+      e.progression !== e.baseProgression || e.note !== e.baseNote;
   }
 
   function isStatusDirty(slug) {
@@ -1101,6 +1123,7 @@
     e.language = editLanguage.value;
     e.body = readBody();
     e.progression = editProgression.value;
+    e.note = editNote.value;
     refreshDirtyUI();
     schedulePreview();
   }
@@ -1321,7 +1344,9 @@
       editCapo.value = cached.capo || '';
       editLanguage.value = cached.language;
       editProgression.value = cached.progression || '';
+      editNote.value = cached.note || '';
       setBody(cached.body);
+      resetHistory();
       syncHotbarToSong(song, cached.body);
       renderPreview();
       filterSongList();
@@ -1341,12 +1366,15 @@
     // (like title/author/tags above), not the per-song GitHub fetch below.
     const progressionText = SongSections.progressionToText(song.progression || []);
     editProgression.value = progressionText;
+    const note = song.note || '';
+    editNote.value = note;
 
     const capo = (song.tags && typeof song.tags.capo === 'number') ? song.tags.capo : 0;
     const language = (song.tags && song.tags.language) || '';
 
     function startEditing(rawHtml, body) {
       setBody(body);
+      resetHistory(); // undo never reaches back into a previously open song
       syncHotbarToSong(song, body);
       renderPreview();
       pendingEdits.set(song.slug, {
@@ -1361,12 +1389,14 @@
         // pre-normalization regex capture.
         body: readBody(),
         progression: progressionText,
+        note,
         baseTitle: song.title,
         baseAuthors: authorsOf(song),
         baseCapo: capo,
         baseLanguage: language,
         baseBody: readBody(),
-        baseProgression: progressionText
+        baseProgression: progressionText,
+        baseNote: note
       });
       filterSongList();
     }
@@ -1453,76 +1483,200 @@
     return editorArea.innerHTML.replace(/ contenteditable="false"/g, '');
   }
 
-  function insertNodeAtCaret(node) {
-    const sel = window.getSelection();
-    if (!sel.rangeCount || !editorArea.contains(sel.anchorNode)) {
-      editorArea.appendChild(node);
-    } else {
-      const range = sel.getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(node);
+  // === Caret <-> model offsets ===
+  // The DOM side of js/song-edit.js: the area's children map onto that
+  // module's flat string, a chord span counting as the single MARKER
+  // character it is there. Every edit is expressed as offsets into that
+  // string, so nothing in this editor ever has to reason about a range
+  // boundary that landed inside a chord span again.
+
+  // Direct child of .editor-area that contains `node`, or null.
+  function topChildOf(node) {
+    while (node && node !== editorArea && node.parentNode !== editorArea) {
+      node = node.parentNode;
     }
-    placeCaretAfter(node);
+    return node && node !== editorArea ? node : null;
   }
 
-  function placeCaretAfter(node) {
+  function childLength(n) {
+    return n.nodeType === Node.TEXT_NODE ? n.nodeValue.length : 1;
+  }
+
+  // DOM position -> model offset. `side` decides where a position that fell
+  // INSIDE a chord span goes: 'left'/'right' push a selection's ends outwards
+  // so the chord is wholly in or wholly out, 'near' snaps a caret to the
+  // closer edge.
+  function modelOffset(node, offset, side) {
+    if (!node) return 0;
+    if (node === editorArea) {
+      let at = 0;
+      for (let k = 0; k < offset && k < editorArea.childNodes.length; k++) {
+        at += childLength(editorArea.childNodes[k]);
+      }
+      return at;
+    }
+    const top = topChildOf(node);
+    if (!top) return 0;
+    let at = 0;
+    for (let k = 0; k < editorArea.childNodes.length; k++) {
+      const child = editorArea.childNodes[k];
+      if (child === top) {
+        if (child.nodeType === Node.TEXT_NODE) {
+          return at + Math.min(offset, child.nodeValue.length);
+        }
+        if (side === 'left') return at;
+        if (side === 'right') return at + 1;
+        return at + (offset > 0 ? 1 : 0);
+      }
+      at += childLength(child);
+    }
+    return at;
+  }
+
+  // Model offset -> DOM position, for putting the caret back.
+  function domPosition(index) {
+    const nodes = editorArea.childNodes;
+    let at = 0;
+    for (let k = 0; k < nodes.length; k++) {
+      const child = nodes[k];
+      if (child.nodeType === Node.TEXT_NODE) {
+        const len = child.nodeValue.length;
+        if (index <= at + len) return { node: child, offset: index - at };
+        at += len;
+      } else {
+        if (index <= at) return { node: editorArea, offset: k };
+        at += 1;
+      }
+    }
+    return { node: editorArea, offset: nodes.length };
+  }
+
+  // The current selection as model offsets, or null when the caret isn't in
+  // the editing area at all.
+  function selectionOffsets() {
+    const sel = window.getSelection();
+    if (!sel || !sel.rangeCount) return null;
+    const range = sel.getRangeAt(0);
+    const root = range.commonAncestorContainer;
+    if (root !== editorArea && !editorArea.contains(root)) return null;
+    if (range.collapsed) {
+      const at = modelOffset(range.startContainer, range.startOffset, 'near');
+      return { from: at, to: at };
+    }
+    return {
+      from: modelOffset(range.startContainer, range.startOffset, 'left'),
+      to: modelOffset(range.endContainer, range.endOffset, 'right')
+    };
+  }
+
+  // Same thing, but never null: with no caret in the area (a toolbar button
+  // clicked before ever clicking into the text) an edit lands at the end.
+  function selectionOrEnd() {
+    const sel = selectionOffsets();
+    if (sel) return sel;
+    const end = readModel().text.length;
+    return { from: end, to: end };
+  }
+
+  function readModel() {
+    return SongEdit.parse(readBody());
+  }
+
+  function placeCaret(from, to) {
     const sel = window.getSelection();
     const range = document.createRange();
-    range.setStartAfter(node);
-    range.collapse(true);
+    const a = domPosition(from);
+    const b = to === from ? a : domPosition(to);
+    range.setStart(a.node, a.offset);
+    range.setEnd(b.node, b.offset);
     sel.removeAllRanges();
     sel.addRange(range);
-    editorArea.focus();
   }
 
-  // Plain text at the caret. Used by Enter, paste and the fence buttons, so
-  // all three produce the same kind of content.
-  function insertTextAtCaret(text) {
-    if (!text) return;
-    insertNodeAtCaret(document.createTextNode(text));
+  // Writes an edit back: rendered model in, caret restored, song marked
+  // dirty. Assigning innerHTML fires no `input` event, so the sync is
+  // explicit - and it re-establishes the "text nodes + chord spans only"
+  // invariant on every single edit rather than hoping it survived.
+  function writeModel(result, historyKind) {
+    if (historyKind !== null) pushHistory(historyKind === undefined ? '' : historyKind);
+    setBody(SongEdit.render(result.model));
+    editorArea.focus();
+    placeCaret(result.from, result.to === undefined ? result.from : result.to);
+    if (currentSong) syncCurrentEdits();
+  }
+
+  // === Undo / redo ===
+  // The editor's own, because the browser's stopped being usable here long
+  // ago: every chord insert, every Enter and every toolbar action rewrites
+  // the DOM behind its back, and it silently skips them - undo after
+  // inserting a chord takes back whatever was typed BEFORE it and leaves the
+  // chord sitting there. This stack sees every edit, because every edit goes
+  // through writeModel().
+  //
+  // Consecutive edits of the same kind inside COALESCE_MS collapse into one
+  // entry, so undo takes back a typed word rather than a letter.
+  const HISTORY_MAX = 200;
+  const COALESCE_MS = 1200;
+  let undoStack = [];
+  let redoStack = [];
+  let historyKind = '';
+  let historyAt = 0;
+
+  function snapshotState() {
+    const model = readModel();
+    const sel = selectionOffsets() || { from: model.text.length, to: model.text.length };
+    return { text: model.text, chords: model.chords.slice(), from: sel.from, to: sel.to };
+  }
+
+  function resetHistory() {
+    undoStack = [];
+    redoStack = [];
+    historyKind = '';
+    historyAt = 0;
+  }
+
+  function pushHistory(kind) {
+    const now = Date.now();
+    const coalesce = undoStack.length && kind !== '' &&
+      kind === historyKind && (now - historyAt) < COALESCE_MS;
+    if (!coalesce) {
+      undoStack.push(snapshotState());
+      if (undoStack.length > HISTORY_MAX) undoStack.shift();
+    }
+    historyKind = kind;
+    historyAt = now;
+    redoStack = [];
+  }
+
+  function restoreState(state) {
+    setBody(SongEdit.render({ text: state.text, chords: state.chords }));
+    editorArea.focus();
+    placeCaret(state.from, state.to);
+    if (currentSong) syncCurrentEdits();
+  }
+
+  function undoEdit() {
+    if (!undoStack.length) return;
+    redoStack.push(snapshotState());
+    restoreState(undoStack.pop());
+    historyKind = '';
+  }
+
+  function redoEdit() {
+    if (!redoStack.length) return;
+    undoStack.push(snapshotState());
+    restoreState(redoStack.pop());
+    historyKind = '';
   }
 
   // === Chord insertion ===
   function insertChord(chordName) {
     if (!chordName) return;
-
     editorArea.focus();
-    const sel = window.getSelection();
-    if (!sel.rangeCount) return;
-
-    const range = sel.getRangeAt(0);
-
-    const span = makeChordSpan(chordName);
-
-    // Insert a space before the chord unless there already is one. The caret
-    // can sit inside a text node (normal typing) or between children (right
-    // after a previous programmatic insert) - both have to be looked at, or
-    // a chord dropped straight after a word glues itself onto it.
-    const before = range.startContainer;
-    let charBefore = null;
-    if (before.nodeType === Node.TEXT_NODE) {
-      charBefore = before.textContent[range.startOffset - 1];
-    } else if (range.startOffset > 0) {
-      const prev = before.childNodes[range.startOffset - 1];
-      if (prev && prev.nodeType === Node.TEXT_NODE) charBefore = prev.textContent.slice(-1);
-      else if (prev) charBefore = 'x'; // an element (another chord) - needs a space
-    }
-    if (charBefore && charBefore !== ' ' && charBefore !== '\n') {
-      range.insertNode(document.createTextNode(' '));
-      range.collapse(false);
-    }
-
-    range.insertNode(span);
-
-    // Insert space after
-    const spaceAfter = document.createTextNode(' ');
-    span.after(spaceAfter);
-
-    placeCaretAfter(spaceAfter);
-
+    const sel = selectionOrEnd();
+    writeModel(SongEdit.insertChord(readModel(), sel.from, sel.to, chordName), 'chord');
     chordInput.value = '';
     addToHotbar(chordName);
-    if (currentSong) syncCurrentEdits();
   }
 
   // === Chord hotbar ===
@@ -1627,60 +1781,24 @@
     sectionBtnPreview.textContent = '//' + name + ' … ' + name + '//';
   }
 
+  // The markers are wrapped around the SELECTED OFFSETS, not around a DOM
+  // range: the chorus being fenced usually starts with a chord, and a range
+  // that starts inside that chord's span used to swallow the whole section
+  // into it - the fence markers included, which is why the chord highlight
+  // ran on to the end of the chorus.
   function insertFence(name) {
     if (!name) return;
-    const repeat = name === SongSections.REPEAT_NAME;
-    const open = '//' + name;
-    const close = name + '//';
-
     editorArea.focus();
-    const sel = window.getSelection();
-    const range = sel.rangeCount && editorArea.contains(sel.anchorNode) ? sel.getRangeAt(0) : null;
-
-    // A repeat brackets the selected text inline; a section wraps whole
-    // lines, so its markers get lines of their own.
-    const sep = repeat ? ' ' : '\n';
-    const lineStart = atLineStart(range);
-
-    if (range && !range.collapsed) {
-      // extractContents (not toString) - the selection is usually a chorus,
-      // and a chorus is full of chord spans that must survive being fenced.
-      const frag = range.extractContents();
-      const head = document.createTextNode((lineStart ? '' : '\n') + open + sep);
-      const tail = document.createTextNode(sep + close);
-      frag.insertBefore(head, frag.firstChild);
-      frag.appendChild(tail);
-      range.insertNode(frag);
-      placeCaretAfter(tail);
-    } else {
-      // Empty pair: put the caret on the line (or between the brackets)
-      // where the text is about to go.
-      const head = document.createTextNode((lineStart ? '' : '\n') + open + sep);
-      const tail = document.createTextNode(sep + close);
-      insertNodeAtCaret(head);
-      insertNodeAtCaret(tail);
-      const r = document.createRange();
-      r.setStartBefore(tail);
-      r.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(r);
-    }
-
-    if (currentSong) syncCurrentEdits();
-  }
-
-  function atLineStart(range) {
-    if (!range) return true;
-    const node = range.startContainer;
-    if (node.nodeType !== Node.TEXT_NODE || range.startOffset === 0) return true;
-    const ch = node.textContent[range.startOffset - 1];
-    return !ch || ch === '\n';
+    const sel = selectionOrEnd();
+    const inline = name === SongSections.REPEAT_NAME;
+    writeModel(SongEdit.wrapFence(readModel(), sel.from, sel.to, name, inline), 'fence');
   }
 
   // === Cleanup / transpose actions ===
   function applyCleanup(fn) {
     if (!currentSong) return;
     try {
+      pushHistory('');
       setBody(fn(readBody()));
       syncCurrentEdits();
       setStatus('Upraveno (zatím neuloženo)', '');
@@ -1709,53 +1827,94 @@
   }
 
   // === Editor keydown handling ===
+  // Only the two things `beforeinput` can't do: undo/redo (the browser stops
+  // reporting historyUndo once its own stack is empty, and preventing every
+  // edit empties it immediately) and Escape-free navigation. Everything that
+  // changes the text is handled in handleBeforeInput.
   function handleEditorKeydown(e) {
-    // Enter = new paragraph (a blank line, which is what separates blocks in
-    // a song), Shift+Enter = plain line break inside the same paragraph. The
-    // browser's own Enter handling wraps things in <div>/<br> differently
-    // depending on where the caret is, which is exactly what made this
-    // unpredictable - so it never gets to run.
-    if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+    const key = e.key.toLowerCase();
+    if (key === 'z' && !e.shiftKey) {
       e.preventDefault();
-      insertTextAtCaret(e.shiftKey ? '\n' : '\n\n');
+      undoEdit();
+    } else if ((key === 'z' && e.shiftKey) || key === 'y') {
+      e.preventDefault();
+      redoEdit();
+    }
+  }
+
+  // === Every edit, in one place ===
+  // The area is contenteditable, so the browser wants to do the editing. It
+  // is not allowed to: `beforeinput` names what is about to happen, this
+  // turns that into offsets on the flat model in js/song-edit.js, and
+  // writeModel() renders the result back. One keypress therefore always
+  // removes exactly one unit - a character or a whole chord - whatever the
+  // DOM around the caret happens to look like.
+  //
+  // Composition (dead keys, IME) is left to the browser: it owns a
+  // multi-keystroke sequence and interrupting it mid-way loses the accent.
+  // The `input` listener syncs whatever it produces.
+  const DELETE_RANGE = {
+    deleteContentBackward: (t, i) => [SongEdit.stepBack(t, i), i],
+    deleteContent: (t, i) => [SongEdit.stepBack(t, i), i],
+    deleteContentForward: (t, i) => [i, SongEdit.stepForward(t, i)],
+    deleteWordBackward: (t, i) => [SongEdit.wordBack(t, i), i],
+    deleteWordForward: (t, i) => [i, SongEdit.wordForward(t, i)],
+    deleteSoftLineBackward: (t, i) => [SongEdit.lineBack(t, i), i],
+    deleteHardLineBackward: (t, i) => [SongEdit.lineBack(t, i), i],
+    deleteSoftLineForward: (t, i) => [i, SongEdit.lineForward(t, i)],
+    deleteHardLineForward: (t, i) => [i, SongEdit.lineForward(t, i)]
+  };
+
+  function handleBeforeInput(e) {
+    if (e.isComposing) return;
+    const type = e.inputType || '';
+    if (type.indexOf('Composition') !== -1) return;
+
+    const sel = selectionOffsets();
+    if (!sel) return;
+
+    if (type.indexOf('delete') === 0) {
+      e.preventDefault();
+      // Dragging text about is off (see insertFromDrop below), so the
+      // matching delete has to be off too - otherwise the dragged text is
+      // removed here and never put back down.
+      if (type === 'deleteByDrag') return;
+      const model = readModel();
+      let from = sel.from;
+      let to = sel.to;
+      if (from === to) {
+        const unit = DELETE_RANGE[type];
+        if (!unit) return; // deleteByDrag/deleteByCut with nothing selected
+        const span = unit(model.text, from);
+        from = span[0];
+        to = span[1];
+      }
+      if (from === to) return; // already at the very start / very end
+      writeModel(SongEdit.remove(model, from, to), 'delete');
       scrollCaretIntoView();
-      if (currentSong) syncCurrentEdits();
       return;
     }
 
-    // When backspace is pressed and cursor is right after a chord span, delete the whole span
-    if (e.key === 'Backspace') {
-      const sel = window.getSelection();
-      if (!sel.rangeCount) return;
-      const range = sel.getRangeAt(0);
+    // Enter is a blank line (that's what separates blocks in a song),
+    // Shift+Enter a plain line break inside the block.
+    let text = null;
+    if (type === 'insertText' || type === 'insertReplacementText') text = e.data || '';
+    else if (type === 'insertParagraph') text = '\n\n';
+    else if (type === 'insertLineBreak') text = '\n';
 
-      if (range.collapsed) {
-        const node = range.startContainer;
-        const offset = range.startOffset;
-
-        // Check if previous sibling is a chord span
-        if (node.nodeType === Node.TEXT_NODE && offset === 0) {
-          const prev = node.previousSibling;
-          if (prev && prev.classList && prev.classList.contains('chord')) {
-            e.preventDefault();
-            prev.remove();
-            if (currentSong) syncCurrentEdits();
-            return;
-          }
-        }
-
-        // Check if we're at the start of editorArea and prev element is chord
-        if (node === editorArea && offset > 0) {
-          const child = editorArea.childNodes[offset - 1];
-          if (child && child.classList && child.classList.contains('chord')) {
-            e.preventDefault();
-            child.remove();
-            if (currentSong) syncCurrentEdits();
-            return;
-          }
-        }
-      }
+    if (text !== null) {
+      e.preventDefault();
+      writeModel(SongEdit.replace(readModel(), sel.from, sel.to, text),
+        text.indexOf('\n') === -1 ? 'type' : '');
+      scrollCaretIntoView();
+      return;
     }
+
+    // Bold/italic/links from a stray Ctrl+B, and drag-and-drop of rich
+    // content: a song is plain text plus chords, so none of it is wanted.
+    // (Paste has its own handler below and never reaches this.)
+    e.preventDefault();
   }
 
   // Programmatic insertion doesn't scroll the caret into view the way typing
@@ -1765,9 +1924,13 @@
     if (!sel.rangeCount) return;
     const rect = sel.getRangeAt(0).getBoundingClientRect();
     if (!rect.height && !rect.top) return; // collapsed at a break - no useful box
+    // Only when the caret is genuinely off-box, and only far enough to bring
+    // it back: this now runs on every keystroke, and a nudge that fires while
+    // the caret is still visible would make the view creep as you type.
     const box = editorArea.getBoundingClientRect();
-    if (rect.bottom > box.bottom - 8) editorArea.scrollTop += (rect.bottom - box.bottom) + 40;
-    else if (rect.top < box.top + 8) editorArea.scrollTop -= (box.top - rect.top) + 40;
+    const margin = 24;
+    if (rect.bottom > box.bottom) editorArea.scrollTop += (rect.bottom - box.bottom) + margin;
+    else if (rect.top < box.top) editorArea.scrollTop -= (box.top - rect.top) + margin;
   }
 
   // Paste is plain text only. Pasting a verse off a chord site otherwise
@@ -1777,9 +1940,9 @@
     const clip = e.clipboardData || window.clipboardData;
     const text = clip ? clip.getData('text/plain') : '';
     if (!text) return;
-    insertTextAtCaret(text.replace(/\r\n?/g, '\n'));
+    const sel = selectionOrEnd();
+    writeModel(SongEdit.replace(readModel(), sel.from, sel.to, text.replace(/\r\n?/g, '\n')), '');
     scrollCaretIntoView();
-    if (currentSong) syncCurrentEdits();
   }
 
   // === Live preview ===
@@ -1960,9 +2123,9 @@
     pendingEdits.set(slug, {
       isNew: true,
       rawHtml: null,
-      title, authors, capo, language, body: '', progression: '',
+      title, authors, capo, language, body: '', progression: '', note: '',
       baseTitle: null, baseAuthors: null, baseCapo: null, baseLanguage: null, baseBody: null,
-      baseProgression: null
+      baseProgression: null, baseNote: null
     });
 
     newSongDialog.close();
@@ -2099,6 +2262,44 @@
     return JSON.stringify(data, null, 2) + '\n';
   }
 
+  // Appends the drafts being deleted to navrhy-zamitnute.json. Same
+  // read-modify-write against GitHub as the two above: the list only ever
+  // grows, and losing entries to a stale copy would defeat the whole point of
+  // keeping it. A slug already in there is left alone (deleted, put back with
+  // Ctrl+Z, deleted again).
+  async function buildMergedRejectedJson(slugs) {
+    let data;
+    try {
+      data = JSON.parse(await getFileContent(REJECTED_JSON_PATH));
+    } catch (err) {
+      if (err.status !== 404) throw err;
+      data = {};
+    }
+    if (!Array.isArray(data.rejected)) data.rejected = [];
+
+    const known = new Set(data.rejected.map(r => r.slug));
+    const today = new Date().toISOString().slice(0, 10);
+    slugs.forEach(slug => {
+      const d = pendingDeletes.get(slug);
+      if (!d || known.has(slug)) return;
+      known.add(slug);
+      data.rejected.push({
+        title: d.song.title,
+        author: authorsText(authorsOf(d.song)),
+        slug: slug,
+        date: today,
+        reason: 'odmítnuto'
+      });
+    });
+
+    data.rejected.sort((a, b) => {
+      const at = String(a.title || '').toLowerCase();
+      const bt = String(b.title || '').toLowerCase();
+      return at < bt ? -1 : at > bt ? 1 : String(a.slug).localeCompare(String(b.slug));
+    });
+    return JSON.stringify(data, null, 2) + '\n';
+  }
+
   async function buildMergedSongsJson(slugs) {
     const data = JSON.parse(await getFileContent(SONGS_JSON_PATH));
 
@@ -2130,6 +2331,11 @@
         const progression = progressionForEntry(e);
         if (progression.length) song.progression = progression;
         else delete song.progression;
+        // An emptied note leaves no trace in the file - the field is absent
+        // on almost every song and should stay that way.
+        const note = (e.note || '').trim();
+        if (note) song.note = note;
+        else delete song.note;
       }
 
       if (local) applyStatus(song, statusForSave(local, e));
@@ -2187,6 +2393,9 @@
     }
     files.push(...await filesToDelete(slugs));
     files.push({ path: SONGS_JSON_PATH, content: await buildMergedSongsJson(slugs) });
+    if (slugs.some(slug => pendingDeletes.has(slug))) {
+      files.push({ path: REJECTED_JSON_PATH, content: await buildMergedRejectedJson(slugs) });
+    }
     if (pendingPreviews.size) {
       files.push({ path: PREVIEWS_JSON_PATH, content: await buildMergedPreviewsJson() });
     }
@@ -2226,6 +2435,9 @@
           const progression = progressionForEntry(e);
           if (progression.length) local.progression = progression;
           else delete local.progression;
+          const note = (e.note || '').trim();
+          if (note) local.note = note;
+          else delete local.note;
         }
         e.isNew = false;
         if (builtHtml.has(slug)) e.rawHtml = builtHtml.get(slug);
@@ -2236,6 +2448,7 @@
         e.baseLanguage = e.language;
         e.baseBody = e.body;
         e.baseProgression = e.progression;
+        e.baseNote = e.note;
       }
     }
 
