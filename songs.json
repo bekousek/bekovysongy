@@ -4817,7 +4817,12 @@
       "title": "Hafo",
       "slug": "hafo",
       "author": "Frank Wild, Kafuu",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "Emi",
+        "C"
+      ],
       "tags": {
         "capo": 1,
         "language": "CZ"
@@ -4825,6 +4830,14 @@
       "authors": [
         "Frank Wild",
         "Kafuu"
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "Emi",
+          "C"
+        ]
       ]
     },
     {
