@@ -9431,11 +9431,49 @@
       "title": "Lepší než almužna",
       "slug": "lepsi-nez-almuzna",
       "author": "Zdeněk Svěrák a Jaroslav Uhlíř",
-      "chords": [],
+      "chords": [
+        "C",
+        "F",
+        "G",
+        "Ami",
+        "Dmi"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
-      }
+      },
+      "progression": [
+        [
+          "C",
+          "F"
+        ],
+        [
+          "G"
+        ],
+        [
+          "C",
+          "G",
+          "C",
+          "F",
+          "C",
+          "G",
+          "C"
+        ],
+        [
+          "C",
+          "F",
+          "G",
+          "Ami",
+          "Dmi"
+        ],
+        [
+          "F",
+          "C",
+          "F",
+          "G",
+          "C"
+        ]
+      ]
     },
     {
       "title": "Let her go",
@@ -9453,7 +9491,14 @@
       "slug": "let-it-go",
       "author": "Frozen",
       "chords": [
-        "C"
+        "Emi",
+        "C",
+        "D",
+        "Ami",
+        "A",
+        "G",
+        "Hmi",
+        "B"
       ],
       "tags": {
         "capo": 1,
@@ -9461,6 +9506,56 @@
       },
       "progression": [
         [
+          "Emi",
+          "C",
+          "D",
+          "Ami",
+          "Emi",
+          "C",
+          "D",
+          "A",
+          "Emi",
+          "C",
+          "D",
+          "Ami",
+          "Emi",
+          "D",
+          "A"
+        ],
+        [
+          "D",
+          "C"
+        ],
+        [
+          "G",
+          "D",
+          "Emi",
+          "C"
+        ],
+        [
+          "Hmi",
+          "B",
+          "C",
+          "G",
+          "D"
+        ],
+        [
+          "Emi",
+          "C",
+          "D",
+          "Ami",
+          "Emi",
+          "D",
+          "Ami",
+          "A"
+        ],
+        [
+          "C",
+          "D",
+          "Emi",
+          "C",
+          "D",
+          "Ami",
           "C"
         ]
       ]
@@ -9470,7 +9565,11 @@
       "slug": "letim-hledat-svety",
       "author": "Kašpárek v rohlíku, Lenka Dusilová",
       "chords": [
-        "B"
+        "Dmi",
+        "B",
+        "G",
+        "F",
+        "A"
       ],
       "tags": {
         "capo": false,
@@ -9478,7 +9577,35 @@
       },
       "progression": [
         [
+          "Dmi",
           "B"
+        ],
+        [
+          "G",
+          "F",
+          "A"
+        ],
+        [
+          "G",
+          "F",
+          "A",
+          "Dmi"
+        ],
+        [
+          "Dmi",
+          "B",
+          "G",
+          "F",
+          "Dmi",
+          "B",
+          "G",
+          "A",
+          "Dmi",
+          "B",
+          "G",
+          "F",
+          "G",
+          "A"
         ]
       ]
     },
@@ -9831,7 +9958,10 @@
       "slug": "laska-a-data",
       "author": "Chinaski",
       "chords": [
-        "D"
+        "D",
+        "G",
+        "A",
+        "Hmi"
       ],
       "tags": {
         "capo": 1,
@@ -9839,6 +9969,35 @@
       },
       "progression": [
         [
+          "D",
+          "G"
+        ],
+        [
+          "A",
+          "D",
+          "G",
+          "Hmi"
+        ],
+        [
+          "A",
+          "G"
+        ],
+        [
+          "Hmi",
+          "G",
+          "D",
+          "A"
+        ],
+        [
+          "D",
+          "G",
+          "Hmi",
+          "A"
+        ],
+        [
+          "G",
+          "A",
+          "Hmi",
           "D"
         ]
       ]
@@ -13125,11 +13284,44 @@
       "title": "Odpočinout",
       "slug": "odpocinout",
       "author": "Květy",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "F",
+        "C",
+        "Emi",
+        "G"
+      ],
       "tags": {
         "capo": 4,
         "language": "CZ"
-      }
+      },
+      "progression": [
+        [
+          "Ami",
+          "F",
+          "C",
+          "Emi",
+          "Ami",
+          "F",
+          "C"
+        ],
+        [
+          "Ami",
+          "C",
+          "F",
+          "G"
+        ],
+        [
+          "Ami",
+          "Emi"
+        ],
+        [
+          "Ami",
+          "F",
+          "C",
+          "G"
+        ]
+      ]
     },
     {
       "title": "Oj na hore dva duby",
