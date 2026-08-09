@@ -137,14 +137,37 @@
     },
 
     /**
+     * Track id out of an Apple Music / iTunes link, or null. Covers both
+     * shapes the site hands out - a song link ending in the id, and an album
+     * link carrying the track in ?i= - plus a bare id pasted on its own.
+     */
+    appleTrackId: function (input) {
+      var s = String(input || '').trim();
+      if (/^\d{6,}$/.test(s)) return s;
+      if (!/(music|itunes)\.apple\.com/.test(s)) return null;
+      var m = s.match(/[?&]i=(\d+)/);
+      if (m) return m[1];
+      m = s.match(/\/(\d+)(?:[?#]|$)/);
+      return m ? m[1] : null;
+    },
+
+    /**
      * Live catalogue search for picking a recording by hand. The build script
      * does the same query offline, but here the point is to see the
      * alternatives it passed over - so this returns them unfiltered, in the
      * API's own order, and lets a human decide.
+     *
+     * An Apple Music link is resolved by id instead of searched. Not merely a
+     * shortcut: the search index has real holes. "Pasák děvek" (Řáhol One)
+     * comes back empty for every spelling, yet lookup by id finds it complete
+     * with a preview - for those songs a pasted link is the only way in.
      */
     searchCatalogue: function (term) {
-      var url = 'https://itunes.apple.com/search?media=music&entity=song&limit=12&country=CZ'
-        + '&term=' + encodeURIComponent(term);
+      var id = api.appleTrackId(term);
+      var url = id
+        ? 'https://itunes.apple.com/lookup?country=CZ&id=' + id
+        : 'https://itunes.apple.com/search?media=music&entity=song&limit=12&country=CZ'
+          + '&term=' + encodeURIComponent(term);
       return fetch(url)
         .then(function (r) { return r.ok ? r.json() : { results: [] }; })
         .then(function (data) {

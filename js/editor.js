@@ -936,7 +936,8 @@
       + '<p class="picker-current"></p>'
       + '</div>'
       + '<div class="picker-search">'
-      + '<input type="text" class="filter-input" id="picker-query">'
+      + '<input type="text" class="filter-input" id="picker-query" '
+      + 'placeholder="Název a interpret, nebo odkaz z Apple Music">'
       + '<button type="button" class="btn-editor" id="picker-go">Hledat</button>'
       + '</div>'
       + '<div class="picker-results" id="picker-results"></div>'
@@ -981,7 +982,10 @@
     function render(list) {
       results.innerHTML = '';
       if (!list.length) {
-        results.innerHTML = '<p class="picker-empty">Nic se nenašlo. Zkus jiný dotaz.</p>';
+        // The dead end where a link is the answer: the catalogue's search
+        // index misses songs its lookup endpoint knows perfectly well.
+        results.innerHTML = '<p class="picker-empty">Nic se nenašlo. Zkus jiný dotaz –'
+          + ' nebo píseň najdi na music.apple.com a vlož sem odkaz na ni.</p>';
         return;
       }
       list.forEach((r, i) => {

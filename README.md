@@ -72,6 +72,13 @@ s `--recheck`) a zpěvník ho bere jako přesnou shodu — potvrdil ho člověk.
 Tlačítko **Bez ukázky** naopak zapíše `{"match": "none", "locked": true}`,
 když je automatická shoda špatná a nic lepšího v katalogu není.
 
+Do vyhledávacího pole jde místo dotazu vložit **odkaz z Apple Music** (i ve
+tvaru alba s `?i=`, nebo holé číselné ID) — pak se nehledá, ale sáhne se
+rovnou pro tu jednu nahrávku přes `lookup`. Není to jen zkratka: hledací index
+katalogu má díry. „Pasák děvek" (Řáhol One) nevrací pro žádný zápis vůbec nic,
+ale `lookup` podle ID ji najde i s ukázkou — u takových písní je vložený odkaz
+jediná cesta.
+
 Volba se uloží až s nejbližším **Uložit** — celá kontrolní jízda je jeden
 commit. Zapisuje se read-modify-write proti verzi na GitHubu, ne proti kopii
 v prohlížeči, aby přepis nesmazal to, co mezitím doplnil skript.
