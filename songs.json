@@ -1433,6 +1433,17 @@
       ]
     },
     {
+      "title": "Blues folsomské věznice",
+      "slug": "blues-folsomske-veznice",
+      "author": "Michal Tučný",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Blues o spolykaných slovech",
       "slug": "blues-o-spolykanych-slovech",
       "author": "Michal Prokop",
@@ -2044,6 +2055,17 @@
       "status": "k-vytvoreni"
     },
     {
+      "title": "Být stále mlád",
+      "slug": "byt-stale-mlad",
+      "author": "Karel Gott",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "C'Est La Vie",
       "slug": "cest-la-vie",
       "author": "Karel Gott",
@@ -2627,6 +2649,17 @@
       ]
     },
     {
+      "title": "Co jste hasiči",
+      "slug": "co-jste-hasici",
+      "author": "lidová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Colorado",
       "slug": "colorado",
       "author": "Kabát",
@@ -2807,6 +2840,17 @@
       },
       "status": "k-vytvoreni",
       "note": "trampská/táborová"
+    },
+    {
+      "title": "Dancing queen",
+      "slug": "dancing-queen",
+      "author": "ABBA",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "Darling",
@@ -4951,6 +4995,160 @@
           "G"
         ]
       ]
+    },
+    {
+      "title": "Kopu dál",
+      "slug": "kopu-dal",
+      "author": "Cvrček 55",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Letní tlení",
+      "slug": "letni-tleni",
+      "author": "Vypsaná fiXa",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Láska",
+      "slug": "laska",
+      "author": "Mucha",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "SK"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Mimořádná linka",
+      "slug": "mimoradna-linka",
+      "author": "Hana Zagorová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Modrá",
+      "slug": "modra-2",
+      "author": "Jana Kirschner",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "SK"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Nejkratší cesta",
+      "slug": "nejkratsi-cesta",
+      "author": "Sto zvířat",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Prázdný schránky",
+      "slug": "prazdny-schranky",
+      "author": "Pavel Lohonka Žalman",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Rád chodím na poštu",
+      "slug": "rad-chodim-na-postu",
+      "author": "Pokáč",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Scar tissue",
+      "slug": "scar-tissue",
+      "author": "Red Hot Chili Peppers",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Spěchám",
+      "slug": "specham",
+      "author": "Hana Zagorová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Summer nights",
+      "slug": "summer-nights",
+      "author": "John Travolta, Olivia Newton-John (Grease)",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Svítí slunce nad hlavou",
+      "slug": "sviti-slunce-nad-hlavou",
+      "author": "Jiří Korn (Honza málem králem)",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Take on me",
+      "slug": "take-on-me",
+      "author": "a-ha",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "The A team",
+      "slug": "the-a-team",
+      "author": "Ed Sheeran",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "The Hanging Tree",
@@ -20363,6 +20561,17 @@
       ]
     },
     {
+      "title": "Vyletěla holubička ze skály",
+      "slug": "vyletela-holubicka-ze-skaly",
+      "author": "lidová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Vymlácený entery",
       "slug": "vymlaceny-entery",
       "author": "Pokáč",
@@ -21319,6 +21528,17 @@
       ]
     },
     {
+      "title": "Za svou pravdou stát",
+      "slug": "za-svou-pravdou-stat",
+      "author": "Spirituál Kvintet",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Za teplých letních nocí",
       "slug": "za-teplych-letnich-noci",
       "author": "Mňága a Žďorp",
@@ -21857,6 +22077,17 @@
       ]
     },
     {
+      "title": "Zkamenělý dítě",
+      "slug": "zkamenely-dite",
+      "author": "Lucie",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Zlatíčka",
       "slug": "zlaticka",
       "author": "Kapitán Demo",
@@ -22347,6 +22578,17 @@
       ]
     },
     {
+      "title": "Čerešne",
+      "slug": "ceresne",
+      "author": "Hana Hegerová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "SK"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Černej pasažér",
       "slug": "cernej-pasazer",
       "author": "Traband",
@@ -22624,6 +22866,17 @@
           "G"
         ]
       ]
+    },
+    {
+      "title": "Čo bolí, to prebolí",
+      "slug": "co-boli-to-preboli",
+      "author": "Miroslav Žbirka",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "SK"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "Čtyři slunce",
@@ -23096,6 +23349,17 @@
           "F"
         ]
       ]
+    },
+    {
+      "title": "Žal se odkládá",
+      "slug": "zal-se-odklada",
+      "author": "Jiří Korn",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "Želva",
