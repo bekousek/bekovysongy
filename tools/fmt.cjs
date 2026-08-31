@@ -135,7 +135,7 @@ function render(sections, lines) {
   return blocks.join('\n\n');
 }
 
-module.exports = { PRE_RE, readPre, contentLines, parseRange, render };
+module.exports = { PRE_RE, readPre, contentLines, stripFences, parseRange, render };
 
 if (require.main !== module) return;
 

@@ -2,28 +2,30 @@
 
 Pokyny pro Clauda v tomhle repozitáři. Struktura projektu je v [README.md](README.md).
 
-## Pravidlo č. 1: text písně nesmí projít modelem
+## Pravidlo č. 1: text písně se nesmí dostat modelu do kontextu
 
-Anthropic API má výstupní filtr na doslovnou reprodukci textů písní. Jakmile
-model vygeneruje sloku, celý tah spadne na
+Anthropic API má výstupní filtr na doslovnou reprodukci textů písní. Když model
+vypustí sloku, filtr utne odpověď uprostřed generování a vrátí
 
 ```
 API Error: 400 Output blocked by content filtering policy
 ```
 
-a rozdělaná práce je pryč. Není to chyba repozitáře ani promptu — je to filtr
-nad tím, co model napíše.
+Celý tah je pryč. Není to chyba repozitáře ani promptu a není to rozhodnutí
+modelu — je to kontrola nad tím, co z modelu leze, a spouští se bez ohledu na
+to, proč text vznikl.
 
-Rozdíl, na kterém všechno stojí:
+**Nestačí text nepsat do souborů.** Filtr hlídá všechno, co model vygeneruje:
+větu v chatu, průběžné shrnutí, zdůvodnění „tenhle řádek patří k refrénu,
+protože…", i uvažování v thinking bloku. Jakmile je text písně v kontextu,
+dřív nebo později se o něj model otře a spadne to — i když soubory zapisuje
+korektně přes skript.
 
-- **Číst písně je v pořádku.** `cat`, `grep`, `fmt.cjs dump` — výsledek nástroje
-  není výstup modelu, filtrem neprochází.
-- **Psát text písně není.** Write tool s celým souborem, heredoc v bashi,
-  Python string, `sed` s kusem textu, ukázka „před/po" v chatu, citace v commit
-  message — tam všude text vzniká z modelu a filtr sepne.
+Proto se text do kontextu vůbec nepouští. Všechno, co je k přeformátování
+potřeba, je struktura, a tu vypíše `tools/skel.cjs` bez jediného písmene textu.
 
-Proto se píseň **nikdy nepřepisuje ručně**. Přeformátovat ji jde tak, že model
-řekne jen *čísla řádků* a přeskládá je skript.
+Konkrétně tedy **nikdy**: `cat songs/*.html`, `fmt.cjs dump`, Read nad souborem
+písně, grep, který vrátí řádek textu, citace v chatu ani v commit message.
 
 ## Přeformátování písně
 
@@ -44,14 +46,20 @@ node tools/scan.cjs
 Vypíše písně s dlouhou sérií jednořádkových bloků — otisk rozbitého importu.
 Skutečná píseň má občas osamocený řádek („Mezihra:", tag), nemá jich pět za sebou.
 
-### 2. Vypsat očíslované řádky
+### 2. Vypsat kostru
 
 ```bash
-node tools/fmt.cjs dump <slug>
+node tools/skel.cjs <slug>
 ```
 
-Bez přepínače se akordové spany zkrátí na `[C]`; `--raw` je nechá tak, jak jsou,
-`--num` odřízne vedoucí číslo sloky.
+Jeden řádek na řádek písně: číslo, dochovaná značka (`//R`, `1.`, `Refrén:`),
+délka ve znacích, počet akordů a otisk. Prázdné řádky jsou vodorovné čáry,
+holé značky mají vlastní řádek. Čísla jsou ta, kterými adresuje specifikace.
+
+Z toho se pozná všechno podstatné: kde jsou hranice bloků, kde je série
+jednořádkových bloků (to je ta škoda), a kde jsou sloky pravidelně dlouhé.
+**Otisk řeší refrény** — když má řádek 39 stejný otisk jako řádek 21, je to
+tentýž řádek, takže 39 je začátek opakovaného refrénu. Číst text k tomu netřeba.
 
 ### 3. Napsat specifikaci
 
@@ -76,38 +84,19 @@ Do `.fmt-specs/<slug>.json`, sekce v pořadí výstupu. **Jen čísla, žádný 
 `drop` smaže řádky (holé „Refrén", ze kterého se stal `//R R//`). Úplný popis
 formátu je v hlavičce `tools/fmt.cjs`.
 
-### 4. Použít
-
-```bash
-node tools/fmt.cjs apply <slug> .fmt-specs/<slug>.json
-```
-
-Specifikace se předává **cestou k souboru**, ne inline. `apply` odmítne zapsat,
-pokud kterýkoli řádek zůstane nepoužitý nebo se použije dvakrát — vypadlá či
-zdvojená sloka je jediná chyba, která nesmí projít tiše. Řádky se jen přeskládají,
-nikdy nepřepisují, takže akordové spany přežijí byte po bytu.
-
-### 5. Ověřit
-
-```bash
-node tools/verify.cjs <slug>...
-```
-
-Porovná pracovní kopii s `git HEAD`: pořadí akordů a samotný text (bez značek,
-číslování a mezer) musí sedět. Řádky, které spec vědomě maže, se odečtou i na
-straně HEAD — smazání, které ve specifikaci není, je `FAIL`. To je smysl věci.
-
-Specifikaci vždy ulož do `.fmt-specs/`. Je to jediný záznam o tom, co se s písní
-stalo, a `verify.cjs` z ní čte deklarované `drop`/`strip`.
-
-### Zkratka
+### 4. Použít a ověřit
 
 ```bash
 sh tools/run.sh <slug>...
 ```
 
-Pro každý slug vrátí soubor z HEAD, aplikuje `.fmt-specs/<slug>.json` a rovnou
-ověří. Dokud změna není zacommitovaná, vychází se pokaždé z originálu, takže jde
+Pro každý slug vrátí soubor z HEAD, aplikuje `.fmt-specs/<slug>.json` a ověří.
+`apply` odmítne zapsat, pokud kterýkoli řádek zůstane nepoužitý nebo se použije
+dvakrát — vypadlá či zdvojená sloka je jediná chyba, která nesmí projít tiše.
+Řádky se jen přeskládají, nikdy nepřepíšou, takže akordové spany přežijí byte
+po bytu. `verify.cjs` pak proti HEAD potvrdí, že pořadí akordů i text sedí.
+
+Dokud změna není zacommitovaná, vychází se pokaždé z originálu, takže jde
 spustit opakovaně — spec se dá v klidu opravit a pustit znovu.
 
 **Pozor:** specifikace platí vůči tomu stavu písně, na který se aplikovala.
@@ -116,8 +105,16 @@ tu novou — čísla řádků pak sedí na něco jiného a `apply` vyrobí nesmy
 by si stěžoval. Hotové písně se znovu nepouštějí; spec je od té chvíle jen
 záznam pro `verify.cjs`.
 
+### Když kostra nestačí
+
+Někdy z ní nejde poznat, kde končí sloka a začíná refrén. Řešením **není**
+podívat se na text — je to zeptat se Ondřeje. Ten píseň zná, odpoví jednou
+větou a filtr zůstane stranou. `fmt.cjs dump` existuje jen pro ruční ladění
+člověkem, ne pro model.
+
 ## Když filtr přesto sepne
 
 Tah je pryč, soubory na disku ale ne — `git status` ukáže, co už je hotové,
 a dá se pokračovat další písní. Nezkoušej tu samou cestu znovu: co jednou
-vzniklo z modelu, vznikne z něj i podruhé.
+vzniklo z modelu, vznikne z něj i podruhé. Zpracovávej písně **po jedné**;
+dávka osmi písní znamená osminásobnou šanci, že se něco z kontextu otře ven.

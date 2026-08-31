@@ -32,7 +32,7 @@ a otevřít `http://localhost:8137/`.
 | `admin/` | in-browser editor, viz níže |
 | `test/` | `node --test` sada pro `sections.js`/`song-cleanup.js`/`chords.js` |
 | `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js` |
-| `tools/` | přeformátování textů písní: `scan.cjs` (najde kandidáty), `fmt.cjs` (dump/apply), `verify.cjs` (dokáže, že se hnul jen layout), `run.sh` (apply+verify) — postup v [CLAUDE.md](CLAUDE.md) |
+| `tools/` | přeformátování textů písní: `scan.cjs` (najde kandidáty), `skel.cjs` (kostra písně bez textu), `fmt.cjs` (apply), `verify.cjs` (dokáže, že se hnul jen layout), `run.sh` (apply+verify) — postup v [CLAUDE.md](CLAUDE.md) |
 | `.fmt-specs/` | specifikace přeformátování jednotlivých písní — čísla řádků, ne text |
 | `transfer_songs.py`, `verify_songs.py`, `staging_server.py` | pipeline pro import písní (níže) |
 | `.github/workflows/deploy-pages.yml` | CI: testy → validace dat → deploy na GitHub Pages |
