@@ -107,8 +107,14 @@ sh tools/run.sh <slug>...
 ```
 
 Pro každý slug vrátí soubor z HEAD, aplikuje `.fmt-specs/<slug>.json` a rovnou
-ověří. Protože se vždycky vychází z originálu, jde spustit opakovaně — spec se
-dá v klidu opravit a pustit znovu.
+ověří. Dokud změna není zacommitovaná, vychází se pokaždé z originálu, takže jde
+spustit opakovaně — spec se dá v klidu opravit a pustit znovu.
+
+**Pozor:** specifikace platí vůči tomu stavu písně, na který se aplikovala.
+Jakmile je přeformátovaná verze zacommitovaná, `git checkout HEAD` vrátí už
+tu novou — čísla řádků pak sedí na něco jiného a `apply` vyrobí nesmysl, aniž
+by si stěžoval. Hotové písně se znovu nepouštějí; spec je od té chvíle jen
+záznam pro `verify.cjs`.
 
 ## Když filtr přesto sepne
 
