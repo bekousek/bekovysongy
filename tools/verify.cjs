@@ -10,6 +10,11 @@
  * line numbering fmt.cjs used to write them - so the comparison still proves
  * that nothing else moved. A deletion not declared in .fmt-specs/<slug>.json
  * is a failure, which is the point.
+ *
+ * A failure says WHICH song broke, not which words: printing the mismatch puts
+ * the lyric in whatever is reading the output, and for a model that is the one
+ * thing CLAUDE.md forbids. Pass --why to see the differing words; that output
+ * is for a human at a terminal, never for a model's context.
  */
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -63,8 +68,10 @@ function headText(body, s) {
   return lines.filter((_, i) => !drop.has(i + 1)).join('\n');
 }
 
+const args = process.argv.slice(2);
+const why = args.includes('--why');
 let bad = 0;
-for (const slug of process.argv.slice(2)) {
+for (const slug of args.filter(a => a !== '--why')) {
   const path = 'songs/' + slug + '.html';
   const head = execSync('git show HEAD:' + path, { encoding: 'utf8', maxBuffer: 1 << 26 });
   const now = fs.readFileSync(path, 'utf8');
@@ -73,15 +80,12 @@ for (const slug of process.argv.slice(2)) {
   const problems = [];
   if (chords(a) !== chords(b)) problems.push('chords differ');
   if (words(a) !== words(b)) {
-    problems.push('lyrics differ');
     const wa = words(a).split(' '), wb = words(b).split(' ');
-    for (let i = 0; i < Math.max(wa.length, wb.length); i++) {
-      if (wa[i] !== wb[i]) {
-        problems.push('  at word ' + i + ': HEAD=' + JSON.stringify(wa.slice(i, i + 8).join(' ')) +
-                      ' NOW=' + JSON.stringify(wb.slice(i, i + 8).join(' ')));
-        break;
-      }
-    }
+    let at = 0;
+    while (at < Math.max(wa.length, wb.length) && wa[at] === wb[at]) at++;
+    problems.push('lyrics differ, first at word ' + at + ' of ' + wa.length);
+    if (why) problems.push('  HEAD=' + JSON.stringify(wa.slice(at, at + 8).join(' ')) +
+                           ' NOW=' + JSON.stringify(wb.slice(at, at + 8).join(' ')));
   }
   if (problems.length) { bad++; console.log('FAIL ' + slug + '\n  ' + problems.join('\n  ')); }
   else console.log('ok   ' + slug);

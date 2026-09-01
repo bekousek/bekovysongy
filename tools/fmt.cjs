@@ -5,6 +5,11 @@
  *   node tools/fmt.cjs dump  <slug> [--raw]   print numbered content lines
  *   node tools/fmt.cjs apply <slug> <spec>    rewrite the <pre> from a spec
  *
+ * `dump` prints lyrics and exists for a human debugging by hand; a model wants
+ * tools/skel.cjs, which prints the same structure with the words taken out.
+ * `apply` reports a dropped line by its measurements for the same reason -
+ * add --why to see the line itself.
+ *
  * Lyric lines are never retyped - only reordered/regrouped - so chord spans
  * survive byte for byte. The spec addresses lines by the numbers `dump` prints.
  *
@@ -15,7 +20,9 @@
  *   {"t":"R",  "l":"", "n":"2x"}   //R 2x R//
  *   {"t":"B",  "l":"9-12"}    bridge
  *   {"t":"R",  "l":"20", "tail":true}   //R \n...\n<line20> R// (changed ending)
- *   {"t":"VYBRNKÁVÁNÍ", "l":""}  //VYBRNKÁVÁNÍ//
+ *   {"t":"VYBRNKÁVÁNÍ", "l":"", "bare":true}  //VYBRNKÁVÁNÍ//
+ *       an empty section normally renders as "//R R//"; "bare" asks for the
+ *       one-marker spelling "//R//", which is what a standalone cue looks like
  *   {"t":"raw","l":"13-14"}   emit lines verbatim, no fence (tab, Mezihra, ...)
  * "l" accepts comma-separated ranges: "1-4,9".
  * A section may add "block":true to force the multi-line fence form.
@@ -23,7 +30,9 @@
  * The array form may be wrapped to carry options:
  *   {"stripNum":true, "drop":"13", "sections":[ ... ]}
  * "stripNum" removes a leading "1." verse number from every line; "drop"
- * lists lines to delete (a bare "Refrén" cue that becomes a //R R// fence).
+ * lists lines to delete (a bare "Refrén" cue that becomes a //R R// fence);
+ * "strip" removes a declared piece of a line by number ({"15":"3. "}), or
+ * several in order ({"15":["3 ",". "]}) when a chord span sits inside it.
  * Every other line must be placed exactly once, or apply refuses to write.
  */
 const fs = require('fs');
@@ -73,13 +82,17 @@ function contentLines(body, opts = {}) {
   // in a form no parser recognizes ("2x R:", "©1:", "®:"), which becomes a
   // real fence instead. Listed one by one in the spec so the deletion is
   // never a guess, and echoed back at apply time.
+  // A list removes several pieces in order, for the numbering an import split
+  // around a chord span ("3 <span>a</span> . text" is the verse number "3.").
   const strip = opts.strip || {};
   return dedented.map((l, i) => {
     const pre = strip[String(i + 1)];
     if (pre == null) return l;
-    const at = l.indexOf(pre);
-    if (at === -1) throw new Error('line ' + (i + 1) + ' has no prefix ' + JSON.stringify(pre));
-    return l.slice(0, at) + l.slice(at + pre.length);
+    return (Array.isArray(pre) ? pre : [pre]).reduce((s, p) => {
+      const at = s.indexOf(p);
+      if (at === -1) throw new Error('line ' + (i + 1) + ' has no prefix ' + JSON.stringify(p));
+      return s.slice(0, at) + s.slice(at + p.length);
+    }, l);
   });
 }
 
@@ -120,7 +133,10 @@ function render(sections, lines) {
     got = dedent(got);
 
     const note = sec.n ? ' ' + sec.n : '';
-    if (!got.length && !sec.tail) { blocks.push('//' + t + note + ' ' + t + '//'); continue; }
+    if (!got.length && !sec.tail) {
+      blocks.push(sec.bare ? '//' + t + note + '//' : '//' + t + note + ' ' + t + '//');
+      continue;
+    }
 
     const inner = sec.tail ? ['...'].concat(got) : got;
     if (sec.block || sec.tail) {
@@ -168,8 +184,17 @@ if (cmd === 'dump') {
   for (let i = 1; i <= lines.length; i++) if (!seen.has(i)) missing.push(i);
   if (missing.length) throw new Error('unused lines: ' + missing.join(','));
   if (used.length + dropped.length !== seen.size) throw new Error('duplicate line use');
-  dropped.forEach(i => console.log('  drop ' + i + ': ' +
-    lines[i - 1].replace(/<span class="chord" data-chord="[^"]*">([^<]*)<\/span>/g, '[$1]')));
+  // What a drop removed is echoed back so the deletion is never silent, but by
+  // default only its measurements: the text of a deleted line is still lyric,
+  // and CLAUDE.md keeps lyric out of whatever reads this. --why spells it out.
+  const why = process.argv.includes('--why');
+  dropped.forEach(i => {
+    const l = lines[i - 1];
+    console.log('  drop ' + i + ': ' + (why
+      ? l.replace(/<span class="chord" data-chord="[^"]*">([^<]*)<\/span>/g, '[$1]')
+      : l.replace(/<span class="chord" data-chord="[^"]*">[^<]*<\/span>/g, '').replace(/<[^>]*>/g, '').trim().length +
+        ' znaků, ' + (l.match(/data-chord=/g) || []).length + ' akordů'));
+  });
   Object.keys(spec.strip || {}).forEach(i => console.log('  strip ' + i + ': ' + JSON.stringify(spec.strip[i])));
 
   const next = html.replace(PRE_RE, () => open + built + close);
