@@ -2290,6 +2290,12 @@
       `<title>${escapeHtml(title)} - Bekovy songy</title>`
     );
 
+    // Update JSON-LD (name + interpret), same reason as <title> above
+    html = html.replace(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">${SongTemplate.songJsonLd({ title, author, slug })}</script>`
+    );
+
     // Update mailto subject (if mailto link exists in the file)
     html = html.replace(
       /mailto:[^?]+\?subject=[^"]+/,

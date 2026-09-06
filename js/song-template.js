@@ -105,13 +105,21 @@
       '  <meta property="og:url" content="' + canonical + '">\n' +
       '  <meta property="og:title" content="' + ogTitle + '">\n' +
       '  <meta property="og:description" content="' + description + '">\n' +
-      '  <meta name="twitter:card" content="summary">\n' +
+      '  <meta property="og:site_name" content="Bekovy songy">\n' +
+      '  <meta property="og:image" content="https://bekovysongy.cz/assets/og-image.png">\n' +
+      '  <meta property="og:image:width" content="1200">\n' +
+      '  <meta property="og:image:height" content="630">\n' +
+      '  <meta property="og:image:alt" content="Bekovy songy — zpěvník s akordy">\n' +
+      '  <meta name="twitter:card" content="summary_large_image">\n' +
+      '  <meta name="twitter:image" content="https://bekovysongy.cz/assets/og-image.png">\n' +
       '  <meta name="twitter:title" content="' + ogTitle + '">\n' +
       '  <meta name="twitter:description" content="' + description + '">\n' +
       '  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">\n' +
+      '  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">\n' +
       '  <link rel="manifest" href="../manifest.json">\n' +
       '  <meta name="theme-color" content="#1a1a2e">\n' +
       '  <link rel="stylesheet" href="../css/style.css">\n' +
+      '  <script type="application/ld+json">' + songJsonLd({ title: title, author: author, slug: slug }) + '</script>\n' +
       '</head>\n' +
       '<body>\n' +
       '  <nav class="main-nav">\n' +
@@ -172,10 +180,33 @@
       '</html>';
   }
 
+  // JSON-LD pro stranku pisne. Vlastni funkce proto, ze ji js/editor.js
+  // po prejmenovani pisne prepisuje stejne jako <title>.
+  function songJsonLd(opts) {
+    opts = opts || {};
+    var data = {
+      '@context': 'https://schema.org',
+      '@type': 'MusicComposition',
+      name: opts.title || '',
+      url: 'https://bekovysongy.cz/songs/' + (opts.slug || '') + '.html',
+      inLanguage: 'cs'
+    };
+    // "author" v songs.json je interpret, ne skladatel - proto visi na
+    // nahravce, a ne na composer/lyricist.
+    if (opts.author) {
+      data.recordedAs = {
+        '@type': 'MusicRecording',
+        byArtist: { '@type': 'MusicGroup', name: opts.author }
+      };
+    }
+    return JSON.stringify(data).replace(/</g, '\\u003c');
+  }
+
   var api = {
     slugify: slugify,
     uniqueSlug: uniqueSlug,
-    generateSongHtml: generateSongHtml
+    generateSongHtml: generateSongHtml,
+    songJsonLd: songJsonLd
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

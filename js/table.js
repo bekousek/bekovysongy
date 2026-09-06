@@ -128,6 +128,7 @@
       allSongs = data.songs.filter(isPublic);
       collectChords();
       buildChordFilter();
+      applyQueryFromUrl();
       applyFilters();
       bindEvents();
     })
@@ -195,7 +196,24 @@
     return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
+  // ?q= drzi hledani ve URL, takze se vysledek da poslat odkazem. Je to
+  // zaroven cil SearchAction z JSON-LD na titulni strance - kdyz tohle
+  // prestane fungovat, zacne Google posilat lidi na prazdny seznam.
+  function applyQueryFromUrl() {
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) searchInput.value = q;
+  }
+
+  function syncQueryToUrl() {
+    const q = searchInput.value.trim();
+    const url = new URL(location.href);
+    if (q) url.searchParams.set('q', q);
+    else url.searchParams.delete('q');
+    history.replaceState(null, '', url);
+  }
+
   function applyFilters() {
+    syncQueryToUrl();
     const query = normalizeForSearch(searchInput.value.trim());
     const lang = langFilter.value;
     const capo = capoFilter.value;

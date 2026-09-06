@@ -4,8 +4,9 @@ Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu — statický web, �
 build krok. Vanilla HTML/CSS/JS, 570+ písní, transpozice, metronom, ladička,
 akordové diagramy a in-browser editor s ukládáním přímo do GitHubu.
 
-Živý web: https://bekousek.github.io/bekovysongy/ (do budoucna `bekovysongy.cz`,
-viz [CUSTOM-DOMAIN-SETUP.md](CUSTOM-DOMAIN-SETUP.md)).
+Živý web: https://bekovysongy.cz — GitHub Pages na vlastní doméně, HTTPS
+vynucené, `www` i `http` se přesměrovávají na apex (postup v
+[CUSTOM-DOMAIN-SETUP.md](CUSTOM-DOMAIN-SETUP.md)).
 
 ## Spuštění lokálně
 
