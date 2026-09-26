@@ -225,6 +225,19 @@
       '<button class="btn-transpose" id="font-inc" aria-label="Zvětšit text" title="Zvětšit text">A+</button>';
     panel.appendChild(fontSize);
 
+    // Column layout (desktop only - CSS hides it on <=768px and ignores
+    // the chosen count there). Wired up further down with the font size.
+    const columns = document.createElement('div');
+    columns.className = 'player-section player-columns';
+    columns.innerHTML =
+      '<span class="player-label">Sloupce</span>' +
+      [1, 2, 3].map((n) =>
+        '<button class="btn-transpose btn-columns" data-cols="' + n + '" ' +
+        'aria-label="' + n + (n === 1 ? ' sloupec' : ' sloupce') + '" ' +
+        'title="' + n + (n === 1 ? ' sloupec' : ' sloupce') + '">' + n + '</button>'
+      ).join('');
+    panel.appendChild(columns);
+
     // Move the existing sections in after it, in order, labelling each one
     // (they only ever had an icon + control before - fine inline, but a
     // stacked panel row needs the label to stay legible).
@@ -422,6 +435,56 @@
 
   if (fontDec) fontDec.addEventListener('click', () => setFontScale(fontScale - FONT_SCALE_STEP));
   if (fontInc) fontInc.addEventListener('click', () => setFontScale(fontScale + FONT_SCALE_STEP));
+
+  // === Columns (desktop) ===
+  // 1-3 newspaper columns via CSS multicol on .song-text; sections never
+  // break across a column (break-inside: avoid in style.css). A song with
+  // no markers at all is still one raw <pre> text node, which multicol
+  // would slice mid-verse - so the first time such a song goes multi-column
+  // its blank-line-separated verses get wrapped into the same section-plain
+  // blocks a marked song already has. That is a one-way switch (going back
+  // to 1 keeps the blocks, just a slightly tighter verse gap until reload),
+  // and the rewrite resets chord text, hence the applyTranspose(0) refresh.
+  const COLUMNS_KEY = 'song_columns';
+  const columnBtns = document.querySelectorAll('.btn-columns');
+
+  function loadColumns() {
+    const saved = parseInt(localStorage.getItem(COLUMNS_KEY), 10);
+    return saved >= 1 && saved <= 3 ? saved : 1;
+  }
+
+  function ensureBlocks() {
+    if (!songTextEl || !window.SongSections) return;
+    if (songTextEl.querySelector('.song-section')) return;
+    songTextEl.innerHTML = SongSections.transform(songTextEl.innerHTML);
+    if (currentTranspose !== 0) applyTranspose(0);
+  }
+
+  // Must match the (min-width: 769px) block in style.css - the setting is
+  // remembered on a phone, but only rewrites/lays out anything on a PC.
+  const desktopMq = window.matchMedia('(min-width: 769px)');
+
+  function applyColumns(n) {
+    if (n > 1 && desktopMq.matches) ensureBlocks();
+    const main = document.querySelector('main.song-page');
+    if (main) {
+      main.classList.toggle('cols-2', n === 2);
+      main.classList.toggle('cols-3', n === 3);
+    }
+    columnBtns.forEach((b) => {
+      const on = Number(b.dataset.cols) === n;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
+
+  applyColumns(loadColumns());
+  desktopMq.addEventListener('change', () => applyColumns(loadColumns()));
+  columnBtns.forEach((b) => b.addEventListener('click', () => {
+    const n = Number(b.dataset.cols);
+    localStorage.setItem(COLUMNS_KEY, String(n));
+    applyColumns(n);
+  }));
 
   // === Autoscroll ===
   let scrollInterval = null;

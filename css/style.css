@@ -916,8 +916,58 @@ a:hover {
   display: none;
 }
 
-.player-fontsize .player-label {
+.player-fontsize .player-label,
+.player-columns .player-label {
   display: inline-block;
+}
+
+/* 1 / 2 / 3 as one segmented group, narrow enough that the bar still fits
+   one row on a 1280px laptop with every other control present. */
+.player-columns .btn-columns {
+  width: 26px;
+  border-radius: 0;
+}
+.player-columns .btn-columns + .btn-columns {
+  margin-left: calc(-0.35rem - 1px);
+}
+.player-columns .player-label + .btn-columns {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+.player-columns .btn-columns:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.player-columns .btn-columns:hover,
+.player-columns .btn-columns.active {
+  position: relative; /* shared borders: keep the highlighted one on top */
+}
+
+.btn-transpose.active,
+.btn-transpose.active:hover {
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
+  color: #fff;
+}
+
+/* === Columns (desktop only, toggled by .player-columns in player.js) ===
+   The page widens so each column keeps a readable measure; a section never
+   splits across a column break. Below 769px none of this applies and the
+   control itself is hidden (see the <=768px block). */
+@media (min-width: 769px) {
+  .song-page.cols-2 { max-width: 1200px; }
+  .song-page.cols-3 { max-width: 1600px; }
+
+  .song-page.cols-2 .song-text,
+  .song-page.cols-3 .song-text {
+    column-gap: 3rem;
+    column-rule: 1px solid var(--border);
+  }
+  .song-page.cols-2 .song-text { column-count: 2; }
+  .song-page.cols-3 .song-text { column-count: 3; }
+
+  .song-page.cols-2 .song-section,
+  .song-page.cols-3 .song-section {
+    break-inside: avoid;
+  }
 }
 
 /* Running metronome is easy to miss once it's tucked inside the panel on
@@ -1606,6 +1656,11 @@ a:hover {
      panel rows are stacked, so the label is what says which row is which. */
   .player-more-panel .player-label {
     display: inline-block;
+  }
+
+  /* Columns are a desktop-only layout. */
+  .player-more-panel .player-columns {
+    display: none;
   }
 
   .chord-filter-dropdown {
