@@ -847,6 +847,35 @@
       ]
     },
     {
+      "title": "Astro Rap",
+      "slug": "astro-rap",
+      "author": "Ondřej Bek, Daniel Procházka, Martin Kozák, Lukáš Vencálek",
+      "chords": [
+        "Ami",
+        "C",
+        "G",
+        "Dmi"
+      ],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "authors": [
+        "Ondřej Bek",
+        "Daniel Procházka",
+        "Martin Kozák",
+        "Lukáš Vencálek"
+      ],
+      "progression": [
+        [
+          "Ami",
+          "C",
+          "G",
+          "Dmi"
+        ]
+      ]
+    },
+    {
       "title": "Atentát",
       "slug": "atentat",
       "author": "Kryštof",
