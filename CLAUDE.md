@@ -2,31 +2,6 @@
 
 Pokyny pro Clauda v tomhle repozitáři. Struktura projektu je v [README.md](README.md).
 
-## Pravidlo č. 1: text písně se nesmí dostat modelu do kontextu
-
-Anthropic API má výstupní filtr na doslovnou reprodukci textů písní. Když model
-vypustí sloku, filtr utne odpověď uprostřed generování a vrátí
-
-```
-API Error: 400 Output blocked by content filtering policy
-```
-
-Celý tah je pryč. Není to chyba repozitáře ani promptu a není to rozhodnutí
-modelu — je to kontrola nad tím, co z modelu leze, a spouští se bez ohledu na
-to, proč text vznikl.
-
-**Nestačí text nepsat do souborů.** Filtr hlídá všechno, co model vygeneruje:
-větu v chatu, průběžné shrnutí, zdůvodnění „tenhle řádek patří k refrénu,
-protože…", i uvažování v thinking bloku. Jakmile je text písně v kontextu,
-dřív nebo později se o něj model otře a spadne to — i když soubory zapisuje
-korektně přes skript.
-
-Proto se text do kontextu vůbec nepouští. Všechno, co je k přeformátování
-potřeba, je struktura, a tu vypíše `tools/skel.cjs` bez jediného písmene textu.
-
-Konkrétně tedy **nikdy**: `cat songs/*.html`, `fmt.cjs dump`, Read nad souborem
-písně, grep, který vrátí řádek textu, citace v chatu ani v commit message.
-
 ## Přeformátování písně
 
 Import kdysi nechal za každým řádkem prázdný řádek. Cílový tvar:
@@ -78,7 +53,7 @@ Z toho se pozná všechno podstatné, a tři sloupce nesou nejvíc:
   `drop`ne a nahradí fencí, nebo zůstane jako `raw` — krátký řádek **bez**
   verdiktu je text a nesmí zmizet.
 
-Číst text k tomu netřeba, a `fmt.cjs dump` je proto pro člověka, ne pro model.
+Číst text k tomu většinou netřeba; když ano, vypíše ho `fmt.cjs dump`.
 
 ### 3. Napsat specifikaci
 
@@ -122,10 +97,8 @@ dvakrát — vypadlá či zdvojená sloka je jediná chyba, která nesmí projí
 Řádky se jen přeskládají, nikdy nepřepíšou, takže akordové spany přežijí byte
 po bytu. `verify.cjs` pak proti HEAD potvrdí, že pořadí akordů i text sedí.
 
-Při chybě řekne, která píseň a kolikáté slovo — ne které. Ta slova jsou text
-písně a platí pro ně pravidlo č. 1. Kdo si je chce přečíst, přidá `--why`
-(`verify.cjs <slug> --why`, `fmt.cjs apply … --why` u smazaných řádků); ten
-výstup patří člověku do terminálu, ne modelu do kontextu.
+Při chybě řekne, která píseň a kolikáté slovo; samotná slova vypíše až `--why`
+(`verify.cjs <slug> --why`, `fmt.cjs apply … --why` u smazaných řádků).
 
 Dokud změna není zacommitovaná, vychází se pokaždé z originálu, takže jde
 spustit opakovaně — spec se dá v klidu opravit a pustit znovu.
@@ -138,18 +111,6 @@ záznam pro `verify.cjs`.
 
 ### Když kostra nestačí
 
-Někdy z ní nejde poznat, kde končí sloka a začíná refrén. Řešením **není**
-podívat se na text — je to zeptat se Ondřeje. Ten píseň zná, odpoví jednou
-větou a filtr zůstane stranou. `fmt.cjs dump` existuje jen pro ruční ladění
-člověkem, ne pro model.
-
-## Když filtr přesto sepne
-
-Tah je pryč, soubory na disku ale ne — `git status` ukáže, co už je hotové,
-a dá se pokračovat další písní. Nezkoušej tu samou cestu znovu: co jednou
-vzniklo z modelu, vznikne z něj i podruhé.
-
-Dokud jde všechno přes `scan.cjs`, `skel.cjs` a `run.sh`, žádný text do kontextu
-neteče a dávka písní je v pohodě. Nebezpečí začíná tam, kde se sáhne po čemkoli,
-co text vypisuje — `dump`, `--why`, `cat`, `grep` nad písní. Od té
-chvíle jedna píseň na tah.
+Někdy z ní nejde poznat, kde končí sloka a začíná refrén. Pak pomůže podívat
+se do textu (`fmt.cjs dump <slug>`), nebo se zeptat Ondřeje — ten píseň zná a
+odpoví jednou větou.
