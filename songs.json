@@ -643,8 +643,7 @@
         "Ami7",
         "Fmaj7",
         "Dmi",
-        "G",
-        "A"
+        "G"
       ],
       "tags": {
         "capo": false,
@@ -665,27 +664,9 @@
           "Fmaj7",
           "Dmi",
           "G"
-        ],
-        [
-          "C",
-          "Dmi7",
-          "Emi7",
-          "Dmi7",
-          "C",
-          "Emi7",
-          "Dmi7",
-          "G",
-          "A",
-          "C",
-          "Dmi7",
-          "Emi7",
-          "Dmi7",
-          "C",
-          "Emi7",
-          "Dmi7",
-          "G"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Anděl (Kerndlová)",
@@ -753,17 +734,14 @@
           "Gmi",
           "F",
           "Emi",
-          "C",
-          "C7",
-          "F",
-          "Emi",
           "C"
         ]
       ],
       "authors": [
         "Zdeněk Svěrák",
         "Jaroslav Uhlíř"
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Antidepresivní rybička",
@@ -793,7 +771,8 @@
           "Ami",
           "D"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Andělé",
@@ -822,7 +801,8 @@
           "G",
           "F"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Astro Rap",
