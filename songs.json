@@ -2579,6 +2579,17 @@
       ]
     },
     {
+      "title": "Chop Suey!",
+      "slug": "chop-suey",
+      "author": "System of a Down",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
       "title": "Chválím tě, Země má",
       "slug": "chvalim-te-zeme-ma",
       "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
@@ -4878,6 +4889,17 @@
         "Zdeněk Svěrák",
         "Jaroslav Uhlíř"
       ]
+    },
+    {
+      "title": "Habits (Stay High)",
+      "slug": "habits-stay-high",
+      "author": "Tove Lo",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "Hafo",
@@ -16452,8 +16474,19 @@
       "status": "k-vytvoreni"
     },
     {
-      "title": "Safe and Sound",
-      "slug": "safe-and-sound",
+      "title": "Safe and Sound (Capital Cities)",
+      "slug": "safe-and-sound-capital-cities",
+      "author": "Capital Cities",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Safe and Sound (Taylor Swift)",
+      "slug": "safe-and-sound-taylor-swift",
       "author": "Taylor Swift",
       "chords": [],
       "tags": {
@@ -16784,6 +16817,17 @@
       "tags": {
         "capo": false,
         "language": "EN"
+      },
+      "status": "k-vytvoreni"
+    },
+    {
+      "title": "Schody z nebe",
+      "slug": "schody-z-nebe",
+      "author": "Tereza Kerndlová",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
       },
       "status": "k-vytvoreni"
     },
@@ -18525,6 +18569,17 @@
           "D7"
         ]
       ]
+    },
+    {
+      "title": "Take Me Out",
+      "slug": "take-me-out",
+      "author": "Franz Ferdinand",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "Take me to church",
@@ -21096,6 +21151,17 @@
           "Ami"
         ]
       ]
+    },
+    {
+      "title": "What Is Love",
+      "slug": "what-is-love",
+      "author": "Haddaway",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni"
     },
     {
       "title": "What shall we do with the drunken sailor",

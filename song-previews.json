@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-27T18:58:10.106Z",
-  "total": 775,
+  "generated": "2026-10-18T13:27:22.183Z",
+  "total": 784,
   "previews": {
     "1982": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/5f/13/1e/5f131e64-4570-7c6c-e4f0-4240f5c113ba/mzaf_17636339602012144413.plus.aac.p.m4a",
@@ -602,6 +602,12 @@
       "match": "exact",
       "locked": true
     },
+    "chop-suey": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c9/73/ab/c973ab4e-51cb-95c6-ac8d-2814d8db3bb3/mzaf_17485961151616612314.plus.aac.p.m4a",
+      "track": "Chop Suey!",
+      "artist": "System Of A Down",
+      "match": "exact"
+    },
     "chvalim-te-zeme-ma": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e6/36/6d/e6366d0d-af3f-d645-48d5-45f49cac2b16/mzaf_8460085706226413675.plus.aac.p.m4a",
       "track": "Chvalim te, Zeme ma",
@@ -1130,6 +1136,12 @@
       "artist": "Jaromir Nohavica",
       "match": "exact",
       "locked": true
+    },
+    "habits-stay-high": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ed/c4/14/edc4142c-6368-9b58-fb4b-3082710cceed/mzaf_16743844752851941439.plus.aac.p.m4a",
+      "track": "Habits (Stay High)",
+      "artist": "Tove Lo",
+      "match": "exact"
     },
     "hafo": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/63/a0/38/63a038eb-1071-62e0-9345-40349e02e4c1/mzaf_7258654615319609651.plus.aac.p.m4a",
@@ -3382,11 +3394,17 @@
       "artist": "Waldemar Matuska",
       "match": "exact"
     },
-    "safe-and-sound": {
+    "safe-and-sound-capital-cities": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dd/cd/ef/ddcdef0e-e19a-3e17-aaa7-74651919eaca/mzaf_2489256868357449114.plus.aac.p.m4a",
       "track": "Safe and Sound",
       "artist": "Capital Cities",
-      "match": "title"
+      "match": "exact"
+    },
+    "safe-and-sound-taylor-swift": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/40/ba/1e/40ba1e9a-953f-d15f-6268-c915c458172d/mzaf_4830941743341086953.plus.aac.p.m4a",
+      "track": "Safe & Sound (Taylor's Version)",
+      "artist": "Taylor Swift, Joy Williams & John Paul White",
+      "match": "exact"
     },
     "safir": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/62/d9/47/62d947d0-f484-b141-09b6-799cb82d57f2/mzaf_2314750911420774349.plus.aac.p.m4a",
@@ -3470,6 +3488,12 @@
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/33/02/f3/3302f3df-1628-7164-ddb6-15926fe8530a/mzaf_920927329158748996.plus.aac.p.m4a",
       "track": "Scarborough Fair / Canticle",
       "artist": "Simon & Garfunkel",
+      "match": "exact"
+    },
+    "schody-z-nebe": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/44/f9/99/44f999fc-9024-9c23-27d3-4158f0073a10/mzaf_153081853424241631.plus.aac.p.m4a",
+      "track": "Schody Z Nebe (Single Version)",
+      "artist": "Tereza Kerndlová",
       "match": "exact"
     },
     "schovana": {
@@ -3903,6 +3927,12 @@
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3a/d4/ed/3ad4ed7c-c395-fb5b-cb9e-09da11308881/mzaf_9789459917359346736.plus.aac.p.m4a",
       "track": "Take Me Home, Country Roads (Original Version)",
       "artist": "John Denver",
+      "match": "exact"
+    },
+    "take-me-out": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/e8/b9/bee8b9cc-c37f-ea31-1372-5a77d974200c/mzaf_9120925538604726257.plus.aac.p.m4a",
+      "track": "Take Me Out",
+      "artist": "Franz Ferdinand",
       "match": "exact"
     },
     "take-me-to-church": {
@@ -4431,6 +4461,12 @@
       "track": "Wellerman Sea Shanty (feat. Nathan Evans) [Funkified Version]",
       "artist": "GR3ED",
       "match": "title"
+    },
+    "what-is-love": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/ea/52/89ea5203-802f-2158-614c-8c7d5cedd3df/mzaf_13828661315018209252.plus.aac.p.m4a",
+      "track": "What Is Love (7\" Mix)",
+      "artist": "Haddaway",
+      "match": "exact"
     },
     "what-shall-we-do-with-the-drunken-sailor": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/f2/2d/ff/f22dff46-1ddc-aecc-1b04-39aeb149f84e/mzaf_1241044950034026527.plus.aac.p.m4a",
