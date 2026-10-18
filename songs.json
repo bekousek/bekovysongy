@@ -333,12 +333,15 @@
       "title": "Ach synku, synku",
       "slug": "ach-synku-synku",
       "author": "lidová",
-      "chords": [],
+      "chords": [
+        "G",
+        "D7",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "note": "lidová",
       "sources": [
         {
@@ -357,18 +360,38 @@
             "C"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D7",
+          "G",
+          "C"
+        ]
       ]
     },
     {
       "title": "Africa",
       "slug": "africa",
       "author": "Toto",
-      "chords": [],
+      "chords": [
+        "A",
+        "G#mi",
+        "C#mi",
+        "H",
+        "D#mi",
+        "H/F#",
+        "A/E",
+        "Hsus4/F#",
+        "F#mi",
+        "D",
+        "E",
+        "E/G#"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/africa",
@@ -402,6 +425,71 @@
             "D#7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "A",
+          "G#mi",
+          "C#mi"
+        ],
+        [
+          "H",
+          "D#mi",
+          "G#mi",
+          "H/F#",
+          "A/E",
+          "C#mi"
+        ],
+        [
+          "G#mi",
+          "A",
+          "G#mi",
+          "C#mi",
+          "H",
+          "D#mi",
+          "G#mi",
+          "H/F#",
+          "A/E",
+          "Hsus4/F#"
+        ],
+        [
+          "G#mi",
+          "A",
+          "G#mi",
+          "C#mi",
+          "H",
+          "D#mi",
+          "G#mi",
+          "A",
+          "C#mi"
+        ],
+        [
+          "F#mi",
+          "D",
+          "A",
+          "E"
+        ],
+        [
+          "F#mi",
+          "D",
+          "A",
+          "C#mi",
+          "E",
+          "F#mi",
+          "E/G#"
+        ],
+        [
+          "H",
+          "D#mi",
+          "G#mi",
+          "H/F#",
+          "A/E",
+          "Hsus4/F#",
+          "G#mi",
+          "A",
+          "G#mi",
+          "C#mi"
+        ]
       ]
     },
     {
@@ -448,12 +536,25 @@
       "title": "Akordy",
       "slug": "akordy",
       "author": "Karel Plíhal",
-      "chords": [],
+      "chords": [
+        "E",
+        "Amaj7",
+        "C",
+        "A",
+        "H7",
+        "G#mi7",
+        "C#mi",
+        "Ami",
+        "F#mi",
+        "F#mi/F",
+        "F#mi/E",
+        "F#mi/D#",
+        "Cmaj7"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/akordy",
@@ -488,18 +589,87 @@
             "Cmaj7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "E",
+          "Amaj7",
+          "E",
+          "C",
+          "A",
+          "H7",
+          "G#mi7",
+          "C#mi",
+          "A",
+          "C",
+          "E",
+          "Amaj7"
+        ],
+        [
+          "E",
+          "Amaj7",
+          "E",
+          "C",
+          "A",
+          "H7",
+          "G#mi7",
+          "C#mi",
+          "A",
+          "C",
+          "E",
+          "Ami"
+        ],
+        [
+          "E",
+          "Ami",
+          "E",
+          "C",
+          "A",
+          "H7",
+          "G#mi7",
+          "C#mi",
+          "A",
+          "C",
+          "E",
+          "A"
+        ],
+        [
+          "A",
+          "Amaj7",
+          "F#mi",
+          "F#mi/F",
+          "F#mi/E",
+          "F#mi/D#",
+          "A",
+          "H7",
+          "G#mi7",
+          "C#mi",
+          "A",
+          "C",
+          "E",
+          "Amaj7"
+        ],
+        [
+          "E",
+          "Amaj7",
+          "E",
+          "Cmaj7"
+        ]
       ]
     },
     {
       "title": "Alenka v říši divů",
       "slug": "alenka-v-risi-divu",
       "author": "Karel Zich",
-      "chords": [],
+      "chords": [
+        "A",
+        "D",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/alenka-v-risi-divu-3",
@@ -518,6 +688,22 @@
             "D7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "A",
+          "D",
+          "E",
+          "A",
+          "E"
+        ],
+        [
+          "D",
+          "E",
+          "D",
+          "A",
+          "E"
+        ]
       ]
     },
     {
@@ -1020,12 +1206,15 @@
       "title": "Až",
       "slug": "az",
       "author": "Katapult",
-      "chords": [],
+      "chords": [
+        "A",
+        "D",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/az-2",
@@ -1043,6 +1232,16 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "A",
+          "D"
+        ],
+        [
+          "E",
+          "A"
+        ]
       ]
     },
     {
@@ -1086,12 +1285,16 @@
       "title": "Až po uši",
       "slug": "az-po-usi",
       "author": "Slavíček",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "A",
+        "Emi"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/5290902",
@@ -1102,6 +1305,14 @@
             "Emi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "A",
+          "Emi"
+        ]
       ]
     },
     {
@@ -1138,12 +1349,17 @@
       "title": "Až to se mnu sekne",
       "slug": "az-to-se-mnu-sekne",
       "author": "Jaromír Nohavica",
-      "chords": [],
+      "chords": [
+        "Dmi",
+        "A7",
+        "F",
+        "C7",
+        "B"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/az-to-se-mnu-sekne",
@@ -1169,6 +1385,38 @@
             "B"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Dmi",
+          "A7",
+          "Dmi",
+          "F",
+          "C7",
+          "F"
+        ],
+        [
+          "B",
+          "Dmi",
+          "A7",
+          "Dmi"
+        ],
+        [
+          "A7",
+          "Dmi",
+          "A7"
+        ],
+        [
+          "Dmi",
+          "A7",
+          "Dmi",
+          "F",
+          "C7",
+          "F",
+          "B",
+          "Dmi",
+          "A7"
+        ]
       ]
     },
     {
