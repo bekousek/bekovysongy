@@ -831,7 +831,8 @@
           "G",
           "Dmi"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Atentát",
@@ -854,7 +855,8 @@
           "F#mi",
           "D"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Autobus",
