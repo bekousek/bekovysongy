@@ -339,7 +339,25 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "lidová"
+      "note": "lidová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ach-synku-synku",
+          "chords": [
+            "B",
+            "F7",
+            "Eb"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/misc-traditional/ach-synku-synku-chords-4885928",
+          "chords": [
+            "G",
+            "D7",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Africa",
@@ -350,7 +368,41 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/africa",
+          "chords": [
+            "A",
+            "G#mi",
+            "C#mi",
+            "H",
+            "D#mi",
+            "Hsus4",
+            "F#mi",
+            "D",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/toto/africa-chords-87063",
+          "chords": [
+            "H/F#",
+            "A/E",
+            "A",
+            "G#mi",
+            "C#mi",
+            "H",
+            "D#mi",
+            "Hsus/F#",
+            "F#mi",
+            "D",
+            "E",
+            "E/G#",
+            "D#7"
+          ]
+        }
+      ]
     },
     {
       "title": "Aida",
@@ -401,7 +453,42 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/akordy",
+          "chords": [
+            "E",
+            "Amaj7",
+            "C",
+            "A",
+            "H7",
+            "G#mi7",
+            "C#mi",
+            "Ami",
+            "F#mi",
+            "Cmaj7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2553606",
+          "chords": [
+            "E",
+            "Amaj7",
+            "C",
+            "A",
+            "H7",
+            "G#mi",
+            "C#mi",
+            "Ami",
+            "F#mi",
+            "F#mi/F",
+            "F#mi/E",
+            "F#mi/D#",
+            "Cmaj7"
+          ]
+        }
+      ]
     },
     {
       "title": "Alenka v říši divů",
@@ -412,7 +499,26 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/alenka-v-risi-divu-3",
+          "chords": [
+            "A",
+            "D",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2692836",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Alice se dala na pití",
@@ -919,7 +1025,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/az-2",
+          "chords": [
+            "A",
+            "D",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2463886",
+          "chords": [
+            "A",
+            "D",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Až na měsíc",
@@ -967,7 +1091,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/5290902",
+          "chords": [
+            "G",
+            "D",
+            "A",
+            "Emi"
+          ]
+        }
+      ]
     },
     {
       "title": "Až se k nám právo vrátí",
@@ -1008,7 +1143,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/az-to-se-mnu-sekne",
+          "chords": [
+            "B",
+            "Dmi",
+            "A7",
+            "F",
+            "C7",
+            "Gmi",
+            "D",
+            "Ami",
+            "Ebmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2700180",
+          "chords": [
+            "Dmi",
+            "A7",
+            "F",
+            "C7",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Babinský",
@@ -1364,7 +1525,25 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "moravská lidová"
+      "note": "moravská lidová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/beskyde-beskyde",
+          "chords": [
+            "G",
+            "D7",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/misc-traditional/beskyde-beskyde-chords-3839816",
+          "chords": [
+            "D",
+            "A",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Bitva o Karlův most",
@@ -1430,7 +1609,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2779471",
+          "chords": [
+            "G",
+            "G7",
+            "C",
+            "D",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Blues o spolykaných slovech",
@@ -1544,7 +1735,20 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/bon-soir-mademoiselle-paris",
+          "chords": [
+            "Emi",
+            "H7",
+            "D",
+            "G",
+            "C",
+            "Ami"
+          ]
+        }
+      ]
     },
     {
       "title": "Bones",
@@ -1698,7 +1902,33 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/bring-me-to-life",
+          "chords": [
+            "Emi",
+            "Ami",
+            "G",
+            "D",
+            "C",
+            "Hmi",
+            "H"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/evanescence/bring-me-to-life-chords-50008",
+          "chords": [
+            "E5",
+            "C5",
+            "H5",
+            "A5",
+            "D5",
+            "G5",
+            "F#5"
+          ]
+        }
+      ]
     },
     {
       "title": "Buchet je spousta",
@@ -1754,7 +1984,26 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/budapest",
+          "chords": [
+            "F",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/george-ezra/budapest-chords-1452428",
+          "chords": [
+            "F",
+            "B",
+            "C",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Bude mi lehká zem",
@@ -2041,7 +2290,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/bara-2",
+          "chords": [
+            "E",
+            "G#mi",
+            "C#mi",
+            "A",
+            "F#5",
+            "H"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1794070",
+          "chords": [
+            "H",
+            "E",
+            "G#mi",
+            "C#mi",
+            "A",
+            "F#mi"
+          ]
+        }
+      ]
     },
     {
       "title": "Být stále mlád",
@@ -2052,7 +2325,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/byt-stale-mlad",
+          "chords": [
+            "A",
+            "E",
+            "F#mi",
+            "D",
+            "Hmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2400589",
+          "chords": [
+            "C",
+            "G",
+            "Ami",
+            "F",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "C'Est La Vie",
@@ -2217,7 +2512,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/can-t-stop-2",
+          "chords": [
+            "Emi",
+            "D",
+            "Hmi",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/red-hot-chili-peppers/cant-stop-chords-792862",
+          "chords": [
+            "Emi",
+            "D",
+            "Hmi",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Carpe Diem",
@@ -2413,7 +2730,28 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/chasing-cars",
+          "chords": [
+            "A",
+            "E",
+            "D",
+            "Dmaj7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/snow-patrol/chasing-cars-chords-355425",
+          "chords": [
+            "A",
+            "E/G#",
+            "D",
+            "Dsus2",
+            "Dmaj7"
+          ]
+        }
+      ]
     },
     {
       "title": "Chci ti říct",
@@ -2518,7 +2856,28 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/chemie",
+          "chords": [
+            "Ami",
+            "F",
+            "G",
+            "Amiadd9",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/xindl-x/chemie-chords-1176127",
+          "chords": [
+            "Ami",
+            "G",
+            "F",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Chlapi sú",
@@ -2587,7 +2946,22 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/system-of-a-down/chop-suey-chords-887539",
+          "chords": [
+            "Gmi",
+            "Ami",
+            "F",
+            "Eb",
+            "F#mi",
+            "B",
+            "Fmi",
+            "Emi"
+          ]
+        }
+      ]
     },
     {
       "title": "Chválím tě, Země má",
@@ -2657,7 +3031,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/co-jste-hasici",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2700204",
+          "chords": [
+            "Eb",
+            "Ab",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Colorado",
@@ -2695,7 +3087,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/come-as-you-are",
+          "chords": [
+            "F#mi",
+            "E",
+            "A",
+            "H",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/nirvana/come-as-you-are-chords-77621",
+          "chords": [
+            "F#mi",
+            "E",
+            "A",
+            "Hmi",
+            "D",
+            "F#sus4"
+          ]
+        }
+      ]
     },
     {
       "title": "Corrida",
@@ -2706,7 +3121,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/corrida",
+          "chords": [
+            "Emi",
+            "C",
+            "A5",
+            "A",
+            "D",
+            "G",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3418226",
+          "chords": [
+            "Emi",
+            "C",
+            "A5",
+            "D",
+            "G",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Counting stars",
@@ -2740,7 +3180,24 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/coz-takhle-dat-si-spenat",
+          "chords": [
+            "G",
+            "D",
+            "C",
+            "Emi",
+            "H7",
+            "D7b9",
+            "Eb",
+            "Ab",
+            "Db",
+            "Fmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Creep",
@@ -2781,7 +3238,22 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/cudzinka-v-tvojej-zemi",
+          "chords": [
+            "Ami",
+            "F",
+            "G",
+            "Dmi",
+            "E",
+            "D",
+            "C",
+            "Emi7"
+          ]
+        }
+      ]
     },
     {
       "title": "Cukrářská bossa-nova",
@@ -2839,7 +3311,33 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "trampská/táborová"
+      "note": "trampská/táborová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/dajana",
+          "chords": [
+            "G",
+            "Emi",
+            "C",
+            "D7",
+            "G7",
+            "Cmi",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/5453478",
+          "chords": [
+            "G",
+            "Emi",
+            "C",
+            "D7",
+            "G7",
+            "Cmi",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Dancing queen",
@@ -2850,7 +3348,22 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/dancing-queen",
+          "chords": [
+            "A",
+            "D",
+            "E",
+            "C#7",
+            "F#mi",
+            "F#mi7",
+            "H",
+            "Hmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Darling",
@@ -3289,7 +3802,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/dirty-old-town",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "Emi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/the-pogues/dirty-old-town-chords-80132",
+          "chords": [
+            "D",
+            "G",
+            "Emi",
+            "Hmi",
+            "C",
+            "F",
+            "Ami"
+          ]
+        }
+      ]
     },
     {
       "title": "Divný setkání",
@@ -3440,7 +3976,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/do-i-wanna-know",
+          "chords": [
+            "Gmi",
+            "D#",
+            "Cmi",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/arctic-monkeys/do-i-wanna-know-chords-1398275",
+          "chords": [
+            "Gmi",
+            "Eb",
+            "Cmi",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Do nebe",
@@ -3451,7 +4007,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/do-nebe",
+          "chords": [
+            "G",
+            "D",
+            "Emi",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2453478",
+          "chords": [
+            "G",
+            "D",
+            "Emi",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Do nebes",
@@ -3613,7 +4189,28 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/dole-v-dole",
+          "chords": [
+            "A",
+            "H",
+            "D",
+            "F#"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3418199",
+          "chords": [
+            "D5",
+            "Emi",
+            "G",
+            "Hmi",
+            "H5"
+          ]
+        }
+      ]
     },
     {
       "title": "Don Quijote",
@@ -4063,7 +4660,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/dysgrafik",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "G",
+            "F",
+            "E",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/xindl-x/dysgrafik-chords-1179930",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "G",
+            "F",
+            "E",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Dáma s čápem",
@@ -4198,7 +4820,17 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2713974",
+          "chords": [
+            "Ami",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Dělání",
@@ -4249,7 +4881,21 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4431428",
+          "chords": [
+            "Gmi",
+            "B",
+            "F",
+            "C",
+            "Eb",
+            "Cmi",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Dům u vycházejícího slunce",
@@ -4261,7 +4907,19 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "česká verze House of the Rising Sun"
+      "note": "česká verze House of the Rising Sun",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4144657",
+          "chords": [
+            "Ami",
+            "C",
+            "D",
+            "F",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Eldorado",
@@ -4324,6 +4982,25 @@
       "authors": [
         "Zdeněk Svěrák",
         "Jaroslav Uhlíř"
+      ],
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/elektricky-valcik",
+          "chords": [
+            "Cmi",
+            "G7",
+            "Ab",
+            "C",
+            "Gdim",
+            "Cdim",
+            "C7",
+            "F",
+            "G",
+            "Emi",
+            "Ami",
+            "Dmi"
+          ]
+        }
       ]
     },
     {
@@ -4432,7 +5109,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/faded-2",
+          "chords": [
+            "Ami",
+            "F",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/alan-walker/faded-chords-1791779",
+          "chords": [
+            "Ami",
+            "F",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Falling slowly",
@@ -4479,7 +5176,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/fanynka",
+          "chords": [
+            "Emi",
+            "D",
+            "E",
+            "A",
+            "C",
+            "G",
+            "H"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/wohnout/fanynka-chords-6527489",
+          "chords": [
+            "Emi",
+            "D",
+            "Hmi",
+            "A",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Fireflies",
@@ -4502,7 +5224,35 @@
         "language": "EN"
       },
       "status": "k-vytvoreni",
-      "note": "folková tradiční"
+      "note": "folková tradiční",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/peter-paul-and-mary/500-miles-chords-1045017",
+          "chords": [
+            "C",
+            "Ami",
+            "Dmi",
+            "F",
+            "G",
+            "Emi",
+            "G7",
+            "D",
+            "Hmi",
+            "F#mi",
+            "A",
+            "A7",
+            "B",
+            "Gmi",
+            "Cmi",
+            "Eb",
+            "F7",
+            "C#mi",
+            "E",
+            "E7",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Flašinety",
@@ -4568,7 +5318,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/fotbal",
+          "chords": [
+            "Dmi",
+            "F",
+            "C",
+            "A7",
+            "B"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2500560",
+          "chords": [
+            "Dmi",
+            "F",
+            "C",
+            "A7",
+            "B",
+            "H"
+          ]
+        }
+      ]
     },
     {
       "title": "Fousy",
@@ -4683,7 +5456,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/frantisek",
+          "chords": [
+            "G",
+            "C",
+            "Emi",
+            "Ami",
+            "Hmi",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1673323",
+          "chords": [
+            "G",
+            "C",
+            "Emi",
+            "Ami",
+            "Hmi",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Františkovy lázně",
@@ -4765,7 +5562,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/get-lucky",
+          "chords": [
+            "Hmi",
+            "D",
+            "F#mi",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/daft-punk/get-lucky-chords-1239507",
+          "chords": [
+            "Hmi",
+            "D",
+            "F#mi",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Globální oteplování (Já jsem gay)",
@@ -4847,7 +5664,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/good-riddance",
+          "chords": [
+            "G",
+            "Cadd9",
+            "D",
+            "Emi7",
+            "C",
+            "Emi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/green-day/good-riddance-time-of-your-life-chords-12835",
+          "chords": [
+            "G",
+            "Cadd9",
+            "D",
+            "Emi",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Gorale",
@@ -4899,7 +5739,17 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/tove-lo/habits-stay-high-chords-1411696",
+          "chords": [
+            "B",
+            "Dmi",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Hafo",
@@ -5016,7 +5866,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/5779751",
+          "chords": [
+            "D",
+            "A",
+            "E",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Letní tlení",
@@ -5027,7 +5888,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/5390817",
+          "chords": [
+            "Emi",
+            "Asus4",
+            "C",
+            "Ami7",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Láska",
@@ -5038,7 +5911,18 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3092642",
+          "chords": [
+            "H",
+            "D#mi",
+            "G#",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Mimořádná linka",
@@ -5049,7 +5933,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/mimoradna-linka",
+          "chords": [
+            "H",
+            "G#mi",
+            "F#",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Modrá",
@@ -5060,7 +5955,31 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/modra-2",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "Emi",
+            "A",
+            "Hmi",
+            "Ami"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3559886",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "Emi",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Nejkratší cesta",
@@ -5071,7 +5990,24 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/nejkratsi-cesta",
+          "chords": [
+            "B",
+            "Eb",
+            "F",
+            "Ab",
+            "Gmi",
+            "Dmi",
+            "D7#9",
+            "Cmi",
+            "Gb7",
+            "F7"
+          ]
+        }
+      ]
     },
     {
       "title": "Prázdný schránky",
@@ -5082,7 +6018,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/prazdny-schranky",
+          "chords": [
+            "Fmaj7",
+            "C",
+            "G",
+            "D",
+            "Emi"
+          ]
+        }
+      ]
     },
     {
       "title": "Rád chodím na poštu",
@@ -5093,7 +6041,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/rad-chodim-na-postu",
+          "chords": [
+            "C",
+            "G",
+            "F",
+            "Dmi",
+            "Ami"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2762095",
+          "chords": [
+            "F",
+            "C",
+            "B",
+            "Gmi",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Scar tissue",
@@ -5104,7 +6074,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/scar-tissue",
+          "chords": [
+            "F",
+            "C",
+            "Dmi",
+            "Fsus2"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/red-hot-chili-peppers/scar-tissue-chords-717911",
+          "chords": [
+            "F",
+            "C",
+            "Dmi",
+            "Fsus2"
+          ]
+        }
+      ]
     },
     {
       "title": "Spěchám",
@@ -5115,7 +6105,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/specham",
+          "chords": [
+            "D",
+            "G",
+            "A",
+            "H",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Summer nights",
@@ -5126,7 +6128,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/misc-soundtrack/grease-summer-nights-chords-7708",
+          "chords": [
+            "D",
+            "G",
+            "A",
+            "A7",
+            "H",
+            "E",
+            "Emi",
+            "B",
+            "Eb",
+            "Ab",
+            "F",
+            "C",
+            "B7",
+            "Fmi",
+            "F#",
+            "C#"
+          ]
+        }
+      ]
     },
     {
       "title": "Svítí slunce nad hlavou",
@@ -5137,7 +6162,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4955482",
+          "chords": [
+            "G",
+            "Emi",
+            "A7",
+            "D7",
+            "Ami",
+            "D",
+            "Hmi",
+            "G7",
+            "C",
+            "C7",
+            "H7",
+            "H",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Take on me",
@@ -5148,7 +6193,39 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/take-on-me-2",
+          "chords": [
+            "Hmi9",
+            "Hmi",
+            "E",
+            "A",
+            "D",
+            "F#mi",
+            "C#mi",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/a-ha/take-on-me-chords-390284",
+          "chords": [
+            "Hmi9",
+            "Hmi",
+            "E",
+            "A",
+            "D",
+            "A/C#",
+            "D/F#",
+            "Esus2",
+            "F#mi",
+            "E/G#",
+            "C#mi",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "The A team",
@@ -5159,7 +6236,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/the-a-team",
+          "chords": [
+            "G",
+            "D",
+            "Emi",
+            "C",
+            "Ami"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/ed-sheeran/the-a-team-chords-1082501",
+          "chords": [
+            "G",
+            "D/F#",
+            "Emi",
+            "C",
+            "Ami",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "The Hanging Tree",
@@ -5341,7 +6441,19 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/rise-against/hero-of-war-chords-739291",
+          "chords": [
+            "E",
+            "H",
+            "G#mi",
+            "A",
+            "C#mi"
+          ]
+        }
+      ]
     },
     {
       "title": "Heroes",
@@ -5380,7 +6492,40 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/hey-jude",
+          "chords": [
+            "C",
+            "G",
+            "G7",
+            "F",
+            "C7",
+            "Ami",
+            "Dmi",
+            "B"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/the-beatles/hey-jude-chords-17275",
+          "chords": [
+            "F",
+            "C",
+            "F/C",
+            "C7",
+            "C7sus4",
+            "B",
+            "Fmaj7",
+            "F7",
+            "B/A",
+            "Gmi",
+            "B/F",
+            "C/E",
+            "Eb"
+          ]
+        }
+      ]
     },
     {
       "title": "Hey Ya",
@@ -5538,7 +6683,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/hlupak-vaha",
+          "chords": [
+            "Ami",
+            "G",
+            "D",
+            "F",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1675816",
+          "chords": [
+            "Ami",
+            "G",
+            "D",
+            "F",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Hlupáku, najdu tě",
@@ -5549,7 +6716,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/hlupaku-najdu-te-2",
+          "chords": [
+            "C",
+            "F",
+            "G",
+            "C7"
+          ]
+        }
+      ]
     },
     {
       "title": "Hlídač krav",
@@ -5690,7 +6868,17 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "lidová"
+      "note": "lidová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/holka-modrooka",
+          "chords": [
+            "A",
+            "D",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Holka s lebkou",
@@ -6319,7 +7507,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/hvezdy-nad-hlavou",
+          "chords": [
+            "Dadd9",
+            "Aadd9",
+            "E",
+            "G",
+            "D",
+            "A",
+            "F",
+            "B"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3160451",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "F",
+            "D#",
+            "G#"
+          ]
+        }
+      ]
     },
     {
       "title": "Hvězdář",
@@ -6374,7 +7588,35 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/hrisna-tela-kridla-motyli",
+          "chords": [
+            "H",
+            "Hsus2",
+            "F#",
+            "G#mi",
+            "E",
+            "G#",
+            "C#mi",
+            "C#",
+            "D#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1426799",
+          "chords": [
+            "G",
+            "D",
+            "Emi",
+            "C",
+            "E",
+            "Ami",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "I bet my life",
@@ -6447,7 +7689,19 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/three-days-grace/i-hate-everything-about-you-chords-811998",
+          "chords": [
+            "F#mi",
+            "D",
+            "E",
+            "A",
+            "E/G#"
+          ]
+        }
+      ]
     },
     {
       "title": "I see fire",
@@ -6648,7 +7902,30 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/i-m-yours",
+          "chords": [
+            "C",
+            "G",
+            "D",
+            "Emi",
+            "A7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/jason-mraz/im-yours-chords-468625",
+          "chords": [
+            "C",
+            "G",
+            "Ami",
+            "F",
+            "D7/F#",
+            "G/B"
+          ]
+        }
+      ]
     },
     {
       "title": "Impossible",
@@ -6721,7 +7998,34 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/inzerat",
+          "chords": [
+            "A",
+            "E",
+            "H",
+            "C#mi",
+            "G#mi",
+            "C#mi7",
+            "F#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3368831",
+          "chords": [
+            "A",
+            "E",
+            "B",
+            "C#mi",
+            "G#mi",
+            "C#mi7/B",
+            "F#mi",
+            "H"
+          ]
+        }
+      ]
     },
     {
       "title": "Inženýrská",
@@ -6892,7 +8196,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2711277",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "C",
+            "F",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Jaro",
@@ -7183,7 +8499,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/jede-jede-masinka",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4728716",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Jede traktor",
@@ -7342,7 +8676,34 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/jednou-budem-dal",
+          "chords": [
+            "A",
+            "E",
+            "F#mi",
+            "D",
+            "E7",
+            "C#mi",
+            "H7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4063654",
+          "chords": [
+            "C",
+            "F",
+            "E7",
+            "Ami",
+            "D",
+            "G",
+            "D7",
+            "G7"
+          ]
+        }
+      ]
     },
     {
       "title": "Jednou mi fotr povídá",
@@ -7563,7 +8924,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/jeste-jednu-noc",
+          "chords": [
+            "E",
+            "F#mi",
+            "C#mi",
+            "H",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3627842",
+          "chords": [
+            "E",
+            "F#mi7",
+            "C#mi",
+            "H",
+            "F#mi",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Ještěřice",
@@ -7708,7 +9092,16 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "lidová"
+      "note": "lidová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ja-do-lesa-nepojedu",
+          "chords": [
+            "B",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Já s tebou žít nebudu",
@@ -7782,7 +9175,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/jo-tresne-zraly",
+          "chords": [
+            "G",
+            "D7",
+            "H7",
+            "Emi",
+            "Ami",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3566540",
+          "chords": [
+            "G",
+            "D7",
+            "H7",
+            "Emi",
+            "Ami",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Jóžin z bážin",
@@ -8138,7 +9555,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/karvina",
+          "chords": [
+            "G",
+            "Hmi7",
+            "C",
+            "D",
+            "Emi",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1675501",
+          "chords": [
+            "G",
+            "Hmi7",
+            "Cmaj7",
+            "D",
+            "Emi",
+            "Emi/F#",
+            "Emi/G",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Každý ráno",
@@ -8328,7 +9771,17 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2795548",
+          "chords": [
+            "D",
+            "A",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Když jsem já sloužil",
@@ -8428,7 +9881,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/kdyz-nas-tata-hral",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4051591",
+          "chords": [
+            "G",
+            "C",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Když se načančám",
@@ -8672,6 +10143,52 @@
         "Jaroslav Ježek",
         "Jiří Voskovec",
         "Jan Werich"
+      ],
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/klobouk-ve-krovi",
+          "chords": [
+            "C",
+            "B9",
+            "Gaug",
+            "C7",
+            "Fmi",
+            "G#7",
+            "G7",
+            "Ami",
+            "Emi",
+            "F",
+            "A7",
+            "G",
+            "D7",
+            "F7",
+            "F#7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3531293",
+          "chords": [
+            "C",
+            "C#dim",
+            "G7",
+            "Gaug",
+            "B9",
+            "C#7",
+            "C7",
+            "Fmi",
+            "G#7",
+            "Ami",
+            "Emi",
+            "F",
+            "A7",
+            "G",
+            "D7",
+            "F7",
+            "F#7",
+            "G#",
+            "Dmi"
+          ]
+        }
       ]
     },
     {
@@ -9213,7 +10730,17 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3580424",
+          "chords": [
+            "Ami",
+            "G",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Král a klaun",
@@ -9482,7 +11009,22 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/kavu-si-osladim",
+          "chords": [
+            "E",
+            "H7",
+            "E7",
+            "A",
+            "G#7",
+            "C#mi",
+            "F#7",
+            "F#mi7"
+          ]
+        }
+      ]
     },
     {
       "title": "Křídla z mýdla",
@@ -9493,7 +11035,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/kridla-z-mydla",
+          "chords": [
+            "A",
+            "F#mi",
+            "D",
+            "Hmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1230640",
+          "chords": [
+            "A",
+            "F#mi",
+            "D",
+            "Hmi"
+          ]
+        }
+      ]
     },
     {
       "title": "L.A.G. song",
@@ -9563,7 +11125,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ladovska-zima",
+          "chords": [
+            "Cadd2",
+            "G6",
+            "Dsus2"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3345128",
+          "chords": [
+            "Cadd9",
+            "G6",
+            "Dsus2"
+          ]
+        }
+      ]
     },
     {
       "title": "Lady Carneval",
@@ -9574,7 +11154,47 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/lady-carneval",
+          "chords": [
+            "C",
+            "G7",
+            "D7",
+            "Dmi7",
+            "Ami",
+            "Fmi7",
+            "B7",
+            "Eb",
+            "Ab",
+            "Fmi",
+            "G",
+            "Db",
+            "Ab7",
+            "Eb7",
+            "Db7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/karel-gott/lady-carneval-chords-4147159",
+          "chords": [
+            "F",
+            "C",
+            "G",
+            "Gmi7",
+            "Dmi",
+            "Bmi7",
+            "D#",
+            "G#",
+            "Fmi",
+            "Bmi",
+            "Gmi",
+            "F#",
+            "C#"
+          ]
+        }
+      ]
     },
     {
       "title": "Lavina",
@@ -9770,7 +11390,31 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/let-her-go",
+          "chords": [
+            "C",
+            "G",
+            "D",
+            "Emi",
+            "Hmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/passenger/let-her-go-chords-1137467",
+          "chords": [
+            "G",
+            "Fmaj7",
+            "G6",
+            "Ami",
+            "F",
+            "C",
+            "Emi"
+          ]
+        }
+      ]
     },
     {
       "title": "Let it go",
@@ -9908,7 +11552,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/lhuta-zarucni",
+          "chords": [
+            "Ab",
+            "Bmi",
+            "Fmi",
+            "Db",
+            "Dbsus2",
+            "Dbmi",
+            "Dbsus4"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1709930",
+          "chords": [
+            "G",
+            "Ami",
+            "Emi",
+            "C",
+            "Cmaj7/E",
+            "Cmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Lieder",
@@ -10103,7 +11772,17 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3393185",
+          "chords": [
+            "E",
+            "A",
+            "H7"
+          ]
+        }
+      ]
     },
     {
       "title": "Lokomotiva",
@@ -10137,7 +11816,22 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/lolita",
+          "chords": [
+            "E",
+            "F#mi7",
+            "A",
+            "H7",
+            "G#",
+            "C#mi",
+            "H",
+            "F#mi"
+          ]
+        }
+      ]
     },
     {
       "title": "Lonely Day",
@@ -10148,7 +11842,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/lonely-day",
+          "chords": [
+            "Ami",
+            "F",
+            "C",
+            "E7",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/system-of-a-down/lonely-day-chords-275944",
+          "chords": [
+            "Emi",
+            "C",
+            "G",
+            "B7",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Lose yourself",
@@ -10185,7 +11901,36 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/losing-my-religion-2",
+          "chords": [
+            "F",
+            "G",
+            "Ami",
+            "C",
+            "Dsus2",
+            "Ami7",
+            "Emi",
+            "Dmi",
+            "Fmaj7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/r-e-m-/losing-my-religion-chords-81372",
+          "chords": [
+            "F",
+            "Emi",
+            "Fsus2",
+            "G",
+            "Ebmi",
+            "Ami",
+            "C",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Lovers on the Sun",
@@ -10196,7 +11941,24 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/david-guetta/lovers-on-the-sun-chords-1498495",
+          "chords": [
+            "Ami",
+            "C",
+            "G/B",
+            "G",
+            "Emi",
+            "D",
+            "F",
+            "Dsus2",
+            "C/E",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Lucky Boy",
@@ -10301,7 +12063,21 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/laska-je-laska",
+          "chords": [
+            "G",
+            "C",
+            "Ami",
+            "H",
+            "B",
+            "A",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Láska v housce",
@@ -10356,7 +12132,24 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3718745",
+          "chords": [
+            "Ami",
+            "Emi",
+            "D",
+            "E",
+            "F",
+            "G",
+            "C",
+            "Dmi",
+            "E7",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Léto",
@@ -10877,6 +12670,43 @@
       "authors": [
         "Jiří Suchý",
         "Jiří Šlitr"
+      ],
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/marniva-sestrenice",
+          "chords": [
+            "B",
+            "F7",
+            "B7",
+            "Eb",
+            "Ebmi",
+            "G7",
+            "C7",
+            "H",
+            "F#7",
+            "H7",
+            "E",
+            "Emi",
+            "G#",
+            "C#7",
+            "C",
+            "F",
+            "Fmi",
+            "A7",
+            "D7",
+            "C#",
+            "F#",
+            "F#mi",
+            "D#7",
+            "G#7",
+            "D",
+            "G",
+            "Gmi",
+            "E7",
+            "D#",
+            "G#mi"
+          ]
+        }
       ]
     },
     {
@@ -11068,7 +12898,37 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/medvedi-nevedi",
+          "chords": [
+            "Emi",
+            "Ami",
+            "H",
+            "D",
+            "G",
+            "G7",
+            "C",
+            "C#dim",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1179898",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "E7",
+            "G7",
+            "C",
+            "C7",
+            "F",
+            "F#dim",
+            "A7"
+          ]
+        }
+      ]
     },
     {
       "title": "Mezi horami",
@@ -11261,7 +13121,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/mimorealita",
+          "chords": [
+            "Emi",
+            "C",
+            "G",
+            "D",
+            "Cadd9"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2483271",
+          "chords": [
+            "Emi",
+            "C",
+            "G",
+            "D",
+            "C2"
+          ]
+        }
+      ]
     },
     {
       "title": "Misty Mountains cold",
@@ -11392,7 +13274,43 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/modlitba-pro-martu",
+          "chords": [
+            "H",
+            "C#mi",
+            "D#mi",
+            "E",
+            "F#",
+            "F#7",
+            "A",
+            "G#mi",
+            "Fdim",
+            "F#mi",
+            "D",
+            "C#7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4154215",
+          "chords": [
+            "D",
+            "Emi",
+            "F#mi",
+            "G",
+            "A",
+            "A7",
+            "C",
+            "Bmi",
+            "G#dim",
+            "Ami",
+            "F",
+            "E7"
+          ]
+        }
+      ]
     },
     {
       "title": "Modlitba pro partu",
@@ -12210,7 +14128,36 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/mels-me-vubec-rad",
+          "chords": [
+            "E",
+            "H",
+            "C#mi",
+            "A",
+            "F#",
+            "C#",
+            "D#mi",
+            "F#maj7",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1832707",
+          "chords": [
+            "E",
+            "B",
+            "C#mi",
+            "A",
+            "F#",
+            "C#",
+            "D#mi",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Měsíc",
@@ -12796,7 +14743,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/nebe-2",
+          "chords": [
+            "A",
+            "C#mi",
+            "H",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/anna-k/nebe-chords-4842587",
+          "chords": [
+            "B",
+            "Dmi",
+            "C",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Nebude to lahké",
@@ -12807,7 +14774,30 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/nebude-to-lahke",
+          "chords": [
+            "Ami",
+            "G",
+            "Fmaj7",
+            "F",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1166871",
+          "chords": [
+            "Ami",
+            "G",
+            "Fmaj7",
+            "F/G",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Nedotýkej se mě",
@@ -12967,7 +14957,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/neni-nutno",
+          "chords": [
+            "E",
+            "F#mi",
+            "H7",
+            "C#mi",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/jaroslav-uhlir/neni-nutno-chords-1448120",
+          "chords": [
+            "C",
+            "Dmi",
+            "G7",
+            "Ami",
+            "F",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Nesmělý chlapec",
@@ -13966,7 +15979,36 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/pane-prezidente",
+          "chords": [
+            "D",
+            "Dsus4",
+            "Emi",
+            "Emi7",
+            "A",
+            "Asus4",
+            "Dsus2",
+            "G",
+            "G6",
+            "Ami"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3204650",
+          "chords": [
+            "D",
+            "Emi",
+            "A7",
+            "G",
+            "Ami",
+            "D7",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Panenka",
@@ -14420,7 +16462,29 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/po-schodoch",
+          "chords": [
+            "Dmi",
+            "C",
+            "B",
+            "Ami",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2885879",
+          "chords": [
+            "Dmi",
+            "C",
+            "B",
+            "Ami",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Pochod marodů",
@@ -15130,7 +17194,39 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/prachovske-skaly",
+          "chords": [
+            "Cmi",
+            "C7",
+            "Fmi",
+            "G7",
+            "D7",
+            "B7",
+            "Eb",
+            "Eb7",
+            "Ab",
+            "F7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1179894",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "E",
+            "E7",
+            "G",
+            "C",
+            "G7",
+            "C7",
+            "F",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Praha Vídeň",
@@ -15333,7 +17429,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/proklinam",
+          "chords": [
+            "Ami",
+            "F",
+            "Dmi",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1819740",
+          "chords": [
+            "Ami",
+            "F",
+            "Dmi",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Proměny",
@@ -15518,7 +17636,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/pumped-up-kicks",
+          "chords": [
+            "Emi",
+            "G",
+            "D",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/foster-the-people/pumped-up-kicks-chords-1032143",
+          "chords": [
+            "Fmi",
+            "Ab",
+            "Eb",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Punčocháče",
@@ -15544,6 +17682,36 @@
       "authors": [
         "Jiří Suchý",
         "Jiří Šlitr"
+      ],
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/purpura",
+          "chords": [
+            "Eb",
+            "Cmi",
+            "Fmi",
+            "B",
+            "Ab",
+            "Eb7",
+            "F",
+            "C7",
+            "B7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4404581",
+          "chords": [
+            "Eb",
+            "Ab",
+            "B7",
+            "Fmi",
+            "Eb7",
+            "Cmi",
+            "F",
+            "F7",
+            "B"
+          ]
+        }
       ]
     },
     {
@@ -15555,7 +17723,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/panu-bohu-do-oken",
+          "chords": [
+            "A",
+            "E",
+            "H",
+            "F#",
+            "C",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1178147",
+          "chords": [
+            "A",
+            "E",
+            "H",
+            "F#",
+            "C",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Pár přátel",
@@ -15566,7 +17758,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/par-pratel",
+          "chords": [
+            "A",
+            "D",
+            "E",
+            "Hmi",
+            "E7",
+            "A7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4580018",
+          "chords": [
+            "A",
+            "D",
+            "E",
+            "Hmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Pátá",
@@ -15577,7 +17791,36 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/pata",
+          "chords": [
+            "E",
+            "A",
+            "H",
+            "C#mi",
+            "G#mi",
+            "F#",
+            "F",
+            "C",
+            "B",
+            "Ami",
+            "Dmi",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4154224",
+          "chords": [
+            "C",
+            "F",
+            "G",
+            "Ami",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Píseň proti trudomyslnosti",
@@ -15821,7 +18064,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/pritel",
+          "chords": [
+            "A",
+            "E",
+            "F#mi7",
+            "Esus4",
+            "Hmi",
+            "D",
+            "F#mi",
+            "E7",
+            "Dmaj7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1166862",
+          "chords": [
+            "A",
+            "E",
+            "Hmi",
+            "D",
+            "F#mi"
+          ]
+        }
+      ]
     },
     {
       "title": "Půlnoční",
@@ -15870,7 +18139,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/cermaque/racci-chords-4380236",
+          "chords": [
+            "Emi",
+            "G",
+            "Hmi",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Raci v práci",
@@ -16047,7 +18327,34 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/reklama-na-ticho",
+          "chords": [
+            "Cmi",
+            "Gmi",
+            "G#",
+            "B",
+            "D#",
+            "C#mi",
+            "G#mi",
+            "A",
+            "H",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/team/reklama-na-ticho-chords-3017360",
+          "chords": [
+            "Ami",
+            "Emi",
+            "F",
+            "G",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Replay",
@@ -16086,7 +18393,25 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ring-of-fire",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/johnny-cash/ring-of-fire-chords-63352",
+          "chords": [
+            "G",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Riptide",
@@ -16375,7 +18700,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/rana-v-trave",
+          "chords": [
+            "Ami",
+            "G",
+            "Emi",
+            "C",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3996175",
+          "chords": [
+            "Ami",
+            "G",
+            "Emi",
+            "C",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Ráno",
@@ -16460,7 +18807,78 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ruze-z-texasu",
+          "chords": [
+            "F7",
+            "B",
+            "F",
+            "Dmi",
+            "G7",
+            "C7",
+            "D7",
+            "Gmi",
+            "G",
+            "C#7",
+            "F#",
+            "F#7",
+            "H",
+            "D#mi",
+            "G#7",
+            "D#7",
+            "Abmi",
+            "G#",
+            "G#mi",
+            "C",
+            "Emi",
+            "A7",
+            "E7",
+            "Ami",
+            "A",
+            "E",
+            "C#",
+            "Fmi",
+            "B7",
+            "Bmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2712105",
+          "chords": [
+            "C",
+            "C7",
+            "F",
+            "Ami",
+            "D",
+            "G7",
+            "A7",
+            "Dmi",
+            "Ab",
+            "Db",
+            "Db7",
+            "Gb",
+            "Bmi",
+            "Eb",
+            "B7",
+            "Ebmi",
+            "Ab7",
+            "D7",
+            "G",
+            "Hmi",
+            "E",
+            "A",
+            "H7",
+            "Emi",
+            "Eb7",
+            "Cmi",
+            "B",
+            "Fmi",
+            "H"
+          ]
+        }
+      ]
     },
     {
       "title": "S tebou mě baví svět",
@@ -16482,7 +18900,18 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/capital-cities/safe-and-sound-chords-1217542",
+          "chords": [
+            "F",
+            "C",
+            "Ami",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Safe and Sound (Taylor Swift)",
@@ -16493,7 +18922,19 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/taylor-swift/safe-and-sound-chords-1118992",
+          "chords": [
+            "Emi",
+            "Hmi",
+            "G",
+            "D",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Safír",
@@ -16707,7 +19148,50 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/saxana",
+          "chords": [
+            "B7#9",
+            "B",
+            "Eb7",
+            "E7",
+            "F7",
+            "Eb",
+            "Gmi",
+            "C9",
+            "F",
+            "B7",
+            "Db6",
+            "Gb7",
+            "G7",
+            "Ab7",
+            "F#7",
+            "H",
+            "E",
+            "G#mi",
+            "C#9",
+            "F#"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4184041",
+          "chords": [
+            "A",
+            "D",
+            "F#mi",
+            "B7",
+            "E",
+            "A7",
+            "C7",
+            "D7",
+            "F7",
+            "G7",
+            "E7"
+          ]
+        }
+      ]
     },
     {
       "title": "Sbohem galánečko",
@@ -16818,7 +19302,28 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/scarborough-fair",
+          "chords": [
+            "Ami",
+            "G",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/simon-garfunkel/scarborough-fair-chords-83977",
+          "chords": [
+            "Ami",
+            "G",
+            "C",
+            "D",
+            "G/B"
+          ]
+        }
+      ]
     },
     {
       "title": "Schody z nebe",
@@ -16829,7 +19334,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/schody-z-nebe",
+          "chords": [
+            "Hmi",
+            "Gmaj7",
+            "D",
+            "F#mi",
+            "G",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/6612431",
+          "chords": [
+            "Hmi",
+            "Gmaj7",
+            "D",
+            "F#mi/C#",
+            "G",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Schovaná",
@@ -16840,7 +19369,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/schovana",
+          "chords": [
+            "G",
+            "Hmi",
+            "Emi",
+            "C",
+            "D",
+            "A",
+            "F#mi",
+            "E",
+            "C#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3499052",
+          "chords": [
+            "G",
+            "Hmi",
+            "Emi",
+            "C",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Seděla Anička na větvičce",
@@ -16929,7 +19484,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/seven-nation-army",
+          "chords": [
+            "Emi",
+            "G",
+            "C",
+            "H",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/the-white-stripes/seven-nation-army-chords-52559",
+          "chords": [
+            "Emi",
+            "G",
+            "C",
+            "B",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Severní vítr",
@@ -17137,7 +19714,23 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/slecna-zavist",
+          "chords": [
+            "Ami",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3844856",
+          "chords": [
+            "Ami",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Sliby se maj plnit o Vánocích",
@@ -17148,7 +19741,43 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/sliby-se-maj-plnit-o-vanocich",
+          "chords": [
+            "D",
+            "Dmaj7",
+            "Ami",
+            "G",
+            "D7",
+            "F",
+            "C",
+            "Dsus4",
+            "Asus4",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2478186",
+          "chords": [
+            "D",
+            "Dsus2",
+            "Dsus4",
+            "Dmaj7",
+            "Dmaj7sus4",
+            "Ami7",
+            "Ami/B",
+            "G",
+            "A",
+            "G/A",
+            "Asus2",
+            "D7",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Slunečný hrob",
@@ -17203,7 +19832,38 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/slzy-tvy-mamy",
+          "chords": [
+            "Gmi",
+            "F",
+            "Dmi",
+            "Cmi",
+            "B",
+            "G7",
+            "G",
+            "Eb",
+            "D7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1820978",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "G",
+            "C",
+            "C/B",
+            "A7",
+            "Emi",
+            "A",
+            "F",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Snad jsem to zavinil já",
@@ -17214,7 +19874,39 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/snad-jsem-to-zavinil-ja",
+          "chords": [
+            "Ami",
+            "C",
+            "D",
+            "Dmi7",
+            "E",
+            "Dmi",
+            "H",
+            "B",
+            "G",
+            "D7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/olympic/snad-jsem-to-zavinil-ja-chords-1675805",
+          "chords": [
+            "Ami",
+            "C",
+            "D",
+            "Dmi",
+            "E7",
+            "H",
+            "B",
+            "F",
+            "G",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Snadné je žít",
@@ -17225,7 +19917,22 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/snadne-je-zit",
+          "chords": [
+            "Emaj7",
+            "Amaj7",
+            "F#mi7",
+            "F#mi",
+            "Hsus4",
+            "C",
+            "E",
+            "F#7"
+          ]
+        }
+      ]
     },
     {
       "title": "Snow (Hey Oh)",
@@ -17236,7 +19943,19 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/red-hot-chili-peppers/snow-hey-oh-chords-497382",
+          "chords": [
+            "Emi",
+            "C",
+            "G",
+            "D",
+            "Ami"
+          ]
+        }
+      ]
     },
     {
       "title": "Snowman",
@@ -17301,7 +20020,25 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/somebody-that-i-used-to-know",
+          "chords": [
+            "Ami",
+            "G",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/gotye/somebody-that-i-used-to-know-chords-1088165",
+          "chords": [
+            "Dmi",
+            "C",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Somewhere over the rainbow",
@@ -17343,7 +20080,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/soudny-den",
+          "chords": [
+            "Ami",
+            "G",
+            "Emi",
+            "E",
+            "H",
+            "F",
+            "Dmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3398651",
+          "chords": [
+            "Dmi",
+            "C",
+            "Ami",
+            "B",
+            "Gmi",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Sound of silence",
@@ -17619,7 +20381,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/srdcebeat",
+          "chords": [
+            "G",
+            "Ami",
+            "Emi",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Stand by me",
@@ -17776,7 +20550,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/stejne-jako-ja",
+          "chords": [
+            "D",
+            "G",
+            "C",
+            "Hmi",
+            "E",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3302438",
+          "chords": [
+            "D",
+            "G",
+            "C",
+            "Hmi",
+            "E",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Stoupám",
@@ -17974,7 +20772,35 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/stin-katedral",
+          "chords": [
+            "Hsus2",
+            "H",
+            "E",
+            "A",
+            "F#",
+            "C#",
+            "D",
+            "G#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/6059924",
+          "chords": [
+            "C",
+            "F",
+            "B",
+            "G",
+            "D",
+            "Eb",
+            "G/H",
+            "Ami"
+          ]
+        }
+      ]
     },
     {
       "title": "Stížnost",
@@ -17985,7 +20811,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/stiznost",
+          "chords": [
+            "F",
+            "C",
+            "Gmi",
+            "B"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3110489",
+          "chords": [
+            "F",
+            "C",
+            "Gmi",
+            "B"
+          ]
+        }
+      ]
     },
     {
       "title": "Stůl, prostřený stůl",
@@ -18039,7 +20885,18 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/5206302",
+          "chords": [
+            "Emi",
+            "Ami",
+            "G",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Svaz českých bohémů",
@@ -18238,7 +21095,28 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/sweet-home-alabama",
+          "chords": [
+            "D",
+            "C",
+            "G",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/lynyrd-skynyrd/sweet-home-alabama-chords-849467",
+          "chords": [
+            "D",
+            "Cadd9",
+            "G",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Sweet little something",
@@ -18387,7 +21265,22 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ta-nase-pisnicka-ceska",
+          "chords": [
+            "F",
+            "C",
+            "G7",
+            "G",
+            "E7",
+            "Ami",
+            "D7",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Ta ne",
@@ -18519,7 +21412,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/tak-nejak-malo-tancim",
+          "chords": [
+            "Gmaj7",
+            "Dmaj7",
+            "Emi",
+            "Hmi",
+            "A",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3396356",
+          "chords": [
+            "Gmaj7",
+            "Dmaj7",
+            "Emi",
+            "Hmi",
+            "A",
+            "D",
+            "Emi9"
+          ]
+        }
+      ]
     },
     {
       "title": "Take me home",
@@ -18579,7 +21497,47 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/take-me-out",
+          "chords": [
+            "Emi",
+            "A5",
+            "D",
+            "G",
+            "F",
+            "C",
+            "D6",
+            "A",
+            "Ami",
+            "H7",
+            "C6"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/franz-ferdinand/take-me-out-chords-134932",
+          "chords": [
+            "Emi",
+            "E5",
+            "Gsus2",
+            "A",
+            "G5",
+            "D",
+            "A5",
+            "D/F#",
+            "Hmi",
+            "Emi/A",
+            "Hmi7",
+            "Emi7",
+            "Ami",
+            "Ami7",
+            "G",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Take me to church",
@@ -18590,7 +21548,41 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/take-me-to-church",
+          "chords": [
+            "Emi",
+            "Ami",
+            "G",
+            "D",
+            "C",
+            "Cmi",
+            "F#",
+            "F",
+            "H",
+            "A"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/hozier/take-me-to-church-chords-1424967",
+          "chords": [
+            "Emi",
+            "Ami",
+            "G",
+            "D",
+            "C/G",
+            "C",
+            "Cmi",
+            "F#",
+            "F",
+            "B",
+            "G/D",
+            "G/C"
+          ]
+        }
+      ]
     },
     {
       "title": "Tančím",
@@ -18687,6 +21679,23 @@
         "Jaroslav Ježek",
         "Jiří Voskovec",
         "Jan Werich"
+      ],
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3559412",
+          "chords": [
+            "F",
+            "C",
+            "Gmi",
+            "D7",
+            "B",
+            "Ami",
+            "Dmi",
+            "A7",
+            "G7",
+            "G"
+          ]
+        }
       ]
     },
     {
@@ -18699,7 +21708,20 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "též jako Osamělý město"
+      "note": "též jako Osamělý město",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2711466",
+          "chords": [
+            "C",
+            "D",
+            "G",
+            "Emi",
+            "E7",
+            "Ami"
+          ]
+        }
+      ]
     },
     {
       "title": "Tereza",
@@ -18710,7 +21732,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/tereza-4",
+          "chords": [
+            "Db",
+            "Hmi",
+            "Ebmi",
+            "Ab",
+            "Gb",
+            "Eb7",
+            "F7",
+            "Hmi7",
+            "Gbmi",
+            "Ab7",
+            "H7",
+            "A7",
+            "Bmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Terorista",
@@ -18775,7 +21817,27 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/the-night-we-met",
+          "chords": [
+            "Emi",
+            "D",
+            "G",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/lord-huron/the-night-we-met-chords-1709964",
+          "chords": [
+            "Emi",
+            "D",
+            "G",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "The Pretender",
@@ -18921,7 +21983,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/tisic-mil",
+          "chords": [
+            "F",
+            "Dmi",
+            "Gmi",
+            "B",
+            "C7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1793019",
+          "chords": [
+            "G",
+            "Emi",
+            "Ami",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "To tá Heľpa",
@@ -19072,7 +22156,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/toulavej",
+          "chords": [
+            "Ami",
+            "G",
+            "E",
+            "F",
+            "G7",
+            "C"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2642340",
+          "chords": [
+            "Ami",
+            "G",
+            "E",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Toulavá",
@@ -19106,7 +22213,21 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/tramp",
+          "chords": [
+            "C",
+            "G",
+            "F",
+            "G7",
+            "Ami",
+            "C7",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Trezor",
@@ -19406,7 +22527,18 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4627283",
+          "chords": [
+            "Gmi",
+            "Dmi",
+            "F",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Tääborääk Sonxx",
@@ -20015,7 +23147,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/v-pekle-sudy-valej",
+          "chords": [
+            "C",
+            "G",
+            "Dmi",
+            "B",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3418175",
+          "chords": [
+            "C",
+            "G",
+            "Dmi",
+            "B",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Vakuum",
@@ -20026,7 +23180,37 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vakuum",
+          "chords": [
+            "G",
+            "D",
+            "C",
+            "F",
+            "Dsus4",
+            "Emi",
+            "A",
+            "F#mi",
+            "H7",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/chinaski/vakuum-chords-4275862",
+          "chords": [
+            "G",
+            "D",
+            "F",
+            "C",
+            "Emi",
+            "A",
+            "Fmi",
+            "H7"
+          ]
+        }
+      ]
     },
     {
       "title": "Valčíček",
@@ -20181,7 +23365,34 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/velicenstvo-kat",
+          "chords": [
+            "Dmi",
+            "C",
+            "A7",
+            "F",
+            "Gmi",
+            "A",
+            "B",
+            "Dmi6"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2366351",
+          "chords": [
+            "C#mi",
+            "H",
+            "G#7",
+            "E",
+            "F#mi",
+            "G#",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Velmi nesmělá",
@@ -20354,7 +23565,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ved-me-dal-cesto-ma",
+          "chords": [
+            "G",
+            "Emi",
+            "D",
+            "C",
+            "F",
+            "D7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2999246",
+          "chords": [
+            "C",
+            "Ami",
+            "G",
+            "F",
+            "B",
+            "G7"
+          ]
+        }
+      ]
     },
     {
       "title": "Vinaři",
@@ -20394,7 +23629,28 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/viva-la-vida",
+          "chords": [
+            "C",
+            "D",
+            "G",
+            "Emi",
+            "Hmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/coldplay/viva-la-vida-chords-675652",
+          "chords": [
+            "Db",
+            "Eb",
+            "Ab",
+            "Fmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Vlajky vlají",
@@ -20448,7 +23704,28 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vlasy",
+          "chords": [
+            "Dmi",
+            "Gmi",
+            "A7",
+            "A",
+            "C7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2552997",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "E7",
+            "G7"
+          ]
+        }
+      ]
     },
     {
       "title": "Vlaštovko, leť",
@@ -20459,7 +23736,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vlastovko-let",
+          "chords": [
+            "C",
+            "Ami",
+            "Fmaj7",
+            "G",
+            "F",
+            "Emi",
+            "G7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1166864",
+          "chords": [
+            "C",
+            "Ami",
+            "F",
+            "G",
+            "Emi",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Vlaštovky",
@@ -20540,7 +23842,41 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/voda-co-ma-drzi-nad-vodou",
+          "chords": [
+            "E",
+            "A",
+            "H",
+            "Gbmi7",
+            "Asus2",
+            "Abmi7",
+            "Dbmi",
+            "Absus4",
+            "Ab",
+            "Ab7",
+            "Amaj7",
+            "Ab7sus4",
+            "Gbdim"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2995961",
+          "chords": [
+            "E",
+            "A",
+            "H",
+            "F#mi",
+            "G#mi",
+            "F#mi7",
+            "D#",
+            "C#mi",
+            "G#"
+          ]
+        }
+      ]
     },
     {
       "title": "Vodopády",
@@ -20575,7 +23911,33 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vodacka-holka",
+          "chords": [
+            "C",
+            "Dmi",
+            "F",
+            "G",
+            "Ami",
+            "Emi",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2565018",
+          "chords": [
+            "D",
+            "Emi",
+            "G",
+            "A",
+            "Hmi",
+            "F#mi",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Vrchlabí",
@@ -20900,7 +24262,17 @@
         "language": "CZ"
       },
       "status": "k-vytvoreni",
-      "note": "moravská lidová"
+      "note": "moravská lidová",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vinecko-bile",
+          "chords": [
+            "D",
+            "A",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Víno",
@@ -20911,7 +24283,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vino",
+          "chords": [
+            "D",
+            "A",
+            "C",
+            "G",
+            "Asus4",
+            "F#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2088997",
+          "chords": [
+            "C",
+            "G",
+            "B",
+            "F",
+            "Emi"
+          ]
+        }
+      ]
     },
     {
       "title": "Výhledově",
@@ -21006,7 +24401,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/vsichni-jsou-uz-v-mexiku",
+          "chords": [
+            "D",
+            "A",
+            "Hmi",
+            "E7",
+            "A7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2467400",
+          "chords": [
+            "E",
+            "D",
+            "A",
+            "Hmi",
+            "A7"
+          ]
+        }
+      ]
     },
     {
       "title": "Wake me up",
@@ -21017,7 +24434,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/wake-me-up-3",
+          "chords": [
+            "Hmi",
+            "G",
+            "D",
+            "A",
+            "F#"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/avicii/wake-me-up-chords-1397194",
+          "chords": [
+            "Hmi",
+            "G",
+            "D",
+            "A",
+            "F#"
+          ]
+        }
+      ]
     },
     {
       "title": "Warriors",
@@ -21161,7 +24600,18 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/haddaway/what-is-love-chords-998915",
+          "chords": [
+            "Ami",
+            "C",
+            "Emi",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "What shall we do with the drunken sailor",
@@ -21371,7 +24821,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/with-or-without-you",
+          "chords": [
+            "D",
+            "Asus4",
+            "Hmi",
+            "G",
+            "Hsus4",
+            "Dsus4"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/u2/with-or-without-you-chords-835",
+          "chords": [
+            "D",
+            "A",
+            "Hmi",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Wonderwall",
@@ -21424,7 +24896,21 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/coldplay/yellow-chords-16492",
+          "chords": [
+            "H",
+            "Hadd11",
+            "F#",
+            "E",
+            "G#mi",
+            "H7sus4",
+            "F#mi"
+          ]
+        }
+      ]
     },
     {
       "title": "Yellow flicker beat",
@@ -21543,7 +25029,29 @@
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/you-re-beautiful",
+          "chords": [
+            "G",
+            "Emi7",
+            "Cadd9",
+            "D"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/james-blunt/youre-beautiful-chords-194329",
+          "chords": [
+            "C",
+            "G/B",
+            "Ami",
+            "F",
+            "G",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "You've got a friend in me",
@@ -21613,7 +25121,32 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/za-svou-pravdou-stat",
+          "chords": [
+            "Gmaj7",
+            "Hmi",
+            "F#",
+            "G",
+            "C#7b9",
+            "F#7",
+            "A",
+            "Emi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3407966",
+          "chords": [
+            "F",
+            "Ami",
+            "E7",
+            "G",
+            "Dmi"
+          ]
+        }
+      ]
     },
     {
       "title": "Za teplých letních nocí",
@@ -21765,7 +25298,30 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zajici",
+          "chords": [
+            "G",
+            "C",
+            "Ami7",
+            "D",
+            "D7",
+            "Emi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3661286",
+          "chords": [
+            "G",
+            "C",
+            "Ami7",
+            "D",
+            "D7"
+          ]
+        }
+      ]
     },
     {
       "title": "Zakázané uvolnění",
@@ -21879,7 +25435,19 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zatancim",
+          "chords": [
+            "Gaug",
+            "C",
+            "F",
+            "Dmi",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Zatímco se koupeš",
@@ -22151,6 +25719,27 @@
       "authors": [
         "Arakain",
         "Lucie Bílá"
+      ],
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zimni-kralovna",
+          "chords": [
+            "Eb5",
+            "Eb",
+            "B",
+            "Cmi",
+            "Ab"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/arakain/zimni-kralovna-chords-3398606",
+          "chords": [
+            "C",
+            "G",
+            "Ami",
+            "F"
+          ]
+        }
       ]
     },
     {
@@ -22162,7 +25751,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zkamenely-dite",
+          "chords": [
+            "E",
+            "C#mi",
+            "F#mi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3844166",
+          "chords": [
+            "A",
+            "E",
+            "C#mi",
+            "F#mi",
+            "C#mi7"
+          ]
+        }
+      ]
     },
     {
       "title": "Zlatíčka",
@@ -22196,7 +25805,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/znameni",
+          "chords": [
+            "Hmi",
+            "E",
+            "F#mi",
+            "F#",
+            "A",
+            "G"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1483104",
+          "chords": [
+            "Hmi",
+            "Hsus2",
+            "E",
+            "F#",
+            "A",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Známka punku",
@@ -22663,7 +26296,33 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/ceresne-2",
+          "chords": [
+            "Gmi",
+            "Cmi7",
+            "Eb",
+            "D",
+            "B",
+            "F",
+            "D7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3376274",
+          "chords": [
+            "Ami",
+            "Dmi",
+            "F",
+            "E",
+            "C",
+            "Dmi/B",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Černej pasažér",
@@ -22711,7 +26370,31 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/cerna-dira-2",
+          "chords": [
+            "G",
+            "D",
+            "C",
+            "Emi",
+            "A",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3753146",
+          "chords": [
+            "G",
+            "D",
+            "C",
+            "Emi",
+            "A",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Černí andělé",
@@ -22777,7 +26460,36 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/cerny-brejle",
+          "chords": [
+            "D",
+            "F#mi",
+            "Emi",
+            "C",
+            "Ami",
+            "F",
+            "D7",
+            "E7",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1964543",
+          "chords": [
+            "D",
+            "F#mi",
+            "Emi",
+            "C",
+            "Ami",
+            "F",
+            "E",
+            "E7"
+          ]
+        }
+      ]
     },
     {
       "title": "Čert ví proč",
@@ -22953,7 +26665,33 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/co-boli-to-preboli",
+          "chords": [
+            "Dmi",
+            "Gmi",
+            "A7",
+            "B",
+            "A",
+            "C",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3030014",
+          "chords": [
+            "Dmi",
+            "Gmi",
+            "A7",
+            "B",
+            "A",
+            "C",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Čtyři slunce",
@@ -22994,7 +26732,43 @@
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/cim-to-je",
+          "chords": [
+            "Fmi",
+            "Cmi",
+            "Hsus2",
+            "H7sus4",
+            "Ab",
+            "Eb",
+            "H",
+            "G5",
+            "B",
+            "F",
+            "Gmi",
+            "Dmi",
+            "C",
+            "C7sus4",
+            "A5"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/1179916",
+          "chords": [
+            "Fmi",
+            "Cmi",
+            "B",
+            "Ab",
+            "Eb",
+            "F",
+            "Gmi",
+            "Dmi",
+            "C"
+          ]
+        }
+      ]
     },
     {
       "title": "Čůrej sem a čůrej tam",
@@ -23180,7 +26954,27 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/saman",
+          "chords": [
+            "A",
+            "D",
+            "F#mi",
+            "E"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/73072",
+          "chords": [
+            "A",
+            "D",
+            "F#mi",
+            "E"
+          ]
+        }
+      ]
     },
     {
       "title": "Šaty dělaj člověka",
@@ -23196,6 +26990,39 @@
         "Jaroslav Ježek",
         "Jiří Voskovec",
         "Jan Werich"
+      ],
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3673754",
+          "chords": [
+            "B",
+            "Fmi",
+            "F",
+            "Cmi7",
+            "F7",
+            "B7",
+            "D#",
+            "D#mi",
+            "G7",
+            "Cmi",
+            "C7",
+            "Bmi",
+            "F#",
+            "G#",
+            "C#",
+            "D#7",
+            "G#7",
+            "C#7",
+            "Hdim",
+            "D#mi7",
+            "F#mi",
+            "G#mi",
+            "D#mi7b5",
+            "Bmi7",
+            "C#mi",
+            "C#maj9"
+          ]
+        }
       ]
     },
     {
@@ -23207,7 +27034,25 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/senkyrka",
+          "chords": [
+            "C",
+            "G",
+            "F"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4320773",
+          "chords": [
+            "C",
+            "F",
+            "G"
+          ]
+        }
+      ]
     },
     {
       "title": "Škytavka",
@@ -23363,7 +27208,28 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/snury",
+          "chords": [
+            "Ab",
+            "Db",
+            "Bmi",
+            "Eb",
+            "Fmi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2912528",
+          "chords": [
+            "G",
+            "Emi",
+            "C",
+            "D"
+          ]
+        }
+      ]
     },
     {
       "title": "Šťastnější",
@@ -23436,7 +27302,35 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zal-se-odklada",
+          "chords": [
+            "D",
+            "Hmi",
+            "Emi",
+            "A",
+            "G",
+            "F#mi",
+            "Asus4",
+            "Dmaj7"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/4198315",
+          "chords": [
+            "D",
+            "Hmi7",
+            "Gmaj7",
+            "F#mi7",
+            "Emi7",
+            "A",
+            "A7",
+            "Dmaj7"
+          ]
+        }
+      ]
     },
     {
       "title": "Želva",
@@ -23447,7 +27341,29 @@
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni"
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/zelva",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "Emi"
+          ]
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/2694636",
+          "chords": [
+            "G",
+            "C",
+            "D",
+            "Emi",
+            "D7",
+            "F"
+          ]
+        }
+      ]
     },
     {
       "title": "Žijeme len raz",
