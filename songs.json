@@ -621,9 +621,13 @@
           "G"
         ],
         [
+          "Emi",
+          "C",
+          "G",
           "D"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Andělská",
@@ -701,19 +705,9 @@
       "progression": [
         [
           "Ami",
-          "F",
-          "E",
-          "Ami"
-        ],
-        [
-          "Ami",
           "H",
           "E",
           "Ami"
-        ],
-        [
-          "C",
-          "E"
         ],
         [
           "Ami",
@@ -721,7 +715,8 @@
           "C",
           "E"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Ani k stáru",
