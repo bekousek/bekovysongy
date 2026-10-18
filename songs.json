@@ -534,7 +534,8 @@
         [
           "G",
           "D",
-          "Ami"
+          "Ami",
+          "G"
         ],
         [
           "C"
@@ -543,7 +544,8 @@
           "G",
           "Emi"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Anděl",
@@ -572,7 +574,8 @@
           "D7",
           "G"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Anděl",
@@ -581,8 +584,7 @@
       "chords": [
         "Dmi",
         "B",
-        "C",
-        "A"
+        "C"
       ],
       "tags": {
         "capo": false,
@@ -592,19 +594,11 @@
         [
           "Dmi",
           "B",
-          "C"
-        ],
-        [
-          "Dmi",
-          "B",
-          "C",
-          "Dmi",
-          "B",
-          "A",
           "C",
           "Dmi"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Anděl (Mirai)",
