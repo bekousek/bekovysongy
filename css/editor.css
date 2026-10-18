@@ -685,6 +685,52 @@ select.edit-meta-input {
   color: var(--text);
 }
 
+/* Where a draft can be found with chords: one link per site, the chords that
+   page uses next to it, and whether the sites agree. */
+.editor-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  flex: 1 1 100%;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.editor-sources[hidden] {
+  display: none;
+}
+
+.editor-source {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.editor-source a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.editor-source a:hover {
+  text-decoration: underline;
+}
+
+.editor-source-chords {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.editor-source-verdict.source-ok {
+  color: var(--success);
+}
+
+.editor-source-verdict.source-warn {
+  color: var(--danger);
+}
+
 .edit-title-input {
   background: var(--bg);
   border: 1px solid var(--border);

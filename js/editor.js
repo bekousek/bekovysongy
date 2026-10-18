@@ -162,6 +162,7 @@
   const editProgression = document.getElementById('edit-progression');
   const btnProgressionAuto = document.getElementById('btn-progression-auto');
   const editNote = document.getElementById('edit-note');
+  const editSources = document.getElementById('edit-sources');
   const editorArea = document.getElementById('editor-area');
   const editorBody = document.getElementById('editor-body');
   const editorPreview = document.getElementById('editor-preview');
@@ -1328,11 +1329,67 @@
     editAuthorInput.addEventListener('blur', commitAuthorInput);
   }
 
+  // === Sources ===
+  // Drafts waiting to be written up carry `sources` in songs.json: where the
+  // song can be found with chords, and which chords each page uses - so
+  // whether two sites agree is visible before either is opened. Read-only
+  // here; nothing in the editor writes the field, so a save leaves it be.
+  const SOURCE_VERDICT = {
+    same: ['✓ zdroje se shodují', 'source-ok'],
+    similar: ['≈ zdroje se v zásadě shodují (liší se v detailech)', 'source-ok'],
+    different: ['⚠ zdroje se liší', 'source-warn']
+  };
+
+  function renderSources(song) {
+    const sources = (song && Array.isArray(song.sources)) ? song.sources.filter(s => s && s.url) : [];
+    editSources.replaceChildren();
+    editSources.hidden = !sources.length;
+    if (!sources.length) return;
+
+    const label = document.createElement('span');
+    label.className = 'editor-sources-label';
+    label.textContent = 'Zdroje:';
+    editSources.appendChild(label);
+
+    sources.forEach(src => {
+      const item = document.createElement('span');
+      item.className = 'editor-source';
+      const a = document.createElement('a');
+      a.href = src.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      let host = src.url;
+      try { host = new URL(src.url).hostname.replace(/^www\./, ''); } catch (err) { /* keep the url */ }
+      a.textContent = host;
+      a.title = src.url;
+      item.appendChild(a);
+      if (Array.isArray(src.chords) && src.chords.length) {
+        const chords = document.createElement('span');
+        chords.className = 'editor-source-chords';
+        chords.textContent = src.chords.join(' ');
+        item.appendChild(chords);
+      }
+      editSources.appendChild(item);
+    });
+
+    if (sources.length >= 2) {
+      const cmp = ChordSheet.compareSources(sources[0].chords, sources[1].chords);
+      if (cmp) {
+        const [text, cls] = SOURCE_VERDICT[cmp.level];
+        const verdict = document.createElement('span');
+        verdict.className = 'editor-source-verdict ' + cls;
+        verdict.textContent = text + (cmp.shift ? ' (každý v jiné tónině)' : '');
+        editSources.appendChild(verdict);
+      }
+    }
+  }
+
   // === Load Song ===
   async function loadSong(song) {
     currentSong = song;
     editorPlaceholder.style.display = 'none';
     editorActive.style.display = 'flex';
+    renderSources(song);
 
     const cached = pendingEdits.get(song.slug);
     if (cached) {
@@ -1834,7 +1891,10 @@
   function handleEditorKeydown(e) {
     if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
     const key = e.key.toLowerCase();
-    if (key === 'z' && !e.shiftKey) {
+    if (key === 'v' && e.shiftKey) {
+      // Left to the browser: it still fires `paste`, which this marks plain.
+      plainPasteAt = Date.now();
+    } else if (key === 'z' && !e.shiftKey) {
       e.preventDefault();
       undoEdit();
     } else if ((key === 'z' && e.shiftKey) || key === 'y') {
@@ -1935,14 +1995,39 @@
 
   // Paste is plain text only. Pasting a verse off a chord site otherwise
   // brings that site's markup - fonts, colours, tables - into the song.
+  // A song copied off a chord site arrives as chord lines above the words.
+  // js/chord-sheet.js turns that into inline chords in the songbook's
+  // notation and layout; text without chords pastes as it is. Ctrl+Shift+V
+  // ("paste as plain text") skips the conversion, and Ctrl+Z takes a
+  // converted paste back in one step like any other.
+  let plainPasteAt = 0;
+
   function handlePaste(e) {
     e.preventDefault();
     const clip = e.clipboardData || window.clipboardData;
     const text = clip ? clip.getData('text/plain') : '';
     if (!text) return;
     const sel = selectionOrEnd();
-    writeModel(SongEdit.replace(readModel(), sel.from, sel.to, text.replace(/\r\n?/g, '\n')), '');
+    const plain = Date.now() - plainPasteAt < 1000;
+    plainPasteAt = 0;
+    const sheet = plain ? null : ChordSheet.convert(text);
+    if (sheet) {
+      const lo = Math.min(sel.from, sel.to);
+      const model = SongEdit.splice(readModel(), sel.from, sel.to, sheet.text, sheet.chords);
+      writeModel({ model, from: lo + sheet.text.length, to: lo + sheet.text.length }, '');
+      setStatus(pasteSummary(sheet), 'success');
+    } else {
+      writeModel(SongEdit.replace(readModel(), sel.from, sel.to, text.replace(/\r\n?/g, '\n')), '');
+    }
     scrollCaretIntoView();
+  }
+
+  function pasteSummary(sheet) {
+    const n = sheet.count;
+    let msg = `Vloženo: ${n} ${plural(n, 'akord usazen', 'akordy usazeny', 'akordů usazeno')} do textu`;
+    if (sheet.bToH) msg += ' · anglická notace převedena (B → H)';
+    else if (sheet.bAmbiguous) msg += ' · B bráno jako české B (B♭) – z anglického zdroje by to bylo H';
+    return msg + ' · Ctrl+Z vrátí, Ctrl+Shift+V vloží beze změny';
   }
 
   // === Live preview ===
