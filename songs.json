@@ -477,7 +477,8 @@
           "G",
           "F"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Amazonka",
@@ -499,9 +500,7 @@
           "G",
           "Hmi",
           "Ami",
-          "G"
-        ],
-        [
+          "G",
           "Ami",
           "D"
         ],
@@ -509,9 +508,12 @@
           "G",
           "Emi",
           "Ami",
-          "G"
+          "G",
+          "Ami",
+          "D"
         ]
-      ]
+      ],
+      "checked": true
     },
     {
       "title": "Amerika",
