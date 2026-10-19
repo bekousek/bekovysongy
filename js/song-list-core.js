@@ -1,23 +1,26 @@
 /**
- * song-list-core.js - the song list's data and search logic without any DOM
- * of its own, shared by the three /test1-3/ redesign proposals. It does what
- * table.js does with songs.json and the lyrics index (diacritic-blind search,
- * lyric hits listed apart with the line they matched, chord/language/capo
- * filters, Czech collation, the no-repeat random pick) so each proposal only
- * has to draw a list. Exposed as window.SongList.
+ * song-list-core.js - the songbook's data and search logic, without any DOM
+ * of its own: loads songs.json and the lyrics index, searches diacritic-blind
+ * (lyric hits listed apart with the line they matched), filters by chords /
+ * language / capo, sorts in Czech collation and picks random songs without
+ * repeating the last twenty. Used by the song list (js/app.js) and the song
+ * pages (js/player.js). Exposed as window.SongList.
  *
- * Also holds the browser-only stores the proposals add on top: favourites,
- * recently opened songs and tonight's setlist. All of it is localStorage,
- * wrapped so a private window or blocked storage just forgets instead of
- * throwing.
+ * Also holds the browser-only stores: favourites, recently opened songs and
+ * the local setlist. All of it is localStorage, wrapped so a private window
+ * or blocked storage just forgets instead of throwing.
  */
 (function () {
   'use strict';
 
-  const BASE = '../';
+  // The site root, worked out from where this file was loaded (it lives in
+  // js/), so the same code works on the home page and on songs/*.html.
+  const BASE = (typeof document !== 'undefined' && document.currentScript && document.currentScript.src)
+    ? new URL('../', document.currentScript.src).href
+    : '../';
   const DRAFT_STATUSES = ['navrh', 'k-vytvoreni'];
   const LYRICS_MIN_QUERY = 3;
-  const RANDOM_HISTORY_KEY = 'random_history';   // shared with table.js
+  const RANDOM_HISTORY_KEY = 'random_history';
   const RANDOM_HISTORY_SIZE = 20;
 
   const collator = new Intl.Collator('cs', { sensitivity: 'base' });
@@ -61,7 +64,7 @@
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }
 
-  // Same half-year window as the NEW badge in table.js.
+  // A song added within the last half year counts as new.
   const NEW_SINCE = (() => {
     const d = new Date();
     d.setMonth(d.getMonth() - 6);
@@ -172,8 +175,7 @@
     return list;
   }
 
-  // Where a song link points. The real list links the static song pages; a
-  // page that renders songs itself (the /test4/ prototype) swaps this out.
+  // Where a song link points: the static song pages.
   let songHref = (slug) => BASE + 'songs/' + slug + '.html';
 
   // "H/F#" is played as H with an F# bass: two shapes. "E7/4" is a single
@@ -484,8 +486,8 @@
 
   // === Page state ==========================================================
 
-  // ?q= keeps a search shareable and is the target of the SearchAction on
-  // the home page, so every proposal reads and writes it like table.js does.
+  // ?q= keeps a search shareable and is the target of the SearchAction in
+  // the home page's JSON-LD: Google sends searchers straight to it.
   function queryFromUrl() {
     return new URLSearchParams(location.search).get('q') || '';
   }
@@ -515,7 +517,9 @@
 
   // === DOM helpers =========================================================
 
-  // The matched line, with the query picked out (see table.js makeSnippet).
+  // The matched line, with the query picked out. norm() only
+  // strips combining marks and lowercases, so for Czech the index carries
+  // over; when it doesn't (a ligature), the plain line is shown instead.
   function snippet(hit, queryLength, className) {
     const el = document.createElement('span');
     el.className = className || 'lyric-hit';
@@ -531,8 +535,7 @@
     return el;
   }
 
-  // One outline icon set (24px grid, drawn at 1.75px), so every proposal
-  // speaks the same icon language.
+  // One outline icon set (24px grid, drawn at 1.75px) for the whole site.
   const ICONS = {
     search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
     shuffle: '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>',

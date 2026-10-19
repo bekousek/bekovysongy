@@ -26,27 +26,26 @@
 // Not being in APP_SHELL is no exemption: the runtime handler below caches
 // whatever it fetches, so admin-only files (js/editor.js, css/editor.css)
 // end up cached just the same, and cache-first then serves them stale.
-const CACHE_NAME = 'bekovysongy-v30';
+const CACHE_NAME = 'bekovysongy-v31';
 const BASE = self.registration.scope;
 
 const APP_SHELL = [
   '',
   'na-kytaru/',
-  'na-foukaci-harmoniku/',
-  'na-kalimbu/',
+  'css/app.css',
   'css/style.css',
+  'js/song-list-core.js',
+  'js/vecer.js',
+  'js/app.js',
+  'js/offline-download.js',
   'js/chords.js',
   'js/sections.js',
   'js/chord-theory.js',
   'js/player.js',
-  'js/table.js',
+  'js/tuner.js',
   'songs.json',
+  'manifest.json',
   'assets/favicon.svg',
-  'assets/fonts/Metropolis-Light.woff2',
-  'assets/fonts/Metropolis-Regular.woff2',
-  'assets/fonts/Metropolis-Medium.woff2',
-  'assets/fonts/Metropolis-SemiBold.woff2',
-  'assets/fonts/Metropolis-Bold.woff2',
   'offline.html',
 ].map((p) => BASE + p);
 

@@ -1,9 +1,8 @@
 /**
- * tuner.js - the tuner from js/player.js, lifted out as it is for the
- * prototype song page (test4/pisen.html). Same detector, same overlay, same
- * texts; only its colours come from tuner.css. Opens on #tuner-toggle.
- * When the prototype goes live this should become one shared module that
- * player.js uses too, instead of a second copy.
+ * tuner.js - the guitar / ukulele tuner: a fullscreen overlay with an MPM
+ * pitch detector on the microphone, a needle, reference tones and a check
+ * mark per tuned string. Opens on #tuner-toggle, which js/player.js puts in
+ * the song page's settings sheet. Styles are in css/style.css.
  */
 (function () {
   'use strict';

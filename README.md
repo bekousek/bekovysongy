@@ -1,8 +1,9 @@
 # Bekovy songy
 
-Zpěvník s akordy pro kytaru, foukací harmoniku a kalimbu — statický web, žádný
-build krok. Vanilla HTML/CSS/JS, 570+ písní, transpozice, metronom, ladička,
-akordové diagramy a in-browser editor s ukládáním přímo do GitHubu.
+Zpěvník s akordy na kytaru — statický web, žádný build krok. Vanilla
+HTML/CSS/JS, 600+ písní, transpozice, rolování, metronom, ladička, akordové
+diagramy, společný playlist na večer (Firebase) a in-browser editor
+s ukládáním přímo do GitHubu.
 
 Živý web: https://bekovysongy.cz — GitHub Pages na vlastní doméně, HTTPS
 vynucené, `www` i `http` se přesměrovávají na apex (postup v
@@ -23,11 +24,13 @@ a otevřít `http://localhost:8137/`.
 
 | Cesta | Co je |
 |---|---|
-| `index.html`, `na-kytaru/`, `na-foukaci-harmoniku/`, `na-kalimbu/` | veřejné stránky |
+| `index.html` | zpěvník: seznam písní jako aplikace (záložky Písně / Interpreti / Objevit / Večer / Moje) |
+| `na-kytaru/` | jen přesměrování na kořen, pro staré odkazy a `?q=` |
 | `songs/*.html` | jednotlivé písně (statické HTML, generované/editované) |
-| `songs.json` | metadata a akordy všech písní (čte je `js/table.js`, `admin/`) |
-| `js/` | `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `table.js` (seznam písní), `player.js` (transpozice/metronom/ladička), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
-| `css/` | `style.css` (celý web), `editor.css` (jen admin) |
+| `songs.json` | metadata a akordy všech písní (čte je `js/song-list-core.js`, `admin/`) |
+| `js/` | `song-list-core.js` (data, hledání, filtry, náhodná píseň, oblíbené), `app.js` (úvodní stránka), `vecer.js` (dnešní večer, i společný přes Firebase), `player.js` (stránka písně: lišty, transpozice, rolování, metronom), `tuner.js` (ladička), `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
+| `css/` | `app.css` (úvodní stránka), `style.css` (stránky písní), `admin-base.css` + `editor.css` (jen admin) |
+| `firebase/database.rules.json` | pravidla databáze společného večera (vkládají se ručně v konzoli Firebase, projekt `bekovysongy`) |
 | `song-previews.json` | 30s ukázky k návrhům pro triage v `/admin` (viz níže) |
 | `navrhy-zamitnute.json` | odmítnuté návrhy písní — paměť pro generování dalších (viz níže) |
 | `admin/` | in-browser editor, viz níže |

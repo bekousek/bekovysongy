@@ -1,11 +1,10 @@
 /**
- * Prototyp: Bekovy songy as one app at the site root. The song list from
- * návrh 1 (tabs Písně / Interpreti / Objevit / Moje) plus tonight's setlist
- * as its own tab, Večer: songs go in with one tap, and an invite link
- * (?parta=<id>) turns it into one queue the whole party adds to, live, like
- * a shared playlist (vecer.js). Songs open in the prototype song page
- * (pisen.html), which walks through the evening one song after another.
- * All song logic is js/song-list-core.js.
+ * app.js - the home page: the whole songbook as one app. Tabs Písně
+ * (search and the full list), Interpreti, Objevit (a drawn song and what's
+ * new), Večer (tonight's setlist, shared with the party through an invite
+ * link ?parta=<id>, see js/vecer.js) and Moje (favourites, what was played,
+ * offline). Song logic is js/song-list-core.js; songs open on their static
+ * pages, ?vecer=1 / ?nahodne=1 telling js/player.js how to go on after.
  */
 (function () {
   'use strict';
@@ -17,8 +16,7 @@
   // toolbars then never collapse and expand under the fixed tab bar.
   const scroller = $('scroller');
 
-  SL.setSongHref((slug) => 'pisen.html?s=' + encodeURIComponent(slug));
-  const setlistHref = (slug) => 'pisen.html?s=' + encodeURIComponent(slug) + '&vecer=1';
+  const setlistHref = (slug) => SL.href({ slug }) + '?vecer=1';
 
   // ---- state -------------------------------------------------------------
 
@@ -63,7 +61,7 @@
   (function restore() {
     const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     if (!nav || nav.type !== 'back_forward') return;
-    const saved = SL.loadState('test4');
+    const saved = SL.loadState('list');
     if (!saved) return;
     state.lang = saved.lang || '';
     state.capo = saved.capo || '';
@@ -77,7 +75,7 @@
 
   window.addEventListener('pagehide', () => {
     scrollByView[currentView] = scroller.scrollTop;
-    SL.saveState('test4', {
+    SL.saveState('list', {
       lang: state.lang, capo: state.capo, chords: Array.from(state.chords),
       sort: state.sort, dir: state.dir, artistSort, drawn: drawnSlug, scroll: scrollByView,
     });
@@ -658,9 +656,9 @@
       return;
     }
     $('draw-title').textContent = song.title;
-    $('draw-title').href = SL.href(song) + '&nahodne=1';
+    $('draw-title').href = SL.href(song) + '?nahodne=1';
     $('draw-title').dataset.slug = song.slug;
-    $('draw-play').href = SL.href(song) + '&nahodne=1';
+    $('draw-play').href = SL.href(song) + '?nahodne=1';
     $('draw-play').dataset.slug = song.slug;
     $('draw-add').dataset.add = song.slug;
     paintAdd($('draw-add'), EV.has(song.slug), song.title);

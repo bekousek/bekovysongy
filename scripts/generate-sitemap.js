@@ -24,9 +24,6 @@ const published = data.songs.filter(s => !DRAFT_STATUSES.includes(s.status));
 
 const urls = [
   `${SITE}/`,
-  `${SITE}/na-kytaru/`,
-  `${SITE}/na-foukaci-harmoniku/`,
-  `${SITE}/na-kalimbu/`,
   ...published.map(s => `${SITE}/songs/${s.slug}.html`),
 ];
 

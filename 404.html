@@ -5,45 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stránka nenalezena - Bekovy songy</title>
   <meta name="robots" content="noindex">
-  <!-- Self-contained on purpose: a 404 can be hit from any path depth, so it
-       doesn't rely on css/style.css or other relative assets. -->
+  <meta name="theme-color" content="#0e0d0c">
+  <script>
+    // Addresses that used to exist go where their content went before the
+    // page even draws: the old instrument pages and the redesign trials
+    // (/test1-4/, whose invites ?parta=... must keep working) to the list at
+    // the root, and the trial song page to the song's own page.
+    (function () {
+      var m = location.pathname.match(/^(\/bekovysongy)?(\/.*)$/);
+      var base = (m && m[1] ? m[1] : '') + '/';
+      var path = m ? m[2] : location.pathname;
+      var q = new URLSearchParams(location.search);
+      var to = null;
+      if (/^\/test4\/pisen\.html$/.test(path) && q.get('s')) {
+        var s = q.get('s');
+        q.delete('s');
+        var rest = q.toString();
+        to = base + 'songs/' + encodeURIComponent(s) + '.html' + (rest ? '?' + rest : '');
+      } else if (/^\/(test[1-4]|na-foukaci-harmoniku|na-kalimbu)(\/|$)/.test(path)) {
+        to = base + location.search + location.hash;
+      }
+      if (to) location.replace(to);
+    })();
+  </script>
+  <!-- Self-contained on purpose: a 404 can be hit from any path depth. -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      background: #1a1a2e;
-      color: #e0e0e0;
+      font-family: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #0e0d0c;
+      color: #f2f2f0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 1.5rem;
+      padding: 24px;
     }
-    .box h1 { font-size: 2rem; color: #e67e22; margin-bottom: 0.75rem; }
-    .box p { color: #8899aa; font-size: 1.05rem; margin-bottom: 1.5rem; }
+    .box { max-width: 420px; }
+    .box h1 { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .box p { color: #b6b1aa; font-size: 17px; line-height: 1.45; margin-bottom: 22px; }
     .box a {
-      display: inline-block;
-      padding: 0.65rem 1.5rem;
-      background: #e67e22;
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
+      display: inline-flex; align-items: center; height: 48px; padding: 0 22px;
+      background: #e67e22; color: #160b02; border-radius: 999px;
+      font-weight: 600; font-size: 16px; text-decoration: none;
     }
-    .box a:hover { background: #f39c12; }
   </style>
 </head>
 <body>
   <div class="box">
-    <h1>404 — Stránka nenalezena</h1>
-    <p>Píseň nebo stránka, kterou hledáš, tu není (nebo byl špatně přepsaný odkaz).</p>
-    <a href="/" id="home-link">Zpět na Bekovy songy</a>
+    <h1>Tahle stránka tu není</h1>
+    <p>Píseň nebo stránka, kterou hledáš, neexistuje, nebo se v odkazu něco přepsalo.</p>
+    <a href="/" id="home-link">Do zpěvníku</a>
   </div>
   <script>
-    // Works both on the GitHub Pages project subpath (…/bekovysongy/) and on
-    // the final custom domain (root), without hardcoding either.
-    var m = location.pathname.match(/^\/[^/]+\//);
+    // Works on the GitHub Pages project subpath (…/bekovysongy/) as well as
+    // on the custom domain root.
+    var m = location.pathname.match(/^\/bekovysongy\//);
     if (m) document.getElementById('home-link').href = m[0];
   </script>
 </body>

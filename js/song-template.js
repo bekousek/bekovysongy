@@ -117,7 +117,7 @@
       '  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">\n' +
       '  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">\n' +
       '  <link rel="manifest" href="../manifest.json">\n' +
-      '  <meta name="theme-color" content="#1a1a2e">\n' +
+      '  <meta name="theme-color" content="#0e0d0c">\n' +
       '  <link rel="stylesheet" href="../css/style.css">\n' +
       '  <script type="application/ld+json">' + songJsonLd({ title: title, author: author, slug: slug }) + '</script>\n' +
       '</head>\n' +
@@ -125,9 +125,7 @@
       '  <nav class="main-nav">\n' +
       '    <a href="../" class="nav-logo">Bekovy songy</a>\n' +
       '    <div class="nav-links">\n' +
-      '      <a href="../na-kytaru/">Na kytaru</a>\n' +
-      '      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>\n' +
-      '      <a href="../na-kalimbu/">Na kalimbu</a>\n' +
+      '      <a href="../">Zpěvník</a>\n' +
       '    </div>\n' +
       '  </nav>\n' +
       '\n' +

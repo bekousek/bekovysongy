@@ -1,0 +1,1803 @@
+/* === admin-base.css - the old site styles, kept for /admin only ===
+   The public pages moved to app.css (home) and style.css (songs); the
+   editor and its song preview still rely on these rules. */
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../assets/fonts/Metropolis-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../assets/fonts/Metropolis-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../assets/fonts/Metropolis-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../assets/fonts/Metropolis-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../assets/fonts/Metropolis-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #1a1a2e;
+  --bg-light: #16213e;
+  --bg-card: #0f3460;
+  --accent: #e67e22;
+  --accent-hover: #f39c12;
+  /* Darker variants for white text on an accent-filled background - the base
+     --accent/--accent-hover only pass WCAG AA as text/borders on the dark
+     background, not as a fill under white text (2.85:1). */
+  --accent-solid: #b25c0d;
+  --accent-solid-hover: #a8560d;
+  --text: #e0e0e0;
+  --text-muted: #8899aa;
+  --text-dim: #7a8ba0;
+  --border: #2a3a4e;
+  --success: #27ae60;
+  --danger: #e74c3c;
+  --radius: 8px;
+  --radius-sm: 4px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --font: 'Metropolis', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Courier New', 'Consolas', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* === Navigation === */
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.nav-logo:hover {
+  color: var(--accent-hover);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent);
+  background: rgba(230, 126, 34, 0.1);
+}
+
+/* === Homepage === */
+
+.hero {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.hero-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-solid);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.hero-link:hover {
+  background: var(--accent-solid-hover);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.hero-link.secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.hero-link.secondary:hover {
+  background: var(--bg-light);
+  border-color: var(--accent);
+}
+
+/* === Offline download footer === */
+
+.site-footer {
+  max-width: 1200px;
+  margin: 2rem auto 1.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.btn-offline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-offline:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-offline:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.offline-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  min-height: 1.2em;
+}
+
+/* === Song Table Page === */
+
+.table-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.table-page h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.filter-group label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.filter-input,
+.filter-select {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  border-color: var(--accent);
+}
+
+.filter-input {
+  width: 220px;
+}
+
+.filter-select {
+  min-width: 120px;
+}
+
+/* Chord filter */
+.chord-filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  transition: border-color 0.2s;
+}
+
+.chord-filter-toggle:hover {
+  border-color: var(--accent);
+}
+
+.chord-filter-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  max-width: 500px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.chord-filter-dropdown.open {
+  display: block;
+}
+
+.chord-filter-wrapper {
+  position: relative;
+}
+
+.chord-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 0.375rem;
+}
+
+/* Visually hidden but still focusable/operable by keyboard and screen
+   readers (unlike display:none, which drops it from the tab order). */
+.chord-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.chord-checkbox:focus-visible + .chord-label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.chord-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.chord-checkbox:checked + .chord-label {
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
+  color: #fff;
+}
+
+.chord-label:hover {
+  border-color: var(--accent);
+}
+
+.chord-filter-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.btn-sm:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Random + stats */
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-random {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent-solid);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-random:hover {
+  background: var(--accent-solid-hover);
+}
+
+.song-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Table */
+.songs-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.songs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.songs-table th {
+  text-align: left;
+  padding: 0.75rem;
+  background: var(--bg-light);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.songs-table th:hover {
+  color: var(--accent);
+}
+
+.songs-table th:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.songs-table th .sort-arrow {
+  margin-left: 0.25rem;
+  opacity: 0.3;
+}
+
+.songs-table th.sorted .sort-arrow {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.songs-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.songs-table tr:hover td {
+  background: rgba(230, 126, 34, 0.05);
+}
+
+.songs-table .song-title-link {
+  font-weight: 500;
+}
+
+.songs-table .song-author-link {
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.songs-table .song-author-link:hover {
+  color: var(--accent);
+}
+
+.songs-table .chord-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.chord-badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  background: rgba(230, 126, 34, 0.15);
+  color: var(--accent);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Divider between chord-progression groups (song.progression), e.g.
+   "G C Emi │ Ami C G D" - a flex child like the badges around it, stretched
+   to the row's height by .chord-badges' flex layout. */
+.chord-badge-sep {
+  align-self: stretch;
+  width: 1px;
+  background: var(--border);
+}
+
+.song-lang {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 0.1rem 0.35rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+}
+
+/* NEW after the title of a song added within the last half year, and the
+   "Přidáno" column (songs.json "added", drawn by js/table.js). */
+.songs-table .song-new {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.3rem;
+  background: var(--accent-solid);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  vertical-align: 0.1em;
+}
+
+.song-added {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-error {
+  text-align: center;
+  color: var(--danger);
+  padding: 2rem 1rem;
+}
+
+.table-empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 2rem 1rem;
+}
+
+/* === Full-text hits === */
+/* Songs found by a line of their lyrics rather than by name sit below their
+   own heading row, each carrying the line that matched. */
+.songs-table .lyric-group-head td {
+  padding-top: 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.songs-table .lyric-group-head:hover td {
+  background: none;
+}
+
+.song-lyric-hit {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+  /* One line, clipped - the point is to recognize the song, not to read it.
+     Capped against the viewport as well as in characters, so on a phone it
+     can't stretch the title column and shove the other columns off-screen. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: min(46ch, 60vw);
+}
+
+.song-lyric-hit mark {
+  background: rgba(230, 126, 34, 0.25);
+  color: var(--accent);
+  border-radius: 2px;
+  padding: 0 0.1em;
+}
+
+/* === Song Page === */
+
+.song-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  padding-bottom: 100px; /* space for player bar */
+}
+
+.song-header {
+  margin-bottom: 1.5rem;
+}
+
+.song-header h1 {
+  font-size: 1.75rem;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.song-author {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.song-capo {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(231, 76, 60, 0.2);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.song-text {
+  font-family: var(--font);
+  font-size: calc(1rem * var(--song-font-scale, 1));
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* === Song sections (refrén / sloka / bridge) === */
+.song-section {
+  position: relative;
+}
+.song-section + .song-section {
+  margin-top: 0.9rem;
+}
+.section-body {
+  display: block;
+}
+/* Every labelled section reserves a left gutter its label sits in; an
+   unmarked verse stays at the baseline with no gutter. */
+.section-refren,
+.section-bridge,
+.section-sloka,
+.section-custom {
+  padding-left: 2.4em;
+}
+.section-bridge {
+  font-style: italic;
+}
+.section-head {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-style: normal;
+  user-select: none;
+}
+/* A freely-named section ("//M", "//Coda", "//VYBRNKÁVÁNÍ") reads like R and
+   B: the label sits in the gutter and the text starts on the same line. It
+   floats rather than being absolutely positioned because the name can be any
+   length - a short one ("M:") fits in the gutter and costs the body nothing,
+   a long one pushes only the first line to the right instead of taking a
+   whole line of its own. */
+.section-custom > .section-head {
+  position: static;
+  float: left;
+  margin-left: -2.4em;
+  padding-right: 0.5em;
+}
+/* Contain that float: an empty or one-line section would otherwise let the
+   label hang over whatever follows. */
+.section-custom::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+/* A marker with no body at all is a heading the author wrote to name a
+   passage, not a collapsed repeat - keep the label in the text flow. */
+.song-section.is-heading > .section-head {
+  position: static;
+  float: none;
+  display: inline-block;
+  margin-left: -2.4em;
+}
+.song-section.is-heading > .section-body {
+  display: none;
+}
+
+/* Repetice: "//:" / "://" in the source, |: and :| on screen. Dimmer than a
+   chord so the two kinds of marginalia stay tellable apart at a glance. */
+.repeat-mark {
+  color: var(--text-muted);
+  font-weight: 700;
+  user-select: none;
+}
+.section-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+.section-note {
+  color: var(--text-dim);
+  margin-left: 0.5em;
+}
+/* A play-count note ("R: 2x") puts the head into the text flow as its own
+   line: label pulled back to the left edge, body starts on the next line. */
+.song-section.has-note .section-head {
+  position: static;
+  float: none;
+  display: inline-block;
+  margin-left: -2.4em;
+}
+
+/* Repeated parts (bare "R:", "R: 2x", or text identical to the definition)
+   collapse into an in-flow pill, so they take up a line and never overlap
+   the neighbouring text. The player-bar "Opakování" toggle expands all of
+   them; tapping a pill peeks at just that one occurrence. */
+.song-text:not(.show-repeats) .is-repeat {
+  padding-left: 0;
+}
+.song-text:not(.show-repeats) .is-repeat .section-head {
+  position: static;
+  float: none;
+  display: inline-block;
+  margin-left: 0;
+  padding: 0 0.65em;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-light);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.song-text:not(.show-repeats) .is-repeat .section-head::after {
+  content: "\21BB"; /* ↻ - opakuje se */
+  margin-left: 0.5em;
+  color: var(--text-dim);
+}
+.song-text:not(.show-repeats) .is-repeat .section-head:hover,
+.song-text:not(.show-repeats) .is-repeat.peek .section-head {
+  border-color: var(--accent);
+}
+.section-head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.song-text:not(.show-repeats) .is-repeat .section-body {
+  display: none;
+}
+.song-text:not(.show-repeats) .is-repeat.peek .section-body {
+  display: block;
+  padding-left: 2.4em;
+}
+
+/* A repeat with a changed ending ("//R ... a víc už nechci nic. R//"). The
+   new ending is the one thing about that chorus a reader can't know by
+   heart, so it stays under the collapsed pill on its own line. Expanded (or
+   peeked) it's already inside .section-body - showing it twice would read as
+   a stutter. */
+.section-tail {
+  display: none;
+}
+.song-text:not(.show-repeats) .is-repeat.has-tail .section-tail {
+  display: block;
+  padding-left: 2.4em;
+}
+.song-text:not(.show-repeats) .is-repeat.has-tail.peek .section-tail {
+  display: none;
+}
+.song-text.show-repeats .is-repeat .section-head {
+  opacity: 0.85;
+}
+
+.chord {
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.chord:hover {
+  color: var(--accent-hover);
+}
+
+/* Chord tooltip */
+.chord-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  z-index: 200;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.chord-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border);
+}
+
+.chord-tooltip .chord-name {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.chord-tooltip .chord-missing {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 0.25rem 0.5rem;
+}
+
+/* === Mobile chord bar (JS-injected on song pages, shown <=768px only) === */
+.chord-bar {
+  display: none;
+}
+
+/* === Player Bar === */
+
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-light);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  z-index: 150;
+  flex-wrap: wrap;
+}
+
+.player-section {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.5rem;
+  border-right: 1px solid var(--border);
+}
+
+.player-section:last-child {
+  border-right: none;
+}
+
+.player-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* === "More" (⋯) overflow menu === */
+/* Desktop (default): .player-more/.player-more-panel are invisible
+   wrappers, so the sections they hold (font size, metronome, tuner, bug
+   report) become direct flex children of #player-bar again - unchanged
+   from before this menu existed. The labels added so the mobile dropdown
+   rows stay legible are hidden here, except font-size's, which stays
+   visible like "Transpozice" already is. The <=768px block below turns the
+   wrapper into a real dropdown instead. */
+.player-section.player-more,
+.player-more-panel {
+  display: contents;
+}
+
+#more-toggle {
+  display: none;
+}
+
+.player-more-panel .player-label {
+  display: none;
+}
+
+.player-fontsize .player-label,
+.player-columns .player-label {
+  display: inline-block;
+}
+
+/* 1 / 2 / 3 as one segmented group, narrow enough that the bar still fits
+   one row on a 1280px laptop with every other control present. */
+.player-columns .btn-columns {
+  width: 26px;
+  border-radius: 0;
+}
+.player-columns .btn-columns + .btn-columns {
+  margin-left: calc(-0.35rem - 1px);
+}
+.player-columns .player-label + .btn-columns {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+.player-columns .btn-columns:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.player-columns .btn-columns:hover,
+.player-columns .btn-columns.active {
+  position: relative; /* shared borders: keep the highlighted one on top */
+}
+
+.btn-transpose.active,
+.btn-transpose.active:hover {
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
+  color: #fff;
+}
+
+/* === Columns (desktop only, toggled by .player-columns in player.js) ===
+   The page widens so each column keeps a readable measure; a section never
+   splits across a column break. Below 769px none of this applies and the
+   control itself is hidden (see the <=768px block). */
+@media (min-width: 769px) {
+  .song-page.cols-2 { max-width: 1200px; }
+  .song-page.cols-3 { max-width: 1600px; }
+
+  .song-page.cols-2 .song-text,
+  .song-page.cols-3 .song-text {
+    column-gap: 3rem;
+    column-rule: 1px solid var(--border);
+  }
+  .song-page.cols-2 .song-text { column-count: 2; }
+  .song-page.cols-3 .song-text { column-count: 3; }
+
+  .song-page.cols-2 .song-section,
+  .song-page.cols-3 .song-section {
+    break-inside: avoid;
+  }
+}
+
+/* Running metronome is easy to miss once it's tucked inside the panel on
+   mobile - reflect it on the ⋯ toggle itself. */
+#more-toggle.has-active {
+  position: relative;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#more-toggle.has-active::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 1px solid var(--bg-light);
+}
+
+.btn-transpose {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.btn-transpose:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#transpose-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+/* Like #transpose-value, but wider - "150 %" is longer than "+2". */
+#font-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.btn-player {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-player:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-player.active {
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
+  color: #fff;
+}
+
+.speed-slider {
+  width: 60px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.speed-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.bpm-input {
+  width: 48px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: var(--font);
+  outline: none;
+}
+
+.bpm-input:focus {
+  border-color: var(--accent);
+}
+
+/* The tuner now opens a fullscreen overlay, so the old inline readout span
+   (kept in every song's HTML) is no longer used — hide it. */
+.tuner-display {
+  display: none;
+}
+
+.tuner-display .note {
+  color: var(--accent);
+}
+
+.tuner-display .cents {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.tuner-display .cents.in-tune {
+  color: var(--success);
+}
+
+.tuner-display .cents.off-tune {
+  color: var(--danger);
+}
+
+/* === Tuner Modal (fullscreen overlay) === */
+
+.tuner-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 24, 0.94);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.tuner-overlay.open {
+  display: flex;
+}
+
+.tuner-modal {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 540px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.tuner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tuner-instruments {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem;
+}
+
+.tuner-instruments button {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tuner-instruments button.active {
+  background: var(--accent-solid);
+  color: #fff;
+}
+
+.tuner-close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tuner-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Big detected note */
+.tuner-note {
+  text-align: center;
+  line-height: 1;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.tuner-note-name {
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.tuner-note.tuned .tuner-note-name {
+  color: var(--success);
+}
+
+/* Dimmed while holding the last reading through a brief silence between
+   plucks, instead of flickering back to idle. */
+.tuner-note.stale {
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+
+.tuner-note-oct {
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  vertical-align: super;
+  margin-left: 0.15rem;
+}
+
+.tuner-status {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-height: 1.5rem;
+  transition: color 0.15s;
+}
+
+.tuner-status.tuned {
+  color: var(--success);
+}
+
+.tuner-status.off {
+  color: var(--accent);
+}
+
+/* Needle meter */
+.tuner-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tuner-meter-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.tuner-meter-track {
+  position: relative;
+  height: 48px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.tuner-meter-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  background: rgba(39, 174, 96, 0.16);
+  border-left: 1px solid rgba(39, 174, 96, 0.4);
+  border-right: 1px solid rgba(39, 174, 96, 0.4);
+}
+
+.tuner-meter-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--success);
+  opacity: 0.7;
+}
+
+.tuner-meter-needle {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 50%;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transition: left 0.08s linear, background 0.15s;
+}
+
+.tuner-meter-needle.tuned {
+  background: var(--success);
+}
+
+.tuner-cents {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  min-height: 1.1rem;
+}
+
+/* String chips */
+.tuner-strings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tuner-string {
+  min-width: 54px;
+  padding: 0.65rem 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.tuner-string small {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  vertical-align: super;
+  margin-left: 1px;
+}
+
+.tuner-string:hover {
+  border-color: var(--accent);
+}
+
+.tuner-string.near {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.3);
+}
+
+.tuner-string.tuned {
+  border-color: var(--success);
+  color: var(--success);
+  box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.35);
+}
+
+.tuner-string.tuned small {
+  color: var(--success);
+}
+
+/* Persistent ✓ once a string has been held in tune - distinct from the
+   transient .tuned highlight above, survives after the needle moves on. */
+.tuner-string.done {
+  position: relative;
+  border-color: var(--success);
+}
+
+.tuner-string.done::after {
+  content: '✓';
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--success);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* Chip tap = manual target lock (overrides auto-detection for a while). */
+.tuner-string.manual {
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5);
+}
+
+.tuner-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+
+.tuner-error {
+  text-align: center;
+  color: var(--danger);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .tuner-modal {
+    padding: 1rem 1rem 1.25rem;
+    gap: 0.9rem;
+  }
+
+  .tuner-note-name {
+    font-size: 4.75rem;
+  }
+
+  .tuner-note-oct {
+    font-size: 1.5rem;
+  }
+
+  .tuner-instruments button {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* === Bug Report Modal === */
+
+.bug-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.bug-modal-overlay.open {
+  display: flex;
+}
+
+.bug-modal {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.bug-modal h2 {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.bug-modal .bug-song-name {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.bug-modal textarea {
+  width: 100%;
+  min-height: 120px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.bug-modal textarea:focus {
+  border-color: var(--accent);
+}
+
+.bug-modal textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.bug-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.btn-bug-send {
+  padding: 0.5rem 1.25rem;
+  background: var(--accent-solid);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-bug-send:hover {
+  background: var(--accent-solid-hover);
+}
+
+.btn-bug-cancel {
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-bug-cancel:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+/* === Placeholder Page === */
+
+.placeholder-page {
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.placeholder-page h1 {
+  font-size: 1.75rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.placeholder-page p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* === Responsive === */
+
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter-input {
+    width: 100%;
+  }
+
+  .songs-table {
+    font-size: 0.8rem;
+  }
+
+  .songs-table th,
+  .songs-table td {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .player-bar {
+    gap: 0.25rem;
+    padding: 0.4rem 0.5rem;
+    flex-wrap: nowrap; /* the ⋯ menu below exists so this always fits one row */
+  }
+
+  .player-section {
+    padding: 0 0.25rem;
+  }
+
+  .player-label {
+    display: none;
+  }
+
+  .speed-slider {
+    width: 40px;
+  }
+
+  /* "More" (⋯) overflow menu: on mobile it's a real dropdown instead of the
+     desktop's invisible `display: contents` wrapper (see the base rules
+     above #transpose-value/.player-more). */
+  .player-section.player-more {
+    display: flex;
+  }
+
+  #more-toggle {
+    display: flex;
+  }
+
+  .player-more-panel {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0.5rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    box-shadow: var(--shadow);
+    z-index: 200;
+  }
+
+  .player-more-panel.open {
+    display: flex;
+  }
+
+  .player-more-panel .player-section {
+    border-right: none;
+    justify-content: space-between;
+  }
+
+  /* Overrides the base (desktop) .player-more-panel .player-label rule
+     above, and the generic mobile .player-label rule just above this one -
+     panel rows are stacked, so the label is what says which row is which. */
+  .player-more-panel .player-label {
+    display: inline-block;
+  }
+
+  /* Columns are a desktop-only layout. */
+  .player-more-panel .player-columns {
+    display: none;
+  }
+
+  .chord-filter-dropdown {
+    left: -1rem;
+    right: -1rem;
+    max-width: calc(100vw - 2rem);
+  }
+
+  /* Song pages: JS-built chord bar replaces the top nav (class added by
+     player.js in the same tick that inserts the bar). */
+  body.has-chord-bar .main-nav { display: none; }
+
+  .chord-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-light);
+    border-bottom: 1px solid var(--border);
+    padding: 0.4rem 0.75rem;
+  }
+
+  .chord-bar-back {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+  }
+
+  .chord-bar-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  /* Global ::-webkit-scrollbar (style.css ~1336) would otherwise paint a
+     persistent 8px horizontal scrollbar inside the strip. */
+  .chord-bar-chips::-webkit-scrollbar { display: none; }
+
+  .chord-bar .chord {
+    flex: none;
+    padding: 0.25rem 0.55rem;
+    background: rgba(230, 126, 34, 0.12);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  /* Divider between chord-progression groups in the top bar, e.g.
+     "G C Emi │ Ami C G D" (mirrors .chord-badge-sep in the songs table). */
+  .chord-bar-sep {
+    flex: none;
+    align-self: stretch;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .song-text {
+    font-size: calc(0.75rem * var(--song-font-scale, 1));
+  }
+}
+
+@media (max-width: 480px) {
+  .player-bar {
+    justify-content: space-around;
+  }
+
+  .player-section {
+    border-right: none;
+  }
+
+  .bpm-input {
+    width: 40px;
+  }
+}
+
+/* Safety margin so the single-row player bar (Opakování, Transpozice,
+   autoscroll, ⋯) still fits on the narrowest common phones. */
+@media (max-width: 360px) {
+  .speed-slider {
+    width: 36px;
+  }
+}
+
+/* === Scrollbar === */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}

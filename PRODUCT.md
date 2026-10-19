@@ -25,7 +25,7 @@ Osobní zpěvník jedné party, ne katalog. Česká notace akordů (H, B, mi), r
 ## Operating Context
 
 - Mobil je hlavní zařízení (asi 90 % použití); tablet i na šířku a počítač musí fungovat taky.
-- Seznam písní /na-kytaru: nejčastěji se píše známý název nebo interpret, projíždí se seznam pro inspiraci a klepe se na náhodnou píseň nebo na to, co nově přibylo. Filtr „akordy, které umím“ se používá spíš výjimečně (potvrzeno 2026-10-19).
+- Seznam písní (od 2026-10-20 přímo na úvodní stránce, /na-kytaru jen přesměrovává): nejčastěji se píše známý název nebo interpret, projíždí se seznam pro inspiraci a klepe se na náhodnou píseň nebo na to, co nově přibylo. Filtr „akordy, které umím“ se používá spíš výjimečně (potvrzeno 2026-10-19).
 - PWA s offline režimem: otevřené písně fungují bez internetu, tlačítko „Stáhnout offline“ stáhne celý zpěvník.
 
 ## Capabilities and Constraints
@@ -40,7 +40,8 @@ Osobní zpěvník jedné party, ne katalog. Česká notace akordů (H, B, mi), r
 
 ## Brand Commitments
 
-- Název „Bekovy songy“, logo/název vede na úvod. Navigace mezi úvodem a třemi nástroji (kytara, foukací harmonika, kalimba; poslední dva zatím „připravujeme“).
+- Název „Bekovy songy“, logo/název vede na úvod, kterým je přímo zpěvník. Jen kytara: foukací harmoniku a kalimbu majitel zrušil (2026-10-20).
+- Signature barva projektu je oranžová #e67e22 na černé (#0e0d0c), potvrzeno 2026-10-20.
 - Vzhled je otevřený: zadání pro redesign výslovně netrvá na současných barvách, písmu ani rozvržení.
 
 ## Evidence on Hand

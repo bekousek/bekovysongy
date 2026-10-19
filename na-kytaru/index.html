@@ -3,124 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Na kytaru - Bekovy songy</title>
-  <meta name="description" content="Přes 570 písní s akordy na kytaru — hledání podle názvu i autora, filtr podle akordů, transpozice, metronom a ladička přímo ve webu.">
-  <link rel="canonical" href="https://bekovysongy.cz/na-kytaru/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://bekovysongy.cz/na-kytaru/">
-  <meta property="og:title" content="Na kytaru - Bekovy songy">
-  <meta property="og:description" content="Přes 570 písní s akordy na kytaru — hledání podle názvu i autora, filtr podle akordů, transpozice, metronom a ladička přímo ve webu.">
-  <meta property="og:site_name" content="Bekovy songy">
-  <meta property="og:image" content="https://bekovysongy.cz/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Bekovy songy — zpěvník s akordy">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://bekovysongy.cz/assets/og-image.png">
-  <meta name="twitter:title" content="Na kytaru - Bekovy songy">
-  <meta name="twitter:description" content="Přes 570 písní s akordy na kytaru, s filtrem podle akordů a transpozicí.">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
-  <link rel="manifest" href="../manifest.json">
-  <meta name="theme-color" content="#1a1a2e">
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Bekovy songy</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://bekovysongy.cz/">
+  <!-- The song list moved to the site root. Kept as a redirect for old links,
+       bookmarks and installed apps; the script carries ?q= across (it is
+       also what Google's old SearchAction links point at). -->
+  <meta http-equiv="refresh" content="0; url=../">
+  <script>location.replace('../' + location.search + location.hash);</script>
+  <style>body { background: #0e0d0c; color: #f2f2f0; font-family: system-ui, sans-serif; padding: 24px; } a { color: #e67e22; }</style>
 </head>
 <body>
-  <nav class="main-nav">
-    <a href="../" class="nav-logo">Bekovy songy</a>
-    <div class="nav-links">
-      <a href="../na-kytaru/" class="active">Na kytaru</a>
-      <a href="../na-foukaci-harmoniku/">Na harmoniku</a>
-      <a href="../na-kalimbu/">Na kalimbu</a>
-    </div>
-  </nav>
-
-  <main class="table-page">
-    <h1>Na kytaru</h1>
-
-    <div class="filters">
-      <div class="filter-group">
-        <label for="search-input">Hledat</label>
-        <input type="text" id="search-input" class="filter-input"
-               placeholder="Název, interpret nebo úryvek textu..."
-               aria-describedby="search-hint">
-        <p class="filter-hint" id="search-hint">Nevíš název? Napiš řádek, který si pamatuješ.</p>
-      </div>
-
-      <div class="filter-group chord-filter-wrapper">
-        <label>Akordy (umím)</label>
-        <button type="button" class="chord-filter-toggle" id="chord-filter-btn">
-          Vybrat akordy
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="chord-filter-dropdown" id="chord-filter-dropdown">
-          <div class="chord-grid" id="chord-grid"></div>
-          <div class="chord-filter-actions">
-            <button type="button" class="btn-sm" id="chord-select-all">Vybrat vše</button>
-            <button type="button" class="btn-sm" id="chord-clear-all">Zrušit vše</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <label for="lang-filter">Jazyk</label>
-        <select id="lang-filter" class="filter-select">
-          <option value="">Vše</option>
-          <option value="CZ">CZ</option>
-          <option value="EN">EN</option>
-          <option value="SK">SK</option>
-          <option value="PL">PL</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="capo-filter">Capo</label>
-        <select id="capo-filter" class="filter-select">
-          <option value="">Vše</option>
-          <option value="yes">S capem</option>
-          <option value="no">Bez capa</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="table-toolbar">
-      <button type="button" class="btn-random" id="random-btn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-        Náhodná píseň
-      </button>
-      <span class="song-count" id="song-count"></span>
-    </div>
-
-    <div class="songs-table-wrap">
-      <table class="songs-table">
-        <thead>
-          <tr>
-            <th data-sort="title" tabindex="0" role="button" aria-sort="ascending">Název <span class="sort-arrow">▲</span></th>
-            <th data-sort="author" tabindex="0" role="button" aria-sort="none">Autor <span class="sort-arrow">▲</span></th>
-            <th data-sort="chords" tabindex="0" role="button" aria-sort="none">Akordy <span class="sort-arrow">▲</span></th>
-            <th data-sort="language" tabindex="0" role="button" aria-sort="none">Jazyk <span class="sort-arrow">▲</span></th>
-            <th data-sort="added" data-sort-default="desc" tabindex="0" role="button" aria-sort="none">Přidáno <span class="sort-arrow">▲</span></th>
-          </tr>
-        </thead>
-        <tbody id="songs-tbody"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <footer class="site-footer" id="offline-footer" hidden>
-    <button type="button" class="btn-offline" id="offline-download-btn" data-sw-path="../sw.js">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M5 21h14"/></svg>
-      Stáhnout offline
-    </button>
-    <p class="offline-status" id="offline-status"></p>
-  </footer>
-
-  <script src="../js/table.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js'));
-    }
-  </script>
-  <script src="../js/offline-download.js"></script>
+  <p>Zpěvník se přestěhoval na <a href="../">bekovysongy.cz</a>.</p>
 </body>
 </html>
