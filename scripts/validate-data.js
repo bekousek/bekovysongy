@@ -116,6 +116,14 @@ for (const f of htmlFiles) {
 }
 
 // === songs.json field sanity ===
+function isValidDay(v) {
+  if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
+  const d = new Date(v + 'T00:00:00Z');
+  return !isNaN(d) && d.toISOString().slice(0, 10) === v; // rejects 2026-02-30
+}
+// /admin writes the Prague date, CI runs on UTC - a day of slack for that.
+const LATEST_DAY = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+
 for (const s of songs) {
   if (!s.title || !s.title.trim()) fail(`songs.json: "${s.slug}" has an empty title`);
   if (!Array.isArray(s.chords)) fail(`songs.json: "${s.slug}" is missing a chords array`);
@@ -142,6 +150,19 @@ for (const s of songs) {
     } else if (s.authors.join(', ') !== (s.author || '')) {
       fail(`songs.json: "${s.slug}" has "author" out of sync with "authors" (${JSON.stringify(s.author)} vs ${JSON.stringify(s.authors.join(', '))})`);
     }
+  }
+
+  // added: the day the song went public (YYYY-MM-DD) - /admin stamps it on
+  // publish, scripts/backfill-added.js recovers it from git. A missing one
+  // doesn't block the deploy, the song just sorts last and never shows NEW.
+  if ('added' in s) {
+    if (!isValidDay(s.added)) {
+      fail(`songs.json: "${s.slug}" has an invalid "added" ${JSON.stringify(s.added)} (expected YYYY-MM-DD)`);
+    } else if (s.added > LATEST_DAY) {
+      fail(`songs.json: "${s.slug}" has "added" in the future (${s.added})`);
+    }
+  } else if (!isDraft(s)) {
+    warn(`songs.json: "${s.slug}" has no "added" date - run node scripts/backfill-added.js`);
   }
 
   // progression is optional (omitted for chordless songs), but when present

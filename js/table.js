@@ -106,6 +106,35 @@
     return single ? [single] : [];
   }
 
+  // "added" in songs.json is the day a song went on the site, as YYYY-MM-DD.
+  // A song added within the last half year gets a NEW badge; the cutoff is a
+  // YYYY-MM-DD string too, so the check is a plain string compare.
+  function isoDay(d) {
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+
+  const NEW_SINCE = (() => {
+    const d = new Date();
+    d.setMonth(d.getMonth() - 6);
+    return isoDay(d);
+  })();
+
+  function isRecent(song) {
+    return !!song.added && song.added > NEW_SINCE;
+  }
+
+  // "2026-10-18" -> "18. 10. 2026" (tooltip) / "10/2026" (column)
+  function formatDay(added) {
+    const [y, m, d] = added.split('-');
+    return `${Number(d)}. ${Number(m)}. ${y}`;
+  }
+
+  function formatMonth(added) {
+    const [y, m] = added.split('-');
+    return `${m}/${y}`;
+  }
+
   const tbody = document.getElementById('songs-tbody');
   const searchInput = document.getElementById('search-input');
   const langFilter = document.getElementById('lang-filter');
@@ -138,7 +167,7 @@
       tbody.innerHTML = '';
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 4;
+      td.colSpan = 5;
       td.className = 'table-error';
       td.textContent = 'Nepodařilo se načíst seznam písní — zkuste obnovit stránku.';
       tr.appendChild(td);
@@ -281,6 +310,13 @@
         case 'language':
           cmp = csCollator.compare(a.tags.language, b.tags.language);
           break;
+        case 'added':
+          // Undated songs go last either way round, and songs added the
+          // same day stay alphabetical - most of the old ones share a day.
+          if (!a.added !== !b.added) return a.added ? -1 : 1;
+          if (a.added === b.added) return csCollator.compare(a.title, b.title);
+          cmp = a.added < b.added ? -1 : 1;
+          break;
         default:
           cmp = csCollator.compare(a.title, b.title);
       }
@@ -332,7 +368,7 @@
       const headTr = document.createElement('tr');
       headTr.className = 'lyric-group-head';
       const th = document.createElement('td');
-      th.colSpan = 4;
+      th.colSpan = 5;
       th.textContent = 'Nalezeno v textu písně';
       headTr.appendChild(th);
       fragment.appendChild(headTr);
@@ -346,7 +382,7 @@
       const tr = document.createElement('tr');
       tr.className = 'lyric-group-head';
       const td = document.createElement('td');
-      td.colSpan = 4;
+      td.colSpan = 5;
       td.textContent = lyricsState === 'failed'
         ? 'Hledání v textech písní se nepodařilo načíst — hledá se jen v názvech a interpretech.'
         : 'Hledám i v textech písní…';
@@ -357,7 +393,7 @@
     if (!total && !(query.length >= LYRICS_MIN_QUERY && lyricsState === 'loading')) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 4;
+      td.colSpan = 5;
       td.className = 'table-empty';
       td.textContent = 'Nic nenalezeno — zkus jiný název, interpreta nebo úryvek textu.';
       tr.appendChild(td);
@@ -379,6 +415,13 @@
       titleLink.className = 'song-title-link';
       titleLink.textContent = song.title;
       tdTitle.appendChild(titleLink);
+      if (isRecent(song)) {
+        const badge = document.createElement('span');
+        badge.className = 'song-new';
+        badge.textContent = 'NEW';
+        badge.title = 'Přidáno ' + formatDay(song.added);
+        tdTitle.appendChild(badge);
+      }
       if (hit) tdTitle.appendChild(makeSnippet(hit, query.length));
 
       // Author(s) - one clickable chip per interpret, so a song credited to
@@ -427,10 +470,21 @@
       langSpan.textContent = song.tags.language;
       tdLang.appendChild(langSpan);
 
+      // Added - month and year are enough to scan down; the day is in the tooltip.
+      const tdAdded = document.createElement('td');
+      if (song.added) {
+        const addedSpan = document.createElement('span');
+        addedSpan.className = 'song-added';
+        addedSpan.textContent = formatMonth(song.added);
+        addedSpan.title = formatDay(song.added);
+        tdAdded.appendChild(addedSpan);
+      }
+
       tr.appendChild(tdTitle);
       tr.appendChild(tdAuthor);
       tr.appendChild(tdChords);
       tr.appendChild(tdLang);
+      tr.appendChild(tdAdded);
       return tr;
     }
   }
@@ -451,8 +505,10 @@
       if (sortCol === col) {
         sortAsc = !sortAsc;
       } else {
+        // A fresh column starts ascending, unless its header says otherwise -
+        // "Přidáno" starts with the newest songs, the reason to click it.
         sortCol = col;
-        sortAsc = true;
+        sortAsc = th.dataset.sortDefault !== 'desc';
       }
       // Update header styles
       document.querySelectorAll('.songs-table th').forEach(h => {

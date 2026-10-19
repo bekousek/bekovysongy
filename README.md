@@ -32,7 +32,7 @@ a otevřít `http://localhost:8137/`.
 | `navrhy-zamitnute.json` | odmítnuté návrhy písní — paměť pro generování dalších (viz níže) |
 | `admin/` | in-browser editor, viz níže |
 | `test/` | `node --test` sada pro `sections.js`/`song-cleanup.js`/`chords.js` |
-| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js` |
+| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js`, `backfill-added.js` (datum přidání, viz níže) |
 | `tools/` | přeformátování textů písní: `scan.cjs` (najde kandidáty), `skel.cjs` (kostra písně bez textu), `fmt.cjs` (apply), `verify.cjs` (dokáže, že se hnul jen layout), `run.sh` (apply+verify) — postup v [CLAUDE.md](CLAUDE.md) |
 | `.fmt-specs/` | specifikace přeformátování jednotlivých písní — čísla řádků, ne text |
 | `transfer_songs.py`, `verify_songs.py`, `staging_server.py` | pipeline pro import písní (níže) |
@@ -47,6 +47,28 @@ npm run validate # cross-check songs.json vs. songs/*.html, hledá poškozená d
 
 Obojí běží v CI před každým deployem (viz `deploy-pages.yml`) — pushnutá
 změna, která testy nebo validaci nesplní, se nenasadí.
+
+## Datum přidání (`added`)
+
+Každá veřejná píseň má v `songs.json` pole `"added": "YYYY-MM-DD"` — den, kdy
+se objevila na webu, tedy přešla do „ke kontrole" nebo „zkontrolováno".
+Návrh a „k vytvoření" ho nemají. V seznamu z něj je sloupec **Přidáno**
+(řadí se jako ostatní, první klik dá nejnovější nahoru) a štítek **NEW**
+u písní přidaných za posledního půl roku.
+
+- **Nové písně** dostanou datum v `/admin` při uložení, které je zveřejní
+  (nová píseň rovnou „ke kontrole", nebo draft, ke kterému přibyl text).
+  Jednou zapsané datum se už nemění.
+- **Chybějící data** doplní `node scripts/backfill-added.js` (`--dry-run`
+  jen vypíše počty): první commit, ve kterém je píseň v `songs.json` veřejná,
+  i přes přejmenování slugu. `npm run validate` na chybějící datum upozorní.
+- **Písně ze starého webu na Webnode** (`bekovysongy.webnode.cz`, sem
+  převzaté 2026-03-30) mají datum odtud, ne z gitu. Webnode u stránky ukazuje
+  jen datum *poslední úpravy*, ale stránky řadí v pořadí založení, takže
+  datum je minimum přes tu a všechny později založené písně — **odhad
+  „nejpozději"**, ne přesný den (např. 134 písní má „nejpozději 1. 8. 2023").
+  Písně „pod čarou", které na Webnode byly jen odkazem na cizí web, mají
+  datum, kdy tu dostaly vlastní stránku.
 
 ## Ukázky písní
 

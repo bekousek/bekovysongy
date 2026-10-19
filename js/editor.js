@@ -2474,6 +2474,7 @@
       const e = pendingEdits.get(slug);
       const local = allSongs.find(s => s.slug === slug);
       let song = data.songs.find(s => s.slug === slug);
+      const wasPublic = !!song && !isDraft(song);
 
       if (!song) {
         if (!e || !e.isNew) continue; // shouldn't happen, nothing to do
@@ -2500,6 +2501,18 @@
       }
 
       if (local) applyStatus(song, statusForSave(local, e));
+
+      // "added" is the day a song went on the site - the save that takes it
+      // out of the drafts (or creates it public). It never moves after that,
+      // and a song that was already public is never stamped with today: a
+      // missing date there is for scripts/backfill-added.js to find in git.
+      if (!wasPublic && !isDraft(song) && !song.added) {
+        // Local day, not toISOString()'s UTC one - a save just after
+        // midnight belongs to the new day.
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, '0');
+        song.added = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+      }
     }
 
     return JSON.stringify(data, null, 2);

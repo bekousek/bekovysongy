@@ -565,6 +565,29 @@ a:hover {
   border-radius: 3px;
 }
 
+/* NEW after the title of a song added within the last half year, and the
+   "Přidáno" column (songs.json "added", drawn by js/table.js). */
+.songs-table .song-new {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.3rem;
+  background: var(--accent-solid);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  vertical-align: 0.1em;
+}
+
+.song-added {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .table-error {
   text-align: center;
   color: var(--danger);
