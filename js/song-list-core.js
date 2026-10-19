@@ -148,8 +148,40 @@
     return ka[2] < kb[2] ? -1 : ka[2] > kb[2] ? 1 : 0;
   }
 
+  // The chord picker groups chords by the letter they start on, so C# sits
+  // under C: tap the root, then pick among everything built on it. Within a
+  // family: the plain major, minor and seventh first, then the sharps and
+  // flats, then everything else (maj7, sus4, slash chords...).
+  const FAMILY_ORDER = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'H'];
+
+  function chordFamilies(chords) {
+    const make = (root) => ({ root, basic: [], accidental: [], other: [], all: [] });
+    const fam = new Map(FAMILY_ORDER.map(l => [l, make(l)]));
+    const rest = make('?');
+    chords.slice().sort(compareChords).forEach(c => {
+      const m = /^([A-H])(#|b|is|es)?(.*)$/.exec(c);
+      const f = m ? fam.get(m[1]) : rest;
+      f.all.push(c);
+      if (!m) f.other.push(c);
+      else if (m[2]) f.accidental.push(c);
+      else if (m[3] === '' || m[3] === 'mi' || m[3] === '7') f.basic.push(c);
+      else f.other.push(c);
+    });
+    const list = FAMILY_ORDER.map(l => fam.get(l)).filter(f => f.all.length);
+    if (rest.all.length) list.push(rest);
+    return list;
+  }
+
+  // Where a song link points. The real list links the static song pages; a
+  // page that renders songs itself (the /test4/ prototype) swaps this out.
+  let songHref = (slug) => BASE + 'songs/' + slug + '.html';
+
   function href(song) {
-    return BASE + 'songs/' + song.slug + '.html';
+    return songHref(song.slug);
+  }
+
+  function setSongHref(fn) {
+    songHref = fn;
   }
 
   // === Loading =============================================================
@@ -513,6 +545,18 @@
     trash: '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="m6 6 1 14h10l1-14"/>',
     sort: '<path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/>',
     note: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    playlist: '<path d="M21 15V6"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M12 12H3M16 6H3M12 18H3"/>',
+    minus: '<path d="M5 12h14"/>',
+    pause: '<path d="M8 5v14M16 5v14"/>',
+    fretboard: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 8.5h14M5 14h14M9.7 3v18M14.3 3v18"/>',
+    metronome: '<path d="M9 3h6l4 18H5z"/><path d="M12 15l5-9"/><path d="M7.5 15h9"/>',
+    tuner: '<path d="M3.3 19a10 10 0 1 1 17.4 0"/><path d="m12 14 4-5"/>',
+    flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
+    next: '<path d="M5 4l10 8-10 8z"/><path d="M19 5v14"/>',
+    prev: '<path d="M19 20 9 12l10-8z"/><path d="M5 19V5"/>',
+    more: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+    repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   };
 
   function icon(name, size) {
@@ -542,7 +586,9 @@
     formatMonth,
     indexLetter,
     compareChords,
+    chordFamilies,
     href,
+    setSongHref,
     query,
     filtersActive,
     countLine,
