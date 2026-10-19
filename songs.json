@@ -4813,12 +4813,16 @@
       "title": "Do I wanna know?",
       "slug": "do-i-wanna-know",
       "author": "Arctic Monkeys",
-      "chords": [],
+      "chords": [
+        "Gmi",
+        "D#",
+        "Cmi",
+        "D"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/do-i-wanna-know",
@@ -4838,18 +4842,44 @@
             "D"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Gmi",
+          "D#",
+          "Cmi"
+        ],
+        [
+          "D#",
+          "Cmi",
+          "Gmi",
+          "D#",
+          "Cmi",
+          "D"
+        ],
+        [
+          "D#",
+          "Cmi",
+          "Gmi",
+          "D#",
+          "Gmi"
+        ]
       ]
     },
     {
       "title": "Do nebe",
       "slug": "do-nebe",
       "author": "Tomáš Klus",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "Emi",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/do-nebe",
@@ -4869,6 +4899,18 @@
             "C"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "Emi",
+          "C"
+        ],
+        [
+          "C",
+          "G"
+        ]
       ]
     },
     {
@@ -5513,12 +5555,18 @@
       "title": "Dysgrafik",
       "slug": "dysgrafik",
       "author": "Xindl X",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "Dmi",
+        "G",
+        "F",
+        "E",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/dysgrafik",
@@ -5543,6 +5591,40 @@
             "D"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami"
+        ],
+        [
+          "Ami",
+          "Dmi",
+          "G",
+          "F",
+          "Ami",
+          "E"
+        ],
+        [
+          "Ami",
+          "G",
+          "C",
+          "Dmi",
+          "E"
+        ],
+        [
+          "Ami",
+          "F",
+          "Ami",
+          "E",
+          "G",
+          "C",
+          "Dmi"
+        ],
+        [
+          "Ami",
+          "E",
+          "Ami"
+        ]
       ]
     },
     {
@@ -5820,12 +5902,17 @@
       "title": "Dům u vycházejícího slunce",
       "slug": "dum-u-vychazejiciho-slunce",
       "author": "Jaromír Mayer",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "C",
+        "D",
+        "F",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "note": "česká verze House of the Rising Sun",
       "sources": [
         {
@@ -5838,6 +5925,29 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami",
+          "C",
+          "D",
+          "F",
+          "Ami",
+          "C"
+        ],
+        [
+          "E",
+          "Ami",
+          "C",
+          "D",
+          "F",
+          "Ami"
+        ],
+        [
+          "E",
+          "Ami",
+          "E"
+        ]
       ]
     },
     {
@@ -5893,12 +6003,24 @@
       "title": "Elektrický valčík",
       "slug": "elektricky-valcik",
       "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
-      "chords": [],
+      "chords": [
+        "Cmi",
+        "G7",
+        "Ab",
+        "C",
+        "Gdim",
+        "Cdim",
+        "C7",
+        "F",
+        "G",
+        "Emi",
+        "Ami",
+        "Dmi"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "authors": [
         "Zdeněk Svěrák",
         "Jaroslav Uhlíř"
@@ -5921,6 +6043,34 @@
             "Dmi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Cmi",
+          "G7"
+        ],
+        [
+          "Cmi",
+          "Ab"
+        ],
+        [
+          "C",
+          "G7",
+          "Gdim",
+          "G7",
+          "C",
+          "Cdim"
+        ],
+        [
+          "C",
+          "C7",
+          "F",
+          "G",
+          "Emi",
+          "Ami",
+          "Dmi",
+          "G7"
+        ]
       ]
     },
     {
@@ -6027,12 +6177,16 @@
       "title": "Faded",
       "slug": "faded",
       "author": "Alan Walker",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "F",
+        "C",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/faded-2",
@@ -6052,6 +6206,23 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami",
+          "F",
+          "C",
+          "G"
+        ],
+        [
+          "Ami",
+          "F",
+          "C",
+          "G",
+          "Ami",
+          "F",
+          "C"
+        ]
       ]
     },
     {
@@ -6095,12 +6266,18 @@
       "title": "Fanynka",
       "slug": "fanynka",
       "author": "Wohnout",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "D",
+        "Hmi",
+        "A",
+        "C",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/fanynka",
@@ -6125,6 +6302,27 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Emi",
+          "D"
+        ],
+        [
+          "Emi",
+          "Hmi"
+        ],
+        [
+          "A",
+          "C",
+          "Emi"
+        ],
+        [
+          "Emi",
+          "G",
+          "D",
+          "A"
+        ]
       ]
     },
     {
@@ -6142,12 +6340,19 @@
       "title": "Five hundred miles",
       "slug": "five-hundred-miles",
       "author": "Hedy West",
-      "chords": [],
+      "chords": [
+        "C",
+        "Ami",
+        "Dmi",
+        "F",
+        "G",
+        "Emi",
+        "G7"
+      ],
       "tags": {
-        "capo": false,
+        "capo": 2,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "note": "folková tradiční",
       "sources": [
         {
@@ -6176,6 +6381,52 @@
             "D7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "C",
+          "Ami"
+        ],
+        [
+          "Dmi",
+          "F"
+        ],
+        [
+          "G",
+          "C",
+          "Ami"
+        ],
+        [
+          "C",
+          "Ami",
+          "Dmi",
+          "F",
+          "Dmi",
+          "Emi",
+          "F",
+          "G",
+          "G7",
+          "C",
+          "Ami",
+          "Dmi",
+          "F",
+          "Dmi",
+          "Emi",
+          "G7",
+          "G",
+          "C"
+        ],
+        [
+          "C",
+          "Ami",
+          "Dmi",
+          "F",
+          "Dmi",
+          "Emi",
+          "F",
+          "G",
+          "C"
+        ]
       ]
     },
     {
@@ -6239,12 +6490,18 @@
       "title": "Fotbal",
       "slug": "fotbal",
       "author": "Jaromír Nohavica",
-      "chords": [],
+      "chords": [
+        "Dmi",
+        "F",
+        "C",
+        "A7",
+        "B",
+        "H"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/fotbal",
@@ -6267,6 +6524,61 @@
             "H"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Dmi",
+          "F",
+          "C",
+          "Dmi",
+          "A7"
+        ],
+        [
+          "B",
+          "Dmi",
+          "F",
+          "A7",
+          "Dmi",
+          "F",
+          "C",
+          "A7",
+          "Dmi",
+          "A7"
+        ],
+        [
+          "H",
+          "Dmi",
+          "H",
+          "F",
+          "A7",
+          "Dmi",
+          "F",
+          "C",
+          "Dmi",
+          "A7"
+        ],
+        [
+          "H",
+          "Dmi",
+          "H",
+          "A7",
+          "Dmi",
+          "F",
+          "C",
+          "Dmi",
+          "A7"
+        ],
+        [
+          "H",
+          "Dmi",
+          "F",
+          "A7",
+          "Dmi",
+          "F",
+          "C",
+          "A7",
+          "Dmi"
+        ]
       ]
     },
     {
@@ -6380,12 +6692,18 @@
       "title": "František",
       "slug": "frantisek",
       "author": "Buty",
-      "chords": [],
+      "chords": [
+        "G",
+        "C",
+        "Emi",
+        "Ami",
+        "Hmi",
+        "D"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/frantisek",
@@ -6409,6 +6727,29 @@
             "D"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "C"
+        ],
+        [
+          "G",
+          "C",
+          "Emi",
+          "G",
+          "Ami",
+          "Hmi",
+          "Ami",
+          "D"
+        ],
+        [
+          "C",
+          "D",
+          "C",
+          "Ami",
+          "D"
+        ]
       ]
     },
     {
@@ -6488,12 +6829,16 @@
       "title": "Get lucky",
       "slug": "get-lucky",
       "author": "Daft Punk",
-      "chords": [],
+      "chords": [
+        "Hmi",
+        "D",
+        "F#mi",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/get-lucky",
@@ -6513,6 +6858,20 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Hmi",
+          "D",
+          "F#mi",
+          "E"
+        ],
+        [
+          "E",
+          "Hmi",
+          "D",
+          "F#mi"
+        ]
       ]
     },
     {
@@ -6591,12 +6950,17 @@
       "title": "Good riddance (Time of your life)",
       "slug": "good-riddance-time-of-your-life",
       "author": "Green Day",
-      "chords": [],
+      "chords": [
+        "G",
+        "Cadd9",
+        "D",
+        "Emi",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/good-riddance",
@@ -6619,6 +6983,34 @@
             "C"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "Cadd9",
+          "D"
+        ],
+        [
+          "Emi",
+          "D",
+          "C",
+          "G"
+        ],
+        [
+          "Emi",
+          "G"
+        ],
+        [
+          "Emi",
+          "D",
+          "G"
+        ],
+        [
+          "G",
+          "Cadd9",
+          "D",
+          "G"
+        ]
       ]
     },
     {
@@ -6667,12 +7059,15 @@
       "title": "Habits (Stay High)",
       "slug": "habits-stay-high",
       "author": "Tove Lo",
-      "chords": [],
+      "chords": [
+        "B",
+        "Dmi",
+        "F"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/tove-lo/habits-stay-high-chords-1411696",
@@ -6682,6 +7077,20 @@
             "F"
           ]
         }
+      ],
+      "progression": [
+        [
+          "B",
+          "Dmi",
+          "F"
+        ],
+        [
+          "Dmi",
+          "F",
+          "B",
+          "Dmi",
+          "F"
+        ]
       ]
     },
     {
@@ -7377,12 +7786,17 @@
       "title": "Hero of war",
       "slug": "hero-of-war",
       "author": "Rise Against",
-      "chords": [],
+      "chords": [
+        "E",
+        "H",
+        "G#mi",
+        "A",
+        "C#mi"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/rise-against/hero-of-war-chords-739291",
@@ -7394,6 +7808,35 @@
             "C#mi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "E",
+          "H"
+        ],
+        [
+          "E",
+          "G#mi"
+        ],
+        [
+          "A",
+          "E"
+        ],
+        [
+          "C#mi",
+          "A",
+          "E",
+          "H"
+        ],
+        [
+          "E",
+          "G#mi",
+          "A",
+          "E",
+          "A",
+          "E",
+          "H"
+        ]
       ]
     },
     {
@@ -7429,12 +7872,25 @@
       "title": "Hey Jude",
       "slug": "hey-jude",
       "author": "The Beatles",
-      "chords": [],
+      "chords": [
+        "F",
+        "C",
+        "F/C",
+        "C7",
+        "C7sus4",
+        "B",
+        "Fmaj7",
+        "F7",
+        "B/A",
+        "Gmi",
+        "B/F",
+        "C/E",
+        "Eb"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/hey-jude",
@@ -7467,6 +7923,69 @@
             "Eb"
           ]
         }
+      ],
+      "progression": [
+        [
+          "F",
+          "C",
+          "F/C",
+          "C7",
+          "C7sus4",
+          "C7",
+          "F",
+          "B",
+          "F",
+          "C",
+          "F"
+        ],
+        [
+          "F",
+          "C",
+          "F/C",
+          "C7",
+          "C7sus4",
+          "C7",
+          "F",
+          "B",
+          "F",
+          "C",
+          "F",
+          "Fmaj7",
+          "F7"
+        ],
+        [
+          "B",
+          "B/A",
+          "Gmi",
+          "B/F",
+          "C/E",
+          "C",
+          "F",
+          "Fmaj7",
+          "F7",
+          "B",
+          "B/A",
+          "Gmi",
+          "B/F",
+          "C/E",
+          "C",
+          "F"
+        ],
+        [
+          "F",
+          "F7",
+          "C",
+          "C7",
+          "C",
+          "F",
+          "C7"
+        ],
+        [
+          "F",
+          "Eb",
+          "B",
+          "F"
+        ]
       ]
     },
     {
@@ -7625,12 +8144,17 @@
       "title": "Hlupák váhá",
       "slug": "hlupak-vaha",
       "author": "Katapult",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "G",
+        "D",
+        "F",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/hlupak-vaha",
@@ -7652,18 +8176,37 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami",
+          "G",
+          "D",
+          "F",
+          "G",
+          "Ami"
+        ],
+        [
+          "F",
+          "G",
+          "E"
+        ]
       ]
     },
     {
       "title": "Hlupáku, najdu tě",
       "slug": "hlupaku-najdu-te",
       "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Princové jsou na draka)",
-      "chords": [],
+      "chords": [
+        "C",
+        "F",
+        "G",
+        "C7"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/hlupaku-najdu-te-2",
@@ -7674,6 +8217,34 @@
             "C7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "C",
+          "F",
+          "C",
+          "G"
+        ],
+        [
+          "C",
+          "F",
+          "C",
+          "G",
+          "C",
+          "C7",
+          "F",
+          "C",
+          "G",
+          "C"
+        ],
+        [
+          "C",
+          "G",
+          "C",
+          "F",
+          "G",
+          "C"
+        ]
       ]
     },
     {
