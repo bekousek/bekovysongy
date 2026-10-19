@@ -287,7 +287,14 @@
           setStatus('offline');
           return;
         }
-        if (res.status === 401) { auth.exp = 0; continue; }      // stale token: refresh, retry
+        // Firebase answers 401 both for a stale token and for "the rules say
+        // no". Refresh and try once; a second 401 is the rules.
+        if (res.status === 401 && !op.retried) {
+          op.retried = true;
+          writeJSON(PENDING_KEY, pending);
+          auth.exp = 0;
+          continue;
+        }
         if (res.status >= 500) { setStatus('offline'); return; }
         pending.shift();
         writeJSON(PENDING_KEY, pending);
