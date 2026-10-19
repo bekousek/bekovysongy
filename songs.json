@@ -3634,12 +3634,19 @@
       "title": "Corrida",
       "slug": "corrida",
       "author": "Kabát",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "C",
+        "A5",
+        "A",
+        "D",
+        "G",
+        "F"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/corrida",
@@ -3664,6 +3671,32 @@
             "F"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Emi",
+          "C",
+          "A5"
+        ],
+        [
+          "Emi",
+          "C",
+          "A5",
+          "Emi",
+          "C",
+          "A"
+        ],
+        [
+          "D"
+        ],
+        [
+          "Emi",
+          "C",
+          "A5",
+          "G",
+          "F",
+          "C"
+        ]
       ]
     },
     {
@@ -3693,12 +3726,22 @@
       "title": "Což takhle dát si špenát",
       "slug": "coz-takhle-dat-si-spenat",
       "author": "Jiří Schelinger",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "C",
+        "Emi",
+        "H7",
+        "D7b9",
+        "Eb",
+        "Ab",
+        "Db",
+        "Fmi"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/coz-takhle-dat-si-spenat",
@@ -3715,6 +3758,45 @@
             "Fmi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "C",
+          "Emi"
+        ],
+        [
+          "C",
+          "H7"
+        ],
+        [
+          "Emi",
+          "G",
+          "D7b9"
+        ],
+        [
+          "D",
+          "C",
+          "Emi",
+          "G",
+          "D",
+          "C",
+          "Emi"
+        ],
+        [
+          "Eb",
+          "Ab"
+        ],
+        [
+          "Eb",
+          "Db",
+          "Fmi",
+          "Ab",
+          "Eb",
+          "Db",
+          "Ab"
+        ]
       ]
     },
     {
@@ -3751,12 +3833,20 @@
       "title": "Cudzinka v tvojej zemi",
       "slug": "cudzinka-v-tvojej-zemi",
       "author": "Xindl X",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "G",
+        "F",
+        "Dmi",
+        "E",
+        "D",
+        "C",
+        "Emi7"
+      ],
       "tags": {
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/cudzinka-v-tvojej-zemi",
@@ -3771,6 +3861,62 @@
             "Emi7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami",
+          "G",
+          "F",
+          "Dmi",
+          "E"
+        ],
+        [
+          "F",
+          "G"
+        ],
+        [
+          "Dmi",
+          "G",
+          "Ami",
+          "D",
+          "Dmi",
+          "G",
+          "E"
+        ],
+        [
+          "Ami",
+          "G",
+          "C",
+          "F",
+          "G",
+          "Emi7"
+        ],
+        [
+          "Ami",
+          "G",
+          "F",
+          "Dmi",
+          "E",
+          "Ami",
+          "G",
+          "F",
+          "Dmi",
+          "G",
+          "F",
+          "G"
+        ],
+        [
+          "C",
+          "F",
+          "G",
+          "Ami",
+          "F",
+          "G",
+          "C",
+          "F",
+          "G",
+          "Ami"
+        ]
       ]
     },
     {
@@ -3823,12 +3969,19 @@
       "title": "Dajána",
       "slug": "dajana",
       "author": "táborová",
-      "chords": [],
+      "chords": [
+        "G",
+        "Emi",
+        "C",
+        "D7",
+        "G7",
+        "Cmi",
+        "D"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "note": "trampská/táborová",
       "sources": [
         {
@@ -3855,18 +4008,50 @@
             "D"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "Emi",
+          "C",
+          "D7"
+        ],
+        [
+          "G7",
+          "C",
+          "Cmi",
+          "G",
+          "G7",
+          "C",
+          "Cmi",
+          "D",
+          "D7"
+        ]
       ]
     },
     {
       "title": "Dancing queen",
       "slug": "dancing-queen",
       "author": "ABBA",
-      "chords": [],
+      "chords": [
+        "A",
+        "D/A",
+        "E",
+        "C#7",
+        "F#mi",
+        "F#mi7/E",
+        "H/D#",
+        "D",
+        "Hmi",
+        "E/F#",
+        "E/G#",
+        "D/F#",
+        "A/E"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/dancing-queen",
@@ -3881,6 +4066,69 @@
             "Hmi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "A",
+          "D/A"
+        ],
+        [
+          "E",
+          "C#7",
+          "F#mi",
+          "F#mi7/E",
+          "H/D#",
+          "D",
+          "Hmi",
+          "A",
+          "D/A"
+        ],
+        [
+          "A",
+          "D/A",
+          "A",
+          "F#mi",
+          "E"
+        ],
+        [
+          "A",
+          "D/A",
+          "A",
+          "F#mi",
+          "E",
+          "F#mi",
+          "E/F#",
+          "F#mi"
+        ],
+        [
+          "E/G#",
+          "D/F#",
+          "A/E",
+          "E",
+          "C#7",
+          "F#mi",
+          "F#mi7/E",
+          "H/D#",
+          "D",
+          "Hmi",
+          "A",
+          "D/A"
+        ],
+        [
+          "A",
+          "D/A",
+          "A",
+          "E/G#",
+          "D/F#",
+          "A/E",
+          "E",
+          "C#7",
+          "F#mi",
+          "F#mi7/E",
+          "H/D#",
+          "D",
+          "Hmi"
+        ]
       ]
     },
     {
@@ -5333,12 +5581,15 @@
       "title": "Dávno",
       "slug": "davno",
       "author": "Divokej Bill",
-      "chords": [],
+      "chords": [
+        "Ami",
+        "C",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/2713974",
@@ -5348,6 +5599,13 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Ami",
+          "C",
+          "G"
+        ]
       ]
     },
     {
@@ -26809,12 +27067,20 @@
       "title": "Čerešne",
       "slug": "ceresne",
       "author": "Hana Hegerová",
-      "chords": [],
+      "chords": [
+        "Gmi",
+        "Cmi7",
+        "Eb",
+        "D",
+        "B",
+        "F/A",
+        "D7",
+        "F"
+      ],
       "tags": {
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/ceresne-2",
@@ -26840,6 +27106,33 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Gmi",
+          "Cmi7",
+          "Eb",
+          "D"
+        ],
+        [
+          "Gmi",
+          "B",
+          "F/A",
+          "D7",
+          "Eb",
+          "F"
+        ],
+        [
+          "Gmi",
+          "B",
+          "F/A",
+          "D7",
+          "Eb",
+          "F",
+          "Gmi",
+          "B",
+          "F/A"
+        ]
       ]
     },
     {
@@ -26883,12 +27176,18 @@
       "title": "Černá díra",
       "slug": "cerna-dira",
       "author": "Karel Plíhal",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "C",
+        "Emi",
+        "A",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/cerna-dira-2",
@@ -26912,6 +27211,35 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "C"
+        ],
+        [
+          "D",
+          "G",
+          "Emi",
+          "C",
+          "A",
+          "D",
+          "G",
+          "D",
+          "C",
+          "D",
+          "G"
+        ],
+        [
+          "A",
+          "E",
+          "D"
+        ],
+        [
+          "E",
+          "A"
+        ]
       ]
     },
     {
@@ -26973,12 +27301,21 @@
       "title": "Černý brejle",
       "slug": "cerny-brejle",
       "author": "Ready Kirken",
-      "chords": [],
+      "chords": [
+        "D",
+        "F#mi",
+        "Emi",
+        "C",
+        "F",
+        "D7",
+        "E7",
+        "Ami",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/cerny-brejle",
@@ -27007,6 +27344,32 @@
             "E7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "D",
+          "F#mi",
+          "Emi",
+          "C"
+        ],
+        [
+          "F",
+          "D7",
+          "E7"
+        ],
+        [
+          "F",
+          "Ami",
+          "C",
+          "Emi",
+          "E"
+        ],
+        [
+          "Ami",
+          "F",
+          "D7",
+          "E7"
+        ]
       ]
     },
     {
@@ -27178,12 +27541,19 @@
       "title": "Čo bolí, to prebolí",
       "slug": "co-boli-to-preboli",
       "author": "Miroslav Žbirka",
-      "chords": [],
+      "chords": [
+        "Dmi",
+        "Gmi",
+        "A7",
+        "B",
+        "A",
+        "C",
+        "F"
+      ],
       "tags": {
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/co-boli-to-preboli",
@@ -27209,6 +27579,35 @@
             "F"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Dmi",
+          "Gmi",
+          "A7"
+        ],
+        [
+          "B",
+          "A"
+        ],
+        [
+          "Dmi",
+          "Gmi",
+          "A7",
+          "Dmi"
+        ],
+        [
+          "C",
+          "F",
+          "A7",
+          "Dmi"
+        ],
+        [
+          "Gmi",
+          "Dmi",
+          "Gmi",
+          "A7"
+        ]
       ]
     },
     {
@@ -27245,12 +27644,30 @@
       "title": "Čím to je",
       "slug": "cim-to-je",
       "author": "No Name",
-      "chords": [],
+      "chords": [
+        "Fmi",
+        "Cmi",
+        "Hsus2",
+        "H7sus4",
+        "Ab",
+        "Eb",
+        "H",
+        "Ab/H",
+        "G5",
+        "B",
+        "Cmi/G",
+        "F",
+        "Gmi",
+        "Dmi",
+        "C",
+        "C7sus4",
+        "H/C",
+        "A5"
+      ],
       "tags": {
         "capo": false,
         "language": "SK"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/cim-to-je",
@@ -27286,6 +27703,70 @@
             "C"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Fmi",
+          "Cmi",
+          "Hsus2"
+        ],
+        [
+          "H7sus4",
+          "Ab",
+          "Eb",
+          "H",
+          "Ab/H",
+          "Ab",
+          "Eb",
+          "G5",
+          "Ab"
+        ],
+        [
+          "Ab",
+          "Eb",
+          "H",
+          "Ab/H",
+          "Ab",
+          "Eb",
+          "B"
+        ],
+        [
+          "Ab/H",
+          "Ab",
+          "Eb",
+          "H",
+          "Ab/H",
+          "Ab",
+          "Eb",
+          "G5",
+          "Ab"
+        ],
+        [
+          "Cmi/G",
+          "F"
+        ],
+        [
+          "Cmi",
+          "F",
+          "Ab",
+          "Cmi"
+        ],
+        [
+          "Gmi",
+          "Dmi",
+          "C"
+        ],
+        [
+          "C7sus4",
+          "B",
+          "F",
+          "C",
+          "H/C",
+          "H",
+          "F",
+          "A5",
+          "H"
+        ]
       ]
     },
     {
