@@ -337,11 +337,33 @@
       groups = (prog || []).map(dedupe).filter(g => g.length);
     }
 
+    // Each line of the song becomes its own block (.ln), so a line too long
+    // for the phone wraps with a hanging indent instead of passing for the
+    // next line. Chord spans move along untouched.
+    function splitLines(box) {
+      const kids = Array.from(box.childNodes);
+      if (kids.some(n => n.nodeType === 1 && n.textContent.indexOf('\n') !== -1)) return;
+      const lines = [el('span', 'ln')];
+      kids.forEach(n => {
+        if (n.nodeType !== 3) { lines[lines.length - 1].appendChild(n); return; }
+        n.data.split('\n').forEach((part, i) => {
+          if (i > 0) lines.push(el('span', 'ln'));
+          if (part) lines[lines.length - 1].appendChild(document.createTextNode(part));
+        });
+      });
+      // A closing newline draws no empty line in pre-wrap; keep it that way.
+      if (lines.length > 1 && !lines[lines.length - 1].firstChild) lines.pop();
+      box.textContent = '';
+      lines.forEach(l => box.appendChild(l));
+    }
+
     function renderLyrics() {
       // Repeats share their section key, so remember the opened ones by position.
       const peeked = Array.from(lyrics.querySelectorAll('.is-repeat'))
         .map((sec, i) => (sec.classList.contains('peek') ? i : -1)).filter(i => i !== -1);
       lyrics.innerHTML = html;
+      if (lyrics.querySelector('.song-section')) lyrics.querySelectorAll('.section-plain, .section-body, .section-tail').forEach(splitLines);
+      else splitLines(lyrics);
       lyrics.classList.toggle('show-repeats', showRepeats);
       lyrics.classList.toggle('cols-2', columns === 2);
       lyrics.classList.toggle('cols-3', columns === 3);

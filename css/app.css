@@ -14,6 +14,9 @@
   --accent: #e67e22;
   --on-accent: #160b02;
   --press: #312e2b;
+  --ok: #3fbf6f;
+  --warn: #e5a93b;
+  --danger: #e5566f;
 
   --radius-card: 20px;
   --radius-pill: 999px;
@@ -103,13 +106,13 @@ ul { list-style: none; }
 
 .party-pill {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 36px; padding: 0 14px; border-radius: var(--radius-pill);
+  height: 44px; padding: 0 14px; border-radius: var(--radius-pill);
   background: var(--surface); color: var(--text); font-weight: 600; font-size: 14px;
 }
 .party-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
-.party-pill[data-state="live"] .dot { background: #3fbf6f; }
-.party-pill[data-state="offline"] .dot { background: #e5a93b; }
-.party-pill[data-state="error"] .dot { background: #e5566f; }
+.party-pill[data-state="live"] .dot { background: var(--ok); }
+.party-pill[data-state="offline"] .dot { background: var(--warn); }
+.party-pill[data-state="error"] .dot { background: var(--danger); }
 
 .tabbar {
   position: fixed;
@@ -211,7 +214,7 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .chip {
   flex: none;
   display: inline-flex; align-items: center; gap: 6px;
-  height: 40px; padding: 0 14px;
+  height: 44px; padding: 0 14px;
   border-radius: var(--radius-pill);
   background: var(--surface);
   color: var(--text); font-weight: 500; white-space: nowrap;
@@ -332,7 +335,7 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .btn-ghost { background: transparent; color: var(--muted); padding: 0 12px; }
 .btn-icon { width: 48px; padding: 0; flex: none !important; }
 .btn-icon[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
-.text-btn { color: var(--accent); font-weight: 600; padding: 6px 4px; min-height: 36px; }
+.text-btn { color: var(--accent); font-weight: 600; padding: 6px 4px; min-height: 44px; }
 .btn[disabled] { opacity: 0.55; cursor: default; }
 
 .icon-btn { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); }
@@ -346,7 +349,7 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
   display: inline-flex; margin-top: 10px; padding: 3px; border-radius: var(--radius-pill); background: var(--surface);
 }
 .segmented button {
-  height: 36px; padding: 0 16px; border-radius: var(--radius-pill);
+  height: 38px; padding: 0 16px; border-radius: var(--radius-pill);
   color: var(--muted); font-weight: 500;
 }
 .segmented button[aria-checked="true"] { background: var(--raised); color: var(--text); font-weight: 600; }
@@ -453,11 +456,11 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .sheet-label { color: var(--faint); font-size: var(--fs-small); margin: 16px 0 8px; }
 
 /* Chord picker: the eight roots first, a tapped root opens its family. */
-.picked { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; min-height: 36px; }
+.picked { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; min-height: 44px; }
 .picked-empty { color: var(--muted); }
 .picked-chip {
   display: inline-flex; align-items: center; gap: 2px;
-  height: 34px; padding: 0 6px 0 12px; border-radius: var(--radius-pill);
+  height: 44px; padding: 0 8px 0 14px; border-radius: var(--radius-pill);
   background: var(--accent); color: var(--on-accent); font-weight: 700;
 }
 .roots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -552,9 +555,9 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .party { margin: 0 0 16px; padding: 16px; border-radius: var(--radius-card); background: var(--surface); }
 .party-status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 500; }
 .party-status .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--faint); }
-.party-status[data-state="live"] .dot { background: #3fbf6f; }
-.party-status[data-state="offline"] .dot { background: #e5a93b; }
-.party-status[data-state="error"] .dot { background: #e5566f; }
+.party-status[data-state="live"] .dot { background: var(--ok); }
+.party-status[data-state="offline"] .dot { background: var(--warn); }
+.party-status[data-state="error"] .dot { background: var(--danger); }
 .party-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
 .party-row .btn { height: 44px; padding: 0 16px; font-size: 15px; }
 .name-field { display: block; margin-top: 14px; }

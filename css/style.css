@@ -23,6 +23,8 @@
   --accent: #e67e22;
   --on-accent: #160b02;
   --press: #312e2b;
+  --ok: #3fbf6f;
+  --danger: #e5566f;
 
   --radius-pill: 999px;
   --pad: 16px;
@@ -54,7 +56,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 .icon { display: block; flex: none; }
 [data-icon] { display: inline-flex; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; border-radius: 6px; }
 .main-nav, #player-bar { display: none !important; }
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; overflow: hidden;
@@ -90,8 +92,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cbar-chips::-webkit-scrollbar { display: none; }
 .cbar-chips .ch {
   flex: none;
-  height: 36px; padding: 0 8px; border-radius: 10px;
-  display: inline-flex; align-items: center;
+  min-width: 44px; height: 44px; padding: 0 8px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
   font-size: 17px; font-weight: 700; color: var(--accent);
 }
 .cbar-chips .ch:active, .cbar-chips .ch.on { background: var(--raised); }
@@ -131,7 +133,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .song-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .pill {
   display: inline-flex; align-items: center; gap: 6px;
-  height: 38px; padding: 0 14px 0 11px; border-radius: var(--radius-pill);
+  height: 44px; padding: 0 14px 0 11px; border-radius: var(--radius-pill);
   background: var(--surface); color: var(--muted); font-weight: 600; font-size: 15px;
   transition: background-color 150ms ease-out, color 150ms ease-out;
 }
@@ -144,7 +146,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .song-text {
   font-family: var(--font);
   font-size: calc(19px * var(--scale));
-  line-height: 1.6;
+  line-height: 1.75;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   color: var(--text);
@@ -152,11 +154,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .song-text .ch, .song-text .chord {
   color: var(--accent); font-weight: 700; cursor: pointer;
-  border-radius: 4px;
+  padding: 0 0.12em; border-radius: 4px;
 }
 .song-text .ch.on { background: var(--raised); }
-.song-text { line-height: 1.75; }
-.song-text .ch, .song-text .chord { padding: 0 0.12em; }
+
+/* One block per line (player.js): a line too long for the phone wraps
+   indented under itself, so the wrap can't pass for the next line. */
+.song-text .ln { display: block; padding-left: 1em; text-indent: -1em; }
+.song-text .ln:empty::before { content: "\200b"; }
 
 /* Sections (from js/sections.js): refrén, bridge and named parts carry
    their label in a left gutter; plain verses sit on the baseline. */
@@ -274,8 +279,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: fixed; left: 50%; z-index: 32;
   bottom: calc(var(--toolbar-h) + var(--safe-b) + 14px);
   transform: translateX(-50%) translateY(8px);
-  padding: 10px 16px; border-radius: var(--radius-pill);
-  background: var(--raised); color: var(--text); font-weight: 600; font-size: 15px; white-space: nowrap;
+  width: max-content; max-width: calc(100vw - 32px);
+  padding: 10px 16px; border-radius: 16px;
+  background: var(--raised); color: var(--text); font-weight: 600; font-size: 15px; text-align: center;
   opacity: 0; pointer-events: none;
   transition: opacity 160ms ease-out, transform 160ms ease-out;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
@@ -322,7 +328,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .set-label { font-weight: 500; }
 .set-label small { display: block; color: var(--faint); font-weight: 400; font-size: 13px; }
 .stepper { display: inline-flex; align-items: center; gap: 4px; background: var(--raised); border-radius: var(--radius-pill); padding: 3px; }
-.stepper button { width: 44px; height: 40px; border-radius: var(--radius-pill); font-weight: 700; font-size: 16px; }
+.stepper button { width: 44px; height: 44px; border-radius: var(--radius-pill); font-weight: 700; font-size: 16px; }
 .stepper button:active { background: var(--press); }
 .stepper > span { min-width: 66px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
 .stepper small { color: var(--muted); font-weight: 500; }
@@ -390,22 +396,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    onto the black and orange here. */
 
 .tuner-overlay {
-  --bg: #0e0d0c;
-  --bg-light: #181716;
-  --bg-card: #262422;
-  --accent: #e67e22;
-  --accent-hover: #f39c12;
-  --accent-solid: #e67e22;
-  --accent-solid-hover: #f39c12;
-  --text: #f2f2f0;
-  --text-muted: #b6b1aa;
-  --text-dim: #98928b;
+  --bg: var(--ground);
+  --bg-light: var(--surface);
+  --bg-card: var(--raised);
+  --accent-solid: var(--accent);
+  --text-muted: var(--muted);
+  --text-dim: var(--faint);
   --border: #33302d;
-  --success: #3fbf6f;
-  --danger: #e5566f;
+  --success: var(--ok);
   --radius: 14px;
   --radius-sm: 8px;
-  --font: "Figtree", system-ui, sans-serif;
   font-family: var(--font);
 }
 
@@ -413,7 +413,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10, 12, 24, 0.94);
+  background: rgba(14, 13, 12, 0.94);
   z-index: 400;
   align-items: center;
   justify-content: center;
@@ -470,7 +470,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .tuner-instruments button.active {
   background: var(--accent-solid);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .tuner-close {
@@ -573,9 +573,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   bottom: 0;
   left: 45%;
   width: 10%;
-  background: rgba(39, 174, 96, 0.16);
-  border-left: 1px solid rgba(39, 174, 96, 0.4);
-  border-right: 1px solid rgba(39, 174, 96, 0.4);
+  background: rgba(63, 191, 111, 0.16);
+  border-left: 1px solid rgba(63, 191, 111, 0.4);
+  border-right: 1px solid rgba(63, 191, 111, 0.4);
 }
 
 .tuner-meter-center {
@@ -657,7 +657,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .tuner-string.tuned {
   border-color: var(--success);
   color: var(--success);
-  box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.35);
+  box-shadow: 0 0 0 2px rgba(63, 191, 111, 0.35);
 }
 
 .tuner-string.tuned small {
@@ -682,7 +682,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   justify-content: center;
   background: var(--success);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 0.62rem;
   font-weight: 700;
   border-radius: 50%;
@@ -728,4 +728,3 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   }
 }
 
-/* === Bug Report Modal === */
