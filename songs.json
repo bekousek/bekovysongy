@@ -1767,12 +1767,15 @@
       "title": "Beskyde, Beskyde",
       "slug": "beskyde-beskyde",
       "author": "moravská lidová",
-      "chords": [],
+      "chords": [
+        "G",
+        "D7",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "note": "moravská lidová",
       "sources": [
         {
@@ -1791,6 +1794,14 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "D7",
+          "G",
+          "C"
+        ]
       ]
     },
     {
@@ -1852,12 +1863,17 @@
       "title": "Blues folsomské věznice",
       "slug": "blues-folsomske-veznice",
       "author": "Michal Tučný",
-      "chords": [],
+      "chords": [
+        "G",
+        "G7",
+        "C",
+        "D",
+        "D7"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/2779471",
@@ -1869,6 +1885,17 @@
             "D7"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "G7",
+          "C",
+          "G",
+          "D",
+          "D7",
+          "G"
+        ]
       ]
     },
     {
@@ -1978,12 +2005,18 @@
       "title": "Bon soir mademoiselle Paris",
       "slug": "bon-soir-mademoiselle-paris",
       "author": "Olympic",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "H7",
+        "D",
+        "G",
+        "C",
+        "Ami"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/bon-soir-mademoiselle-paris",
@@ -1996,6 +2029,28 @@
             "Ami"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Emi",
+          "H7",
+          "Emi",
+          "D",
+          "G",
+          "H7"
+        ],
+        [
+          "C",
+          "D",
+          "G",
+          "Ami",
+          "H7"
+        ],
+        [
+          "Emi",
+          "C",
+          "D"
+        ]
       ]
     },
     {
@@ -2145,12 +2200,22 @@
       "title": "Bring me to life",
       "slug": "bring-me-to-life",
       "author": "Evanescence",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "Ami",
+        "G",
+        "D",
+        "C",
+        "Hmi",
+        "Emi/G",
+        "D/F#",
+        "H",
+        "C/E"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/bring-me-to-life",
@@ -2176,6 +2241,58 @@
             "F#5"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Emi",
+          "Ami"
+        ],
+        [
+          "Emi",
+          "G",
+          "D"
+        ],
+        [
+          "Emi",
+          "C"
+        ],
+        [
+          "D",
+          "Emi",
+          "C",
+          "D",
+          "Emi",
+          "D",
+          "G",
+          "Hmi"
+        ],
+        [
+          "Ami",
+          "Emi/G",
+          "D/F#",
+          "Emi",
+          "D/F#",
+          "G",
+          "Hmi",
+          "Ami",
+          "G",
+          "H"
+        ],
+        [
+          "Emi",
+          "C/E",
+          "Emi",
+          "C",
+          "D",
+          "Emi"
+        ],
+        [
+          "Emi",
+          "D",
+          "Ami",
+          "G",
+          "D/F#"
+        ]
       ]
     },
     {
@@ -2227,12 +2344,15 @@
       "title": "Budapest",
       "slug": "budapest",
       "author": "George Ezra",
-      "chords": [],
+      "chords": [
+        "F",
+        "B",
+        "C"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/budapest",
@@ -2251,6 +2371,21 @@
             "E"
           ]
         }
+      ],
+      "progression": [
+        [
+          "F"
+        ],
+        [
+          "F",
+          "B",
+          "F"
+        ],
+        [
+          "C",
+          "B",
+          "F"
+        ]
       ]
     },
     {
@@ -2533,12 +2668,18 @@
       "title": "Bára",
       "slug": "bara",
       "author": "Kabát",
-      "chords": [],
+      "chords": [
+        "G#mi",
+        "C#mi",
+        "E",
+        "H",
+        "A",
+        "F#5"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/bara-2",
@@ -2562,18 +2703,58 @@
             "F#mi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G#mi",
+          "C#mi",
+          "E",
+          "H",
+          "A"
+        ],
+        [
+          "E",
+          "G#mi",
+          "C#mi",
+          "A"
+        ],
+        [
+          "C#mi",
+          "E",
+          "H",
+          "A",
+          "G#mi",
+          "C#mi",
+          "E",
+          "H",
+          "A"
+        ],
+        [
+          "E",
+          "G#mi",
+          "C#mi",
+          "A",
+          "E",
+          "G#mi",
+          "F#5"
+        ]
       ]
     },
     {
       "title": "Být stále mlád",
       "slug": "byt-stale-mlad",
       "author": "Karel Gott",
-      "chords": [],
+      "chords": [
+        "A",
+        "E",
+        "F#mi",
+        "D",
+        "Hmi"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/byt-stale-mlad",
@@ -2595,6 +2776,39 @@
             "Dmi"
           ]
         }
+      ],
+      "progression": [
+        [
+          "A",
+          "E",
+          "F#mi",
+          "D",
+          "E",
+          "Hmi",
+          "D",
+          "F#mi",
+          "E"
+        ],
+        [
+          "A",
+          "E",
+          "F#mi",
+          "D",
+          "E",
+          "Hmi",
+          "D",
+          "E"
+        ],
+        [
+          "E",
+          "Hmi",
+          "D",
+          "E",
+          "A",
+          "E",
+          "F#mi",
+          "D"
+        ]
       ]
     },
     {
@@ -2755,12 +2969,17 @@
       "title": "Can't stop",
       "slug": "can-t-stop",
       "author": "Red Hot Chili Peppers",
-      "chords": [],
+      "chords": [
+        "Emi",
+        "D",
+        "Hmi",
+        "C",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/can-t-stop-2",
@@ -2782,6 +3001,20 @@
             "G"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Emi",
+          "D",
+          "Hmi",
+          "C"
+        ],
+        [
+          "G",
+          "D",
+          "Hmi",
+          "C"
+        ]
       ]
     },
     {
@@ -3274,12 +3507,15 @@
       "title": "Co jste hasiči",
       "slug": "co-jste-hasici",
       "author": "lidová",
-      "chords": [],
+      "chords": [
+        "G",
+        "C",
+        "D"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/co-jste-hasici",
@@ -3297,6 +3533,17 @@
             "B"
           ]
         }
+      ],
+      "progression": [
+        [
+          "G",
+          "C",
+          "G",
+          "D",
+          "C",
+          "D",
+          "G"
+        ]
       ]
     },
     {
@@ -3330,12 +3577,18 @@
       "title": "Come as you are",
       "slug": "come-as-you-are",
       "author": "Nirvana",
-      "chords": [],
+      "chords": [
+        "F#mi",
+        "E",
+        "A",
+        "Hmi",
+        "D",
+        "F#sus4"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/come-as-you-are",
@@ -3358,6 +3611,23 @@
             "F#sus4"
           ]
         }
+      ],
+      "progression": [
+        [
+          "F#mi",
+          "E"
+        ],
+        [
+          "F#mi",
+          "A"
+        ],
+        [
+          "Hmi",
+          "D"
+        ],
+        [
+          "F#sus4"
+        ]
       ]
     },
     {
