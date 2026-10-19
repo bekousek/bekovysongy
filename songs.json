@@ -4666,40 +4666,6 @@
       "added": "2026-06-18"
     },
     {
-      "title": "Dirty old town",
-      "slug": "dirty-old-town",
-      "author": "The Pogues",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "k-vytvoreni",
-      "sources": [
-        {
-          "url": "https://akordy.kytary.cz/song/dirty-old-town",
-          "chords": [
-            "G",
-            "C",
-            "D",
-            "Emi"
-          ]
-        },
-        {
-          "url": "https://tabs.ultimate-guitar.com/tab/the-pogues/dirty-old-town-chords-80132",
-          "chords": [
-            "D",
-            "G",
-            "Emi",
-            "Hmi",
-            "C",
-            "F",
-            "Ami"
-          ]
-        }
-      ]
-    },
-    {
       "title": "Divný setkání",
       "slug": "divny-setkani",
       "author": "Půlnoční meloun",
@@ -5783,12 +5749,19 @@
       "title": "Děvka",
       "slug": "devka",
       "author": "Brixtn",
-      "chords": [],
+      "chords": [
+        "Gmi",
+        "B",
+        "F",
+        "C",
+        "Eb",
+        "Cmi",
+        "D"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/4431428",
@@ -5802,6 +5775,44 @@
             "D"
           ]
         }
+      ],
+      "progression": [
+        [
+          "Gmi",
+          "B",
+          "F",
+          "C"
+        ],
+        [
+          "Eb",
+          "F",
+          "Gmi"
+        ],
+        [
+          "Cmi",
+          "Gmi",
+          "B",
+          "F"
+        ],
+        [
+          "Gmi",
+          "B",
+          "C",
+          "Gmi",
+          "D",
+          "Cmi",
+          "Gmi",
+          "B",
+          "F",
+          "C"
+        ],
+        [
+          "F",
+          "Cmi",
+          "Gmi",
+          "B",
+          "F"
+        ]
       ]
     },
     {
