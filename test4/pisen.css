@@ -144,15 +144,8 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02
   border-radius: 4px;
 }
 .lyrics .ch.on { background: var(--raised); }
-.lyrics:not(.above) { line-height: 1.75; }
-.lyrics:not(.above) .ch { padding: 0 0.12em; }
-
-/* Chords above the syllable they change on: a chord and the word under it
-   form one unit, so a long chord never runs into the next one. */
-.lyrics.above .cw { display: inline-block; vertical-align: baseline; }
-.lyrics.above .cw > .ch { display: block; width: fit-content; line-height: 1.15; padding-right: 0.45em; }
-.lyrics.above .cw > .w { display: block; }
-.lyrics.above .cw.gap > .w::after { content: "-"; color: var(--faint); }
+.lyrics { line-height: 1.75; }
+.lyrics .ch { padding: 0 0.12em; }
 
 /* Sections (from js/sections.js): refrén, bridge and named parts carry
    their label in a left gutter; plain verses sit on the baseline. */
@@ -162,7 +155,6 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02
 .lyrics .section-refren, .lyrics .section-bridge, .lyrics .section-sloka, .lyrics .section-custom { padding-left: 2.1em; }
 .lyrics .section-bridge { font-style: italic; }
 .lyrics .section-head { position: absolute; left: 0; top: 0; font-style: normal; user-select: none; }
-.lyrics.above .lead-chords > .section-head { top: 1.15em; }
 .lyrics .section-label { color: var(--accent); font-weight: 700; font-size: 0.85em; }
 .lyrics .section-note { color: var(--faint); margin-left: 0.4em; font-size: 0.85em; }
 .lyrics .section-custom > .section-head { position: static; float: left; margin-left: -2.1em; padding-right: 0.5em; }

@@ -48,6 +48,7 @@
         <span class="next-title" id="next-title"></span>
         <span class="next-artist" id="next-artist"></span>
       </a>
+      <button type="button" class="text-link" id="next-again" hidden><span data-icon="shuffle"></span><span>Vylosovat jinou</span></button>
       <a class="text-link" id="prev-link" href="#" hidden></a>
       <button type="button" class="text-link" id="report"><span data-icon="flag"></span><span>Nahlásit chybu v písni</span></button>
     </nav>
@@ -95,13 +96,6 @@
             <button type="button" id="font-down" aria-label="Menší písmo">A−</button>
             <span id="font-val">100 %</span>
             <button type="button" id="font-up" aria-label="Větší písmo">A+</button>
-          </div>
-        </div>
-        <div class="set-row">
-          <span class="set-label" id="place-label">Akordy</span>
-          <div class="seg" role="radiogroup" aria-labelledby="place-label">
-            <button type="button" role="radio" data-place="above">Nad textem</button>
-            <button type="button" role="radio" data-place="inline">V textu</button>
           </div>
         </div>
         <label class="set-row switch-row" id="repeats-row" hidden>
@@ -159,6 +153,7 @@
   </dialog>
 
   <script src="../js/song-list-core.js"></script>
+  <script src="vecer.js"></script>
   <script src="../js/chord-theory.js"></script>
   <script src="../js/sections.js"></script>
   <script src="../js/chords.js"></script>

@@ -176,6 +176,13 @@
   // page that renders songs itself (the /test4/ prototype) swaps this out.
   let songHref = (slug) => BASE + 'songs/' + slug + '.html';
 
+  // "H/F#" is played as H with an F# bass: two shapes. "E7/4" is a single
+  // chord whose name happens to have a slash in it.
+  function shapesOf(chord) {
+    const parts = chord.split('/').map(p => p.trim()).filter(Boolean);
+    return parts.length > 1 && parts.every(p => /^[A-H]/.test(p)) ? parts : [chord];
+  }
+
   function href(song) {
     return songHref(song.slug);
   }
@@ -200,6 +207,7 @@
     song._capo = capoLabel(song);
     song._new = !!song.added && song.added > NEW_SINCE;
     song._letter = indexLetter(song.title);
+    song._needs = Array.from(new Set([].concat.apply([], song.chords.map(shapesOf))));
     return song;
   }
 
@@ -214,8 +222,10 @@
         songs = data.songs.filter(s => DRAFT_STATUSES.indexOf(s.status) === -1).map(prepare);
         songs.forEach(s => bySlug.set(s.slug, s));
 
+        // A slash chord (H/F#) is two shapes to know, the chord and the bass,
+        // so the picker lists only the parts and never the combinations.
         const chordSet = new Set();
-        songs.forEach(s => s.chords.forEach(c => chordSet.add(c)));
+        songs.forEach(s => s._needs.forEach(c => chordSet.add(c)));
         allChords = Array.from(chordSet).sort(compareChords);
 
         const byArtist = new Map();
@@ -322,8 +332,8 @@
       if (state.capo === 'yes' && !song._capo) return false;
       if (state.capo === 'no' && song._capo) return false;
       if (state.artist && song._authors.indexOf(state.artist) === -1) return false;
-      if (selected.size > 0 && song.chords.length > 0) {
-        for (const c of song.chords) if (!selected.has(c)) return false;
+      if (selected.size > 0 && song._needs.length > 0) {
+        for (const c of song._needs) if (!selected.has(c)) return false;
       }
       return true;
     };
@@ -556,6 +566,8 @@
     prev: '<path d="M19 20 9 12l10-8z"/><path d="M5 19V5"/>',
     more: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
     repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+    qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h3M21 17v4h-4"/>',
+    copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   };
 

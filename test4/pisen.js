@@ -1,15 +1,15 @@
 /**
- * Prototyp stránky písně (test4/pisen.html?s=<slug>[&vecer=1]).
+ * Prototyp stránky písně (test4/pisen.html?s=<slug>[&vecer=1 | &nahodne=1]).
  *
  * Renders any published song from its static page (songs/<slug>.html) in
  * the new layout, reusing the site's own song logic: js/sections.js for
  * refrén/bridge and folded repeats, js/chord-theory.js for transposition,
  * js/chords.js for the fingering diagrams, and the tuner lifted out of
  * js/player.js. New here:
- *   - chords above the syllable they change on (or in the line, as before),
  *   - fingerings of all the song's chords one tap away under the chord bar,
  *   - the screen stays on while the song is open,
- *   - with &vecer=1 the page walks through tonight's setlist,
+ *   - with &vecer=1 the page walks through tonight's setlist, with
+ *     &nahodne=1 (opened from Objevit) it offers the next random song,
  *   - a tap on the text pauses autoscroll; Space and page-turner pedals
  *     (PageDown / arrows) work on a keyboard.
  */
@@ -17,13 +17,15 @@
   'use strict';
 
   const SL = window.SongList;
+  const EV = window.Evening;
   const { transposeChord } = window.ChordTheory;
   const $ = (id) => document.getElementById(id);
 
   const params = new URLSearchParams(location.search);
   const slug = params.get('s') || '';
   const fromSetlist = params.get('vecer') === '1';
-  const songUrl = (s, setlist) => 'pisen.html?s=' + encodeURIComponent(s) + (setlist ? '&vecer=1' : '');
+  const fromRandom = !fromSetlist && params.get('nahodne') === '1';
+  const songUrl = (s, mode) => 'pisen.html?s=' + encodeURIComponent(s) + (mode ? '&' + mode + '=1' : '');
 
   // ---- remembered settings -----------------------------------------------
 
@@ -38,13 +40,11 @@
   const FONT_KEY = 'song_font_scale';
   const REPEATS_KEY = 'show_repeats';
   const COLUMNS_KEY = 'song_columns';
-  const PLACE_KEY = 'bs_chord_place';
   const SPEED_KEY = 'bs_scroll_speed';
   const BPM_KEY = 'bs_bpm';
   const WAKE_KEY = 'bs_keep_awake';
 
   let fontScale = clamp(parseInt(read(FONT_KEY, '100'), 10) || 100, 70, 150);
-  let place = read(PLACE_KEY, 'above') === 'inline' ? 'inline' : 'above';
   let showRepeats = read(REPEATS_KEY, 'off') === 'on';
   let columns = clamp(parseInt(read(COLUMNS_KEY, '1'), 10) || 1, 1, 3);
   let speed = clamp(parseInt(read(SPEED_KEY, '3'), 10) || 3, 1, 10);
@@ -75,51 +75,6 @@
   function dedupe(list) {
     const seen = new Set();
     return list.filter(c => (seen.has(c) ? false : (seen.add(c), true)));
-  }
-
-  // ---- chords above the text ---------------------------------------------
-
-  const CHORD_RE = /<span class="ch" data-chord="[^"]*">[^<]*<\/span>/g;
-
-  // A line carries lyrics when something other than chords, repeat marks
-  // and section labels is left on it. Chord-only lines (intros, "|: G D :|")
-  // stay a plain row of chords.
-  function hasLyrics(line) {
-    const text = line
-      .replace(/<span class="section-head">[\s\S]*?<\/span><\/span>/, '')
-      .replace(CHORD_RE, '')
-      .replace(/<[^>]*>/g, '')
-      .replace(/&nbsp;/g, ' ');
-    return /[^\s|:.,()0-9x×-]/.test(text);
-  }
-
-  // Pairs each chord with the word it sits on: "<ch>G</ch> slovo" becomes
-  // one unit, chord on top. A chord followed by another chord or by the end
-  // of the line stands on its own over an empty slot.
-  function chordsAbove(html) {
-    return html.split('\n').map(line => {
-      if (line.indexOf('class="ch"') === -1 || !hasLyrics(line)) return line;
-      let out = '';
-      let pos = 0;
-      let m;
-      const re = new RegExp(CHORD_RE.source, 'g');
-      while ((m = re.exec(line)) !== null) {
-        out += line.slice(pos, m.index);
-        const after = line.slice(re.lastIndex);
-        const word = /^ ?([^\s<]+)/.exec(after);
-        if (word) {
-          // A syllable whose word goes on under the next chord ("Zpí|vám").
-          const cont = line.startsWith('<span class="ch"', re.lastIndex + word[0].length);
-          out += '<span class="cw' + (cont ? ' cont' : '') + '">' + m[0] + '<span class="w">' + word[1] + '</span></span>';
-          pos = re.lastIndex + word[0].length;
-        } else {
-          out += '<span class="cw">' + m[0] + '<span class="w">​</span></span>';
-          pos = re.lastIndex;
-        }
-        re.lastIndex = pos;
-      }
-      return out + line.slice(pos);
-    }).join('\n');
   }
 
   // ---- chord diagrams ----------------------------------------------------
@@ -175,7 +130,7 @@
   // ---- song state --------------------------------------------------------
 
   let song = null;           // songs.json entry
-  let html = { inline: '', above: '' };
+  let html = '';
   let groups = [];
   const lyrics = $('lyrics');
 
@@ -183,8 +138,7 @@
     // Repeats share their section key, so remember the opened ones by position.
     const peeked = Array.from(lyrics.querySelectorAll('.is-repeat'))
       .map((sec, i) => (sec.classList.contains('peek') ? i : -1)).filter(i => i !== -1);
-    lyrics.innerHTML = html[place];
-    lyrics.classList.toggle('above', place === 'above');
+    lyrics.innerHTML = html;
     lyrics.classList.toggle('show-repeats', showRepeats);
     lyrics.classList.toggle('cols-2', columns === 2);
     lyrics.classList.toggle('cols-3', columns === 3);
@@ -192,13 +146,6 @@
     // Keep the repeats someone opened by hand open across a re-render.
     const reps = lyrics.querySelectorAll('.is-repeat');
     peeked.forEach(i => { if (reps[i]) reps[i].classList.add('peek'); });
-    // With chords above, a section label lines up with the words, not with
-    // the chord row - when the section's first line has chords at all.
-    lyrics.querySelectorAll('.song-section').forEach(sec => {
-      const body = sec.querySelector('.section-body');
-      const first = body ? body.innerHTML.split('\n')[0] : '';
-      sec.classList.toggle('lead-chords', first.indexOf('class="cw"') !== -1);
-    });
     lyrics.querySelectorAll('.is-repeat .section-head').forEach(h => {
       h.setAttribute('role', 'button');
       h.tabIndex = 0;
@@ -254,18 +201,6 @@
       : 'Transpozice 0, původní tónina');
     if (!$('diagrams').hidden) renderDiagrams();
     hideDiagram();
-    requestAnimationFrame(markSplitWords);
-  }
-
-  // When a chord is wider than the syllable under it, the word opens a gap
-  // in the middle; a hyphen there keeps "Zpí- vám" reading as one word.
-  function markSplitWords() {
-    lyrics.querySelectorAll('.cw.cont').forEach(cw => {
-      cw.classList.remove('gap');
-      const ch = cw.firstElementChild;
-      const w = cw.lastElementChild;
-      if (ch && w && ch.offsetWidth > w.offsetWidth + 2) cw.classList.add('gap');
-    });
   }
 
   function shift(delta) {
@@ -421,7 +356,6 @@
 
   function paintSettings() {
     $('font-val').textContent = fontScale + ' %';
-    document.querySelectorAll('[data-place]').forEach(b => b.setAttribute('aria-checked', b.dataset.place === place ? 'true' : 'false'));
     document.querySelectorAll('[data-cols]').forEach(b => b.setAttribute('aria-checked', Number(b.dataset.cols) === columns ? 'true' : 'false'));
     $('repeats').checked = showRepeats;
     $('wake').checked = keepAwake;
@@ -433,18 +367,11 @@
 
   function applyFont() {
     document.documentElement.style.setProperty('--scale', fontScale / 100);
-    requestAnimationFrame(markSplitWords);
   }
 
   $('more-btn').addEventListener('click', () => { paintSettings(); more.showModal(); });
   $('font-up').addEventListener('click', () => { fontScale = clamp(fontScale + 10, 70, 150); write(FONT_KEY, fontScale); applyFont(); paintSettings(); });
   $('font-down').addEventListener('click', () => { fontScale = clamp(fontScale - 10, 70, 150); write(FONT_KEY, fontScale); applyFont(); paintSettings(); });
-  document.querySelectorAll('[data-place]').forEach(b => b.addEventListener('click', () => {
-    place = b.dataset.place;
-    write(PLACE_KEY, place);
-    renderLyrics();
-    paintSettings();
-  }));
   document.querySelectorAll('[data-cols]').forEach(b => b.addEventListener('click', () => {
     columns = Number(b.dataset.cols);
     write(COLUMNS_KEY, columns);
@@ -600,7 +527,7 @@
     const fav = SL.favourites.has(slug);
     $('fav').setAttribute('aria-pressed', fav ? 'true' : 'false');
     $('fav').lastElementChild.textContent = fav ? 'Oblíbená' : 'Oblíbit';
-    const inSet = SL.setlist.has(slug);
+    const inSet = EV.has(slug);
     $('add').setAttribute('aria-pressed', inSet ? 'true' : 'false');
     $('add').firstElementChild.innerHTML = SL.icon(inSet ? 'check' : 'plus', 18);
     $('add').lastElementChild.textContent = inSet ? 'Ve večeru' : 'Do večera';
@@ -612,27 +539,29 @@
     toast(on ? 'Uloženo do oblíbených' : 'Odebráno z oblíbených');
   });
   $('add').addEventListener('click', () => {
-    const on = SL.setlist.toggle(slug);
+    const on = EV.toggle(slug);
     paintToggles();
     renderSetlistNav();
-    toast(on ? 'Přidáno do dnešního večera' : 'Odebráno z večera');
+    toast(on ? (EV.shared ? 'Přidáno do společného večera' : 'Přidáno do dnešního večera') : 'Odebráno z večera');
   });
 
   function renderSetlistNav() {
-    const list = SL.setlist.list();
+    const list = EV.list();
     const i = list.indexOf(slug);
     const active = fromSetlist && i !== -1;
     $('setlist-pos').hidden = !active;
     $('next-top').hidden = true;
     $('next-card').hidden = true;
     $('prev-link').hidden = true;
+    $('next-again').hidden = true;
+    if (fromRandom) { renderNextRandom(); return; }
     if (!active) return;
 
-    $('setlist-pos').textContent = `Dnešní večer · ${i + 1} z ${list.length}`;
+    $('setlist-pos').textContent = `${EV.shared ? 'Společný večer' : 'Dnešní večer'} · ${i + 1} z ${list.length}`;
     const next = SL.bySlug(list[i + 1]);
     const prev = SL.bySlug(list[i - 1]);
     if (next) {
-      const url = songUrl(next.slug, true);
+      const url = songUrl(next.slug, 'vecer');
       $('next-top').hidden = false;
       $('next-top').href = url;
       $('next-card').hidden = false;
@@ -643,10 +572,50 @@
     }
     if (prev) {
       $('prev-link').hidden = false;
-      $('prev-link').href = songUrl(prev.slug, true);
+      $('prev-link').href = songUrl(prev.slug, 'vecer');
       $('prev-link').textContent = `Předchozí: ${prev.title}`;
     }
   }
+
+  // Opened from Objevit: the next random song waits at the end, drawn from
+  // the same filters the list had, never one of the last twenty drawn.
+  let nextRandom = null;
+
+  function randomPool() {
+    const saved = SL.loadState('test4') || {};
+    const pool = SL.query({ lang: saved.lang || '', capo: saved.capo || '', chords: new Set(saved.chords || []) }).named;
+    return pool.filter(s => s.slug !== slug);
+  }
+
+  function drawNext() {
+    nextRandom = SL.pickRandom(randomPool());
+  }
+
+  function renderNextRandom() {
+    if (!nextRandom) drawNext();
+    if (!nextRandom) return;
+    const url = songUrl(nextRandom.slug, 'nahodne');
+    $('next-top').hidden = false;
+    $('next-top').href = url;
+    $('next-top').setAttribute('aria-label', 'Další náhodná píseň');
+    $('next-card').hidden = false;
+    $('next-card').href = url;
+    $('next-label').textContent = 'Další náhodná';
+    $('next-title').textContent = nextRandom.title;
+    $('next-artist').textContent = nextRandom._authors.join(', ');
+    $('next-again').hidden = false;
+  }
+
+  $('next-again').addEventListener('click', () => {
+    drawNext();
+    renderNextRandom();
+    const card = $('next-card');
+    card.classList.remove('pulse');
+    void card.offsetWidth;
+    card.classList.add('pulse');
+  });
+
+  EV.onChange(() => { if (song) { paintToggles(); if (!fromRandom) renderSetlistNav(); } });
 
   // Walking the setlist replaces the page instead of stacking history, so
   // the back arrow still means "back to the list" after five songs.
@@ -730,7 +699,7 @@
 
         const raw = pre.innerHTML.replace(/class="chord"/g, 'class="ch"');
         const sectioned = window.SongSections ? SongSections.transform(raw) : raw;
-        html = { inline: sectioned, above: chordsAbove(sectioned) };
+        html = sectioned;
         $('repeats-row').hidden = !/is-repeat/.test(sectioned);
 
         const prog = song && Array.isArray(song.progression) && song.progression.length
@@ -740,7 +709,6 @@
 
         renderChips();
         renderLyrics();
-        if (document.fonts) document.fonts.ready.then(markSplitWords);
         setDiagrams(read(DIAGRAMS_KEY, '0') === '1');
         paintToggles();
         renderSetlistNav();

@@ -18,6 +18,7 @@
 <body>
   <a class="skip" href="#main">Přeskočit na obsah</a>
 
+  <div class="scroller" id="scroller">
   <header class="appbar">
     <a class="brand" href="./" aria-label="Bekovy songy">
       <span class="brand-mark" id="brand-mark"></span>
@@ -32,14 +33,7 @@
       <a class="tab" href="#moje" data-tab="moje"><span data-icon="heart"></span><span class="tab-label">Moje</span></a>
     </nav>
 
-    <details class="instrument">
-      <summary><span>Kytara</span><span data-icon="chevron"></span></summary>
-      <div class="instrument-menu">
-        <a href="./" aria-current="page">Na kytaru</a>
-        <a href="../na-foukaci-harmoniku/">Na harmoniku <small>připravujeme</small></a>
-        <a href="../na-kalimbu/">Na kalimbu <small>připravujeme</small></a>
-      </div>
-    </details>
+    <a class="party-pill" id="party-pill" href="#vecer" hidden><span class="dot" aria-hidden="true"></span><span>Společný večer</span></a>
   </header>
 
   <main id="main" tabindex="-1">
@@ -55,8 +49,7 @@
           <label class="visually-hidden" for="q">Hledat píseň</label>
           <span class="search-icon" data-icon="search"></span>
           <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
-                 enterkeyhint="search" placeholder="Název, interpret, kus textu…"
-                 aria-describedby="q-hint">
+                 enterkeyhint="search" placeholder="Název, interpret, kus textu…">
           <button type="button" class="search-clear" id="q-clear" aria-label="Smazat hledání" hidden><span data-icon="x"></span></button>
         </div>
         <div class="chips" role="toolbar" aria-label="Řazení a filtry">
@@ -67,7 +60,6 @@
           <button type="button" class="chip chip-reset" id="chip-reset" hidden><span data-icon="x"></span><span class="chip-text">Zrušit filtry</span></button>
         </div>
       </div>
-      <p class="hint" id="q-hint">Nevíš název? Napiš řádek, který si pamatuješ.</p>
 
       <p class="count" id="count" aria-live="polite"></p>
       <div id="results"></div>
@@ -133,36 +125,68 @@
 
     <!-- ===== Večer ===== -->
     <section class="view" id="view-vecer" data-view="vecer" aria-labelledby="h-vecer" hidden>
-      <div class="view-head view-head-row">
-        <div>
-          <h1 id="h-vecer">Dnešní večer</h1>
-          <p class="view-sub" id="vecer-sub"></p>
-        </div>
-        <button type="button" class="btn btn-quiet btn-share" id="vecer-share" hidden><span data-icon="share"></span><span>Poslat partě</span></button>
+      <div class="view-head">
+        <h1 id="h-vecer">Dnešní večer</h1>
+        <p class="view-sub" id="vecer-sub"></p>
       </div>
 
-      <!-- A setlist that came as a link -->
-      <article class="shared" id="shared" hidden aria-labelledby="shared-title">
-        <h2 id="shared-title">Někdo ti poslal večer</h2>
-        <p id="shared-text"></p>
-        <ol class="songs" id="shared-list"></ol>
-        <div class="shared-actions">
-          <button type="button" class="btn btn-primary" id="shared-take">Převzít</button>
-          <button type="button" class="btn btn-quiet" id="shared-dismiss">Nechat být</button>
+      <!-- Shared with the party: connection, who's here, what you may do -->
+      <div class="party" id="party" hidden>
+        <p class="party-status" id="party-status"><span class="dot" aria-hidden="true"></span><span id="party-status-text"></span></p>
+        <p class="party-people" id="party-people"></p>
+        <p class="party-role" id="party-role"></p>
+        <div class="party-row">
+          <button type="button" class="btn btn-primary" id="party-invite"><span data-icon="qr"></span><span>Pozvat</span></button>
+          <button type="button" class="btn btn-ghost" id="party-leave">Opustit večer</button>
         </div>
-      </article>
+        <p class="name-line" id="name-line" hidden>Jsi tu jako <strong id="name-show"></strong> <button type="button" class="text-btn" id="name-edit">Změnit</button></p>
+        <label class="name-field" id="name-field">
+          <span>Tvoje jméno, ať ostatní vidí, kdo co přidal</span>
+          <input type="text" id="party-name" maxlength="30" autocomplete="nickname" enterkeyhint="done" placeholder="Třeba Ondra">
+        </label>
+      </div>
+
+      <!-- Joined a shared evening with songs already on your own list -->
+      <div class="merge" id="merge" hidden>
+        <p id="merge-text"></p>
+        <div class="merge-actions">
+          <button type="button" class="btn btn-primary" id="merge-yes">Přidat</button>
+          <button type="button" class="btn btn-quiet" id="merge-no">Ne, díky</button>
+        </div>
+      </div>
+
+      <div class="state" id="vecer-missing" hidden>
+        <strong>Tenhle večer nenacházím</strong>
+        Odkaz je možná neúplný, nebo večer mezitím někdo smazal. Můžeš začít vlastní.
+        <div class="state-action"><button type="button" class="btn btn-quiet" id="missing-leave">Začít vlastní večer</button></div>
+      </div>
 
       <ol class="songs setlist" id="vecer-list"></ol>
       <div class="state" id="vecer-empty" hidden>
-        <strong>Večer je zatím prázdný</strong>
-        Plusem u písně ji sem přidáš. Pak večer pošleš partě jedním odkazem a všem se otevře stejný seznam. Při hraní tě písně provedou jedna po druhé.
+        <strong id="vecer-empty-title">Večer je zatím prázdný</strong>
+        <span id="vecer-empty-text"></span>
       </div>
       <div class="vecer-actions" id="vecer-actions" hidden>
         <a class="btn btn-primary" id="vecer-play" href="#"><span data-icon="play"></span><span>Začít hrát</span></a>
         <button type="button" class="btn btn-quiet" id="vecer-shuffle"><span data-icon="shuffle"></span><span>Zamíchat</span></button>
         <button type="button" class="btn btn-ghost" id="vecer-clear">Vyčistit</button>
       </div>
+      <div class="confirm" id="confirm" hidden role="alertdialog" aria-labelledby="confirm-text">
+        <p id="confirm-text"></p>
+        <div class="confirm-actions">
+          <button type="button" class="btn btn-primary" id="confirm-yes"></button>
+          <button type="button" class="btn btn-quiet" id="confirm-no">Zrušit</button>
+        </div>
+      </div>
       <p class="status" id="vecer-status" aria-live="polite"></p>
+
+      <!-- Alone: the way into a shared evening -->
+      <div class="invite" id="invite" hidden>
+        <h2>Hrajete ve víc lidech?</h2>
+        <p>Založ společný večer a ukaž ostatním QR kód, nebo jim pošli odkaz. Kdo ho otevře, přidává písně do stejné fronty, jako do sdíleného playlistu.</p>
+        <button type="button" class="btn btn-primary" id="invite-btn"><span data-icon="qr"></span><span>Založit a pozvat</span></button>
+        <button type="button" class="text-btn" id="rejoin" hidden>Vrátit se do posledního společného večera</button>
+      </div>
     </section>
 
     <!-- ===== Moje ===== -->
@@ -194,6 +218,9 @@
       </div>
     </section>
   </main>
+  </div>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
 
   <!-- One sheet, filled per chip -->
   <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
@@ -207,6 +234,7 @@
   </dialog>
 
   <script src="../js/song-list-core.js"></script>
+  <script src="vecer.js"></script>
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {

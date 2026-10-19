@@ -45,10 +45,21 @@ body {
   line-height: 1.45;
   color: var(--text);
   background: var(--ground);
-  min-height: 100vh;
-  padding-bottom: calc(var(--tabbar-h) + var(--safe-b) + 24px);
+
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* The app scrolls inside .scroller instead of the page. A page that never
+   scrolls keeps the phone browser's own bars still, so the fixed tab bar
+   can't hop when they collapse or come back. */
+html, body { height: 100%; overflow: hidden; }
+.scroller {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--tabbar-h) + var(--safe-b) + 24px);
 }
 
 ::selection { background: var(--accent); color: var(--on-accent); }
@@ -90,25 +101,15 @@ ul { list-style: none; }
 .brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 16px; }
 .brand-mark { color: var(--accent); display: inline-flex; }
 
-.instrument { position: relative; }
-.instrument summary {
-  list-style: none; display: inline-flex; align-items: center; gap: 4px;
-  min-height: 44px; padding: 0 4px 0 12px; color: var(--muted); font-weight: 500; cursor: pointer;
+.party-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 14px; border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--text); font-weight: 600; font-size: 14px;
 }
-.instrument summary::-webkit-details-marker { display: none; }
-.instrument[open] summary { color: var(--text); }
-.instrument-menu {
-  position: absolute; right: 0; top: 46px; z-index: 40; min-width: 220px;
-  background: var(--raised); border-radius: 16px; padding: 6px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-}
-.instrument-menu a {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-  padding: 12px 12px; border-radius: 10px; min-height: 44px;
-}
-.instrument-menu a:hover { background: var(--press); }
-.instrument-menu a[aria-current] { font-weight: 600; }
-.instrument-menu small { color: var(--faint); font-size: var(--fs-small); }
+.party-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+.party-pill[data-state="live"] .dot { background: #3fbf6f; }
+.party-pill[data-state="offline"] .dot { background: #e5a93b; }
+.party-pill[data-state="error"] .dot { background: #e5566f; }
 
 .tabbar {
   position: fixed;
@@ -490,7 +491,7 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 
 @media (min-width: 900px) {
   :root { --pad: 24px; --fs-h1: 32px; }
-  body { padding-bottom: 48px; }
+  .scroller { padding-bottom: 48px; }
 
   .appbar { height: 64px; }
   .tabbar {
@@ -545,3 +546,90 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
 }
+
+/* ===== Společný večer ===== */
+
+.party { margin: 0 0 16px; padding: 16px; border-radius: var(--radius-card); background: var(--surface); }
+.party-status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 500; }
+.party-status .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--faint); }
+.party-status[data-state="live"] .dot { background: #3fbf6f; }
+.party-status[data-state="offline"] .dot { background: #e5a93b; }
+.party-status[data-state="error"] .dot { background: #e5566f; }
+.party-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.party-row .btn { height: 44px; padding: 0 16px; font-size: 15px; }
+.name-field { display: block; margin-top: 14px; }
+.name-line { margin-top: 10px; color: var(--muted); }
+.name-line strong { color: var(--text); font-weight: 600; }
+.name-line .text-btn { margin-left: 4px; }
+.name-field span { display: block; color: var(--faint); font-size: var(--fs-small); margin-bottom: 6px; }
+.name-field input {
+  width: 100%; height: 46px; padding: 0 14px; border-radius: 12px;
+  border: 1px solid var(--control); background: var(--ground); color: var(--text); font-size: 16px;
+}
+.name-field input::placeholder { color: var(--faint); }
+.name-field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+.merge { margin: 0 0 16px; padding: 16px; border-radius: var(--radius-card); border: 1.5px solid var(--accent); background: var(--surface); }
+.merge-actions { display: flex; gap: 10px; margin-top: 12px; }
+.merge-actions .btn { flex: 1; }
+
+.invite { margin-top: 28px; padding: 20px; border-radius: var(--radius-card); background: var(--surface); }
+.invite h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.invite p { color: var(--muted); margin: 4px 0 14px; }
+.invite .btn-primary { width: 100%; }
+.invite .text-btn { display: block; margin-top: 10px; }
+.invite .invite-off { font-size: var(--fs-small); color: var(--faint); margin: 10px 0 0; }
+
+.by { display: flex; align-items: center; gap: 5px; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; }
+.by .icon { width: 15px; height: 15px; color: var(--faint); }
+@media (min-width: 900px) {
+  .row-ranked .by { grid-column: 2; grid-row: 2; margin-top: 2px; }
+  .party, .merge, .invite { max-width: 640px; }
+}
+
+/* ===== Role, confirmation, invite ===== */
+
+.party-people { margin-top: 8px; color: var(--text); }
+.party-people:empty { display: none; }
+.party-role { margin-top: 4px; color: var(--muted); font-size: 14px; }
+.party-row .btn-primary .icon { width: 18px; height: 18px; }
+
+.confirm {
+  margin-top: 18px; padding: 16px; border-radius: var(--radius-card);
+  background: var(--surface); border: 1.5px solid var(--accent);
+}
+.confirm p { font-weight: 600; }
+.confirm-actions { display: flex; gap: 10px; margin-top: 12px; }
+.confirm-actions .btn { flex: 1; }
+
+.invite-kind { display: flex; width: 100%; margin-bottom: 10px; }
+.invite-kind button { flex: 1; }
+.invite-kind-text { color: var(--muted); min-height: 2.9em; }
+.qr {
+  width: min(78vw, 300px); aspect-ratio: 1; margin: 14px auto 0;
+  display: grid; place-items: center;
+  background: #fff; border-radius: 16px; padding: 8px;
+}
+.qr svg { display: block; width: 100%; height: 100%; }
+.qr-wait { color: #3a3633; text-align: center; padding: 16px; font-size: 14px; }
+.qr-hint { text-align: center; color: var(--faint); font-size: var(--fs-small); margin-top: 8px; }
+.invite-link {
+  width: 100%; height: 44px; margin-top: 12px; padding: 0 12px;
+  border-radius: 12px; border: 1px solid var(--control); background: var(--ground); color: var(--muted);
+  font-size: 13px;
+}
+.sheet[data-kind="invite"] .sheet-foot .btn .icon { width: 18px; height: 18px; }
+
+.toast {
+  position: fixed; left: 50%; z-index: 45;
+  bottom: calc(var(--tabbar-h) + var(--safe-b) + 14px);
+  transform: translateX(-50%) translateY(8px);
+  width: max-content; max-width: calc(100vw - 32px);
+  padding: 10px 16px; border-radius: 16px;
+  background: var(--raised); color: var(--text); font-weight: 600; font-size: 15px; text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+}
+.toast.show { opacity: 1; transform: translateX(-50%); }
+@media (min-width: 900px) { .toast { bottom: 24px; } }

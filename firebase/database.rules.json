@@ -1,0 +1,62 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "evenings": {
+      "$id": {
+        ".read": "$id.matches(/^[A-Za-z0-9]{16}$/)",
+
+        "meta": {
+          ".write": "auth != null && !data.exists() && $id.matches(/^[A-Za-z0-9]{16}$/)",
+          ".validate": "newData.hasChildren(['created', 'owner']) && newData.child('owner').val() === auth.uid",
+          "created": { ".validate": "newData.isNumber() && newData.val() <= now" },
+          "owner": { ".validate": "newData.isString()" },
+          "$other": { ".validate": false }
+        },
+
+        "members": {
+          "$uid": {
+            ".write": "auth != null && auth.uid === $uid && root.child('evenings').child($id).child('meta').exists()",
+            ".validate": "newData.hasChildren(['n'])",
+            "n": { ".validate": "newData.isString() && newData.val().length <= 30" },
+            "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "items": {
+          ".write": "auth != null && root.child('evenings').child($id).child('meta').child('owner').val() === auth.uid",
+          "$item": {
+            ".write": "auth != null && root.child('evenings').child($id).child('meta').exists() && ((!data.exists() && newData.exists() && newData.child('u').val() === auth.uid) || (data.exists() && !newData.exists() && (data.child('u').val() === auth.uid || root.child('grants').child($id).child(auth.uid).exists())) || (data.exists() && newData.exists() && root.child('grants').child($id).child(auth.uid).exists() && newData.child('u').val() === data.child('u').val() && newData.child('s').val() === data.child('s').val() && newData.child('t').val() === data.child('t').val()))",
+            ".validate": "$item.matches(/^[a-z0-9]{8,14}[A-Za-z0-9]{6}$/) && newData.hasChildren(['s', 'o', 't', 'u'])",
+            "s": { ".validate": "newData.isString() && newData.val().matches(/^[a-z0-9-]{1,80}$/)" },
+            "o": { ".validate": "newData.isNumber()" },
+            "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
+            "u": { ".validate": "newData.isString()" },
+            "by": { ".validate": "newData.isString() && newData.val().length <= 30" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "$other": { ".validate": false }
+      }
+    },
+
+    "secrets": {
+      "$id": {
+        ".write": "auth != null && !data.exists() && root.child('evenings').child($id).child('meta').child('owner').val() === auth.uid",
+        ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9]{20}$/)"
+      }
+    },
+
+    "grants": {
+      "$id": {
+        "$uid": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "newData.isString() && newData.val() === root.child('secrets').child($id).val()"
+        }
+      }
+    }
+  }
+}

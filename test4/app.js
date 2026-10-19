@@ -1,16 +1,21 @@
 /**
  * Prototyp: Bekovy songy as one app at the site root. The song list from
- * návrh 1 (tabs Písně / Interpreti / Objevit / Moje) plus the setlist from
- * návrh 3 as its own tab, Večer: songs go in with one tap and the whole
- * evening travels to the party as a link (?vecer=slug,slug,...). Songs open
- * in the prototype song page (pisen.html), which walks through tonight's
- * setlist one song after another. All song logic is js/song-list-core.js.
+ * návrh 1 (tabs Písně / Interpreti / Objevit / Moje) plus tonight's setlist
+ * as its own tab, Večer: songs go in with one tap, and an invite link
+ * (?parta=<id>) turns it into one queue the whole party adds to, live, like
+ * a shared playlist (vecer.js). Songs open in the prototype song page
+ * (pisen.html), which walks through the evening one song after another.
+ * All song logic is js/song-list-core.js.
  */
 (function () {
   'use strict';
 
   const SL = window.SongList;
+  const EV = window.Evening;
   const $ = (id) => document.getElementById(id);
+  // The app scrolls inside #scroller, not the page: the browser's own
+  // toolbars then never collapse and expand under the fixed tab bar.
+  const scroller = $('scroller');
 
   SL.setSongHref((slug) => 'pisen.html?s=' + encodeURIComponent(slug));
   const setlistHref = (slug) => 'pisen.html?s=' + encodeURIComponent(slug) + '&vecer=1';
@@ -71,7 +76,7 @@
   })();
 
   window.addEventListener('pagehide', () => {
-    scrollByView[currentView] = window.scrollY;
+    scrollByView[currentView] = scroller.scrollTop;
     SL.saveState('test4', {
       lang: state.lang, capo: state.capo, chords: Array.from(state.chords),
       sort: state.sort, dir: state.dir, artistSort, drawn: drawnSlug, scroll: scrollByView,
@@ -148,7 +153,7 @@
     const b = el('button', 'row-btn add');
     b.type = 'button';
     b.dataset.add = song.slug;
-    paintAdd(b, SL.setlist.has(song.slug), song.title);
+    paintAdd(b, EV.has(song.slug), song.title);
     return b;
   }
 
@@ -187,6 +192,13 @@
 
     body.appendChild(main);
     body.appendChild(chordsEl(song));
+    if (o.by) {
+      const by = el('p', 'by');
+      by.innerHTML = SL.icon('users', 15);
+      by.appendChild(el('span', null, o.by));
+      by.setAttribute('aria-label', 'Přidal(a): ' + o.by);
+      body.appendChild(by);
+    }
     if (o.hit) body.appendChild(SL.snippet(o.hit, o.q.length));
     li.appendChild(body);
 
@@ -198,6 +210,15 @@
     }
     li.appendChild(actions);
     return li;
+  }
+
+  let toastTimer;
+  function toast(text) {
+    const t = $('toast');
+    t.textContent = text;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
   }
 
   function songList(songs, opts) {
@@ -332,11 +353,11 @@
   // The band gets a rule once content scrolls under it.
   const bands = document.querySelectorAll('.search-band');
   let ticking = false;
-  window.addEventListener('scroll', () => {
+  scroller.addEventListener('scroll', () => {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      bands.forEach(b => b.classList.toggle('stuck', b.getBoundingClientRect().top <= 0 && window.scrollY > 0));
+      bands.forEach(b => b.classList.toggle('stuck', b.getBoundingClientRect().top <= 0 && scroller.scrollTop > 0));
       ticking = false;
     });
   }, { passive: true });
@@ -637,12 +658,12 @@
       return;
     }
     $('draw-title').textContent = song.title;
-    $('draw-title').href = SL.href(song);
+    $('draw-title').href = SL.href(song) + '&nahodne=1';
     $('draw-title').dataset.slug = song.slug;
-    $('draw-play').href = SL.href(song);
+    $('draw-play').href = SL.href(song) + '&nahodne=1';
     $('draw-play').dataset.slug = song.slug;
     $('draw-add').dataset.add = song.slug;
-    paintAdd($('draw-add'), SL.setlist.has(song.slug), song.title);
+    paintAdd($('draw-add'), EV.has(song.slug), song.title);
     $('draw-artist').textContent = song._authors.join(', ');
     const chords = chordsEl(song, 'chords draw-chords');
     $('draw-chords').replaceWith(chords);
@@ -689,50 +710,127 @@
 
   // ---- Večer -------------------------------------------------------------
 
-  let undoList = null;
+  let mergeOffer = [];   // own songs left over when joining someone's evening
+  let editingName = false;
 
   function renderBadge() {
-    const n = SL.setlist.list().length;
+    const n = EV.list().length;
     const badge = $('vecer-badge');
     badge.hidden = !n;
     badge.textContent = String(n);
     const tab = document.querySelector('.tab[data-tab="vecer"]');
     tab.setAttribute('aria-label', n ? `Večer, ${count(n, 'píseň', 'písně', 'písní')}` : 'Večer');
+    const pill = $('party-pill');
+    pill.hidden = !EV.shared;
+    pill.dataset.state = EV.status;
+  }
+
+  const STATUS_TEXT = {
+    live: 'Naživo, změny vidí všichni hned',
+    connecting: 'Připojuji se…',
+    offline: 'Bez signálu, ukazuju poslední stav',
+    error: 'Večer nefunguje',
+  };
+
+  const ROLE_TEXT = {
+    owner: 'Večer je tvůj: můžeš všechno, i smazat celou frontu.',
+    parta: 'Jsi tu jako parta: přidáváš, odebíráš cokoli a můžeš míchat pořadí.',
+    host: 'Jsi tu jako host: přidáváš písně a odebíráš jen ty svoje.',
+  };
+
+  function peopleLine() {
+    const people = EV.members();
+    if (!people.length) return '';
+    const named = people.filter(p => p.name).map(p => (p.me ? p.name + ' (ty)' : p.name));
+    const unnamed = people.length - named.length;
+    const n = people.length;
+    let line = 'Ve večeru ' + (n === 1 ? 'je 1 člověk' : n <= 4 ? `jsou ${n} lidé` : `je ${n} lidí`);
+    if (named.length) line += ': ' + named.join(', ') + (unnamed ? ` a ${unnamed} beze jména` : '');
+    return line + '.';
   }
 
   function renderVecer() {
     if (!ready) return;
-    const list = SL.setlist.list();
+    const shared = EV.shared;
+    const items = EV.items();
+    const n = items.length;
+    const missing = shared && EV.missing;
+
+    $('h-vecer').textContent = shared ? 'Společný večer' : 'Dnešní večer';
+    $('vecer-sub').textContent = shared
+      ? (n ? `${count(n, 'píseň', 'písně', 'písní')} ve frontě.` : 'Fronta je zatím prázdná.')
+      : (n ? `${count(n, 'píseň', 'písně', 'písní')}. Při hraní tě provedou jedna po druhé.` : 'Seznam písní na dnešek.');
+
+    $('party').hidden = !shared || missing;
+    if (shared) {
+      const st = EV.status;
+      $('party-status').dataset.state = st;
+      let text = st === 'error' && EV.problem ? EV.problem : (STATUS_TEXT[st] || '');
+      if (EV.pendingCount && st !== 'live' && st !== 'error') text += ` · ${count(EV.pendingCount, 'změna čeká', 'změny čekají', 'změn čeká')} na signál`;
+      $('party-status-text').textContent = text;
+      $('party-people').textContent = peopleLine();
+      $('party-role').textContent = ROLE_TEXT[EV.role] || '';
+      // Asked once; after that it folds to one line with a way to change it.
+      const name = $('party-name');
+      const known = EV.name() && !editingName;
+      $('name-line').hidden = !known;
+      $('name-field').hidden = known;
+      $('name-show').textContent = EV.name();
+      if (document.activeElement !== name) name.value = EV.name();
+    }
+    $('vecer-missing').hidden = !missing;
+
+    $('merge').hidden = !(shared && !missing && mergeOffer.length);
+    if (!$('merge').hidden) {
+      const one = mergeOffer.length === 1;
+      $('merge-text').textContent = `Na vlastním seznamu máš ${count(mergeOffer.length, 'píseň', 'písně', 'písní')}. Přidat ${one ? 'ji' : 'je'} do společného večera?`;
+    }
+
+    const canMove = EV.can('move');
     const ol = $('vecer-list');
     ol.innerHTML = '';
-    list.forEach((slug, i) => {
-      const song = SL.bySlug(slug);
-      const up = el('button', 'row-btn');
-      up.type = 'button';
-      up.dataset.up = slug;
-      up.disabled = i === 0;
-      up.setAttribute('aria-label', 'Posunout výš: ' + song.title);
-      up.innerHTML = SL.icon('up', 20);
-      const remove = el('button', 'row-btn');
-      remove.type = 'button';
-      remove.dataset.remove = slug;
-      remove.setAttribute('aria-label', 'Odebrat z večera: ' + song.title);
-      remove.innerHTML = SL.icon('x', 20);
-      ol.appendChild(row(song, { rank: i + 1, controls: [up, remove], href: setlistHref }));
-    });
-    const n = list.length;
-    $('vecer-sub').textContent = n
-      ? `${count(n, 'píseň', 'písně', 'písní')}. Při hraní tě provedou jedna po druhé.`
-      : 'Seznam písní na dnešek, který pošleš partě jedním odkazem.';
-    $('vecer-empty').hidden = n > 0;
-    $('vecer-actions').hidden = n === 0;
-    $('vecer-share').hidden = n === 0;
-    $('vecer-shuffle').hidden = n < 3;
-    if (n) {
-      $('vecer-play').href = setlistHref(list[0]);
-      $('vecer-play').dataset.slug = list[0];
+    if (!missing) {
+      items.forEach((it, i) => {
+        const song = SL.bySlug(it.s);
+        const controls = [];
+        if (canMove) {
+          const up = el('button', 'row-btn');
+          up.type = 'button';
+          up.dataset.up = it.s;
+          up.disabled = i === 0;
+          up.setAttribute('aria-label', 'Posunout výš: ' + song.title);
+          up.innerHTML = SL.icon('up', 20);
+          controls.push(up);
+        }
+        if (EV.can('remove', it)) {
+          const remove = el('button', 'row-btn');
+          remove.type = 'button';
+          remove.dataset.remove = it.s;
+          remove.setAttribute('aria-label', 'Odebrat z večera: ' + song.title);
+          remove.innerHTML = SL.icon('x', 20);
+          controls.push(remove);
+        }
+        ol.appendChild(row(song, { rank: i + 1, controls, href: setlistHref, by: shared ? (it.mine ? (it.by || 'ty') : it.by) : '' }));
+      });
     }
-    renderShared();
+
+    $('vecer-empty').hidden = missing || n > 0;
+    $('vecer-empty-title').textContent = shared ? 'Fronta je prázdná' : 'Večer je zatím prázdný';
+    $('vecer-empty-text').textContent = shared
+      ? ' Plusem u kterékoli písně ji sem přidáš a hned ji uvidí všichni ve večeru.'
+      : ' Plusem u písně ji sem přidáš. Při hraní tě písně provedou jedna po druhé.';
+    const confirming = !$('confirm').hidden;
+    $('vecer-actions').hidden = missing || n === 0 || confirming;
+    $('vecer-shuffle').hidden = n < 3 || !EV.can('shuffle');
+    $('vecer-clear').hidden = !EV.can('clear');
+    $('vecer-clear').textContent = shared ? 'Smazat frontu' : 'Vyčistit';
+    if (n) {
+      $('vecer-play').href = setlistHref(items[0].s);
+      $('vecer-play').dataset.slug = items[0].s;
+    }
+
+    $('invite').hidden = shared;
+    $('rejoin').hidden = !EV.lastId;
     renderBadge();
   }
 
@@ -748,98 +846,233 @@
   }
 
   function syncAddButtons(slug) {
-    const on = SL.setlist.has(slug);
+    const on = EV.has(slug);
     const song = SL.bySlug(slug);
+    if (!song) return;
     document.querySelectorAll(`[data-add="${CSS.escape(slug)}"]`).forEach(b => paintAdd(b, on, song.title));
   }
 
-  $('vecer-shuffle').addEventListener('click', () => {
-    const list = SL.setlist.list();
-    for (let i = list.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const t = list[i]; list[i] = list[j]; list[j] = t;
-    }
-    SL.setlist.save(list);
-    renderVecer();
-  });
-
-  $('vecer-clear').addEventListener('click', () => {
-    undoList = SL.setlist.list();
-    SL.setlist.save([]);
-    renderVecer();
-    undoList.forEach(syncAddButtons);
-    setStatus('Večer je prázdný. ', () => {
-      SL.setlist.save(undoList);
-      renderVecer();
-      undoList.forEach(syncAddButtons);
-      setStatus('');
+  function syncAllAddButtons() {
+    const seen = new Set();
+    document.querySelectorAll('[data-add]').forEach(b => {
+      if (seen.has(b.dataset.add)) return;
+      seen.add(b.dataset.add);
+      syncAddButtons(b.dataset.add);
     });
-  });
-
-  function shareUrl() {
-    const url = new URL(location.pathname, location.origin);
-    url.searchParams.set('vecer', SL.setlist.list().join(','));
-    return url.toString();
   }
 
-  $('vecer-share').addEventListener('click', async () => {
-    const url = shareUrl();
-    const n = SL.setlist.list().length;
-    const text = `Dnešní večer: ${count(n, 'písnička', 'písničky', 'písniček')} z Bekových songů`;
-    if (navigator.share) {
+  // Everything that shows the evening follows it: a friend's song lands on
+  // every list's plus button and on the badge, not only in the Večer tab.
+  EV.onChange(() => {
+    if (!ready) return;
+    renderBadge();
+    syncAllAddButtons();
+    if (currentView === 'vecer') renderVecer();
+    const refused = EV.takeRefusal();
+    if (refused) toast(refused);
+  });
+
+  // A second, explicit tap for what changes the evening for everybody.
+  function askConfirm(text, yes, onYes) {
+    $('confirm-text').textContent = text;
+    $('confirm-yes').textContent = yes;
+    $('confirm').hidden = false;
+    $('vecer-actions').hidden = true;
+    $('confirm-yes').onclick = () => { $('confirm').hidden = true; onYes(); renderVecer(); };
+    $('confirm-yes').focus();
+  }
+  $('confirm-no').addEventListener('click', () => { $('confirm').hidden = true; renderVecer(); });
+
+  $('vecer-shuffle').addEventListener('click', () => {
+    askConfirm(EV.shared
+      ? 'Chystáš se zamíchat pořadí celé fronty. Změní se všem ve večeru.'
+      : 'Chystáš se zamíchat pořadí celého večera.', 'Ano, zamíchat', () => EV.shuffle());
+  });
+  $('vecer-clear').addEventListener('click', () => {
+    const before = EV.list();
+    const done = () => {
+      EV.clear();
+      setStatus(EV.shared ? 'Fronta je smazaná pro všechny. ' : 'Večer je prázdný. ', () => { EV.restore(before); setStatus(''); });
+    };
+    if (EV.shared) askConfirm('Chystáš se smazat celou frontu. Zmizí všem ve večeru.', 'Ano, smazat', done);
+    else done();
+  });
+
+  // ---- invite: QR code to show, link to send ------------------------------
+
+  const QR_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+  const QR_SRI = 'sha384-mZT2gIty7ZDdOGkxfP6joZcYdMW1Jvj9dRlfpTmaJAKKXTqzygtB22k7FLe+KZC1';
+  const INVITE_KIND_KEY = 'bs_invite_kind';
+  let qrLoading = null;
+
+  function loadQr() {
+    if (window.qrcode) return Promise.resolve(window.qrcode);
+    if (!qrLoading) {
+      qrLoading = new Promise((resolve, reject) => {
+        const sc = document.createElement('script');
+        sc.src = QR_SRC;
+        sc.integrity = QR_SRI;
+        sc.crossOrigin = 'anonymous';
+        sc.referrerPolicy = 'no-referrer';
+        sc.onload = () => resolve(window.qrcode);
+        sc.onerror = () => { qrLoading = null; reject(new Error('qr')); };
+        document.head.appendChild(sc);
+      });
+    }
+    return qrLoading;
+  }
+
+  // Square modules on white with a quiet zone: what every phone camera reads.
+  function qrSvg(text) {
+    const qr = window.qrcode(0, 'M');
+    qr.addData(text);
+    qr.make();
+    const n = qr.getModuleCount();
+    const q = 4;
+    let d = '';
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) if (qr.isDark(r, c)) d += `M${c + q} ${r + q}h1v1h-1z`;
+    }
+    const size = n + q * 2;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" role="img" aria-label="QR kód s pozvánkou do večera"><rect width="${size}" height="${size}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+
+  function inviteKind() {
+    if (!EV.can('invite-parta')) return 'host';
+    let k = 'host';
+    try { k = localStorage.getItem(INVITE_KIND_KEY) || 'host'; } catch (e) { /* default */ }
+    return k === 'parta' ? 'parta' : 'host';
+  }
+
+  const KIND_TEXT = {
+    parta: 'Pro kamarády. Kdo kód načte, přidává písně, odebírá cokoli a může zamíchat pořadí.',
+    host: 'Pro třídu nebo lidi, které neznáš. Přidávají písně a odebírají jen ty svoje.',
+  };
+
+  function fillInvite(kind) {
+    const body = sheetBody;
+    body.innerHTML = '';
+    sheetFoot.innerHTML = '';
+    const url = EV.inviteUrl(kind);
+
+    if (EV.can('invite-parta')) {
+      const seg = el('div', 'segmented invite-kind');
+      seg.setAttribute('role', 'radiogroup');
+      seg.setAttribute('aria-label', 'Co smí pozvaní');
+      [['parta', 'Parta'], ['host', 'Třída, cizí lidé']].forEach(([id, label]) => {
+        const b = el('button', null, label);
+        b.type = 'button';
+        b.setAttribute('role', 'radio');
+        b.setAttribute('aria-checked', id === kind ? 'true' : 'false');
+        b.addEventListener('click', () => {
+          try { localStorage.setItem(INVITE_KIND_KEY, id); } catch (e) { /* not kept */ }
+          fillInvite(id);
+        });
+        seg.appendChild(b);
+      });
+      body.appendChild(seg);
+    }
+    body.appendChild(el('p', 'invite-kind-text', KIND_TEXT[kind]));
+
+    const qrBox = el('div', 'qr');
+    qrBox.appendChild(el('span', 'qr-wait', 'Připravuju QR kód…'));
+    body.appendChild(qrBox);
+    loadQr()
+      .then(() => { qrBox.innerHTML = qrSvg(url); })
+      .catch(() => { qrBox.innerHTML = ''; qrBox.appendChild(el('span', 'qr-wait', 'QR kód se bez signálu nepodařilo vytvořit. Pošli odkaz.')); });
+
+    body.appendChild(el('p', 'qr-hint', 'Ať si ho ostatní načtou fotoaparátem v telefonu.'));
+    const link = el('input', 'invite-link');
+    link.type = 'text';
+    link.readOnly = true;
+    link.value = url;
+    link.setAttribute('aria-label', 'Odkaz na pozvánku');
+    link.addEventListener('focus', () => link.select());
+    body.appendChild(link);
+
+    const copy = el('button', 'btn btn-quiet');
+    copy.type = 'button';
+    copy.innerHTML = SL.icon('copy', 18);
+    copy.appendChild(el('span', null, 'Kopírovat'));
+    copy.addEventListener('click', async () => {
       try {
-        await navigator.share({ title: 'Dnešní večer', text, url });
-        return;
+        await navigator.clipboard.writeText(url);
+        copy.lastChild.textContent = 'Zkopírováno';
       } catch (e) {
-        if (e && e.name === 'AbortError') return;
+        link.focus();
+        link.select();
       }
+    });
+    sheetFoot.appendChild(copy);
+    if (navigator.share) {
+      const share = el('button', 'btn btn-primary');
+      share.type = 'button';
+      share.innerHTML = SL.icon('share', 18);
+      share.appendChild(el('span', null, 'Poslat odkaz'));
+      share.addEventListener('click', () => {
+        navigator.share({ title: 'Společný večer', text: 'Přidej písně do našeho večera na Bekových songách', url }).catch(() => {});
+      });
+      sheetFoot.appendChild(share);
     }
-    try {
-      await navigator.clipboard.writeText(url);
-      setStatus('Odkaz je zkopírovaný. Pošli ho partě, každý uvidí stejný seznam.');
-    } catch (e) {
-      setStatus('Odkaz: ' + url);
-    }
-  });
-
-  // A setlist that came as a link: shown above your own, taken over on a tap.
-  let sharedSlugs = null;
-
-  function readShared() {
-    const param = new URLSearchParams(location.search).get('vecer');
-    if (!param) return;
-    const slugs = param.split(',').map(s => s.trim()).filter(s => SL.bySlug(s));
-    dropSharedParam();
-    if (!slugs.length || slugs.join(',') === SL.setlist.list().join(',')) return;
-    sharedSlugs = slugs;
   }
 
-  function renderShared() {
-    const box = $('shared');
-    if (!sharedSlugs) { box.hidden = true; return; }
-    box.hidden = false;
-    const mine = SL.setlist.list();
-    $('shared-text').textContent = `${count(sharedSlugs.length, 'písnička', 'písničky', 'písniček')} na dnešek.` +
-      (mine.length ? ` Převzetím nahradíš svůj večer (${mine.length}).` : '');
-    const ol = $('shared-list');
-    ol.innerHTML = '';
-    sharedSlugs.forEach((slug, i) => ol.appendChild(row(SL.bySlug(slug), { rank: i + 1, controls: [] })));
+  function openInvite() {
+    sheetBody.innerHTML = '';
+    sheetFoot.innerHTML = '';
+    sheet.dataset.kind = 'invite';
+    $('sheet-title').textContent = 'Pozvat do večera';
+    fillInvite(inviteKind());
+    if (!sheet.open) sheet.showModal();
   }
 
-  $('shared-take').addEventListener('click', () => {
-    const slugs = sharedSlugs;
-    sharedSlugs = null;
-    SL.setlist.save(slugs);
+  $('invite-btn').addEventListener('click', () => {
+    EV.create();
     renderVecer();
-    document.querySelectorAll('[data-add]').forEach(b => syncAddButtons(b.dataset.add));
-    setStatus('Večer převzatý. Klepni na Začít hrát.');
+    openInvite();
   });
-  $('shared-dismiss').addEventListener('click', () => { sharedSlugs = null; renderShared(); });
+  $('party-invite').addEventListener('click', openInvite);
+  $('rejoin').addEventListener('click', () => { EV.rejoin(); setStatus(''); renderVecer(); });
+  $('missing-leave').addEventListener('click', () => { EV.leave(); renderVecer(); });
+  $('party-leave').addEventListener('click', () => {
+    EV.leave();
+    mergeOffer = [];
+    renderVecer();
+    setStatus('Večer opuštěný, tohle je zase tvůj vlastní seznam. ', () => { EV.rejoin(); setStatus(''); renderVecer(); });
+  });
+  $('party-name').addEventListener('change', (e) => {
+    EV.setName(e.target.value);
+    editingName = false;
+    renderVecer();
+  });
+  $('party-name').addEventListener('keydown', (e) => { if (e.key === 'Enter') e.target.blur(); });
+  $('name-edit').addEventListener('click', () => {
+    editingName = true;
+    renderVecer();
+    $('party-name').focus();
+  });
+  $('merge-yes').addEventListener('click', () => {
+    mergeOffer.forEach(slug => EV.add(slug));
+    SL.setlist.save([]);
+    mergeOffer = [];
+    renderVecer();
+  });
+  $('merge-no').addEventListener('click', () => { mergeOffer = []; renderVecer(); });
 
-  function dropSharedParam() {
+  // ?parta=<id>[&k=<key>]: an invite. Joining keeps your own list aside and
+  // offers to bring its songs along.
+  function handleInvite() {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('parta');
+    if (!id) return false;
     const url = new URL(location.href);
-    url.searchParams.delete('vecer');
-    history.replaceState(history.state, '', url);
+    url.searchParams.delete('parta');
+    url.searchParams.delete('k');
+    url.hash = '#vecer';
+    history.replaceState(null, '', url);
+    const own = EV.shared ? [] : SL.setlist.list();
+    if (EV.join(id, params.get('k'))) mergeOffer = own;
+    else setStatus('Odkaz na večer je neúplný.');
+    return true;
   }
 
   // ---- Moje --------------------------------------------------------------
@@ -926,30 +1159,22 @@
     const add = e.target.closest('[data-add]');
     if (add) {
       const slug = add.dataset.add;
-      SL.setlist.toggle(slug);
-      syncAddButtons(slug);
-      renderBadge();
-      if (currentView === 'vecer') renderVecer();
+      if (!EV.has(slug)) EV.add(slug);
+      else if (!EV.remove(slug)) toast('Tuhle přidal někdo jiný. Odebrat ji může zakladatel večera nebo parta.');
       return;
     }
     const up = e.target.closest('[data-up]');
     if (up) {
-      const list = SL.setlist.list();
-      const i = list.indexOf(up.dataset.up);
-      if (i > 0) { list.splice(i - 1, 0, list.splice(i, 1)[0]); SL.setlist.save(list); renderVecer(); }
+      EV.moveUp(up.dataset.up);
       return;
     }
     const remove = e.target.closest('[data-remove]');
     if (remove) {
       const slug = remove.dataset.remove;
-      const before = SL.setlist.list();
-      SL.setlist.toggle(slug);
-      renderVecer();
-      syncAddButtons(slug);
+      const before = EV.list();
+      EV.remove(slug);
       setStatus(`${SL.bySlug(slug).title} z večera pryč. `, () => {
-        SL.setlist.save(before);
-        renderVecer();
-        syncAddButtons(slug);
+        if (EV.shared) EV.add(slug); else EV.restore(before);
         setStatus('');
       });
       return;
@@ -972,7 +1197,7 @@
   }
 
   function go(hash, push, toTop) {
-    scrollByView[currentView] = window.scrollY;
+    scrollByView[currentView] = scroller.scrollTop;
     const url = location.pathname + location.search + hash;
     if (push) history.pushState(null, '', url); else history.replaceState(null, '', url);
     route(toTop);
@@ -996,7 +1221,7 @@
     if (r.view === 'moje') renderMine();
 
     const y = toTop || r.view === 'artist' ? 0 : (scrollByView[r.view] || 0);
-    window.scrollTo({ top: y, behavior: 'instant' });
+    scroller.scrollTo({ top: y, behavior: 'instant' });
   }
 
   document.querySelectorAll('.tab').forEach(t => {
@@ -1006,7 +1231,7 @@
       // A second tap on the active tab goes back to its top, as in apps.
       if (name === currentView || (name === 'interpreti' && currentView === 'artist')) {
         if (currentView === 'artist') { go('#interpreti', false); return; }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scroller.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
       go(name === 'pisne' ? '' : '#' + name, false);
@@ -1015,18 +1240,13 @@
   window.addEventListener('popstate', () => route());
   window.addEventListener('hashchange', () => route());
 
-  // Instrument menu closes on an outside tap.
-  const instrument = document.querySelector('.instrument');
-  document.addEventListener('click', (e) => {
-    if (instrument.open && !instrument.contains(e.target)) instrument.open = false;
-  });
 
   // Coming back from a song page restored from the back-forward cache: the
   // setlist or favourites may have changed there.
   window.addEventListener('pageshow', (e) => {
     if (!e.persisted || !ready) return;
     renderBadge();
-    document.querySelectorAll('[data-add]').forEach(b => syncAddButtons(b.dataset.add));
+    syncAllAddButtons();
     if (currentView === 'vecer') renderVecer();
     if (currentView === 'moje') renderMine();
   });
@@ -1041,8 +1261,7 @@
   SL.load()
     .then(() => {
       ready = true;
-      readShared();
-      if (sharedSlugs) history.replaceState(null, '', location.pathname + location.search + '#vecer');
+      handleInvite();
       renderBadge();
       route();
     })
