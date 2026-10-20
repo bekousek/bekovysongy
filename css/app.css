@@ -579,7 +579,7 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .invite { margin-top: 28px; padding: 20px; border-radius: var(--radius-card); background: var(--surface); }
 .invite h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
 .invite p { color: var(--muted); margin: 4px 0 14px; }
-.invite .btn-primary { width: 100%; }
+.invite .btn { width: 100%; }
 .invite .text-btn { display: block; margin-top: 10px; }
 .invite .invite-off { font-size: var(--fs-small); color: var(--faint); margin: 10px 0 0; }
 

@@ -175,7 +175,9 @@
     main.appendChild(a);
     tagsOf(song).forEach(t => main.appendChild(el('span', 'tag', t)));
 
-    if (!o.hideArtist && song._authors.length) {
+    // On an artist's own page only co-written songs still name who's on them.
+    const hideArtist = o.artistPage && song._authors.length === 1;
+    if (!hideArtist && song._authors.length) {
       const meta = el('div', 'row-meta');
       song._authors.forEach((name, i) => {
         if (i > 0) meta.appendChild(document.createTextNode(', '));
@@ -617,7 +619,7 @@
     $('artist-sub').textContent = `${count(res.total, 'píseň', 'písně', 'písní')} ve zpěvníku`;
     const box = $('artist-songs');
     box.innerHTML = '';
-    if (res.total) box.appendChild(songList(res.named, { hideArtist: res.named.every(s => s._authors.length === 1) }));
+    if (res.total) box.appendChild(songList(res.named, { artistPage: true }));
     else box.appendChild(stateBox('Nic tu není', 'Tenhle interpret ve zpěvníku nemá žádnou píseň.'));
     $('artist-random').hidden = res.total < 2;
   }
@@ -828,6 +830,9 @@
     }
 
     $('invite').hidden = shared;
+    // With songs in the list "Začít hrát" is the one orange button here.
+    $('invite-btn').classList.toggle('btn-primary', !n);
+    $('invite-btn').classList.toggle('btn-quiet', !!n);
     $('rejoin').hidden = !EV.lastId;
     renderBadge();
   }

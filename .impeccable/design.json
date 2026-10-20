@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T07:33:42+00:00",
+  "title": "Design System: Bekovy songy",
+  "extensions": {
+    "colorMeta": {
+      "campfire-orange": {
+        "role": "primary",
+        "displayName": "Campfire Orange",
+        "cssVar": "--accent",
+        "canonical": "#e67e22",
+        "oklch": "oklch(69.6% 0.160 55.5)",
+        "tonalRamp": [
+          "#170600",
+          "#3c1b01",
+          "#663202",
+          "#934b04",
+          "#c36606",
+          "#ef862e",
+          "#ffb785",
+          "#feeadd"
+        ]
+      },
+      "charred-ink": {
+        "role": "on-primary",
+        "displayName": "Charred Ink",
+        "cssVar": "--on-accent",
+        "canonical": "#160b02",
+        "oklch": "oklch(16.2% 0.029 66.9)",
+        "tonalRamp": [
+          "#130801",
+          "#2f2216",
+          "#4d3f32",
+          "#6d5e50",
+          "#8f7f70",
+          "#b2a292",
+          "#d7c6b6",
+          "#fcebda"
+        ]
+      },
+      "night-black": {
+        "role": "neutral",
+        "displayName": "Night Black",
+        "cssVar": "--ground",
+        "canonical": "#0e0d0c",
+        "oklch": "oklch(16.0% 0.003 67.6)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262524",
+          "#434240",
+          "#626160",
+          "#838281",
+          "#a6a5a3",
+          "#cac9c7",
+          "#f0eeec"
+        ]
+      },
+      "soot": {
+        "role": "neutral",
+        "displayName": "Soot",
+        "cssVar": "--surface",
+        "canonical": "#181716",
+        "oklch": "oklch(20.5% 0.003 67.7)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262524",
+          "#434241",
+          "#626160",
+          "#838281",
+          "#a6a5a3",
+          "#cac9c7",
+          "#f0eeed"
+        ]
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "cssVar": "--raised",
+        "canonical": "#262422",
+        "oklch": "oklch(26.2% 0.005 67.6)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#272523",
+          "#44413f",
+          "#63615e",
+          "#84827f",
+          "#a7a4a2",
+          "#cbc8c6",
+          "#f1eeeb"
+        ]
+      },
+      "pressed-ash": {
+        "role": "neutral",
+        "displayName": "Pressed Ash",
+        "cssVar": "--press",
+        "canonical": "#312e2b",
+        "oklch": "oklch(30.3% 0.007 67.6)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#272422",
+          "#44413e",
+          "#64605d",
+          "#85827e",
+          "#a8a4a1",
+          "#ccc8c4",
+          "#f2eeea"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "cssVar": "--rule",
+        "canonical": "#211f1d",
+        "oklch": "oklch(24.1% 0.005 67.6)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#272523",
+          "#44413f",
+          "#63615e",
+          "#84827f",
+          "#a7a4a2",
+          "#cbc8c6",
+          "#f1eeeb"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "cssVar": "--control",
+        "canonical": "#4a4744",
+        "oklch": "oklch(40.0% 0.006 67.6)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#272422",
+          "#44413e",
+          "#64615d",
+          "#85827e",
+          "#a8a4a1",
+          "#ccc8c5",
+          "#f1eeea"
+        ]
+      },
+      "bone-white": {
+        "role": "neutral",
+        "displayName": "Bone White",
+        "cssVar": "--text",
+        "canonical": "#f2f2f0",
+        "oklch": "oklch(96.1% 0.003 106.4)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#252524",
+          "#424240",
+          "#616160",
+          "#828281",
+          "#a5a5a3",
+          "#c9c9c7",
+          "#eeeeec"
+        ]
+      },
+      "smoke": {
+        "role": "neutral",
+        "displayName": "Smoke",
+        "cssVar": "--muted",
+        "canonical": "#b6b1aa",
+        "oklch": "oklch(76.2% 0.011 76.6)",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28241f",
+          "#45413b",
+          "#65605a",
+          "#86827b",
+          "#a9a49d",
+          "#cdc8c1",
+          "#f3eee6"
+        ]
+      },
+      "dim-smoke": {
+        "role": "neutral",
+        "displayName": "Dim Smoke",
+        "cssVar": "--faint",
+        "canonical": "#98928b",
+        "oklch": "oklch(66.3% 0.012 71.8)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#29241f",
+          "#46413b",
+          "#66605a",
+          "#87817a",
+          "#aaa49d",
+          "#cec8c1",
+          "#f4ede6"
+        ]
+      },
+      "ok-green": {
+        "role": "status",
+        "displayName": "Ok Green",
+        "cssVar": "--ok",
+        "canonical": "#3fbf6f",
+        "oklch": "oklch(71.6% 0.161 152.1)",
+        "tonalRamp": [
+          "#001004",
+          "#002e13",
+          "#015026",
+          "#01753a",
+          "#029c4f",
+          "#41c171",
+          "#6ce794",
+          "#c6ffd4"
+        ]
+      },
+      "warn-amber": {
+        "role": "status",
+        "displayName": "Warn Amber",
+        "cssVar": "--warn",
+        "canonical": "#e5a93b",
+        "oklch": "oklch(77.3% 0.140 78.6)",
+        "tonalRamp": [
+          "#120900",
+          "#332101",
+          "#583c01",
+          "#805901",
+          "#ab7701",
+          "#d49924",
+          "#fabd53",
+          "#ffecce"
+        ]
+      },
+      "danger-rose": {
+        "role": "status",
+        "displayName": "Danger Rose",
+        "cssVar": "--danger",
+        "canonical": "#e5566f",
+        "oklch": "oklch(64.8% 0.178 13.1)",
+        "tonalRamp": [
+          "#1e0005",
+          "#4c0016",
+          "#7e022a",
+          "#ae1e43",
+          "#d74963",
+          "#ff6f85",
+          "#ffb1b8",
+          "#fee8ea"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Nadpis záložky a vylosovaná píseň; 32 px od 900 px."
+      },
+      "song-title": {
+        "displayName": "Song title",
+        "purpose": "h1 na stránce písně; 32 px od 900 px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Nadpisy bloků, sheetů a karty pozvánky."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Název písně v řádku seznamu."
+      },
+      "lyrics": {
+        "displayName": "Lyrics",
+        "purpose": "Text písně, násobený --scale (70–150 %)."
+      },
+      "chord": {
+        "displayName": "Chord",
+        "purpose": "Akord v textu, vždy campfire-orange."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Běžný text seznamu a popisky."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Popisky tlačítek; v kartách 15 px, Začít hrát 18 px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Počty, nápovědy, popisky skupin."
+      },
+      "tab-label": {
+        "displayName": "Tab label",
+        "purpose": "Popisky spodní lišty záložek."
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 6px 18px rgba(0, 0, 0, 0.45)",
+        "purpose": "Toast a pilulka metronomu."
+      },
+      {
+        "name": "popover",
+        "value": "0 10px 28px rgba(0, 0, 0, 0.55)",
+        "purpose": "Bublina s prstokladem akordu."
+      },
+      {
+        "name": "dock",
+        "value": "0 10px 30px rgba(0, 0, 0, 0.5)",
+        "purpose": "Plovoucí lišta nástrojů písně na desktopu."
+      },
+      {
+        "name": "backdrop",
+        "value": "rgba(0, 0, 0, 0.6)",
+        "purpose": "Pozadí pod modálním sheetem."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": "150ms ease-out",
+        "purpose": "Změna barvy a pozadí."
+      },
+      {
+        "name": "press",
+        "value": "120ms ease-out, scale(0.97)",
+        "purpose": "Stisk tlačítka; ikony v řádku scale(0.88)."
+      },
+      {
+        "name": "sheet-in",
+        "value": "240ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Vysunutí sheetu o 40 px s průhledností."
+      },
+      {
+        "name": "swap",
+        "value": "220ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Výměna vylosované písně v Objevit."
+      },
+      {
+        "name": "tabbar-hide",
+        "value": "200ms ease-out",
+        "purpose": "Schování spodní lišty při psaní."
+      },
+      {
+        "name": "reduced",
+        "value": "1ms",
+        "purpose": "Všechny animace a přechody při prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Jediná vyplněná oranžová akce na obrazovce (Začít hrát, Hrát, Založit a pozvat).",
+      "html": "<button class=\"ds-btn ds-btn-primary\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 4v16l13-8z\"/></svg><span>Začít hrát</span></button>",
+      "css": ":host, .ds-root { --accent:#e67e22; --on-accent:#160b02; --ground:#0e0d0c; --surface:#181716; --raised:#262422; --press:#312e2b; --rule:#211f1d; --control:#4a4744; --text:#f2f2f0; --muted:#b6b1aa; --faint:#98928b; font-family: Figtree, system-ui, sans-serif; } .ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:48px; padding:0 22px; border:0; border-radius:999px; font:600 16px Figtree, system-ui, sans-serif; cursor:pointer; transition: transform 120ms ease-out, background-color 150ms ease-out; } .ds-btn:active { transform: scale(0.97); } .ds-btn-primary { background:#e67e22; color:#160b02; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Výchozí sekundární akce na ash (Jinou, Zamíchat, Stáhnout offline).",
+      "html": "<button class=\"ds-btn ds-btn-quiet\">Jinou</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:48px; padding:0 22px; border:0; border-radius:999px; font:600 16px Figtree, system-ui, sans-serif; cursor:pointer; transition: transform 120ms ease-out, background-color 150ms ease-out; } .ds-btn:active { transform: scale(0.97); background:#312e2b; } .ds-btn-quiet { background:#262422; color:#f2f2f0; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Řazení a filtry nad seznamem; aktivní filtr se obrátí do bone-white.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\">Jazyk</button><button class=\"ds-chip ds-chip-on\">CZ</button></div>",
+      "css": ".ds-chips { display:flex; gap:8px; } .ds-chip { height:44px; padding:0 14px; border:0; border-radius:999px; background:#181716; color:#f2f2f0; font:500 15px Figtree, system-ui, sans-serif; cursor:pointer; transition: background-color 150ms ease-out; } .ds-chip:active { background:#312e2b; } .ds-chip-on { background:#f2f2f0; color:#0e0d0c; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Hledání podle názvu, interpreta i řádku textu; soot pilulka 52 px.",
+      "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg><input type=\"search\" placeholder=\"Název, interpret, kus textu…\"></label>",
+      "css": ".ds-search { display:flex; align-items:center; gap:12px; height:52px; padding:0 18px; border-radius:999px; background:#181716; color:#b6b1aa; } .ds-search input { flex:1; height:100%; border:0; outline:none; background:transparent; color:#f2f2f0; font:400 17px Figtree, system-ui, sans-serif; } .ds-search input::placeholder { color:#98928b; } .ds-search:focus-within { outline:2px solid #f2f2f0; }"
+    },
+    {
+      "name": "Song Row",
+      "kind": "custom",
+      "refersTo": "song-row",
+      "description": "Podpisový řádek seznamu: název, štítky, interpret, akordy po sekcích, srdce a plus.",
+      "html": "<div class=\"ds-row\"><div><a class=\"ds-row-title\" href=\"#\">Jedna láska</a><span class=\"ds-tag\">Capo 1</span><div class=\"ds-row-meta\">Cocoman</div><p class=\"ds-chords\">Emi C G D<span class=\"ds-sep\"></span>Ami G C E</p></div><div class=\"ds-row-actions\"><button aria-label=\"Přidat do oblíbených\" class=\"ds-fav\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\"/></svg></button><button aria-label=\"Přidat do dnešního večera\" class=\"ds-add\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></button></div></div>",
+      "css": ".ds-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; padding:12px 4px 12px 16px; background:#0e0d0c; color:#f2f2f0; font-family: Figtree, system-ui, sans-serif; border-bottom:1px solid #211f1d; } .ds-row:active { background:#181716; } .ds-row-title { color:inherit; text-decoration:none; font:600 17px/1.3 Figtree, system-ui, sans-serif; } .ds-tag { display:inline-flex; align-items:center; height:20px; padding:0 7px; margin-left:6px; border-radius:6px; background:#262422; font:500 12px Figtree, system-ui, sans-serif; vertical-align:2px; } .ds-row-meta { margin-top:2px; color:#b6b1aa; font-size:15px; } .ds-chords { margin:3px 0 0; color:#e67e22; font:500 15px Figtree, system-ui, sans-serif; word-spacing:0.15em; } .ds-sep { display:inline-block; width:1px; height:0.9em; margin:0 0.45em; vertical-align:-0.1em; background:#4a4744; } .ds-row-actions { display:flex; } .ds-row-actions button { width:44px; height:48px; display:grid; place-items:center; border:0; background:none; cursor:pointer; } .ds-fav { color:#98928b; } .ds-add { color:#e67e22; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Spodní lišta s pěti záložkami na mobilu; na ≥900 px se stane pilulkami v hlavičce.",
+      "html": "<nav class=\"ds-tabs\"><a class=\"ds-tab\" aria-current=\"page\" href=\"#\">Písně</a><a class=\"ds-tab\" href=\"#\">Interpreti</a><a class=\"ds-tab\" href=\"#\">Objevit</a><a class=\"ds-tab\" href=\"#\">Večer<span class=\"ds-badge\">3</span></a><a class=\"ds-tab\" href=\"#\">Moje</a></nav>",
+      "css": ".ds-tabs { display:grid; grid-template-columns:repeat(5,1fr); height:64px; background:#0e0d0c; border-top:1px solid #211f1d; font-family: Figtree, system-ui, sans-serif; } .ds-tab { position:relative; display:flex; align-items:center; justify-content:center; color:#98928b; font:500 12px Figtree, system-ui, sans-serif; text-decoration:none; transition: color 150ms ease-out; } .ds-tab:hover, .ds-tab[aria-current=\"page\"] { color:#f2f2f0; font-weight:600; } .ds-badge { position:absolute; top:10px; right:12px; min-width:18px; height:18px; padding:0 5px; border-radius:9px; display:grid; place-items:center; background:#e67e22; color:#160b02; font:700 11px Figtree, system-ui, sans-serif; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Chord Bar Chip",
+      "kind": "custom",
+      "refersTo": "chord-chip",
+      "description": "Akordy písně v lepicí liště stránky písně; klepnutí ukáže prstoklad.",
+      "html": "<div class=\"ds-cbar\"><button class=\"ds-ch\">Emi</button><button class=\"ds-ch ds-ch-on\">C</button><span class=\"ds-cbar-sep\"></span><button class=\"ds-ch\">G</button><button class=\"ds-ch\">D</button></div>",
+      "css": ".ds-cbar { display:flex; align-items:center; gap:2px; height:52px; padding:0 4px; background:#0e0d0c; border-bottom:1px solid #211f1d; } .ds-ch { min-width:44px; height:44px; padding:0 8px; border:0; border-radius:10px; background:none; color:#e67e22; font:700 17px Figtree, system-ui, sans-serif; cursor:pointer; } .ds-ch:active, .ds-ch-on { background:#262422; } .ds-cbar-sep { width:1px; height:20px; margin:0 4px; background:#4a4744; } :focus-visible { outline: 2px solid var(--text, #f2f2f0); outline-offset: 2px; }"
+    },
+    {
+      "name": "Lyric Line",
+      "kind": "custom",
+      "refersTo": "lyrics",
+      "description": "Text písně: 19 px, akordy tučně oranžově v řádku, zalomení visí o 1em.",
+      "html": "<div class=\"ds-lyrics\"><span class=\"ds-label\">R:</span><span class=\"ds-ln\">Zdravím všechny co maj <b class=\"ds-chord\">C</b> málo nebo skoro nic</span><span class=\"ds-ln\">Ale <b class=\"ds-chord\">G</b> žijou život upřímně se srdcem bez hranic</span></div>",
+      "css": ".ds-lyrics { position:relative; padding-left:2.1em; max-width:320px; background:#0e0d0c; color:#f2f2f0; font:400 19px/1.75 Figtree, system-ui, sans-serif; } .ds-label { position:absolute; left:0; top:0; color:#e67e22; font-weight:700; font-size:0.85em; } .ds-ln { display:block; padding-left:1em; text-indent:-1em; } .ds-chord { color:#e67e22; font-weight:700; padding:0 0.12em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Telefon na koleni",
+    "overview": "Všechno se poměřuje jednou situací: kytara v rukou, telefon leží na koleni nebo na stole, svítí jen oheň a na displej se kouká z půl metru. Text písně dostane celou obrazovku a velké písmo, akordy jsou tučně oranžové přímo v řádku, a ovládání, které se sahá uprostřed písně, se schová do dvou úzkých lišt na okrajích, kam dosáhne palec. Seznam písní je appka do kapsy: tmavá, spodní lišta s pěti záložkami, hledání nahoře, žádná ozdoba, která by nesloužila hledání.\n\nHustota je střední a klidná. Hloubka se dělá světlostí tří odstínů teplé černé, ne stíny. Oranžová je jediná barva s významem: akord, nebo věc, která něco udělá. Všechno ostatní je kost, kouř a popel. Pohyb je krátký a věcný (150 ms barva, 240 ms vysunutí sheetu) a při `prefers-reduced-motion` mizí.\n\nVědomě odmítnuto majitelem: akordy nad textem (jen v řádku), harmonika a kalimba, starý navy vzhled se třemi nástroji. Oranžová #e67e22 na černé #0e0d0c je potvrzená signature projektu.",
+    "keyCharacteristics": [
+      "Tmavá teplá černá, tři tonální stupně, žádná šedá se studeným nádechem.",
+      "Jeden akcent, oranžový, vyhrazený akordům a akcím.",
+      "Figtree ve čtyřech řezech (400–700), žádné druhé písmo.",
+      "Velké dotykové cíle (min. 44 px), ovládání u spodního okraje.",
+      "Pilulky pro ovládací prvky, zaoblené karty pro obsahové bloky.",
+      "Stránka seznamu se nikdy neroluje celá: roluje `#scroller`, aby lišty mobilního prohlížeče neposkakovaly."
+    ],
+    "rules": [
+      {
+        "name": "Pravidlo žhavého uhlíku",
+        "body": "Oranžová znamená buď akord, nebo „tohle něco udělá“. Nadpis, ozdoba ani rámeček kvůli efektu ji nedostanou.",
+        "section": "colors"
+      },
+      {
+        "name": "Pravidlo jednoho plamene",
+        "body": "Na jedné obrazovce je nejvýš jedno vyplněné oranžové tlačítko. Když se objeví hlavní akce (Začít hrát), ostatní tlačítka ustoupí do `btn-quiet`.",
+        "section": "colors"
+      },
+      {
+        "name": "Pravidlo akordu v řádku",
+        "body": "Akord stojí v textu tam, kde se mění, tučně a oranžově. Nikdy nad řádkem, nikdy v jiném fontu.",
+        "section": "typography"
+      },
+      {
+        "name": "Pravidlo visícího řádku",
+        "body": "Každý řádek písně je vlastní blok (`.ln`, staví ho `player.js`). Když se na telefonu nevejde, pokračování se odsadí o 1em, aby se zalomení nedalo splést s dalším veršem.",
+        "section": "typography"
+      },
+      {
+        "name": "Pravidlo čísel v řadě",
+        "body": "Počty, tóniny, BPM a pořadí mají `font-variant-numeric: tabular-nums`, aby při změně neposkakovaly.",
+        "section": "typography"
+      },
+      {
+        "name": "Pravidlo sazí",
+        "body": "Hloubka se dělá o stupeň světlejší plochou. Rámeček pod stínem ani stín na kartě v toku stránky se nepoužívají.",
+        "section": "elevation"
+      },
+      {
+        "name": "Pravidlo oranžového obrysu",
+        "body": "Karta, která chce pozornost (sdílený večer, nabídka sloučení, potvrzení smazání), dostane celý obrys 1.5 px v campfire-orange. Barevný pruh jen po levé straně ne.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do dávat akordy tučně oranžově přímo do řádku textu, na všech místech stejně.",
+      "Do držet každý dotykový cíl aspoň na 44 px; ovládání pro hraní patří k dolnímu okraji.",
+      "Do dělat hloubku o stupeň světlejší plochou (night-black → soot → ash → pressed-ash).",
+      "Do psát text na oranžové v charred-ink (#160b02).",
+      "Do měnit tokeny v obou souborech zároveň (`css/app.css` i `css/style.css`) a při změně CSS/JS/HTML zvednout `CACHE_NAME` v `sw.js`.",
+      "Do dělat změny vzhledu stránek písní v `js/player.js` a `css/style.css`; `songs/*.html` se kvůli vzhledu needitují.",
+      "Do dávat fokus jako 2px bone-white prstenec s odstupem 2 px.",
+      "Do psát česky, tykat a pojmenovat tlačítka akcí, kterou udělají („Začít hrát“, „Stáhnout offline“)."
+    ],
+    "donts": [
+      "Don't dávat akordy nad text. Majitel to odmítl.",
+      "Don't dávat dvě vyplněná oranžová tlačítka na jednu obrazovku.",
+      "Don't psát bílý text na oranžovou (2.85:1) ani šedý text na oranžovou.",
+      "Don't vracet starou navy paletu (#16213e, #1a1a2e a spol.). Patří jen do adminu.",
+      "Don't přidávat harmoniku, kalimbu ani jiný nástroj; zpěvník je jen na kytaru.",
+      "Don't dávat kartám v toku stránky stín ani barevný pruh po straně.",
+      "Don't používat emoji ani znaky Unicode místo ikon; ikony jsou z `SL.icon`.",
+      "Don't nechat celou stránku seznamu rolovat; roluje jen `#scroller`."
+    ]
+  }
+}

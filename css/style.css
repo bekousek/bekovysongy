@@ -154,7 +154,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .song-text .ch, .song-text .chord {
   color: var(--accent); font-weight: 700; cursor: pointer;
-  padding: 0 0.12em; border-radius: 4px;
+  padding: 0 0.12em; border-radius: 6px;
 }
 .song-text .ch.on { background: var(--raised); }
 
@@ -672,21 +672,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .tuner-string.done::after {
-  content: '✓';
+  content: "";
   position: absolute;
   top: -6px;
   right: -6px;
-  width: 15px;
-  height: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--success);
-  color: var(--on-accent);
-  font-size: 0.62rem;
-  font-weight: 700;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  line-height: 1;
+  background: var(--success) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23160b02' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 10px no-repeat;
 }
 
 /* Chip tap = manual target lock (overrides auto-detection for a while). */
