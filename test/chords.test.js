@@ -14,9 +14,6 @@ const OPEN = [4, 9, 2, 7, 11, 4];
 const tones = (frets) => new Set(frets.map((f, i) => (f < 0 ? null : (OPEN[i] + f) % 12)).filter(x => x !== null));
 const shape = (s) => s.split(' ').map(x => (x === 'x' ? -1 : Number(x)));
 
-// Song data that isn't a chord name; fix the song, then drop it from here.
-const NOT_CHORDS = new Set(['EHDA', 'HH']);
-
 function songChordNames() {
   const names = new Set();
   JSON.parse(fs.readFileSync(path.join(ROOT, 'songs.json'), 'utf8')).songs
@@ -31,7 +28,6 @@ function songChordNames() {
 test('every chord the songs use has a diagram in every key', () => {
   const missing = [];
   for (const name of songChordNames()) {
-    if (NOT_CHORDS.has(name)) continue;
     for (let t = 0; t < 12; t++) {
       const shown = transposeChord(name, t);
       const chord = CD.parseName(shown);
