@@ -463,6 +463,18 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
   height: 44px; padding: 0 8px 0 14px; border-radius: var(--radius-pill);
   background: var(--accent); color: var(--on-accent); font-weight: 700;
 }
+.chord-preset { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.chord-preset p { color: var(--faint); font-size: var(--fs-small); line-height: 1.35; }
+.preset-btn {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  height: 44px; padding: 0 18px; border-radius: var(--radius-pill);
+  background: var(--raised); color: var(--text); font-weight: 600;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+.preset-btn .icon { display: none; margin-left: -4px; }
+.preset-btn:active { background: var(--press); }
+.preset-btn[aria-pressed="true"] { background: var(--text); color: var(--ground); }
+.preset-btn[aria-pressed="true"] .icon { display: block; }
 .roots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .root {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;

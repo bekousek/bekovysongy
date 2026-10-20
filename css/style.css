@@ -24,7 +24,10 @@
   --on-accent: #160b02;
   --press: #312e2b;
   --ok: #3fbf6f;
+  --warn: #e5a93b;
   --danger: #e5566f;
+  --tuned-ground: #111a13;   /* the tuner's ground while a string is in tune */
+  --tuned-surface: #142017;  /* … and its panel on wide screens */
 
   --radius-pill: 999px;
   --pad: 16px;
@@ -392,332 +395,159 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ===== Tuner (js/tuner.js) =====
-   Its rules still speak the old palette's variable names; they are mapped
-   onto the black and orange here. */
+   A full-screen dialog on the phone, a 480px panel from 900px up. Read from
+   the knee: one big letter, a needle with a bar that shrinks towards the
+   middle, and words for which way to turn. Amber means "not there yet",
+   green "in tune", always next to words; while a string is in tune the
+   whole screen takes a green cast, which reads from across the room. */
 
-.tuner-overlay {
-  --bg: var(--ground);
-  --bg-light: var(--surface);
-  --bg-card: var(--raised);
-  --accent-solid: var(--accent);
-  --text-muted: var(--muted);
-  --text-dim: var(--faint);
-  --border: #33302d;
-  --success: var(--ok);
-  --radius: 14px;
-  --radius-sm: 8px;
-  font-family: var(--font);
+.tuner {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%; max-width: none; max-height: none; margin: 0;
+  border: 0; padding: env(safe-area-inset-top, 0px) 0 var(--safe-b);
+  background: var(--ground); color: var(--text);
+  display: none; flex-direction: column;
+  overflow-y: auto; overscroll-behavior: contain;
+  transition: background-color 240ms ease-out;
 }
+.tuner[open] { display: flex; animation: sheet-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.tuner::backdrop { background: rgba(0, 0, 0, 0.6); }
+.tuner[data-state="tuned"] { background: var(--tuned-ground); }
 
-.tuner-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(14, 13, 12, 0.94);
-  z-index: 400;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
+.tuner-head { display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 8px 8px 0 20px; }
+.tuner-head h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.tuner-mic { display: inline-flex; align-items: center; gap: 6px; margin-right: auto; color: var(--faint); }
+.tuner-level { width: 48px; height: 6px; border-radius: var(--radius-pill); background: var(--raised); overflow: hidden; }
+.tuner-level > span { display: block; height: 100%; background: var(--muted); transform: scaleX(0); transform-origin: left center; }
+.tuner[data-state="problem"] .tuner-mic { visibility: hidden; }
 
-.tuner-overlay.open {
-  display: flex;
+.tuner-stage {
+  flex: 1 0 auto;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8px var(--pad) 12px; text-align: center;
 }
+.tuner-stage > * { transition: opacity 240ms ease-out; }
+.tuner[data-stale="true"] .tuner-stage > * { opacity: 0.45; }
 
-.tuner-modal {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 540px;
-  max-height: 100%;
-  overflow-y: auto;
-  padding: 1.25rem 1.5rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
+.tuner-which { min-height: 24px; font-size: 17px; font-weight: 600; color: var(--muted); }
+.tuner-note { height: 136px; display: grid; place-items: center; }
+.tuner-letter {
+  font-size: 128px; font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+  transition: color 150ms ease-out;
 }
-
-.tuner-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.tuner-instruments {
-  display: flex;
-  gap: 0.25rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.25rem;
-}
-
-.tuner-instruments button {
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  font-family: var(--font);
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 0.45rem 1.1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.tuner-instruments button.active {
-  background: var(--accent-solid);
-  color: var(--on-accent);
-}
-
-.tuner-close {
-  flex: none;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 50%;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.tuner-close:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* Big detected note */
-.tuner-note {
-  text-align: center;
-  line-height: 1;
-  padding: 0.75rem 0 0.25rem;
-}
-
-.tuner-note-name {
-  font-size: 6rem;
-  font-weight: 700;
-  color: var(--text);
-  transition: color 0.15s;
-}
-
-.tuner-note.tuned .tuner-note-name {
-  color: var(--success);
-}
-
-/* Dimmed while holding the last reading through a brief silence between
-   plucks, instead of flickering back to idle. */
-.tuner-note.stale {
-  opacity: 0.55;
-  transition: opacity 0.3s;
-}
-
-.tuner-note-oct {
-  font-size: 1.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  vertical-align: super;
-  margin-left: 0.15rem;
-}
+.tuner-letter:empty, .tuner-prompt:empty, .tuner-status-icon:empty { display: none; }
+.tuner-prompt { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--muted); }
+.tuner[data-state="idle"] .tuner-letter,
+.tuner[data-state="asking"] .tuner-letter,
+.tuner[data-state="problem"] .tuner-letter { color: var(--muted); }
+.tuner[data-state="tuned"] .tuner-letter { color: var(--ok); }
 
 .tuner-status {
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  min-height: 1.5rem;
-  transition: color 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 34px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; color: var(--muted);
+  transition: color 150ms ease-out;
+}
+.tuner-status-icon { display: inline-flex; }
+.tuner-status-icon .icon { width: 26px; height: 26px; stroke-width: 2.25; }
+.tuner[data-state="low"] .tuner-status, .tuner[data-state="high"] .tuner-status { color: var(--warn); }
+.tuner[data-state="tuned"] .tuner-status { color: var(--ok); }
+.tuner[data-state="idle"] .tuner-status,
+.tuner[data-state="asking"] .tuner-status,
+.tuner[data-state="problem"] .tuner-status { font-size: 16px; font-weight: 500; }
+
+/* The gauge: track, the ±5 cent zone, the bar from the middle to the
+   reading, ticks every 10 cents, the needle. */
+.tuner-meter { width: 100%; max-width: 420px; margin-top: 18px; }
+.tuner-gauge { display: block; width: 100%; height: auto; overflow: hidden; }
+.tg-track { fill: none; stroke: var(--raised); stroke-width: 12; stroke-linecap: round; }
+.tg-zone { fill: none; stroke: var(--ok); stroke-opacity: 0.35; stroke-width: 12; transition: stroke-opacity 150ms ease-out; }
+.tg-dev { fill: none; stroke: var(--warn); stroke-width: 12; stroke-dasharray: 0 100; }
+.tg-tick { stroke: var(--control); stroke-width: 2; stroke-linecap: round; }
+.tg-tick-0 { stroke: var(--muted); stroke-width: 3; }
+.tg-needle line { stroke: var(--text); stroke-width: 5; stroke-linecap: round; transition: stroke 150ms ease-out; }
+.tuner[data-state="tuned"] .tg-zone { stroke-opacity: 1; }
+.tuner[data-state="tuned"] .tg-dev, .tuner[data-state="tuned"] .tg-needle line { stroke: var(--ok); }
+.tuner[data-state="idle"] .tg-needle line,
+.tuner[data-state="asking"] .tg-needle line { stroke: var(--control); }
+
+.tuner-scale {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  margin-top: 4px; padding: 0 2px; font-size: 13px; color: var(--faint);
+}
+.tuner-detail { font-size: 15px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.tuner-problem { max-width: 340px; margin-top: 18px; }
+.tuner-problem-title { font-size: 20px; font-weight: 600; color: var(--danger); }
+.tuner-problem-text { margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--muted); }
+.tuner-retry { margin-top: 16px; }
+
+/* Bottom: instrument, Auto, the strings - all in thumb reach. */
+.tuner-dock {
+  display: flex; flex-direction: column; gap: 12px;
+  width: 100%; max-width: 560px; margin: 0 auto; padding: 12px var(--pad) 16px;
+}
+.tuner-controls { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.tuner-auto {
+  height: 44px; padding: 0 18px; border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--muted); font-weight: 600;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+.tuner-auto[aria-pressed="true"] { background: var(--text); color: var(--ground); }
+
+.tuner-strings { display: flex; justify-content: center; gap: 8px; }
+.tuner-str {
+  position: relative; flex: 1 1 0; max-width: 80px; height: 64px; border-radius: 14px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  background: var(--surface); color: var(--text);
+  transition: background-color 150ms ease-out, color 150ms ease-out, box-shadow 150ms ease-out, transform 120ms ease-out;
+}
+.tuner-str:active { background: var(--press); transform: scale(0.97); }
+.tuner-str-name { font-size: 19px; font-weight: 700; line-height: 1; }
+.tuner-str-n { font-size: 12px; font-weight: 500; line-height: 1; color: var(--faint); }
+/* An inner ring for the string being heard, not elevation. taste-skill-ignore */
+.tuner-str.is-on { box-shadow: inset 0 0 0 2px var(--warn); } /* taste-skill-ignore */
+.tuner-str.is-tuned-now { box-shadow: inset 0 0 0 2px var(--ok); } /* taste-skill-ignore */
+.tuner-str[aria-pressed="true"] { background: var(--text); color: var(--ground); }
+.tuner-str[aria-pressed="true"] .tuner-str-n { color: var(--control); }
+.tuner-str-tick {
+  position: absolute; top: 5px; right: 5px;
+  width: 18px; height: 18px; border-radius: 50%;
+  display: none; place-items: center;
+  background: var(--ok); color: var(--ground);
+}
+.tuner-str-tick .icon { width: 12px; height: 12px; stroke-width: 3; }
+.tuner-str.is-done .tuner-str-tick { display: grid; }
+
+.tuner-hint { min-height: 18px; font-size: 13px; line-height: 1.35; text-align: center; color: var(--faint); }
+.tuner-finished { display: flex; flex-direction: column; gap: 10px; }
+.tuner-finished p { display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; color: var(--ok); }
+.tuner-finished .btn { width: 100%; }
+
+/* Short phones: the letter gives way first. */
+@media (max-height: 700px) {
+  .tuner-note { height: 104px; }
+  .tuner-letter { font-size: 96px; }
+  .tuner-meter { max-width: 340px; margin-top: 10px; }
 }
 
-.tuner-status.tuned {
-  color: var(--success);
+/* A phone on its side: the reading left, the strings right. */
+@media (orientation: landscape) and (max-height: 540px) {
+  .tuner[open] { display: grid; grid-template-columns: 1fr minmax(300px, 44%); grid-template-rows: auto 1fr; }
+  .tuner-head { grid-column: 1 / -1; min-height: 52px; }
+  .tuner-stage { padding-top: 0; }
+  .tuner-dock { align-self: center; }
+  .tuner-note { height: 84px; }
+  .tuner-letter { font-size: 80px; }
+  .tuner-meter { max-width: 320px; margin-top: 6px; }
 }
 
-.tuner-status.off {
-  color: var(--accent);
-}
-
-/* Needle meter */
-.tuner-meter {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.tuner-meter-scale {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-
-.tuner-meter-track {
-  position: relative;
-  height: 48px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-
-.tuner-meter-zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 45%;
-  width: 10%;
-  background: rgba(63, 191, 111, 0.16);
-  border-left: 1px solid rgba(63, 191, 111, 0.4);
-  border-right: 1px solid rgba(63, 191, 111, 0.4);
-}
-
-.tuner-meter-center {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  margin-left: -1px;
-  background: var(--success);
-  opacity: 0.7;
-}
-
-.tuner-meter-needle {
-  position: absolute;
-  top: 5px;
-  bottom: 5px;
-  left: 50%;
-  width: 4px;
-  margin-left: -2px;
-  border-radius: 2px;
-  background: var(--accent);
-  transition: left 0.08s linear, background 0.15s;
-}
-
-.tuner-meter-needle.tuned {
-  background: var(--success);
-}
-
-.tuner-cents {
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-  min-height: 1.1rem;
-}
-
-/* String chips */
-.tuner-strings {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tuner-string {
-  min-width: 54px;
-  padding: 0.65rem 0.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.12s;
-}
-
-.tuner-string small {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  vertical-align: super;
-  margin-left: 1px;
-}
-
-.tuner-string:hover {
-  border-color: var(--accent);
-}
-
-.tuner-string.near {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.3);
-}
-
-.tuner-string.tuned {
-  border-color: var(--success);
-  color: var(--success);
-  box-shadow: 0 0 0 2px rgba(63, 191, 111, 0.35);
-}
-
-.tuner-string.tuned small {
-  color: var(--success);
-}
-
-/* Persistent ✓ once a string has been held in tune - distinct from the
-   transient .tuned highlight above, survives after the needle moves on. */
-.tuner-string.done {
-  position: relative;
-  border-color: var(--success);
-}
-
-.tuner-string.done::after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--success) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23160b02' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 10px no-repeat;
-}
-
-/* Chip tap = manual target lock (overrides auto-detection for a while). */
-.tuner-string.manual {
-  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.5);
-}
-
-.tuner-hint {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  line-height: 1.45;
-}
-
-.tuner-error {
-  text-align: center;
-  color: var(--danger);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-@media (max-width: 480px) {
-  .tuner-modal {
-    padding: 1rem 1rem 1.25rem;
-    gap: 0.9rem;
+@media (min-width: 900px) {
+  .tuner {
+    inset: 0; margin: auto; width: 480px; height: fit-content; max-height: 92vh;
+    padding: 0; border-radius: 24px; background: var(--surface);
   }
-
-  .tuner-note-name {
-    font-size: 4.75rem;
-  }
-
-  .tuner-note-oct {
-    font-size: 1.5rem;
-  }
-
-  .tuner-instruments button {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.9rem;
-  }
+  .tuner[data-state="tuned"] { background: var(--tuned-surface); }
+  .tuner-stage { padding-top: 12px; }
+  .tuner-str, .tuner-auto { background: var(--raised); }
+  .tuner-str:active { background: var(--press); }
 }
-

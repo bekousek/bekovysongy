@@ -55,6 +55,11 @@
     { id: 'yes', label: 'Jen s capem' },
     { id: 'no', label: 'Jen bez capa' },
   ];
+  // The plain chords (the picker's "Základní") that are played in open
+  // position. F, H, B and Hmi, Gmi, Cmi, Fmi, Bmi, B7, F7 need a barré.
+  // Am, Dm, Em are the same chords spelled the international way.
+  const OPEN_CHORDS = new Set(['C', 'D', 'E', 'G', 'A', 'Ami', 'Dmi', 'Emi', 'Am', 'Dm', 'Em',
+    'C7', 'D7', 'E7', 'G7', 'A7', 'H7']);
 
   // Restore filters after coming back from a song page when the browser
   // didn't keep this page alive in its back-forward cache.
@@ -479,6 +484,33 @@
       picked.appendChild(el('p', 'picked-empty', 'Klepni na tón a vyber akordy, které umíš. Zůstanou jen písně, které s nimi zahraješ celé.'));
     }
     body.appendChild(picked);
+
+    // One tap for a beginner: every plain chord that needs no barré on,
+    // the plain barré ones off. Picks outside the plain chords stay as they are.
+    const open = SL.chords.filter(c => OPEN_CHORDS.has(c));
+    const barre = [].concat(...families.map(f => f.basic)).filter(c => !OPEN_CHORDS.has(c));
+    const noBarre = open.length > 0 && open.every(c => state.chords.has(c)) && !barre.some(c => state.chords.has(c));
+    const preset = el('div', 'chord-preset');
+    const presetBtn = el('button', 'preset-btn');
+    presetBtn.type = 'button';
+    presetBtn.setAttribute('aria-pressed', noBarre ? 'true' : 'false');
+    presetBtn.setAttribute('aria-describedby', 'preset-note');
+    presetBtn.innerHTML = SL.icon('check', 18);
+    presetBtn.appendChild(el('span', null, 'Neumím barré'));
+    presetBtn.addEventListener('click', () => {
+      if (noBarre) open.forEach(c => state.chords.delete(c));
+      else {
+        open.forEach(c => state.chords.add(c));
+        barre.forEach(c => state.chords.delete(c));
+      }
+      renderSongs(); fillChordSheet();
+    });
+    const note = el('p', null, noBarre
+      ? 'Vybrané jsou základní akordy bez barré. Dalším klepnutím je zrušíš.'
+      : 'Vybere základní akordy, které se hrají bez barré: C, D, E, G, A, Ami, Dmi, Emi a sedmičky.');
+    note.id = 'preset-note';
+    preset.append(presetBtn, note);
+    body.appendChild(preset);
 
     const roots = el('div', 'roots');
     roots.setAttribute('role', 'tablist');

@@ -16,6 +16,8 @@ colors:
   ok-green: "#3fbf6f"
   warn-amber: "#e5a93b"
   danger-rose: "#e5566f"
+  tuned-ground: "#111a13"
+  tuned-surface: "#142017"
 typography:
   display:
     fontFamily: "Figtree, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
@@ -329,6 +331,14 @@ Jeden `<dialog>` pro všechny volby. Na mobilu vyjede zespodu (soot, zaoblení 2
 - **Lišta nástrojů:** tónina (− hodnota +) a rolování (− přehrát +) jako dvě skupiny s popiskem 11 px pod nimi, vpravo „Další“. Posunutá tónina svítí oranžově, běžící rolování je oranžové tlačítko s pauzou.
 - **Pilulky písně:** Ukázka / Oblíbit / Do večera pod názvem, soot 44 px se smoke textem, zapnuté oranžové.
 - **Opakovaný refrén:** sbalený do pilulky se značkou „R:“ a ikonou opakování (soot, 1px slate okraj); klepnutí ho rozbalí na místě.
+
+### Ladička (stránka písně)
+Celoobrazovkový `<dialog>` (`js/tuner.js`), od 900 px panel 480 px uprostřed jako sheet. Čte se z kolena, proto jediná výjimka z typové škály: **písmeno struny 128 px/700** (96 px na nízkých displejích, 80 px na šířku). Ostatní je na škále: číslo struny 17/600, stav 20/600 s ikonou, centy 15/600 tabulkovými číslicemi, nápověda 13 px.
+- **Měřák:** plochý oblouk ±50 centů s ručičkou v bone-white, která vychází zpod okraje. Od středu k ručičce roste pruh ve warn-amber, pásmo ±5 centů je ok-green. Pod obloukem „nízko“ a „vysoko“.
+- **Stavy:** jantarová = „ještě ne“ (Nízko, utáhni / Vysoko, povol, s šipkou), zelená = Naladěno. Při naladění dostane celá plocha zelený nádech (`--tuned-ground` #111a13, na desktopu `--tuned-surface` #142017), aby to bylo vidět přes místnost. Bez signálu zůstane poslední čtení ztlumené na 45 %. Barva vždy s textem.
+- **Struny:** dlaždice 64 px (soot, na desktopu ash), název 19/700 a číslo struny 12 px. Slyšená struna má vnitřní 2px prstenec v barvě stavu, připnutá (klepnutím) je bone-white plocha, naladěná má zelený odznak s fajfkou. Nad nimi segment Kytara/Ukulele a přepínač Auto.
+- **Chyba mikrofonu:** místo měřáku nadpis v danger-rose, jedna věta, co udělat, a quiet tlačítko Zkusit znovu. Tóny strun fungují dál, ladí se podle sluchu.
+- Tokeny `--tuned-*` žijí jen v `css/style.css`, ladička na seznamu není.
 
 ### Toast
 Ash, zaoblení 16 px, 600/15 px, max. šířka obrazovky minus 32 px, zalamuje se. Nad spodní lištou, mizí po 1.6–2.6 s.
