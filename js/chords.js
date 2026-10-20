@@ -1,324 +1,581 @@
 /**
- * chords.js - SVG chord diagrams + tooltip on hover/tap
+ * chords.js - fingering diagrams for the song pages. js/player.js asks for
+ * one by the name it shows (after transposition, so C#, D#, G#, B = B-flat,
+ * H = B) for the chord bar's pop-up and the row of all the song's chords.
  *
- * Chord data format:
- *   frets: [E,A,D,G,B,e] - 0=open, -1=muted, 1+=fret number
- *   baseFret: starting fret (1 = nut position)
+ * The voicings come from chords-db (github.com/tombatossals/chords-db, MIT,
+ * v0.5.1, lib/guitar.json). scripts/build-chord-diagrams.js picks them and
+ * plays every one through string by string: a voicing gets in only if it
+ * sounds exactly the chord's tones, with the root (or a slash chord's bass)
+ * lowest. The tables between the GENERATED markers are that script's output;
+ * rerun it rather than editing them. What chords-db lacks (power chords,
+ * most slash chords) is built from its voicings by the same rules and has
+ * to pass the same check.
+ *
+ * Browser: window.ChordDiagrams. Node: module.exports (tests, the script).
  */
 (function () {
   'use strict';
 
-  // Chord definitions
-  // Czech notation: H = international B, B = international Bb
-  const CHORD_DB = {
-    // === Major ===
-    'C':      { frets: [0, 3, 2, 0, 1, 0], baseFret: 1 },
-    'D':      { frets: [-1, -1, 0, 2, 3, 2], baseFret: 1 },
-    'E':      { frets: [0, 2, 2, 1, 0, 0], baseFret: 1 },
-    'F':      { frets: [1, 3, 3, 2, 1, 1], baseFret: 1, barres: [1] },
-    'G':      { frets: [3, 2, 0, 0, 0, 3], baseFret: 1 },
-    'A':      { frets: [-1, 0, 2, 2, 2, 0], baseFret: 1 },
-    'H':      { frets: [-1, 2, 4, 4, 4, 2], baseFret: 1, barres: [2] },
-    'B':      { frets: [-1, 1, 3, 3, 3, 1], baseFret: 1, barres: [1] },
+  // Pitch classes, C = 0. Czech: B is B-flat, H is B (as in chord-theory.js).
+  const NOTE_PC = {
+    C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, Fb: 4, F: 5, 'F#': 6, Gb: 6,
+    G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, B: 10, Bb: 10, H: 11, Cb: 11,
+  };
+  // Standard tuning as MIDI notes, low E first (the order of every frets array).
+  const STRINGS = [40, 45, 50, 55, 59, 64];
 
-    // === Minor ===
-    'Ami':    { frets: [-1, 0, 2, 2, 1, 0], baseFret: 1 },
-    'Am':     { frets: [-1, 0, 2, 2, 1, 0], baseFret: 1 },
-    'Dmi':    { frets: [-1, -1, 0, 2, 3, 1], baseFret: 1 },
-    'Dm':     { frets: [-1, -1, 0, 2, 3, 1], baseFret: 1 },
-    'Emi':    { frets: [0, 2, 2, 0, 0, 0], baseFret: 1 },
-    'Em':     { frets: [0, 2, 2, 0, 0, 0], baseFret: 1 },
-    'Fmi':    { frets: [1, 3, 3, 1, 1, 1], baseFret: 1, barres: [1] },
-    'F#mi':   { frets: [2, 4, 4, 2, 2, 2], baseFret: 1, barres: [2] },
-    'F#m':    { frets: [2, 4, 4, 2, 2, 2], baseFret: 1, barres: [2] },
-    'Gmi':    { frets: [3, 5, 5, 3, 3, 3], baseFret: 1, barres: [3] },
-    'G#mi':   { frets: [4, 6, 6, 4, 4, 4], baseFret: 1, barres: [4] },
-    'Hmi':    { frets: [-1, 2, 4, 4, 3, 2], baseFret: 1, barres: [2] },
-    'Cmi':    { frets: [-1, 3, 5, 5, 4, 3], baseFret: 1, barres: [3] },
-    'C#mi':   { frets: [-1, 4, 6, 6, 5, 4], baseFret: 1, barres: [4] },
-    'C#m':    { frets: [-1, 4, 6, 6, 5, 4], baseFret: 1, barres: [4] },
-    'D#mi':   { frets: [-1, 6, 8, 8, 7, 6], baseFret: 1, barres: [6] },
-
-    // === 7th ===
-    'C7':     { frets: [0, 3, 2, 3, 1, 0], baseFret: 1 },
-    'D7':     { frets: [-1, -1, 0, 2, 1, 2], baseFret: 1 },
-    'E7':     { frets: [0, 2, 0, 1, 0, 0], baseFret: 1 },
-    'F7':     { frets: [1, 3, 1, 2, 1, 1], baseFret: 1, barres: [1] },
-    'G7':     { frets: [3, 2, 0, 0, 0, 1], baseFret: 1 },
-    'A7':     { frets: [-1, 0, 2, 0, 2, 0], baseFret: 1 },
-    'H7':     { frets: [-1, 2, 1, 2, 0, 2], baseFret: 1 },
-    'B7':     { frets: [-1, 1, 3, 1, 3, 1], baseFret: 1, barres: [1] },
-
-    // === Minor 7th ===
-    'Ami7':   { frets: [-1, 0, 2, 0, 1, 0], baseFret: 1 },
-    'Emi7':   { frets: [0, 2, 0, 0, 0, 0], baseFret: 1 },
-    'Dmi7':   { frets: [-1, -1, 0, 2, 1, 1], baseFret: 1 },
-    'Gmi7':   { frets: [3, 5, 3, 3, 3, 3], baseFret: 1, barres: [3] },
-
-    // === Maj7 ===
-    'Cmaj7':  { frets: [0, 3, 2, 0, 0, 0], baseFret: 1 },
-    'Fmaj7':  { frets: [-1, -1, 3, 2, 1, 0], baseFret: 1 },
-    'Gmaj7':  { frets: [3, 2, 0, 0, 0, 2], baseFret: 1 },
-    'Cmaj':   { frets: [0, 3, 2, 0, 0, 0], baseFret: 1 },
-
-    // === Sus ===
-    'Asus2':  { frets: [-1, 0, 2, 2, 0, 0], baseFret: 1 },
-    'Asus4':  { frets: [-1, 0, 2, 2, 3, 0], baseFret: 1 },
-    'Dsus2':  { frets: [-1, -1, 0, 2, 3, 0], baseFret: 1 },
-    'Dsus4':  { frets: [-1, -1, 0, 2, 3, 3], baseFret: 1 },
-    'Esus4':  { frets: [0, 2, 2, 2, 0, 0], baseFret: 1 },
-    'Gsus4':  { frets: [3, 3, 0, 0, 1, 3], baseFret: 1 },
-
-    // === Add ===
-    'Cadd9':  { frets: [0, 3, 2, 0, 3, 0], baseFret: 1 },
-    'Fadd9':  { frets: [-1, -1, 3, 2, 1, 3], baseFret: 1 },
-
-    // === Dim ===
-    'Cdim':   { frets: [-1, 3, 4, 2, 4, 2], baseFret: 1 },
-    'C#dim':  { frets: [-1, 4, 5, 3, 5, 3], baseFret: 1 },
-    'Fdim':   { frets: [-1, -1, 3, 1, 0, 1], baseFret: 1 },
-    'F#dim':  { frets: [-1, -1, 4, 2, 1, 2], baseFret: 1 },
-    'Gdim':   { frets: [-1, -1, 5, 3, 2, 3], baseFret: 1 },
-
-    // === Augmented / Other ===
-    'Ami6':   { frets: [-1, 0, 2, 2, 1, 2], baseFret: 1 },
-    'F#':     { frets: [2, 4, 4, 3, 2, 2], baseFret: 1, barres: [2] },
-    'F#6':    { frets: [-1, -1, 4, 3, 4, 2], baseFret: 1 },
-    'F6':     { frets: [-1, -1, 3, 2, 3, 1], baseFret: 1 },
-    'G6':     { frets: [3, 2, 0, 0, 0, 0], baseFret: 1 },
-    'C#':     { frets: [-1, -1, 3, 1, 2, 1], baseFret: 1 },
-    'Eb':     { frets: [-1, -1, 1, 3, 4, 3], baseFret: 1 },
-    'Ab7':    { frets: [-1, -1, 1, 1, 1, 2], baseFret: 4 },
-    'A2':     { frets: [-1, 0, 2, 2, 0, 0], baseFret: 1 },  // same as Asus2
-
-    // === Movable barre shapes for roots not covered above ===
-    // E-shape and A-shape barres, each verified note-by-note against the
-    // chord's actual tones (not just pattern-copied) before being added here.
-    'G#':     { frets: [4, 6, 6, 5, 4, 4], baseFret: 1, barres: [4] },
-    'Ab':     { frets: [4, 6, 6, 5, 4, 4], baseFret: 1, barres: [4] },  // = G#
-    'Db':     { frets: [-1, -1, 3, 1, 2, 1], baseFret: 1 },  // = C#
-    'Gb':     { frets: [2, 4, 4, 3, 2, 2], baseFret: 1, barres: [2] },  // = F#
-    'D#':     { frets: [-1, -1, 1, 3, 4, 3], baseFret: 1 },  // = Eb
-    'Bmi':    { frets: [-1, 1, 3, 3, 2, 1], baseFret: 1, barres: [1] },
-    'Ebmi':   { frets: [-1, 6, 8, 8, 7, 6], baseFret: 1, barres: [6] },
-    'C#7':    { frets: [-1, 4, 6, 4, 6, 4], baseFret: 1, barres: [4] },
-    'F#7':    { frets: [2, 4, 2, 3, 2, 2], baseFret: 1, barres: [2] },
-    'C#mi7':  { frets: [-1, 4, 6, 4, 5, 4], baseFret: 1, barres: [4] },
-    'D#mi7':  { frets: [-1, 6, 8, 6, 7, 6], baseFret: 1, barres: [6] },
-    'Hmi7':   { frets: [-1, 2, 4, 2, 3, 2], baseFret: 1, barres: [2] },
+  // Chord qualities as semitones above the root. A plain fifth (7) may be
+  // left out of a voicing, every other tone has to sound.
+  const QUALITIES = {
+    maj: [0, 4, 7],
+    min: [0, 3, 7],
+    7: [0, 4, 7, 10],
+    m7: [0, 3, 7, 10],
+    maj7: [0, 4, 7, 11],
+    6: [0, 4, 7, 9],
+    m6: [0, 3, 7, 9],
+    sus2: [0, 2, 7],
+    sus4: [0, 5, 7],
+    '7sus4': [0, 5, 7, 10],
+    add9: [0, 2, 4, 7],
+    9: [0, 2, 4, 7, 10],
+    m9: [0, 2, 3, 7, 10],
+    '7b9': [0, 1, 4, 7, 10],
+    dim7: [0, 3, 6, 9],
+    m7b5: [0, 3, 6, 10],
+    aug: [0, 4, 8],
+    aug7: [0, 4, 8, 10],
+    5: [0, 7],
   };
 
-  /**
-   * Render SVG chord diagram
-   */
-  function renderChordSVG(chordName) {
-    const chord = CHORD_DB[chordName];
-    if (!chord) return null;
+  // How the songs write each quality. "dim" is played as the four-note
+  // diminished chord, as Czech songbooks mean it. "7+" is the augmented
+  // seventh (D7+ resolves to G in Život je jen náhoda), "Emi7+g" is how one
+  // song writes Emi7.
+  const SUFFIXES = {
+    '': 'maj', maj: 'maj', dur: 'maj',
+    mi: 'min', m: 'min', min: 'min', moll: 'min',
+    7: '7',
+    mi7: 'm7', m7: 'm7', 'mi7+g': 'm7',
+    maj7: 'maj7', '7maj': 'maj7', M7: 'maj7',
+    6: '6', mi6: 'm6', m6: 'm6',
+    sus2: 'sus2', 2: 'sus2',
+    sus4: 'sus4', sus: 'sus4', '4sus': 'sus4', 4: 'sus4',
+    '7sus4': '7sus4', '7sus': '7sus4', '7/4': '7sus4',
+    add9: 'add9', 9: '9', mi9: 'm9', m9: 'm9', '7b9': '7b9', '7/9-': '7b9',
+    dim: 'dim7', dim7: 'dim7', '°': 'dim7',
+    'mi7/5-': 'm7b5', mi7b5: 'm7b5', m7b5: 'm7b5',
+    aug: 'aug', '+': 'aug', '5+': 'aug',
+    '7+': 'aug7', '7/5+': 'aug7', '7#5': 'aug7', aug7: 'aug7',
+    5: '5',
+  };
 
-    const { frets, baseFret, barres } = chord;
-    const W = 80;
-    const H = 100;
-    const padTop = 18;
-    const padLeft = 16;
-    const padRight = 8;
-    const stringSpacing = (W - padLeft - padRight) / 5;
-    const fretSpacing = (H - padTop - 10) / 4;
-    const dotRadius = 4;
+  // Voicings are written low E first: "x" for a muted string, then the
+  // fret, after "|" the frets held down by a barre. "1,3,3,2,1,1|1" is F.
+  // ==== GENERATED by scripts/build-chord-diagrams.js - do not edit by hand ====
+  const VOICINGS = {
+    "5": ["x,3,5,5,x,x", "x,4,6,6,x,x", "x,5,7,7,x,x", "x,6,8,8,x,x", "0,2,2,x,x,x", "1,3,3,x,x,x", "2,4,4,x,x,x", "3,5,5,x,x,x", "4,6,6,x,x,x", "x,0,2,2,x,x", "x,1,3,3,x,x", "x,2,4,4,x,x"],
+    "6": ["x,3,2,2,1,0", "x,4,3,3,2,x", "x,x,0,2,0,2", "x,x,1,3,1,3|1", "0,2,2,1,2,0", "x,x,3,2,3,1", "2,x,1,3,2,x", "3,2,0,0,0,0", "4,x,3,5,4,x", "x,0,2,2,2,2|2", "x,1,3,3,3,3|3", "x,2,1,1,0,x"],
+    "7": ["x,3,2,3,1,0", "x,4,6,4,6,4|4", "x,x,0,2,1,2", "x,x,1,3,2,3", "0,2,0,1,0,0", "1,3,1,2,1,1|1", "2,4,2,3,2,2|2", "3,2,0,0,0,1", "4,6,4,5,4,4|4", "x,0,2,0,2,0", "x,1,3,1,3,1|1", "x,2,1,2,0,2"],
+    "9": ["x,3,2,3,3,3|3", "x,4,3,4,4,4|4", "x,5,4,5,5,5|5", "x,x,1,0,2,1", "0,2,0,1,0,2", "1,3,1,2,1,3|1", "2,4,2,3,2,4|2", "3,0,0,0,0,1", "4,3,4,3,4,x|3", "5,4,2,0,0,0", "x,1,0,1,1,1", "x,2,1,2,2,2|2"],
+    "maj": ["x,3,2,0,1,0", "x,4,6,6,6,4|4", "x,x,0,2,3,2", "x,x,1,3,4,3", "0,2,2,1,0,0", "1,3,3,2,1,1|1", "2,4,4,3,2,2|2", "3,2,0,0,0,3", "4,6,6,5,4,4|4", "x,0,2,2,2,0", "x,1,3,3,3,1|1", "x,2,4,4,4,2|2"],
+    "min": ["x,3,5,5,4,3|3", "x,4,6,6,5,4|4", "x,x,0,2,3,1", "x,x,1,3,4,2", "0,2,2,0,0,0", "1,3,3,1,1,1|1", "2,4,4,2,2,2|2", "3,5,5,3,3,3|3", "4,6,6,4,4,4|4", "x,0,2,2,1,0", "x,1,3,3,2,1|1", "x,2,4,4,3,2|2"],
+    "m7": ["x,3,5,3,4,3|3", "x,4,6,4,5,4|4", "x,x,0,2,1,1", "x,x,1,3,2,2", "0,2,0,0,0,0", "1,3,1,1,1,1|1", "2,4,2,2,2,2|2", "3,5,3,3,3,3|3", "4,6,4,4,4,4|4", "x,0,2,0,1,0", "x,1,3,1,2,1|1", "x,2,4,2,3,2|2"],
+    "maj7": ["x,3,2,0,0,0", "x,4,6,5,6,4|4", "x,x,0,2,2,2|2", "x,x,1,3,3,3|3", "0,2,1,1,0,0", "x,x,3,2,1,0", "2,4,3,3,2,2|2", "3,2,0,0,0,2", "4,6,5,5,4,4|4", "x,0,2,1,2,0", "x,1,3,2,3,1|1", "x,2,4,3,4,2|2"],
+    "m6": ["x,3,1,2,1,3|1", "x,4,2,3,2,4|2", "x,x,0,2,0,1", "x,x,1,3,1,2|1", "0,2,2,0,2,0", "1,x,0,1,1,1", "2,x,1,2,2,2|2", "3,x,2,3,3,3|3", "4,x,3,4,4,x", "x,0,2,2,1,2", "x,1,3,x,2,3", "x,2,0,1,0,2"],
+    "sus2": ["x,3,0,0,1,3", "x,4,6,6,4,4|4", "x,x,0,2,3,0", "x,x,1,3,4,1|1", "x,x,2,4,5,2|2", "x,x,3,5,6,3|3", "2,x,x,1,2,2", "3,0,0,0,3,3", "4,x,x,3,4,4", "x,0,2,2,0,0", "x,1,3,3,1,1|1", "x,2,4,4,2,2|2"],
+    "sus4": ["x,3,3,0,1,1|1", "x,4,4,1,2,x", "x,x,0,2,3,3", "x,x,1,3,4,4", "0,2,2,2,0,0", "1,3,3,3,1,1|1", "2,4,4,4,2,2|2", "3,3,0,0,1,3", "4,6,6,6,4,4|4", "x,0,2,2,3,0", "x,1,3,3,4,1|1", "x,2,4,4,5,2|2"],
+    "7sus4": ["x,3,3,3,1,1|1", "x,4,4,4,2,2|2", "x,x,0,2,1,3", "x,x,1,3,2,4", "0,2,0,2,0,0", "1,3,1,3,1,1|1", "2,4,2,4,2,2|2", "3,3,0,0,1,1|1", "4,6,4,6,4,4|4", "x,0,2,0,3,0", "x,1,3,1,4,1|1", "x,2,2,2,0,0"],
+    "add9": ["x,3,2,0,3,0", "x,4,3,1,4,1|1", "x,5,4,2,5,2|2", "x,6,5,3,6,3|3", "0,2,2,1,0,2", "x,x,3,2,1,3", "2,1,x,1,2,2|2", "3,0,0,2,0,3", "4,3,x,3,4,x", "x,0,2,4,2,0", "x,1,0,3,1,1", "x,2,1,x,2,2"],
+    "m9": ["x,3,1,3,3,3|3", "x,4,2,4,4,4|4", "x,5,3,5,5,5|5", "x,6,4,6,6,6|6", "0,2,0,0,0,2", "1,3,1,1,1,3|1", "2,0,2,1,2,0", "3,0,0,3,3,1", "4,1,1,1,0,2|1", "x,0,2,4,1,3", "6,8,6,6,6,8|6", "x,2,0,2,2,2"],
+    "7b9": ["x,3,2,3,2,3|2", "x,4,3,4,3,4|3", "x,x,0,5,4,2", "x,x,1,0,2,0", "0,2,0,1,0,1", "1,3,1,2,1,2|1", "2,1,2,0,2,0", "3,2,0,1,3,1|1", "x,x,6,5,7,5|5", "x,0,2,3,2,3|2", "x,1,0,1,0,1", "x,2,1,2,1,2|1"],
+    "dim7": ["x,3,4,2,4,2|2", "x,4,5,3,5,3|3", "x,x,0,1,0,1", "x,x,1,2,1,2", "0,1,2,0,2,0", "1,x,0,1,0,1", "2,x,1,2,1,x|1", "3,1,x,3,2,0", "4,x,3,4,3,4|3", "x,0,1,2,1,2", "x,1,2,0,2,0", "x,2,3,1,3,1|1"],
+    "m7b5": ["x,3,4,3,4,x", "x,4,5,4,5,x", "x,x,0,1,1,1|1", "x,x,1,2,2,2|2", "0,1,2,3,3,3|3", "1,x,1,1,0,x", "2,0,2,2,1,0", "3,x,x,3,2,1", "4,x,4,4,3,x", "x,0,1,0,1,x", "x,1,2,1,2,x", "x,2,3,2,3,x"],
+    "aug": ["x,3,2,1,1,x|1", "9,8,7,6,6,x|6", "x,x,0,3,3,2", "x,6,5,4,4,x|4", "0,3,2,1,1,0", "x,x,3,2,2,1", "x,x,4,3,3,2", "3,2,1,0,0,x", "4,3,2,1,1,x|1", "x,0,3,2,2,1", "x,1,4,3,3,x", "x,2,1,0,0,x"],
+    "aug7": ["x,3,2,3,x,4", "x,4,3,2,0,1", "x,x,0,3,1,2", "x,x,1,4,2,3", "0,3,0,1,1,0", "1,0,1,2,2,x", "2,x,2,3,3,x", "3,2,1,0,0,1", "4,x,4,5,5,0", "x,0,3,0,2,1", "x,1,4,1,3,2|1", "x,2,1,2,0,3"],
+  };
+  // "quality root bass" (pitch classes, C = 0) -> voicing
+  const SLASH = {
+    "7 0 4": "0,3,2,3,1,0",
+    "7 1 5": "1,2,3,1,2,1|1",
+    "7 2 6": "2,x,0,2,1,2",
+    "7 3 7": "3,1,1,0,2,3|1",
+    "7 4 8": "4,2,0,1,0,0",
+    "7 5 9": "x,0,1,2,1,1|1",
+    "7 6 10": "x,1,2,3,2,2|2",
+    "7 7 11": "x,2,0,0,0,1",
+    "7 8 0": "x,3,4,5,4,4|4",
+    "7 9 1": "x,4,2,2,2,3|2",
+    "7 10 2": "x,x,0,3,3,4",
+    "7 11 3": "x,x,1,2,0,2",
+    "9 0 4": "0,3,2,3,3,3|3",
+    "9 1 5": "1,4,3,4,4,4|4",
+    "9 2 6": "2,0,0,2,1,0",
+    "9 3 7": "3,x,1,0,2,1",
+    "9 4 8": "4,2,2,4,3,2|2",
+    "9 5 9": "x,0,1,0,1,1",
+    "9 6 10": "x,1,2,1,2,2|1",
+    "9 7 11": "x,2,3,2,0,3",
+    "9 8 0": "x,3,4,3,4,4|3",
+    "9 9 1": "x,4,2,2,0,3",
+    "9 10 2": "x,x,0,3,1,4",
+    "9 11 3": "x,6,4,6,0,5",
+    "maj 0 1": "x,4,2,0,1,0",
+    "maj 0 2": "x,x,0,0,1,0",
+    "maj 0 3": "x,x,1,0,1,0",
+    "maj 0 4": "0,3,2,0,1,0",
+    "maj 0 5": "1,3,2,0,1,0",
+    "maj 0 7": "3,3,2,0,1,0",
+    "maj 0 9": "x,0,2,0,1,0",
+    "maj 0 10": "x,1,2,0,1,0",
+    "maj 0 11": "x,2,2,0,1,0",
+    "maj 1 0": "x,3,3,1,2,1|1",
+    "maj 1 2": "x,x,0,1,2,1",
+    "maj 1 3": "x,x,1,1,2,1",
+    "maj 1 4": "x,x,2,1,2,1",
+    "maj 1 5": "1,4,3,1,2,1|1",
+    "maj 1 6": "x,x,4,6,6,4|4",
+    "maj 1 8": "4,4,6,6,6,4|4",
+    "maj 1 10": "x,1,3,1,2,1|1",
+    "maj 1 11": "x,2,3,1,2,1|1",
+    "maj 2 0": "x,3,0,2,3,2",
+    "maj 2 1": "x,4,0,2,3,2",
+    "maj 2 3": "x,x,1,2,3,2",
+    "maj 2 4": "0,x,0,2,3,2",
+    "maj 2 5": "1,x,0,2,3,2",
+    "maj 2 6": "2,x,0,2,3,2",
+    "maj 2 7": "3,x,0,2,3,2",
+    "maj 2 9": "x,0,0,2,3,2",
+    "maj 2 11": "x,2,0,2,3,2",
+    "maj 3 0": "x,3,1,0,1,3",
+    "maj 3 1": "x,4,1,0,2,3",
+    "maj 3 2": "x,x,0,3,4,3",
+    "maj 3 4": "0,1,1,0,x,x",
+    "maj 3 5": "1,1,1,0,x,x",
+    "maj 3 6": "x,x,4,3,4,3",
+    "maj 3 7": "3,1,1,0,x,x",
+    "maj 3 8": "4,1,1,0,4,3|1",
+    "maj 3 10": "x,1,1,3,4,3|1",
+    "maj 4 1": "x,4,2,1,0,0",
+    "maj 4 2": "x,x,0,1,0,0",
+    "maj 4 3": "x,x,1,1,0,0",
+    "maj 4 5": "1,2,2,1,0,0",
+    "maj 4 6": "2,2,2,1,0,0",
+    "maj 4 7": "3,2,2,1,0,0",
+    "maj 4 8": "4,2,2,1,0,0",
+    "maj 4 9": "x,0,2,1,0,0",
+    "maj 4 11": "x,2,2,1,0,0",
+    "maj 5 0": "x,3,3,2,1,1|1",
+    "maj 5 2": "x,x,0,2,1,1|1",
+    "maj 5 3": "x,x,1,2,1,1|1",
+    "maj 5 4": "0,3,3,2,1,1|1",
+    "maj 5 6": "x,x,4,2,1,1|1",
+    "maj 5 7": "3,0,3,0,1,1",
+    "maj 5 8": "4,0,3,1,1,1|1",
+    "maj 5 9": "x,0,3,2,1,1|1",
+    "maj 5 10": "x,1,3,2,1,1|1",
+    "maj 6 1": "x,4,4,3,2,2|2",
+    "maj 6 3": "x,x,1,3,2,2|2",
+    "maj 6 4": "0,4,4,3,2,2|2",
+    "maj 6 5": "x,x,3,3,2,2|2",
+    "maj 6 7": "x,x,5,3,2,2|2",
+    "maj 6 8": "4,1,4,1,2,x|1",
+    "maj 6 9": "x,0,4,3,2,2|2",
+    "maj 6 10": "x,1,4,3,2,2|2",
+    "maj 6 11": "x,2,4,3,2,2|2",
+    "maj 7 0": "x,3,0,0,0,3",
+    "maj 7 2": "x,x,0,0,0,3",
+    "maj 7 4": "0,2,0,0,0,3",
+    "maj 7 5": "1,2,0,0,0,3",
+    "maj 7 6": "2,2,0,0,0,3",
+    "maj 7 8": "4,2,0,0,0,3",
+    "maj 7 9": "x,0,0,0,0,3",
+    "maj 7 10": "x,1,0,0,0,3",
+    "maj 7 11": "x,2,0,0,0,3",
+    "maj 8 0": "x,3,1,1,1,x",
+    "maj 8 1": "x,4,6,5,4,4|4",
+    "maj 8 3": "x,6,6,5,4,4|4",
+    "maj 8 5": "1,3,1,1,1,1|1",
+    "maj 8 6": "2,3,1,1,1,2|1",
+    "maj 8 7": "3,3,1,1,1,3|1",
+    "maj 8 9": "x,0,1,1,1,x",
+    "maj 8 10": "x,1,1,1,1,x",
+    "maj 8 11": "x,2,1,1,1,x",
+    "maj 9 0": "x,3,2,2,2,0",
+    "maj 9 1": "x,4,2,2,2,0",
+    "maj 9 2": "x,x,0,2,2,0",
+    "maj 9 4": "0,0,2,2,2,0",
+    "maj 9 6": "2,0,2,2,2,0",
+    "maj 9 7": "3,0,2,2,2,0",
+    "maj 9 8": "4,0,2,2,2,0",
+    "maj 9 10": "x,1,2,2,2,0",
+    "maj 9 11": "x,2,2,2,2,0",
+    "maj 10 0": "x,3,0,3,1,1",
+    "maj 10 1": "x,4,0,3,2,1",
+    "maj 10 2": "x,x,0,3,3,1",
+    "maj 10 3": "x,x,1,3,3,1|1",
+    "maj 10 5": "1,1,3,3,3,1|1",
+    "maj 10 7": "3,1,0,0,3,1",
+    "maj 10 8": "4,1,0,1,3,1|1",
+    "maj 10 9": "x,0,3,3,3,1",
+    "maj 10 11": "x,2,0,3,0,1",
+    "maj 11 0": "x,3,1,4,0,2",
+    "maj 11 1": "x,4,1,4,0,2",
+    "maj 11 2": "x,x,0,4,4,2",
+    "maj 11 3": "x,x,1,4,4,2",
+    "maj 11 4": "0,2,4,4,4,2|2",
+    "maj 11 6": "2,2,4,4,4,2|2",
+    "maj 11 8": "4,2,1,1,0,2|1",
+    "maj 11 9": "x,0,4,4,4,2",
+    "maj 11 10": "x,1,1,3,0,2",
+    "min 0 3": "x,x,1,0,1,3",
+    "min 0 5": "1,x,1,0,1,1",
+    "min 0 7": "3,3,5,5,4,3|3",
+    "min 0 9": "x,0,1,0,1,x",
+    "min 0 10": "x,1,1,0,1,x",
+    "min 0 11": "x,2,1,0,1,x",
+    "min 1 0": "x,3,2,1,2,0",
+    "min 1 4": "x,x,2,1,2,0",
+    "min 1 6": "2,x,2,1,2,0",
+    "min 1 8": "4,4,6,6,5,4|4",
+    "min 1 10": "x,1,2,1,2,0",
+    "min 1 11": "x,2,2,1,2,0",
+    "min 2 0": "x,3,0,2,3,1",
+    "min 2 1": "x,4,0,2,3,1",
+    "min 2 5": "1,x,0,2,3,1",
+    "min 2 7": "3,x,0,2,3,1",
+    "min 2 9": "x,0,0,2,3,1",
+    "min 2 11": "x,2,0,2,3,1",
+    "min 3 0": "x,3,1,3,1,2|1",
+    "min 3 1": "x,4,4,3,4,x",
+    "min 3 2": "x,x,0,3,4,2",
+    "min 3 6": "x,x,4,3,4,2",
+    "min 3 8": "4,1,1,1,4,2|1",
+    "min 3 10": "x,1,1,3,4,2|1",
+    "min 4 1": "x,4,2,0,0,0",
+    "min 4 2": "x,x,0,0,0,0",
+    "min 4 3": "x,x,1,0,0,0",
+    "min 4 7": "3,2,2,0,0,0",
+    "min 4 9": "x,0,2,0,0,0",
+    "min 4 11": "x,2,2,0,0,0",
+    "min 5 0": "x,3,3,1,1,1|1",
+    "min 5 2": "x,x,0,1,1,1|1",
+    "min 5 3": "x,x,1,1,1,1|1",
+    "min 5 4": "0,3,3,1,1,1|1",
+    "min 5 8": "4,3,3,1,1,1|1",
+    "min 5 10": "x,1,3,1,1,1|1",
+    "min 6 1": "x,4,4,2,2,2|2",
+    "min 6 3": "x,x,1,2,2,2|2",
+    "min 6 4": "x,x,2,2,2,2|2",
+    "min 6 5": "1,4,4,2,2,2|2",
+    "min 6 9": "x,0,4,2,2,2",
+    "min 6 11": "x,2,4,2,2,2|2",
+    "min 7 0": "x,3,5,3,3,3|3",
+    "min 7 2": "x,x,0,3,3,3|3",
+    "min 7 4": "x,x,2,3,3,3|3",
+    "min 7 5": "x,x,3,3,3,3|3",
+    "min 7 6": "2,5,5,3,3,3|3",
+    "min 7 10": "x,1,0,0,3,3",
+    "min 8 1": "x,4,6,4,4,4|4",
+    "min 8 3": "x,x,1,4,4,4|4",
+    "min 8 5": "1,2,1,1,0,1|1",
+    "min 8 6": "2,2,1,1,0,2|1",
+    "min 8 7": "3,2,1,1,0,3|1",
+    "min 8 11": "x,2,1,1,0,x",
+    "min 9 0": "x,3,2,2,1,0",
+    "min 9 2": "x,x,0,2,1,0",
+    "min 9 4": "0,0,2,2,1,0",
+    "min 9 6": "2,0,2,2,1,0",
+    "min 9 7": "3,0,2,2,1,0",
+    "min 9 8": "4,0,2,2,1,0",
+    "min 10 1": "x,4,3,3,2,x",
+    "min 10 3": "x,x,1,3,2,1|1",
+    "min 10 5": "1,1,3,3,2,1|1",
+    "min 10 7": "3,1,3,0,2,x",
+    "min 10 8": "4,1,3,1,2,1|1",
+    "min 10 9": "x,0,3,3,2,1",
+    "min 11 2": "x,x,0,4,3,2",
+    "min 11 4": "0,2,4,4,3,2|2",
+    "min 11 6": "2,2,4,4,3,2|2",
+    "min 11 8": "4,2,0,1,0,2",
+    "min 11 9": "x,0,4,4,3,2",
+    "min 11 10": "x,1,0,3,0,2",
+    "m7 0 7": "3,3,5,3,4,3|3",
+    "m7 0 10": "x,1,1,0,1,x",
+    "m7 1 8": "4,4,6,4,5,4|4",
+    "m7 1 11": "x,2,2,1,2,0",
+    "m7 2 0": "x,3,0,2,1,1",
+    "m7 2 9": "x,0,0,2,1,1",
+    "m7 3 1": "x,4,4,3,4,x",
+    "m7 3 10": "x,1,1,3,2,2|1",
+    "m7 4 2": "x,x,0,0,0,0",
+    "m7 4 11": "x,2,0,0,0,0",
+    "m7 5 0": "x,3,1,1,1,1|1",
+    "m7 5 3": "x,x,1,1,1,1|1",
+    "m7 6 1": "x,4,2,2,2,2|2",
+    "m7 6 4": "x,x,2,2,2,2|2",
+    "m7 7 2": "x,5,3,3,3,3|3",
+    "m7 7 5": "x,x,3,3,3,3|3",
+    "m7 8 3": "x,x,1,1,0,2",
+    "m7 8 6": "2,2,1,1,0,2|1",
+    "m7 9 4": "0,0,2,0,1,0",
+    "m7 9 7": "3,0,2,0,1,0",
+    "m7 10 5": "1,1,3,1,2,1|1",
+    "m7 10 8": "4,1,3,1,2,1|1",
+    "m7 11 6": "2,2,4,2,3,2|2",
+    "m7 11 9": "x,0,0,2,0,2",
+    "maj7 0 1": "x,4,2,4,1,0",
+    "maj7 1 2": "x,5,x,6,6,8|6",
+    "maj7 2 3": "x,6,7,7,7,9|7",
+    "maj7 3 4": "0,1,1,0,3,0",
+    "maj7 4 5": "1,2,1,1,0,0",
+    "maj7 5 6": "2,0,2,2,1,1|1",
+    "maj7 6 7": "3,1,3,0,x,2",
+    "maj7 7 8": "4,2,0,0,0,2",
+    "maj7 8 9": "x,0,5,5,4,4|4",
+    "maj7 9 10": "x,1,2,2,2,4|2",
+    "maj7 10 11": "x,2,3,3,3,5|3",
+    "maj7 11 0": "x,3,1,3,0,2",
+    "sus4 0 7": "3,3,3,0,1,1|1",
+    "sus4 1 8": "4,4,4,1,x,x",
+    "sus4 2 9": "x,0,0,2,3,3",
+    "sus4 3 10": "x,1,1,3,4,4|1",
+    "sus4 4 11": "x,2,2,2,0,0",
+    "sus4 5 0": "x,3,3,3,1,1|1",
+    "sus4 6 1": "x,4,4,4,2,2|2",
+    "sus4 7 2": "x,x,0,0,1,3",
+    "sus4 8 3": "x,6,6,6,4,4|4",
+    "sus4 9 4": "0,0,2,2,3,0",
+    "sus4 10 5": "1,1,3,3,4,1|1",
+    "sus4 11 6": "2,2,4,4,5,2|2",
+    "m9 0 6": "2,3,1,3,3,3|3",
+    "m9 1 7": "3,4,2,4,4,4|4",
+    "m9 2 8": "4,5,3,5,5,5|5",
+    "m9 3 9": "5,6,4,6,6,6|6",
+    "m9 4 10": "x,1,2,0,3,2",
+    "m9 5 11": "x,2,3,0,4,4",
+    "m9 6 0": "8,9,7,9,9,9|9",
+    "m9 7 1": "x,4,7,0,6,6|6",
+    "m9 8 2": "10,11,9,11,11,11|11",
+    "m9 9 3": "11,12,10,12,12,12|12",
+    "m9 10 4": "0,3,2,3,2,4|2",
+    "m9 11 5": "1,2,0,2,2,x",
+  };
+  // ==== end GENERATED ====
 
-    let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  function decode(code) {
+    const [f, b] = code.split('|');
+    return {
+      frets: f.split(',').map(x => (x === 'x' ? -1 : Number(x))),
+      barres: b ? b.split(',').map(Number) : [],
+    };
+  }
 
-    // Background
-    svg += `<rect width="${W}" height="${H}" fill="#16213e" rx="4"/>`;
+  function encode(v) {
+    return v.frets.map(f => (f < 0 ? 'x' : f)).join(',') + (v.barres.length ? '|' + v.barres.join(',') : '');
+  }
 
-    // Nut or fret number
-    if (baseFret === 1) {
-      svg += `<line x1="${padLeft}" y1="${padTop}" x2="${padLeft + stringSpacing * 5}" y2="${padTop}" stroke="#e0e0e0" stroke-width="3"/>`;
+  // "Ami7/G" -> { root: 9, quality: 'm7', bass: 7 }; null for a name that
+  // isn't a chord. A slash before something that isn't a note belongs to
+  // the suffix ("E7/4").
+  function parseName(name) {
+    const parts = String(name).trim().split('/').map(p => p.trim());
+    let main = parts[0];
+    let bass = null;
+    for (let i = 1; i < parts.length; i++) {
+      if (i === parts.length - 1 && NOTE_PC[parts[i]] !== undefined) bass = NOTE_PC[parts[i]];
+      else main += '/' + parts[i];
+    }
+    const m = /^([A-H])([#b]?)(.*)$/.exec(main);
+    if (!m) return null;
+    let root = NOTE_PC[m[1] + m[2]];
+    let suffix = m[3];
+    if (root === undefined) {   // "Hb..." - not a note name here
+      root = NOTE_PC[m[1]];
+      suffix = m[2] + suffix;
+    }
+    const quality = SUFFIXES[suffix];
+    if (!quality) return null;
+    if (bass === root) bass = null;
+    return { root, quality, bass };
+  }
+
+  function pitches(frets) {
+    return frets.map((f, i) => (f < 0 ? null : STRINGS[i] + f)).filter(p => p !== null);
+  }
+
+  // Does this voicing sound exactly the chord: every tone it needs, nothing
+  // else, and the right note at the bottom?
+  function verify(frets, chord) {
+    const ps = pitches(frets);
+    if (ps.length < (chord.quality === '5' ? 2 : 3)) return false;
+    const tones = QUALITIES[chord.quality].map(i => (chord.root + i) % 12);
+    const allowed = new Set(tones);
+    if (chord.bass != null) allowed.add(chord.bass);
+    const heard = new Set(ps.map(p => p % 12));
+    for (const pc of heard) if (!allowed.has(pc)) return false;
+    const required = QUALITIES[chord.quality].filter(i => i !== 7 || chord.quality === '5');
+    for (const i of required) if (!heard.has((chord.root + i) % 12)) return false;
+    const lowest = Math.min(...ps) % 12;
+    return lowest === (chord.bass != null ? chord.bass : chord.root);
+  }
+
+  // Where a barre at fret b lies: the run of neighbouring strings it can
+  // press (none of them lower than b, nothing open or muted in between)
+  // that holds the most strings at exactly b, nearer the treble on a tie.
+  // [first, last, strings saved] or null.
+  function barreSpan(frets, b) {
+    let best = null;
+    let i = 0;
+    while (i < 6) {
+      if (frets[i] < b) { i++; continue; }
+      let j = i;
+      while (j + 1 < 6 && frets[j + 1] >= b) j++;
+      const at = [];
+      for (let k = i; k <= j; k++) if (frets[k] === b) at.push(k);
+      if (at.length >= 2 && (!best || at.length >= best[2] + 1)) best = [at[0], at[at.length - 1], at.length - 1];
+      i = j + 1;
+    }
+    return best;
+  }
+
+  // A barre at the lowest held fret when the hand would otherwise need more
+  // than four fingers.
+  function barresOf(frets) {
+    const held = frets.filter(f => f > 0);
+    if (held.length <= 4) return [];
+    const low = Math.min(...held);
+    return barreSpan(frets, low) ? [low] : [];
+  }
+
+  // Can one hand hold it: four frets wide at most, four fingers with each
+  // barre counting as one.
+  function playable(frets, barres) {
+    const held = frets.filter(f => f > 0);
+    if (!held.length) return true;
+    if (Math.max(...held) - Math.min(...held) > 3) return false;
+    let fingers = held.length;
+    for (const b of barres) {
+      const span = barreSpan(frets, b);
+      if (!span) return false;
+      fingers -= span[2];
+    }
+    return fingers <= 4;
+  }
+
+  // How hard a voicing is to grab: high up the neck, fewer strings ringing,
+  // barres. Lower is friendlier.
+  function effort(v) {
+    const held = v.frets.filter(f => f > 0);
+    const sounding = v.frets.filter(f => f >= 0).length;
+    return (held.length ? Math.max(...held) : 0) * 2 + (6 - sounding) * 1.5 + v.barres.length;
+  }
+
+  // Keep a voicing's barres that still press two strings after a change,
+  // or find one if the hand now needs it.
+  function rebarre(frets, barres) {
+    const kept = barres.filter(b => barreSpan(frets, b));
+    return kept.length ? kept : barresOf(frets);
+  }
+
+  // A slash chord from a voicing of the chord above it: the bass goes on one
+  // of the four lower strings, the strings under it are muted, the rest
+  // stays as it was. The friendliest result that still sounds right.
+  function withBass(base, chord) {
+    let best = null;
+    for (let s = 0; s <= 3; s++) {
+      for (let f = 0; f <= 15; f++) {
+        if ((STRINGS[s] + f) % 12 !== chord.bass) continue;
+        const frets = base.frets.slice();
+        for (let i = 0; i < s; i++) frets[i] = -1;
+        frets[s] = f;
+        const v = { frets, barres: rebarre(frets, base.barres) };
+        if (!playable(v.frets, v.barres) || !verify(v.frets, chord)) continue;
+        const score = effort(v);
+        if (!best || score < best.score) best = { v, score };
+      }
+    }
+    return best && best.v;
+  }
+
+  function resolve(name) {
+    const chord = parseName(name);
+    if (!chord || !VOICINGS[chord.quality]) return null;
+    const base = VOICINGS[chord.quality][chord.root];
+    if (!base) return null;
+    if (chord.bass == null) return decode(base);
+    const key = chord.quality + ' ' + chord.root + ' ' + chord.bass;
+    if (SLASH[key]) return decode(SLASH[key]);
+    return withBass(decode(base), chord);   // a slash chord no song had when the tables were built
+  }
+
+  // ---- drawing -------------------------------------------------------------
+
+  // The song page's palette (css/style.css): grid, nut, labels, dots.
+  const INK = { grid: '#5d5955', nut: '#f2f2f0', label: '#b6b1aa', muted: '#98928b', open: '#f2f2f0', dot: '#e67e22' };
+
+  function renderChordSVG(name) {
+    const v = resolve(name);
+    if (!v) return null;
+    const { frets, barres } = v;
+    const held = frets.filter(f => f > 0);
+    const top = held.length ? Math.max(...held) : 0;
+    // Show the frets the hand is on: from the nut when it fits in four,
+    // otherwise from the lowest held fret, numbered.
+    const start = top <= 4 ? 1 : Math.min(...held);
+    const rows = Math.max(4, top - start + 1);
+
+    const W = 80, H = 100, padTop = 18, padLeft = 16, padRight = 8;
+    const sx = (W - padLeft - padRight) / 5;
+    const fy = (H - padTop - 10) / rows;
+    const x = (s) => padLeft + s * sx;
+    const y = (f) => padTop + (f - start + 0.5) * fy;
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">`;
+
+    if (start === 1) {
+      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.nut}" stroke-width="3"/>`;
     } else {
-      svg += `<text x="4" y="${padTop + fretSpacing / 2 + 3}" fill="#8899aa" font-size="9" font-family="system-ui">${baseFret}</text>`;
-      svg += `<line x1="${padLeft}" y1="${padTop}" x2="${padLeft + stringSpacing * 5}" y2="${padTop}" stroke="#556677" stroke-width="1"/>`;
+      svg += `<text x="${padLeft - 5}" y="${y(start) + 3.5}" fill="${INK.label}" font-size="10" font-family="system-ui, sans-serif" text-anchor="end">${start}</text>`;
+      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.grid}" stroke-width="1"/>`;
+    }
+    for (let r = 1; r <= rows; r++) {
+      const yy = padTop + r * fy;
+      svg += `<line x1="${x(0)}" y1="${yy}" x2="${x(5)}" y2="${yy}" stroke="${INK.grid}" stroke-width="1"/>`;
+    }
+    for (let s = 0; s < 6; s++) {
+      svg += `<line x1="${x(s)}" y1="${padTop}" x2="${x(s)}" y2="${padTop + rows * fy}" stroke="${INK.grid}" stroke-width="1"/>`;
     }
 
-    // Fret lines
-    for (let i = 1; i <= 4; i++) {
-      const y = padTop + i * fretSpacing;
-      svg += `<line x1="${padLeft}" y1="${y}" x2="${padLeft + stringSpacing * 5}" y2="${y}" stroke="#556677" stroke-width="1"/>`;
-    }
+    const underBarre = new Set();
+    barres.forEach(b => {
+      const span = barreSpan(frets, b);
+      if (!span) return;
+      const [lo, hi] = span;
+      for (let i = lo; i <= hi; i++) if (frets[i] === b) underBarre.add(i);
+      svg += `<line x1="${x(lo)}" y1="${y(b)}" x2="${x(hi)}" y2="${y(b)}" stroke="${INK.dot}" stroke-width="7" stroke-linecap="round"/>`;
+    });
 
-    // String lines
-    for (let i = 0; i < 6; i++) {
-      const x = padLeft + i * stringSpacing;
-      svg += `<line x1="${x}" y1="${padTop}" x2="${x}" y2="${padTop + 4 * fretSpacing}" stroke="#556677" stroke-width="1"/>`;
-    }
-
-    // Barres
-    if (barres && barres.length > 0) {
-      barres.forEach(barreFret => {
-        const adjustedFret = barreFret - (baseFret - 1);
-        if (adjustedFret >= 1 && adjustedFret <= 4) {
-          const y = padTop + (adjustedFret - 0.5) * fretSpacing;
-          // Find leftmost and rightmost strings in barre
-          let minStr = 5, maxStr = 0;
-          for (let s = 0; s < 6; s++) {
-            const f = frets[s] - (baseFret - 1);
-            if (frets[s] === barreFret || (frets[s] >= barreFret && f === adjustedFret)) {
-              if (s < minStr) minStr = s;
-              if (s > maxStr) maxStr = s;
-            }
-          }
-          if (minStr <= maxStr) {
-            const x1 = padLeft + minStr * stringSpacing;
-            const x2 = padLeft + maxStr * stringSpacing;
-            svg += `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#e67e22" stroke-width="6" stroke-linecap="round"/>`;
-          }
-        }
-      });
-    }
-
-    // Dots and open/muted markers
-    for (let i = 0; i < 6; i++) {
-      const x = padLeft + i * stringSpacing;
-      const f = frets[i];
-
-      if (f === -1) {
-        // Muted
-        svg += `<text x="${x}" y="${padTop - 5}" fill="#e74c3c" font-size="10" font-family="system-ui" text-anchor="middle">✕</text>`;
+    frets.forEach((f, s) => {
+      const cx = x(s);
+      if (f < 0) {
+        const c = padTop - 7, r = 2.6;
+        svg += `<path d="M${cx - r} ${c - r}L${cx + r} ${c + r}M${cx + r} ${c - r}L${cx - r} ${c + r}" stroke="${INK.muted}" stroke-width="1.5" stroke-linecap="round"/>`;
       } else if (f === 0) {
-        // Open
-        svg += `<circle cx="${x}" cy="${padTop - 7}" r="3" fill="none" stroke="#27ae60" stroke-width="1.5"/>`;
-      } else {
-        // Fretted
-        const adjustedFret = f - (baseFret - 1);
-        if (adjustedFret >= 1 && adjustedFret <= 4) {
-          const y = padTop + (adjustedFret - 0.5) * fretSpacing;
-          const isBarre = barres && barres.includes(f);
-          if (!isBarre) {
-            svg += `<circle cx="${x}" cy="${y}" r="${dotRadius}" fill="#e67e22"/>`;
-          }
-        }
-      }
-    }
-
-    svg += '</svg>';
-    return svg;
-  }
-
-  // Tooltip management
-  let activeTooltip = null;
-
-  function showTooltip(chordEl) {
-    hideTooltip();
-    // dataset.display holds the transposed name (set by player.js); fall back
-    // to the original data-chord when the song hasn't been transposed.
-    const chordName = chordEl.dataset.display || chordEl.dataset.chord;
-    if (!chordName) return;
-
-    const svg = renderChordSVG(chordName);
-
-    const tooltip = document.createElement('div');
-    tooltip.className = 'chord-tooltip';
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'chord-name';
-    nameDiv.textContent = chordName;
-    tooltip.appendChild(nameDiv);
-    if (svg) {
-      // svg is built entirely from CHORD_DB constants (see renderChordSVG),
-      // not from chordName, so this insert is safe.
-      tooltip.insertAdjacentHTML('beforeend', svg);
-    } else {
-      const missing = document.createElement('div');
-      missing.className = 'chord-missing';
-      missing.textContent = 'Diagram chybí';
-      tooltip.appendChild(missing);
-    }
-
-    chordEl.style.position = 'relative';
-    chordEl.appendChild(tooltip);
-    activeTooltip = { el: tooltip, parent: chordEl };
-
-    // Bar chips sit inside a horizontal scroller (.chord-bar-chips) that
-    // clips absolutely-positioned descendants - pop the tooltip out with
-    // fixed positioning instead: below the whole bar (the bar is taller than
-    // the chip, so anchoring to the chip would overlap it), centered on the chip.
-    if (chordEl.closest('.chord-bar-chips')) {
-      const chipRect = chordEl.getBoundingClientRect();
-      const barRect = chordEl.closest('.chord-bar').getBoundingClientRect();
-      tooltip.style.position = 'fixed';
-      tooltip.style.bottom = 'auto';
-      tooltip.style.top = (barRect.bottom + 8) + 'px';
-      tooltip.style.left = (chipRect.left + chipRect.width / 2) + 'px';
-    }
-
-    // Ensure tooltip is visible in viewport
-    const rect = tooltip.getBoundingClientRect();
-    if (rect.top < 0) {
-      tooltip.style.bottom = 'auto';
-      tooltip.style.top = 'calc(100% + 8px)';
-    }
-    if (rect.left < 0) {
-      tooltip.style.left = '0';
-      tooltip.style.transform = 'none';
-    }
-    if (rect.right > window.innerWidth) {
-      tooltip.style.left = 'auto';
-      tooltip.style.right = '0';
-      tooltip.style.transform = 'none';
-    }
-  }
-
-  function hideTooltip() {
-    if (activeTooltip) {
-      activeTooltip.el.remove();
-      activeTooltip = null;
-    }
-  }
-
-  // Bind chord interactions
-  function bindChordEvents() {
-    document.addEventListener('mouseover', (e) => {
-      const chord = e.target.closest('.chord');
-      if (chord) showTooltip(chord);
-    });
-
-    document.addEventListener('mouseout', (e) => {
-      const chord = e.target.closest('.chord');
-      if (chord) hideTooltip();
-    });
-
-    // Touch support
-    document.addEventListener('touchstart', (e) => {
-      const chord = e.target.closest('.chord');
-      if (chord) {
-        // Chips live in a horizontal scroller - preventDefault would block
-        // swipe-scrolling the strip.
-        if (!chord.closest('.chord-bar-chips')) e.preventDefault();
-        showTooltip(chord);
-      } else {
-        hideTooltip();
+        svg += `<circle cx="${cx}" cy="${padTop - 7}" r="3" fill="none" stroke="${INK.open}" stroke-width="1.5"/>`;
+      } else if (!underBarre.has(s)) {
+        svg += `<circle cx="${cx}" cy="${y(f)}" r="4.5" fill="${INK.dot}"/>`;
       }
     });
 
-    // Bar chips sit inside a horizontal scroller (.chord-bar-chips); a fixed
-    // tooltip would otherwise "hang" in place while the chips scroll under it.
-    // scroll doesn't bubble, so this must be capture-phase on document.
-    document.addEventListener('scroll', (e) => {
-      if (e.target instanceof Element && e.target.closest('.chord-bar-chips')) {
-        hideTooltip();
-      }
-    }, true);
+    return svg + '</svg>';
   }
 
-  // Export for use. Browser: window.ChordDiagrams. Node: module.exports (for
-  // tests - CHORD_DB/renderChordSVG are pure, DOM-free).
-  const api = { renderChordSVG, CHORD_DB };
+  const api = {
+    NOTE_PC, STRINGS, QUALITIES, SUFFIXES, VOICINGS, SLASH,
+    decode, encode, parseName, pitches, verify, barreSpan, barresOf, playable, effort, rebarre, withBass,
+    resolve, renderChordSVG,
+  };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof window !== 'undefined') window.ChordDiagrams = api;
-
-  // Init when DOM ready (skipped under Node, where there is no DOM).
-  if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', bindChordEvents);
-    } else {
-      bindChordEvents();
-    }
-  }
 })();

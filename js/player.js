@@ -277,17 +277,8 @@
 
     // ---- chord diagrams --------------------------------------------------
 
-    // chords.js draws on the old navy palette; recolour it for black.
     function diagramSvg(name) {
-      const svg = window.ChordDiagrams && ChordDiagrams.renderChordSVG(name);
-      if (!svg) return null;
-      return svg
-        .replace('fill="#16213e"', 'fill="none"')
-        .replace(/#556677/g, '#5d5955')
-        .replace(/#8899aa/g, '#b6b1aa')
-        .replace(/#e0e0e0/g, '#f2f2f0')
-        .replace(/#e74c3c/g, '#98928b')
-        .replace(/#27ae60/g, '#f2f2f0');
+      return window.ChordDiagrams ? ChordDiagrams.renderChordSVG(name) : null;
     }
 
     const pop = $('pop');
