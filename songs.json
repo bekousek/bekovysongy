@@ -559,9 +559,7 @@
         "C#mi",
         "Ami",
         "F#mi",
-        "F#mi/F",
-        "F#mi/E",
-        "F#mi/D#",
+        "Dmaj7",
         "Cmaj7"
       ],
       "tags": {
@@ -617,59 +615,10 @@
           "C",
           "E",
           "Amaj7"
-        ],
-        [
-          "E",
-          "Amaj7",
-          "E",
-          "C",
-          "A",
-          "H7",
-          "G#mi7",
-          "C#mi",
-          "A",
-          "C",
-          "E",
-          "Ami"
-        ],
-        [
-          "E",
-          "Ami",
-          "E",
-          "C",
-          "A",
-          "H7",
-          "G#mi7",
-          "C#mi",
-          "A",
-          "C",
-          "E",
-          "A"
-        ],
-        [
-          "A",
-          "Amaj7",
-          "F#mi",
-          "F#mi/F",
-          "F#mi/E",
-          "F#mi/D#",
-          "A",
-          "H7",
-          "G#mi7",
-          "C#mi",
-          "A",
-          "C",
-          "E",
-          "Amaj7"
-        ],
-        [
-          "E",
-          "Amaj7",
-          "E",
-          "Cmaj7"
         ]
       ],
-      "added": "2026-10-18"
+      "added": "2026-10-18",
+      "checked": true
     },
     {
       "title": "Alenka v říši divů",
