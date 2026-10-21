@@ -340,6 +340,9 @@ Celoobrazovkový `<dialog>` (`js/tuner.js`), od 900 px panel 480 px uprostřed j
 - **Chyba mikrofonu:** místo měřáku nadpis v danger-rose, jedna věta, co udělat, a quiet tlačítko Zkusit znovu. Tóny strun fungují dál, ladí se podle sluchu.
 - Tokeny `--tuned-*` žijí jen v `css/style.css`, ladička na seznamu není.
 
+### Tištěný zpěvník (PDF)
+Moje → Na papír: výběr písní v sheetu (hledání, rychlé volby jako čipy, zaškrtávátka 24 px vyplněná oranžovou), PDF skládá `js/songbook-pdf.js` (jsPDF z cdnjs, Figtree TTF z `assets/fonts`). Na papíře platí jiná pravidla než na displeji: bílá stránka, černé písmo a **akordy tučně na světle šedém podkladu** (šeď 212/255, zaoblení 0.2 em). Oranžová by se na černobílé tiskárně slila s textem do stejné šedi, kdežto podklad zůstane čitelný i při úsporném tisku. Jedna píseň na A4, 1–3 sloupce, písmo 14 až 6 pt podle skóre „velikost minus zalomené řádky“; dvě strany jen výjimečně. Capo jako orámovaný štítek, opakovaný refrén jen „R:“, tabulatura v Courier. Na začátku obsah se stránkami.
+
 ### Toast
 Ash, zaoblení 16 px, 600/15 px, max. šířka obrazovky minus 32 px, zalamuje se. Nad spodní lištou, mizí po 1.6–2.6 s.
 

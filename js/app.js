@@ -451,6 +451,11 @@
       fillChordSheet();
     }
 
+    if (kind === 'print') {
+      $('sheet-title').textContent = 'Vytisknout zpěvník';
+      fillPrintSheet();
+    }
+
     if (!sheet.open) sheet.showModal();
   }
 
@@ -592,6 +597,267 @@
     const r = sheet.getBoundingClientRect();
     const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
     if (!inside) closeSheet();
+  });
+
+  // ---- printing: pick songs, get one PDF (js/songbook-pdf.js) -------------
+
+  const PRINT_KEY = 'bs_print_pick';
+  let printPick = null;      // slugs, remembered in this browser
+  let printQuery = '';
+  let printJob = null;       // AbortController while the PDF is being made
+  let printProgress = null;
+  let printError = '';
+  let pdfScript = null;
+  const byTitle = (a, b) => SL.collator.compare(a.title, b.title);
+
+  function readPick() {
+    try {
+      const v = JSON.parse(localStorage.getItem(PRINT_KEY) || '[]');
+      return new Set(Array.isArray(v) ? v.filter(s => SL.bySlug(s)) : []);
+    } catch (e) { return new Set(); }
+  }
+  function savePick() {
+    try { localStorage.setItem(PRINT_KEY, JSON.stringify([...printPick])); } catch (e) { /* not remembered */ }
+  }
+
+  function fillPrintSheet() {
+    if (!printPick) printPick = readPick();
+    printError = '';
+    sheetBody.innerHTML = '';
+    const all = SL.songs.slice().sort(byTitle);
+    const shown = () => {
+      const q = SL.norm(printQuery.trim());
+      return q ? all.filter(s => s._name.includes(q)) : all;
+    };
+
+    // Search and the quick picks stay on top while the list scrolls.
+    const top = el('div', 'print-top');
+    const search = el('div', 'search print-search');
+    const lab = el('label', 'visually-hidden', 'Hledat píseň k tisku');
+    lab.htmlFor = 'print-q';
+    const icon = el('span', 'search-icon');
+    icon.innerHTML = SL.icon('search', 20);
+    const input = el('input');
+    input.id = 'print-q';
+    input.type = 'search';
+    input.autocomplete = 'off';
+    input.placeholder = 'Najít píseň nebo interpreta';
+    input.value = printQuery;
+    search.append(lab, icon, input);
+    const quick = el('div', 'print-quick');
+    top.append(search, quick);
+    const list = el('ul', 'print-list');
+    sheetBody.append(top, list);
+
+    // What was picked before stays on top while the sheet is open, so the
+    // choice is visible without scrolling through the whole songbook.
+    const pickedFirst = new Set(printPick);
+    const boxes = new Map();
+    function renderList() {
+      list.innerHTML = '';
+      boxes.clear();
+      let songs = shown();
+      const head = (text) => list.appendChild(el('li', 'print-group', text));
+      const lead = printQuery.trim() ? [] : songs.filter(s => pickedFirst.has(s.slug));
+      if (lead.length) songs = lead.concat(songs.filter(s => !pickedFirst.has(s.slug)));
+      songs.forEach((s, i) => {
+        if (lead.length && i === 0) head('Vybrané');
+        if (lead.length && i === lead.length) head('Další písně');
+        const li = el('li');
+        const row = el('label', 'print-row');
+        const box = el('input');
+        box.type = 'checkbox';
+        box.checked = printPick.has(s.slug);
+        box.addEventListener('change', () => {
+          if (box.checked) printPick.add(s.slug); else printPick.delete(s.slug);
+          changed(false);
+        });
+        boxes.set(s.slug, box);
+        const text = el('span', 'print-text');
+        text.appendChild(el('span', 'print-title', s.title));
+        if (s._authors.length) text.appendChild(el('span', 'print-by', s._authors.join(', ')));
+        row.append(box, text);
+        li.appendChild(row);
+        list.appendChild(li);
+      });
+      if (!songs.length) list.appendChild(el('li', 'print-empty', 'Nic nenalezeno. Zkus jiný název nebo interpreta.'));
+    }
+
+    function chip(label, on, onClick) {
+      const b = el('button', 'chip' + (on ? ' on' : ''), label);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.addEventListener('click', onClick);
+      return b;
+    }
+    // A pick that's all in already takes itself out again.
+    function group(label, slugs) {
+      const on = slugs.length > 0 && slugs.every(s => printPick.has(s));
+      return chip(`${label} (${slugs.length})`, on, () => {
+        slugs.forEach(s => (on ? printPick.delete(s) : printPick.add(s)));
+        changed(true);
+      });
+    }
+    function renderQuick() {
+      quick.innerHTML = '';
+      if (printQuery.trim()) {
+        const found = shown().map(s => s.slug);
+        if (found.length) quick.appendChild(group('Vybrat nalezené', found));
+      } else {
+        quick.appendChild(group('Všechny', all.map(s => s.slug)));
+        const favs = SL.favourites.list().filter(s => SL.bySlug(s));
+        if (favs.length) quick.appendChild(group('Oblíbené', favs));
+        const tonight = EV ? EV.list().filter(s => SL.bySlug(s)) : [];
+        if (tonight.length) quick.appendChild(group('Dnešní večer', tonight));
+      }
+      if (printPick.size) {
+        const reset = chip('Zrušit výběr', false, () => { printPick.clear(); changed(true); });
+        reset.classList.add('chip-reset');
+        reset.removeAttribute('aria-pressed');
+        quick.appendChild(reset);
+      }
+    }
+
+    function changed(syncBoxes) {
+      savePick();
+      if (syncBoxes) boxes.forEach((box, slug) => { box.checked = printPick.has(slug); });
+      renderQuick();
+      renderPrintFoot();
+    }
+
+    let searchTimer;
+    input.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        printQuery = input.value;
+        renderList();
+        renderQuick();
+      }, 120);
+    });
+
+    renderList();
+    renderQuick();
+    renderPrintFoot();
+  }
+
+  function renderPrintFoot() {
+    sheetFoot.innerHTML = '';
+    sheetBody.classList.toggle('busy', !!printJob);
+    if (printJob) {
+      const box = el('div', 'print-progress');
+      const row = el('div', 'print-progress-row');
+      const label = el('p', null, '');
+      label.id = 'print-progress-text';
+      label.setAttribute('aria-live', 'polite');
+      const cancel = el('button', 'btn btn-ghost', 'Zrušit');
+      cancel.type = 'button';
+      cancel.addEventListener('click', () => { if (printJob) printJob.abort(); });
+      row.append(label, cancel);
+      const bar = el('div', 'print-bar');
+      bar.appendChild(el('span'));
+      box.append(row, bar);
+      sheetFoot.appendChild(box);
+      paintProgress();
+      return;
+    }
+    const n = printPick ? printPick.size : 0;
+    if (printError) {
+      const err = el('p', 'print-error', printError);
+      err.setAttribute('role', 'alert');
+      sheetFoot.appendChild(err);
+    }
+    const go = el('button', 'btn btn-primary');
+    go.type = 'button';
+    go.innerHTML = SL.icon('download', 20);
+    go.appendChild(el('span', null, n ? `Stáhnout PDF (${count(n, 'píseň', 'písně', 'písní')})` : 'Vyber písně k tisku'));
+    go.disabled = !n;
+    go.addEventListener('click', makePdf);
+    sheetFoot.appendChild(go);
+  }
+
+  function paintProgress() {
+    const p = printProgress;
+    const text = $('print-progress-text');
+    if (!p || !text) return;
+    const part = p.total ? p.done / p.total : 0;
+    const frac = p.stage === 'fetch' ? 0.03 + 0.67 * part
+      : p.stage === 'layout' ? 0.7 + 0.1 * part
+      : p.stage === 'draw' ? 0.8 + 0.2 * part
+      : p.stage === 'done' ? 1 : 0.02;
+    text.textContent = p.stage === 'fetch' ? `Načítám písně ${p.done} / ${p.total}`
+      : p.stage === 'layout' ? 'Skládám stránky…'
+      : p.stage === 'draw' ? `Sázím PDF ${p.done} / ${p.total}`
+      : p.stage === 'done' ? 'Hotovo' : 'Připravuju…';
+    const bar = sheetFoot.querySelector('.print-bar > span');
+    if (bar) bar.style.transform = `scaleX(${frac.toFixed(3)})`;
+  }
+
+  function loadSongbook() {
+    if (window.SongbookPdf) return Promise.resolve();
+    if (!pdfScript) {
+      pdfScript = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = SL.BASE + 'js/songbook-pdf.js';
+        s.onload = resolve;
+        s.onerror = () => { pdfScript = null; reject(new Error('songbook-pdf.js')); };
+        document.head.appendChild(s);
+      });
+    }
+    return pdfScript;
+  }
+
+  function saveFile(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a = el('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+
+  async function makePdf() {
+    const songs = SL.songs.filter(s => printPick.has(s.slug)).sort(byTitle);
+    if (!songs.length || printJob) return;
+    const job = new AbortController();
+    printJob = job;
+    printError = '';
+    printProgress = { stage: 'load', done: 0, total: songs.length };
+    renderPrintFoot();
+    try {
+      await loadSongbook();
+      const res = await window.SongbookPdf.build(songs, {
+        signal: job.signal,
+        onProgress: (p) => { printProgress = p; paintProgress(); },
+      });
+      if (job.signal.aborted) return;
+      const name = songs.length === 1 ? `${songs[0].slug}.pdf` : `bekovy-songy-${new Date().toISOString().slice(0, 10)}.pdf`;
+      saveFile(res.blob, name);
+      printJob = null;
+      closeSheet();
+      const missed = res.failed.length ? `, ${count(res.failed.length, 'píseň', 'písně', 'písní')} se nenačetlo` : '';
+      toast(`PDF je stažené: ${count(res.pages, 'stránka', 'stránky', 'stránek')}${missed}`);
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+      console.error(err);
+      printError = 'PDF se nepodařilo vytvořit. Potřebuje připojení k internetu, zkus to znovu.';
+    } finally {
+      if (printJob === job) printJob = null;
+      if (sheet.open && sheet.dataset.kind === 'print') renderPrintFoot();
+    }
+  }
+
+  // Closing the sheet stops a PDF that's still being made.
+  sheet.addEventListener('close', () => {
+    if (printJob) printJob.abort();
+    printJob = null;
+    sheetBody.classList.remove('busy');
+  });
+
+  $('print-open').addEventListener('click', () => {
+    if (ready) openSheet('print');
+    else SL.load().then(() => openSheet('print')).catch(() => toast('Seznam písní se nenačetl, zkus obnovit stránku.'));
   });
 
   // ---- Interpreti --------------------------------------------------------
