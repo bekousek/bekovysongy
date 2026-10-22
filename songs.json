@@ -27363,6 +27363,31 @@
       "added": "2023-08-01"
     },
     {
+      "title": "Zauzlíkovaná klec",
+      "slug": "zauzlikovana-klec",
+      "author": "Jamaron",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/3661883",
+          "chords": [
+            "Ami",
+            "C",
+            "Dmi7",
+            "F",
+            "E7",
+            "E",
+            "Dmi"
+          ]
+        }
+      ]
+    },
+    {
       "title": "Zavolejte stráže",
       "slug": "zavolejte-straze",
       "author": "Zdeněk Svěrák, Jaroslav Uhlíř (Ať žijí duchové!)",
