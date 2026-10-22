@@ -227,6 +227,12 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .chip-reset { background: transparent; color: var(--muted); padding: 0 10px; }
 
 .count { color: var(--muted); font-size: var(--fs-small); margin: 12px 2px 4px; font-variant-numeric: tabular-nums; }
+/* The count shares its line with a ghost "Jak hledat"; the row is the
+   button's 44 px, pulled up so the list starts where it did. */
+.count-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 1px 0 -6px; }
+.count-row .count { margin: 0 2px; }
+.tips-btn { min-height: 44px; padding: 0 2px 0 12px; color: var(--muted); font-size: var(--fs-small); font-weight: 500; flex: none; }
+.tips-btn:hover { color: var(--text); }
 
 /* ===== Song rows ===== */
 
@@ -495,6 +501,19 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .option[aria-checked="true"] .icon { opacity: 1; }
 
 .sheet-label { color: var(--faint); font-size: var(--fs-small); margin: 16px 0 8px; }
+
+/* Search tips: the example as a token to tap, what it does under it. */
+.tips-intro { color: var(--muted); line-height: 1.4; margin: 0 0 6px; }
+.tip { display: block; width: 100%; padding: 12px 4px; text-align: left; }
+.tip + .tip { border-top: 1px solid var(--rule); }
+.tip:active { background: var(--press); }
+.tip-example {
+  display: inline-block; padding: 3px 9px; border-radius: 6px;
+  background: var(--raised); color: var(--text);
+  font-size: var(--fs-body); font-weight: 600; white-space: nowrap;
+}
+.tip-text { display: block; margin-top: 6px; color: var(--muted); font-size: var(--fs-small); line-height: 1.4; }
+@media (hover: hover) { .tip:hover .tip-example { background: var(--press); } }
 
 /* Chord picker: the eight roots first, a tapped root opens its family. */
 .picked { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; min-height: 44px; }

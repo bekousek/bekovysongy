@@ -1,7 +1,8 @@
 /**
  * song-list-core.js - the songbook's data and search logic, without any DOM
  * of its own: loads songs.json and the lyrics index, searches diacritic-blind
- * (lyric hits listed apart with the line they matched), filters by chords /
+ * (lyric hits listed apart with the line they matched) with Google-style
+ * operators (-slovo, "fráze", OR, autor:, before:...), filters by chords /
  * language / capo, sorts in Czech collation and picks random songs without
  * repeating the last twenty. Used by the song list (js/app.js) and the song
  * pages (js/player.js). Exposed as window.SongList.
@@ -205,11 +206,14 @@
     const authors = authorsOf(song);
     song._authors = authors;
     song._name = norm(song.title + ' ' + authors.join(' '));
+    song._normTitle = norm(song.title);
+    song._normAuthors = norm(authors.join(', '));
     song._prog = progressionOf(song);
     song._capo = capoLabel(song);
     song._new = !!song.added && song.added > NEW_SINCE;
     song._letter = indexLetter(song.title);
     song._needs = Array.from(new Set([].concat.apply([], song.chords.map(shapesOf))));
+    song._normChords = Array.from(new Set(song.chords.concat(song._needs))).map(norm);
     return song;
   }
 
@@ -278,14 +282,149 @@
     lyrics.listeners.push(fn);
   }
 
-  function findLyricHit(song, q) {
+  // Where needle sits in hay; with whole, only where a word starts, so an
+  // excluded "les" leaves "ples" alone (and still catches "lesy").
+  const WORD_CHAR = /[\p{L}\p{N}]/u;
+
+  function findIn(hay, needle, whole) {
+    if (!whole) return hay.indexOf(needle);
+    for (let at = hay.indexOf(needle); at !== -1; at = hay.indexOf(needle, at + 1)) {
+      if (at === 0 || !WORD_CHAR.test(hay.charAt(at - 1))) return at;
+    }
+    return -1;
+  }
+
+  function findLyricHit(song, q, whole) {
     const entry = lyrics.index && lyrics.index.get(song.slug);
     if (!entry) return null;
     for (let i = 0; i < entry.norm.length; i++) {
-      const at = entry.norm[i].indexOf(q);
-      if (at !== -1) return { line: entry.lines[i], norm: entry.norm[i], at };
+      const at = findIn(entry.norm[i], q, whole);
+      if (at !== -1) return { line: entry.lines[i], norm: entry.norm[i], at, len: q.length };
     }
     return null;
+  }
+
+  // === Search operators ====================================================
+
+  // Google's tricks, keyed in Czech or English: -slovo leaves out songs that
+  // have it, "..." wants exactly those words, OR takes either side and
+  // key:value looks in one field only. Plain words still make one phrase,
+  // searched in the title and artists and else within a single lyric line -
+  // a remembered line is what people type, and splitting it into words
+  // would match half the songbook.
+  const OPERATORS = {
+    autor: 'author', interpret: 'author', author: 'author', inauthor: 'author',
+    nazev: 'title', title: 'title', intitle: 'title',
+    text: 'text', intext: 'text',
+    pred: 'before', before: 'before',
+    po: 'after', after: 'after',
+    akord: 'chord', chord: 'chord',
+    jazyk: 'lang', lang: 'lang',
+    capo: 'capo',
+  };
+  const TOKEN = /(-?)(?:([^\s:"„“”]+):)?(?:["„“”]([^"„“”]*)["„“”]?|(\S+))/g;
+
+  // before: and after: take a year, a month or a day (2025, 2025-06,
+  // 2025-06-01 or the Czech 1.6.2025) and compare the added date at that
+  // precision, so before:2025 is anything from 2024 back.
+  function datePrefix(v) {
+    let y, m, d;
+    let x = /^(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?$/.exec(v);
+    if (x) [, y, m, d] = x;
+    else if ((x = /^(?:(\d{1,2})\.)?(\d{1,2})\.(\d{4})$/.exec(v))) [, d, m, y] = x;
+    else return null;
+    if ((m && (m < 1 || m > 12)) || (d && (d < 1 || d > 31))) return null;
+    const pad = (n) => String(n).padStart(2, '0');
+    return y + (m ? '-' + pad(m) : '') + (d ? '-' + pad(d) : '');
+  }
+
+  // "Am" is how the rest of the world writes the "Ami" in songs.json.
+  function chordSpellings(v) {
+    const czech = v.replace(/^([a-h](?:#|b|is|es)?)m(?!aj|i)/, '$1mi');
+    return czech === v ? [v] : [v, czech];
+  }
+
+  /**
+   * Splits a query into groups that must all match (each a list of
+   * alternatives joined by OR) and terms that must not. A term is
+   * { field: 'any' | 'title' | 'author' | 'text' | 'chord' | 'lang' | 'capo'
+   *   | 'before' | 'after', value (normalized), whole (match from a word
+   *   start) }. An unknown key ("10:30") is plain text.
+   */
+  function parseQuery(raw) {
+    const s = String(raw || '');
+    const groups = [];
+    const exclude = [];
+    let phrase = null;   // the plain phrase that further plain words extend
+    let or = false;
+
+    for (const m of s.matchAll(TOKEN)) {
+      const neg = m[1] === '-';
+      let quoted = m[3] != null;
+      let field = m[2] ? OPERATORS[norm(m[2])] : null;
+      let value = quoted ? m[3] : m[4];
+      const rest = s.slice(m.index + m[0].length).trim();
+
+      if (m[2] && !field) { value = m[0].slice(m[1].length); quoted = false; }
+      if (!m[2] && !quoted && !neg && (value === 'OR' || value === '|')) {
+        or = true; phrase = null;
+        continue;
+      }
+      // Half-typed: a key with nothing after it yet, or a dash at the end.
+      const key = /^([^\s:]+):$/.exec(value);
+      if (key && OPERATORS[norm(key[1])]) continue;
+      if (value === '-' && !rest) continue;
+      value = norm(value.trim());
+      if (!value) continue;
+
+      if (field === 'before' || field === 'after') {
+        const day = datePrefix(value);
+        if (day) value = day;
+        else { field = null; value = norm(m[0].slice(m[1].length)); }
+      }
+      if (field === 'lang' && value === 'cs') value = 'cz';
+      field = field || 'any';
+
+      if (field === 'any' && !quoted && !neg && phrase && !or) {
+        phrase.value += ' ' + value;
+        continue;
+      }
+      const term = { field, value, whole: field === 'any' && (quoted || neg) };
+      if (neg) exclude.push(term);
+      else if (or && groups.length) groups[groups.length - 1].push(term);
+      else groups.push([term]);
+      phrase = field === 'any' && !quoted && !neg ? term : null;
+      or = false;
+    }
+    return { groups, exclude };
+  }
+
+  // true when the song's own data answers the term, a lyric hit when only
+  // its lyrics do (and they are loaded), false otherwise.
+  function test(song, t, withLyrics) {
+    const v = t.value;
+    switch (t.field) {
+      case 'title': return song._normTitle.includes(v);
+      case 'author': return song._normAuthors.includes(v);
+      case 'chord': return chordSpellings(v).some(c => song._normChords.indexOf(c) !== -1);
+      case 'lang': return norm(song.tags.language || '') === v;
+      case 'capo':
+        if (/^\d+$/.test(v)) return Number(v) === 0 ? !song._capo : song.tags.capo === Number(v);
+        if (['ano', 'yes'].indexOf(v) !== -1) return !!song._capo;
+        if (['ne', 'no', 'bez'].indexOf(v) !== -1) return !song._capo;
+        return false;
+      case 'before': return !!song.added && song.added.slice(0, v.length) < v;
+      case 'after': return !!song.added && song.added.slice(0, v.length) > v;
+      case 'text': return (withLyrics && findLyricHit(song, v, false)) || false;
+      default:
+        if (findIn(song._name, v, t.whole) !== -1) return true;
+        if (!withLyrics || (!t.whole && v.length < LYRICS_MIN_QUERY)) return false;
+        return findLyricHit(song, v, t.whole) || false;
+    }
+  }
+
+  function wantsLyrics(t) {
+    return t.field === 'text' || (t.field === 'any' && (t.whole || t.value.length >= LYRICS_MIN_QUERY));
   }
 
   // === Query ===============================================================
@@ -322,11 +461,13 @@
    * state: { q, lang, capo ('' | 'yes' | 'no'), chords (Set), artist,
    *          sort ('title' | 'author' | 'chords' | 'language' | 'added'),
    *          dir (1 | -1) }
-   * Returns { q, named, lyric: [{ song, hit }], lyricsState, total, all }.
-   * lyricsState is 'off' when the query is too short to search lyrics for.
+   * Returns { marks, named, lyric: [{ song, hit }], lyricsState, total, all }.
+   * marks are the normalized words to pick out in a title; lyricsState is
+   * 'off' when nothing in the query is searched for in the lyrics.
    */
   function query(state) {
-    const q = norm((state.q || '').trim());
+    const parsed = parseQuery(state.q);
+    const positive = [].concat.apply([], parsed.groups);
     const selected = state.chords || new Set();
 
     const passes = (song) => {
@@ -340,28 +481,42 @@
       return true;
     };
 
-    const named = songs.filter(s => passes(s) && (!q || s._name.includes(q)));
-    const lyric = [];
     let lyricsState = 'off';
-
-    if (q.length >= LYRICS_MIN_QUERY) {
+    if (positive.concat(parsed.exclude).some(wantsLyrics)) {
       ensureLyrics();
       lyricsState = lyrics.state;
-      if (lyrics.state === 'ready') {
-        const seen = new Set(named.map(s => s.slug));
-        songs.forEach(song => {
-          if (seen.has(song.slug) || !passes(song)) return;
-          const hit = findLyricHit(song, q);
-          if (hit) lyric.push({ song, hit });
-        });
-      }
     }
+    const withLyrics = lyrics.state === 'ready';
+
+    // A song the title, artists and tags answer in full is a named result;
+    // one that needed its lyrics for some group is listed apart, with the
+    // line that matched. Within a group a name match beats a lyric one.
+    const named = [];
+    const lyric = [];
+    songs.forEach(song => {
+      if (!passes(song)) return;
+      if (parsed.exclude.some(t => test(song, t, withLyrics))) return;
+      let hit = null;
+      for (const group of parsed.groups) {
+        let found = false;
+        for (const t of group) {
+          const r = test(song, t, withLyrics);
+          if (r === true) { found = true; break; }
+          if (r && !found) found = r;
+        }
+        if (!found) return;
+        if (found !== true && !hit) hit = found;
+      }
+      if (hit) lyric.push({ song, hit });
+      else named.push(song);
+    });
 
     const cmp = compareBy(state.sort || 'title', state.dir || 1);
     named.sort(cmp);
     lyric.sort((a, b) => cmp(a.song, b.song));
 
-    return { q, named, lyric, lyricsState, total: named.length + lyric.length, all: songs.length };
+    const marks = positive.filter(t => t.field === 'any' || t.field === 'title').map(t => t.value);
+    return { marks, named, lyric, lyricsState, total: named.length + lyric.length, all: songs.length };
   }
 
   function filtersActive(state) {
@@ -517,10 +672,10 @@
 
   // === DOM helpers =========================================================
 
-  // The matched line, with the query picked out. norm() only
+  // The matched line, with the match picked out. norm() only
   // strips combining marks and lowercases, so for Czech the index carries
   // over; when it doesn't (a ligature), the plain line is shown instead.
-  function snippet(hit, queryLength, className) {
+  function snippet(hit, className) {
     const el = document.createElement('span');
     el.className = className || 'lyric-hit';
     if (hit.norm.length !== hit.line.length) {
@@ -529,9 +684,9 @@
     }
     el.appendChild(document.createTextNode(hit.line.slice(0, hit.at)));
     const mark = document.createElement('mark');
-    mark.textContent = hit.line.slice(hit.at, hit.at + queryLength);
+    mark.textContent = hit.line.slice(hit.at, hit.at + hit.len);
     el.appendChild(mark);
-    el.appendChild(document.createTextNode(hit.line.slice(hit.at + queryLength)));
+    el.appendChild(document.createTextNode(hit.line.slice(hit.at + hit.len)));
     return el;
   }
 
@@ -605,6 +760,7 @@
     chordFamilies,
     href,
     setSongHref,
+    parseQuery,
     query,
     filtersActive,
     countLine,

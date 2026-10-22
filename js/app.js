@@ -103,16 +103,22 @@
     });
   }
 
-  // The query picked out inside a title (the normalized title has the same
-  // length as the original for Czech, so the index carries over).
-  function highlighted(text, q) {
+  // The first searched words found in a title, picked out (the normalized
+  // title has the same length as the original for Czech, so the index
+  // carries over).
+  function highlighted(text, marks) {
     const frag = document.createDocumentFragment();
-    const n = q ? SL.norm(text) : '';
-    const at = q ? n.indexOf(q) : -1;
+    const n = marks && marks.length ? SL.norm(text) : '';
+    let at = -1;
+    let len = 0;
+    (marks || []).forEach(m => {
+      const i = n.indexOf(m);
+      if (i !== -1 && (at === -1 || i < at)) { at = i; len = m.length; }
+    });
     if (at === -1 || n.length !== text.length) { frag.appendChild(document.createTextNode(text)); return frag; }
     frag.appendChild(document.createTextNode(text.slice(0, at)));
-    frag.appendChild(el('mark', 'title-mark', text.slice(at, at + q.length)));
-    frag.appendChild(document.createTextNode(text.slice(at + q.length)));
+    frag.appendChild(el('mark', 'title-mark', text.slice(at, at + len)));
+    frag.appendChild(document.createTextNode(text.slice(at + len)));
     return frag;
   }
 
@@ -176,7 +182,7 @@
     const a = el('a', 'row-title');
     a.href = o.href ? o.href(song.slug) : SL.href(song);
     a.dataset.slug = song.slug;
-    a.appendChild(highlighted(song.title, o.q));
+    a.appendChild(highlighted(song.title, o.marks));
     main.appendChild(a);
     tagsOf(song).forEach(t => main.appendChild(el('span', 'tag', t)));
 
@@ -204,7 +210,7 @@
       by.setAttribute('aria-label', 'Přidal(a): ' + o.by);
       body.appendChild(by);
     }
-    if (o.hit) body.appendChild(SL.snippet(o.hit, o.q.length));
+    if (o.hit) body.appendChild(SL.snippet(o.hit));
     li.appendChild(body);
 
     const actions = el('div', 'row-actions');
@@ -267,7 +273,7 @@
     $('count').textContent = SL.countLine(res);
     results.innerHTML = '';
 
-    if (res.named.length) results.appendChild(songList(res.named, { q: res.q }));
+    if (res.named.length) results.appendChild(songList(res.named, { marks: res.marks }));
 
     if (res.lyric.length) {
       const head = el('div', 'group-head');
@@ -275,7 +281,7 @@
       head.appendChild(el('span', null, String(res.lyric.length)));
       results.appendChild(head);
       const ul = el('ul', 'songs');
-      res.lyric.forEach(({ song, hit }) => ul.appendChild(row(song, { q: res.q, hit })));
+      res.lyric.forEach(({ song, hit }) => ul.appendChild(row(song, { marks: res.marks, hit })));
       results.appendChild(ul);
     }
 
@@ -327,6 +333,14 @@
     renderSongs();
   }
 
+  function setQuery(value) {
+    qInput.value = value;
+    state.q = value;
+    $('q-clear').hidden = !value;
+    SL.syncQueryToUrl(value);
+    renderSongs();
+  }
+
   let searchTimer;
   qInput.value = state.q;
   $('q-clear').hidden = !state.q;
@@ -345,11 +359,7 @@
     if (e.key === 'Enter') qInput.blur();
   });
   $('q-clear').addEventListener('click', () => {
-    qInput.value = '';
-    state.q = '';
-    $('q-clear').hidden = true;
-    SL.syncQueryToUrl('');
-    renderSongs();
+    setQuery('');
     qInput.focus();
   });
   $('chip-reset').addEventListener('click', resetFilters);
@@ -456,7 +466,46 @@
       fillPrintSheet();
     }
 
+    if (kind === 'tips') {
+      $('sheet-title').textContent = 'Jak hledat';
+      fillTipsSheet();
+    }
+
     if (!sheet.open) sheet.showModal();
+  }
+
+  // ---- search tips: the operators js/song-list-core.js understands ------
+
+  const TIPS = [
+    { example: '-láska', text: 'Vynechá písně s tím slovem v názvu, u interpreta i v textu.' },
+    { example: '"ty a já"', text: 'Přesně tahle slova za sebou.' },
+    { example: 'nohavica OR plíhal', text: 'Jedno, nebo druhé. OR piš velkými písmeny.' },
+    { example: 'autor:nohavica', text: 'Hledá jen u interpreta.' },
+    { example: 'název:láska', text: 'Hledá jen v názvu.' },
+    { example: 'text:pivo', text: 'Hledá jen v textu písně.' },
+    { example: 'before:2025', text: 'Přidané do zpěvníku před rokem 2025. Jde i měsíc nebo den (2025-06, 1.6.2025) a česky před:2025.' },
+    { example: 'after:2025', text: 'Přidané po roce 2025. Česky po:2025.' },
+    { example: '-akord:F', text: 'Bez akordu F. Bez mínusu naopak jen písně, kde F je.' },
+    { example: 'jazyk:en', text: 'Jen písně v jednom jazyce: cz, en, sk, pl.' },
+    { example: 'capo:ne', text: 'S capem, nebo bez: ano, ne, nebo číslo pražce.' },
+  ];
+
+  // A tap adds the example to what's already searched, so every tip is one
+  // tap from being tried and tips stack up into a combined search.
+  function fillTipsSheet() {
+    sheetBody.appendChild(el('p', 'tips-intro', 'Triky jde kombinovat, třeba nohavica -akord:F. Klepnutím příklad přidáš do hledání.'));
+    TIPS.forEach(t => {
+      const b = el('button', 'tip');
+      b.type = 'button';
+      b.appendChild(el('span', 'tip-example', t.example));
+      b.appendChild(el('span', 'tip-text', t.text));
+      b.addEventListener('click', () => {
+        const q = qInput.value.trim();
+        setQuery(q ? q + ' ' + t.example : t.example);
+        closeSheet();
+      });
+      sheetBody.appendChild(b);
+    });
   }
 
   // ---- chord picker: roots first, the rest of each family on demand ------
