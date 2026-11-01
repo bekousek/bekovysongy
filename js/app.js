@@ -294,8 +294,8 @@
       results.appendChild(el('p', 'state state-quiet', 'Hledání v textech písní se nepodařilo načíst, hledá se jen v názvech a interpretech.'));
     }
 
-    // Nothing found by name: the song may simply be missing, so whoever
-    // searched can ask for it.
+    // The song may simply be missing - even when the words found plenty of
+    // others - so under every search whoever searched can ask for it.
     const searched = state.q.trim() !== '';
     if (!res.total && res.lyricsState !== 'loading') {
       const actions = [];
@@ -310,8 +310,10 @@
       results.appendChild(stateBox('Nic nenalezeno', searched
         ? 'Zkus jiný název, interpreta nebo úryvek textu. A jestli tu píseň ve zpěvníku chybí, navrhni ji.'
         : 'Zkus jiný název, interpreta nebo úryvek textu.', actions));
-    } else if (searched && !res.named.length && res.lyricsState !== 'loading') {
-      results.appendChild(stateBox('Chybí ti tu píseň?', 'Názvem ani interpretem se nenašla žádná. Navrhni ji do zpěvníku.', requestButton(false)));
+    } else if (searched && res.lyricsState !== 'loading') {
+      results.appendChild(res.named.length
+        ? stateBox('Není tu ta, kterou hledáš?', 'Navrhni ji do zpěvníku.', requestButton(false))
+        : stateBox('Chybí ti tu píseň?', 'Názvem ani interpretem se nenašla žádná. Navrhni ji do zpěvníku.', requestButton(false)));
     }
 
     renderChips();
