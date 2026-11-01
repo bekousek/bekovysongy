@@ -33,6 +33,7 @@
   let google = '';        // the Google ID token from the editor's sign-in
   let session = null;     // { token, refresh, exp } - Firebase
   let groups = [];
+  let failed = false;     // the last load didn't get through - "no wishes" would be a lie
   let songs = null;       // songs.json, to tell wishes the songbook already has
 
   const norm = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
@@ -120,7 +121,7 @@
   function render() {
     list.innerHTML = '';
     if (!groups.length) {
-      list.appendChild(el('li', 'requests-empty', 'Zatím žádná přání.'));
+      if (!failed) list.appendChild(el('li', 'requests-empty', 'Zatím žádná přání.'));
       return;
     }
     groups.forEach(g => {
@@ -163,9 +164,11 @@
     try {
       if (!songs) songs = await fetch('../songs.json').then(r => r.json()).then(d => d.songs).catch(() => null);
       groups = group(await db('GET', 'requests'));
+      failed = false;
       note.textContent = groups.length ? 'Seřazeno od nejžádanějších. Stejné přání od víc lidí je jeden řádek.' : '';
     } catch (e) {
       groups = [];
+      failed = true;
       note.textContent = e.message;
     }
     paintCount();
