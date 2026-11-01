@@ -83,6 +83,9 @@
           <button type="button" class="btn-editor" id="btn-new-song">+ Nová píseň</button>
           <button type="button" class="btn-editor btn-save" id="btn-save-all" disabled>Uložit vše <span id="save-all-count"></span></button>
         </div>
+        <div class="sidebar-actions">
+          <button type="button" class="btn-editor" id="btn-requests" hidden>Přání návštěvníků <span id="requests-count"></span></button>
+        </div>
       </div>
       <!-- The four status sections are built by editor.js from STATUSES. -->
       <div class="song-list-wrap" id="song-list-wrap"></div>
@@ -259,7 +262,19 @@
   <script src="../js/sections.js"></script>
   <script src="../js/song-template.js"></script>
   <script src="../js/song-preview.js"></script>
+  <!-- Songs visitors asked for from an empty search (js/admin-requests.js) -->
+  <dialog id="requests-dialog" aria-labelledby="requests-title">
+    <h2 id="requests-title">Přání návštěvníků</h2>
+    <p class="setup-note" id="requests-note"></p>
+    <ul class="requests-list" id="requests-list"></ul>
+    <div class="dialog-actions">
+      <button type="button" class="btn-editor" id="btn-requests-close">Zavřít</button>
+    </div>
+  </dialog>
+
   <script src="../js/author-suggest.js"></script>
+  <!-- Before editor.js: it listens for the sign-in editor.js announces while booting. -->
+  <script src="../js/admin-requests.js"></script>
   <script src="../js/editor.js"></script>
   <script>
     if ('serviceWorker' in navigator) {

@@ -306,6 +306,7 @@ Dva tvary: pilulka pro všechno, na co se klepe (tlačítka, čipy, hledání, z
 - Název 17/600, za ním štítky (EN, Capo 2, Nová) v ash 12/500; pod ním interpreti ve smoke jako samostatná tlačítka; pod nimi akordy v oranžové po skupinách oddělených tenkou svislou čarou ve slate.
 - Celý řádek otevírá píseň (`::after` přes řádek), srdce a plus vpravo jsou samostatné cíle 44×48 px. Srdce je dim-smoke, zapnuté bone-white vyplněné; plus je oranžové, zapnuté oranžové kolečko s fajfkou.
 - Na stránce interpreta se jméno interpreta u řádku ukáže jen u písní se spoluautorem.
+- Ve společném večeru je píseň otevřená na telefonu zakladatele kartou pozornosti (soot, obrys 1.5 px campfire-orange, štítek „Teď se hraje“); odehrané písně mají název, interpreta i akordy v dim-smoke.
 - Shoda hledání je podtržená oranžovou 2 px; úryvek textu je kurzívou ve smoke se shodou bone-white.
 
 ### Cards / Containers
@@ -329,7 +330,8 @@ Jeden `<dialog>` pro všechny volby. Na mobilu vyjede zespodu (soot, zaoblení 2
 ### Chord bar a lišta nástrojů (stránka písně)
 - **Lišta akordů:** night-black, akordy písně jako 44px cíle v oranžové 17/700, skupiny sekcí oddělené svislou čarou ve slate. Klepnutí ukáže prstoklad; zapnutý akord dostane ash plochu.
 - **Lišta nástrojů:** tónina (− hodnota +) a rolování (− přehrát +) jako dvě skupiny s popiskem 11 px pod nimi, vpravo „Další“. Posunutá tónina svítí oranžově, běžící rolování je oranžové tlačítko s pauzou.
-- **Pilulky písně:** Ukázka / Oblíbit / Do večera pod názvem, soot 44 px se smoke textem, zapnuté oranžové.
+- **Pilulky písně:** Ukázka / Oblíbit / Do večera (a ve společném večeru Sledovat zakladatele) pod názvem, soot 44 px se smoke textem, zapnuté oranžové.
+- **Interpret pod názvem** je odkaz na jeho písně v seznamu, podtržený tenkou čarou ve slate. Stejně tak interpret ve vylosované kartě v Objevit.
 - **Opakovaný refrén:** sbalený do pilulky se značkou „R:“ a ikonou opakování (soot, 1px slate okraj); klepnutí ho rozbalí na místě.
 
 ### Ladička (stránka písně)

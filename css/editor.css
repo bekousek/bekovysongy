@@ -1237,6 +1237,74 @@ select.edit-meta-input {
   font-family: monospace;
 }
 
+/* Visitors' song requests (js/admin-requests.js) */
+#btn-requests[hidden] {
+  display: none;
+}
+
+#requests-dialog {
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 560px;
+  width: 100%;
+}
+
+#requests-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#requests-dialog h2 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.requests-list {
+  list-style: none;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+}
+
+.request-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.request-title {
+  font-weight: 600;
+}
+
+.request-count {
+  margin-left: 0.4rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.request-meta,
+.requests-empty {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.request-have {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.request-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex: none;
+}
+
 .dialog-actions {
   display: flex;
   justify-content: flex-end;

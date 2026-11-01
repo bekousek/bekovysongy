@@ -174,7 +174,7 @@
 
   function row(song, opts) {
     const o = opts || {};
-    const li = el('li', 'row' + (o.rank ? ' row-ranked' : ''));
+    const li = el('li', 'row' + (o.rank ? ' row-ranked' : '') + (o.now ? ' row-now' : o.played ? ' row-played' : ''));
     if (o.rank) li.appendChild(el('span', 'rank', String(o.rank)));
     const body = el('div', 'row-body');
     const main = el('div', 'row-main');
@@ -182,8 +182,10 @@
     const a = el('a', 'row-title');
     a.href = o.href ? o.href(song.slug) : SL.href(song);
     a.dataset.slug = song.slug;
+    if (o.played && !o.now) a.appendChild(el('span', 'visually-hidden', 'Hrálo se: '));
     a.appendChild(highlighted(song.title, o.marks));
     main.appendChild(a);
+    if (o.now) main.appendChild(el('span', 'tag tag-now', 'Teď se hraje'));
     tagsOf(song).forEach(t => main.appendChild(el('span', 'tag', t)));
 
     // On an artist's own page only co-written songs still name who's on them.
@@ -242,9 +244,10 @@
     const box = el('div', 'state');
     if (title) box.appendChild(el('strong', null, title));
     box.appendChild(document.createTextNode(text));
-    if (action) {
+    const actions = [].concat(action || []);
+    if (actions.length) {
       const wrap = el('div', 'state-action');
-      wrap.appendChild(action);
+      actions.forEach(a => wrap.appendChild(a));
       box.appendChild(wrap);
     }
     return box;
@@ -291,17 +294,36 @@
       results.appendChild(el('p', 'state state-quiet', 'Hledání v textech písní se nepodařilo načíst, hledá se jen v názvech a interpretech.'));
     }
 
+    // Nothing found by name: the song may simply be missing, so whoever
+    // searched can ask for it.
+    const searched = state.q.trim() !== '';
     if (!res.total && res.lyricsState !== 'loading') {
-      let action = null;
-      if (SL.filtersActive(state)) {
-        action = el('button', 'btn btn-quiet', 'Zrušit filtry');
-        action.type = 'button';
-        action.addEventListener('click', resetFilters);
+      const actions = [];
+      const filtered = SL.filtersActive(state);
+      if (filtered) {
+        const reset = el('button', 'btn btn-quiet', 'Zrušit filtry');
+        reset.type = 'button';
+        reset.addEventListener('click', resetFilters);
+        actions.push(reset);
       }
-      results.appendChild(stateBox('Nic nenalezeno', 'Zkus jiný název, interpreta nebo úryvek textu.', action));
+      if (searched) actions.push(requestButton(!filtered));
+      results.appendChild(stateBox('Nic nenalezeno', searched
+        ? 'Zkus jiný název, interpreta nebo úryvek textu. A jestli tu píseň ve zpěvníku chybí, navrhni ji.'
+        : 'Zkus jiný název, interpreta nebo úryvek textu.', actions));
+    } else if (searched && !res.named.length && res.lyricsState !== 'loading') {
+      results.appendChild(stateBox('Chybí ti tu píseň?', 'Názvem ani interpretem se nenašla žádná. Navrhni ji do zpěvníku.', requestButton(false)));
     }
 
     renderChips();
+  }
+
+  function requestButton(primary) {
+    const b = el('button', 'btn ' + (primary ? 'btn-primary' : 'btn-quiet'));
+    b.type = 'button';
+    b.innerHTML = SL.icon('send', 18);
+    b.appendChild(el('span', null, 'Navrhnout píseň'));
+    b.addEventListener('click', () => openSheet('request'));
+    return b;
   }
 
   function renderChips() {
@@ -471,7 +493,77 @@
       fillTipsSheet();
     }
 
+    if (kind === 'request') {
+      $('sheet-title').textContent = 'Navrhnout píseň';
+      fillRequestSheet();
+    }
+
     if (!sheet.open) sheet.showModal();
+  }
+
+  // ---- a song somebody misses: sent to /admin through js/vecer.js --------
+
+  const TITLE_KEYS = ['nazev', 'title', 'intitle'];
+  const AUTHOR_KEYS = ['autor', 'interpret', 'author', 'inauthor'];
+  const OTHER_KEYS = ['text', 'intext', 'pred', 'before', 'po', 'after', 'akord', 'chord', 'jazyk', 'lang', 'capo'];
+
+  // What was searched, without the search tricks, as the first guess at the
+  // missing song; autor:… goes to the artist. Same tokens as SL.parseQuery.
+  function requestGuess(q) {
+    const title = [];
+    const artist = [];
+    for (const m of String(q || '').matchAll(/(-?)(?:([^\s:"„“”]+):)?(?:["„“”]([^"„“”]*)["„“”]?|(\S+))/g)) {
+      if (m[1]) continue;
+      const key = m[2] ? SL.norm(m[2]) : '';
+      const value = (m[3] != null ? m[3] : m[4] || '').trim();
+      if (!key && (value === 'OR' || value === '|')) continue;
+      if (AUTHOR_KEYS.indexOf(key) !== -1) artist.push(value);
+      else if (!key || TITLE_KEYS.indexOf(key) !== -1) title.push(value);
+      else if (OTHER_KEYS.indexOf(key) === -1) title.push(m[0]);
+    }
+    return { title: title.filter(Boolean).join(' '), artist: artist.filter(Boolean).join(' ') };
+  }
+
+  function field(label, id, value, placeholder) {
+    const wrap = el('label', 'field');
+    wrap.appendChild(el('span', null, label));
+    const input = el('input');
+    input.type = 'text';
+    input.id = id;
+    input.maxLength = 120;
+    input.autocomplete = 'off';
+    input.value = value;
+    input.placeholder = placeholder;
+    wrap.appendChild(input);
+    return wrap;
+  }
+
+  function fillRequestSheet() {
+    const guess = requestGuess(state.q);
+    sheetBody.appendChild(el('p', 'request-intro', 'Napiš, jakou píseň tu postrádáš. Podle návrhů přibývají do zpěvníku nové písně.'));
+    const form = el('form', 'request-form');
+    form.noValidate = true;
+    form.append(
+      field('Název písně', 'request-title', guess.title, 'Jak se píseň jmenuje'),
+      field('Interpret (nemusíš vědět)', 'request-artist', guess.artist, 'Kdo ji zpívá'));
+    sheetBody.appendChild(form);
+
+    const send = el('button', 'btn btn-primary');
+    send.type = 'button';
+    send.innerHTML = SL.icon('send', 18);
+    send.appendChild(el('span', null, 'Odeslat návrh'));
+    const submit = () => {
+      const title = $('request-title').value.trim();
+      if (!title) { $('request-title').focus(); return; }
+      const sent = EV.request(title, $('request-artist').value, state.q);
+      closeSheet();
+      if (!sent) toast('Tuhle píseň už jsi navrhl(a).');
+      else toast(navigator.onLine === false ? 'Díky! Návrh se odešle, až bude signál.' : 'Díky, návrh je odeslaný.');
+    };
+    send.addEventListener('click', submit);
+    form.addEventListener('submit', (e) => { e.preventDefault(); submit(); });
+    form.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
+    sheetFoot.appendChild(send);
   }
 
   // ---- search tips: the operators js/song-list-core.js understands ------
@@ -1011,7 +1103,16 @@
     $('draw-play').dataset.slug = song.slug;
     $('draw-add').dataset.add = song.slug;
     paintAdd($('draw-add'), EV.has(song.slug), song.title);
-    $('draw-artist').textContent = song._authors.join(', ');
+    // Plain links (not buttons) so a long line of artists can end in "…".
+    const artist = $('draw-artist');
+    artist.textContent = '';
+    song._authors.forEach((name, i) => {
+      if (i > 0) artist.appendChild(document.createTextNode(', '));
+      const a = el('a', 'artist-btn', name);
+      a.href = '#interpret/' + encodeURIComponent(name);
+      a.setAttribute('aria-label', 'Písně od: ' + name);
+      artist.appendChild(a);
+    });
     const chords = chordsEl(song, 'chords draw-chords');
     $('draw-chords').replaceWith(chords);
     chords.id = 'draw-chords';
@@ -1080,7 +1181,7 @@
   };
 
   const ROLE_TEXT = {
-    owner: 'Večer je tvůj: můžeš všechno, i smazat celou frontu.',
+    owner: 'Večer je tvůj: můžeš všechno, i smazat celou frontu. Píseň, kterou máš otevřenou, uvidí ostatní jako právě hranou.',
     parta: 'Jsi tu jako parta: přidáváš, odebíráš cokoli a můžeš míchat pořadí.',
     host: 'Jsi tu jako host: přidáváš písně a odebíráš jen ty svoje.',
   };
@@ -1124,6 +1225,14 @@
       $('name-field').hidden = known;
       $('name-show').textContent = EV.name();
       if (document.activeElement !== name) name.value = EV.name();
+
+      const following = EV.following;
+      $('follow').hidden = EV.role === 'owner';
+      $('follow-btn').setAttribute('aria-pressed', following ? 'true' : 'false');
+      $('follow-btn').lastElementChild.textContent = following ? 'Sleduješ zakladatele' : 'Sledovat zakladatele';
+      $('follow-text').textContent = following
+        ? 'Písně se ti přepínají samy podle toho, co má otevřené zakladatel večera.'
+        : 'Písně se ti budou přepínat samy, kdykoli zakladatel večera otevře jinou.';
     }
     $('vecer-missing').hidden = !missing;
 
@@ -1134,6 +1243,7 @@
     }
 
     const canMove = EV.can('move');
+    const playing = EV.now() ? EV.now().s : '';
     const ol = $('vecer-list');
     ol.innerHTML = '';
     if (!missing) {
@@ -1157,7 +1267,10 @@
           remove.innerHTML = SL.icon('x', 20);
           controls.push(remove);
         }
-        ol.appendChild(row(song, { rank: i + 1, controls, href: setlistHref, by: shared ? (it.mine ? (it.by || 'ty') : it.by) : '' }));
+        ol.appendChild(row(song, {
+          rank: i + 1, controls, href: setlistHref, by: shared ? (it.mine ? (it.by || 'ty') : it.by) : '',
+          now: it.s === playing, played: it.played,
+        }));
       });
     }
 
@@ -1171,9 +1284,13 @@
     $('vecer-shuffle').hidden = n < 3 || !EV.can('shuffle');
     $('vecer-clear').hidden = !EV.can('clear');
     $('vecer-clear').textContent = shared ? 'Smazat frontu' : 'Vyčistit';
+    // Joining halfway through goes on where the evening is, not from the top.
     if (n) {
-      $('vecer-play').href = setlistHref(items[0].s);
-      $('vecer-play').dataset.slug = items[0].s;
+      const current = items.find(it => it.s === playing);
+      const resume = current || items.find(it => !it.played) || items[0];
+      $('vecer-play').href = setlistHref(resume.s);
+      $('vecer-play').dataset.slug = resume.s;
+      $('vecer-play').lastElementChild.textContent = current || items.some(it => it.played) ? 'Pokračovat' : 'Začít hrát';
     }
 
     $('invite').hidden = shared;
@@ -1220,6 +1337,11 @@
     if (currentView === 'vecer') renderVecer();
     const refused = EV.takeRefusal();
     if (refused) toast(refused);
+    // Following the founder: from the Večer tab straight to the song they
+    // opened. Anywhere else in the list the move only counts as seen, so a
+    // song opened from search isn't swapped for theirs on arrival.
+    const move = EV.takeMove();
+    if (move && currentView === 'vecer' && !sheet.open) location.href = setlistHref(move);
   });
 
   // A second, explicit tap for what changes the evening for everybody.
@@ -1395,6 +1517,7 @@
     renderVecer();
   });
   $('party-name').addEventListener('keydown', (e) => { if (e.key === 'Enter') e.target.blur(); });
+  $('follow-btn').addEventListener('click', () => EV.setFollowing(!EV.following));
   $('name-edit').addEventListener('click', () => {
     editingName = true;
     renderVecer();

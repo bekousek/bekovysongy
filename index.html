@@ -138,10 +138,12 @@
 
       <article class="draw" aria-labelledby="draw-title" aria-live="polite">
         <h2 class="visually-hidden">Vylosovaná píseň</h2>
-        <a class="draw-title" id="draw-title" href="#"></a>
-        <p class="draw-artist" id="draw-artist"></p>
-        <p class="chords draw-chords" id="draw-chords"></p>
-        <p class="draw-tags" id="draw-tags"></p>
+        <div class="draw-body">
+          <a class="draw-title" id="draw-title" href="#"></a>
+          <p class="draw-artist" id="draw-artist"></p>
+          <p class="chords draw-chords" id="draw-chords"></p>
+          <p class="draw-tags" id="draw-tags"></p>
+        </div>
         <div class="draw-actions">
           <a class="btn btn-primary" id="draw-play" href="#"><span data-icon="play"></span><span>Hrát</span></a>
           <button type="button" class="btn btn-quiet" id="draw-next"><span data-icon="shuffle"></span><span>Jinou</span></button>
@@ -172,6 +174,10 @@
         <div class="party-row">
           <button type="button" class="btn btn-primary" id="party-invite"><span data-icon="qr"></span><span>Pozvat</span></button>
           <button type="button" class="btn btn-ghost" id="party-leave">Opustit večer</button>
+        </div>
+        <div class="follow" id="follow" hidden>
+          <button type="button" class="btn btn-quiet follow-btn" id="follow-btn" aria-pressed="false" aria-describedby="follow-text"><span data-icon="sync"></span><span>Sledovat zakladatele</span></button>
+          <p class="follow-text" id="follow-text"></p>
         </div>
         <p class="name-line" id="name-line" hidden>Jsi tu jako <strong id="name-show"></strong> <button type="button" class="text-btn" id="name-edit">Změnit</button></p>
         <label class="name-field" id="name-field">

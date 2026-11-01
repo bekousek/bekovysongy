@@ -460,6 +460,7 @@
     if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
       isAuthed = true;
       onAuthSuccess();
+      announceSignIn('');
       return;
     }
 
@@ -504,6 +505,7 @@
     if (emailOk && audOk && notExpired) {
       isAuthed = true;
       onAuthSuccess();
+      announceSignIn(response.credential);
     } else {
       isAuthed = false;
       loginMsg.textContent = 'Přístup zamítnut pro účet: ' + (payload.email || 'neznámý') + '.';
@@ -517,6 +519,12 @@
     } else {
       setupPanel.style.display = '';
     }
+  }
+
+  // js/admin-requests.js trades the Google credential for a Firebase
+  // session to read the visitors' song requests. Empty on localhost.
+  function announceSignIn(credential) {
+    document.dispatchEvent(new CustomEvent('admin-signed-in', { detail: { credential } }));
   }
 
   function parseJwt(token) {

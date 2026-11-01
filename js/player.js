@@ -70,7 +70,8 @@
   const ACTIONS = `
     <button type="button" class="pill" id="preview" hidden><span data-icon="play"></span><span>Ukázka</span></button>
     <button type="button" class="pill" id="fav" aria-pressed="false"><span data-icon="heart"></span><span>Oblíbit</span></button>
-    <button type="button" class="pill" id="add" aria-pressed="false"><span data-icon="plus"></span><span>Do večera</span></button>`;
+    <button type="button" class="pill" id="add" aria-pressed="false"><span data-icon="plus"></span><span>Do večera</span></button>
+    <button type="button" class="pill" id="follow" aria-pressed="false" hidden><span data-icon="sync"></span><span>Sledovat zakladatele</span></button>`;
 
   const AFTER = `
     <a class="next-card" id="next-card" href="#" hidden>
@@ -814,6 +815,7 @@
     function renderNextRandom() {
       if (!nextRandom) drawNext();
       if (!nextRandom) return;
+      $('after').classList.add('random');
       const url = songUrl(nextRandom.slug, 'nahodne');
       $('next-top').hidden = false;
       $('next-top').href = url;
@@ -836,6 +838,72 @@
     });
 
     EV.onChange(() => { if (song) { paintToggles(); if (!fromRandom) renderNext(); } });
+
+    // ---- the evening plays from the founder's phone ----------------------
+
+    // On the founder's phone this page is the one being played: everyone
+    // sees it as playing, and ten seconds on screen make a queued song
+    // played. Said once per page view and again on coming back to it, never
+    // on someone else's change - two open tabs would take turns forever.
+    let announced = false;
+    let playedTimer = 0;
+
+    function announce() {
+      if (announced || !song || !EV.shared || EV.role !== 'owner') return;
+      announced = true;
+      EV.showing(slug);
+    }
+
+    function armPlayed() {
+      clearTimeout(playedTimer);
+      if (document.visibilityState === 'visible') playedTimer = setTimeout(() => EV.markPlayed(slug), 10000);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') { announced = false; announce(); }
+      armPlayed();
+    });
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) { announced = false; announce(); armPlayed(); }
+    });
+    armPlayed();
+
+    // Everyone else may follow: the page then turns over to whatever the
+    // founder opens next.
+    function paintFollow() {
+      const b = $('follow');
+      b.hidden = !EV.shared || EV.role === 'owner';
+      const on = EV.following;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.lastElementChild.textContent = on ? 'Sleduješ zakladatele' : 'Sledovat zakladatele';
+    }
+
+    $('follow').addEventListener('click', () => {
+      const on = !EV.following;
+      EV.setFollowing(on);
+      toast(on ? 'Písně se přepnou samy se zakladatelem večera' : 'Už nesleduješ zakladatele');
+    });
+
+    EV.onChange(() => {
+      announce();
+      paintFollow();
+      const move = EV.takeMove();
+      if (move && move !== slug) location.replace(songUrl(move, 'vecer'));
+    });
+
+    // The artist under the title leads to all of their songs in the list.
+    function linkAuthors() {
+      const p = main.querySelector('.song-author');
+      if (!p || !song || !song._authors.length) return;
+      p.textContent = '';
+      song._authors.forEach((name, i) => {
+        if (i > 0) p.appendChild(document.createTextNode(', '));
+        const a = el('a', null, name);
+        a.href = ROOT + '#interpret/' + encodeURIComponent(name);
+        a.setAttribute('aria-label', 'Písně od: ' + name);
+        p.appendChild(a);
+      });
+    }
 
     // Walking the setlist replaces the page instead of stacking history, so
     // the back arrow still means "back to the list" after five songs.
@@ -900,6 +968,9 @@
         }
         paintToggles();
         renderNext();
+        linkAuthors();
+        announce();
+        paintFollow();
         SL.recent.add(slug);
       })
       .catch(err => console.error('songs.json failed:', err));

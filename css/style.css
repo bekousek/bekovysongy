@@ -128,6 +128,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .setlist-pos { display: inline-block; color: var(--accent); font-weight: 600; font-size: 14px; margin-bottom: 4px; padding: 4px 0; }
 .song-header h1 { font-size: 26px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
 .song-author { margin-top: 4px; color: var(--muted); font-size: 17px; }
+/* Each artist opens their songs in the list; the faint underline says so. */
+.song-author a {
+  padding: 8px 0; color: inherit;
+  text-decoration: underline; text-decoration-color: var(--control); text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.song-author a:hover { color: var(--text); text-decoration-color: currentColor; }
 .song-capo {
   margin-top: 4px;
   display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: var(--radius-pill);
@@ -224,6 +230,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .next-label { color: var(--accent); font-weight: 600; font-size: 14px; }
 .next-title { font-size: 22px; font-weight: 700; line-height: 1.2; }
 .next-artist { color: var(--muted); }
+/* Drawing again keeps the card the same size - two lines of title, one of
+   artist - so "Vylosovat jinou" under it doesn't move. */
+.after.random .next-title {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  min-height: 2.4em;
+}
+.after.random .next-artist { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.after.random .next-artist:empty::before { content: "\00a0"; }
 .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--muted); font-weight: 500; }
 .text-link .icon { width: 18px; height: 18px; }
 

@@ -17,6 +17,14 @@
  * Every phone gets an anonymous Firebase account for this (no sign-in, no
  * name required); its uid is what "added it themselves" and "owner" mean.
  *
+ * The founder's phone is the one the evening plays from: its song page says
+ * which song is open (/now), and a queued song it showed for ten seconds
+ * counts as played. Everyone else sees that in the queue, and may follow
+ * along: their song page then turns over whenever the founder's does.
+ *
+ * The same account sends song requests from an empty search (/requests),
+ * which only the songbook's owner can read, in /admin.
+ *
  * Talks to Firebase over REST rather than the SDK: an EventSource on
  * /evenings/<id>.json streams every change, fetch() writes them. Writes made
  * without signal wait in localStorage and go out when the phone is back
@@ -42,6 +50,8 @@
   const PENDING_KEY = 'bs_evening_pending';
   const AUTH_KEY = 'bs_fb_auth';           // { uid, token, refresh, exp }
   const NAME_KEY = 'bs_name';
+  const FOLLOW_KEY = 'bs_follow';          // { id, seen } while following the founder's phone
+  const REQUESTS_KEY = 'bs_requests';      // songs already requested from this browser
   const ID_RE = /^[A-Za-z0-9]{16}$/;
   const KEY_RE = /^[A-Za-z0-9]{20}$/;
   const ME = '__me';                        // stands for our uid in writes queued before we know it
@@ -91,6 +101,7 @@
   let problem = '';             // why the shared evening doesn't work, in words
   let refusal = '';             // the last write the rules turned down, in words
   let stream = null;
+  let follow = readJSON(FOLLOW_KEY, null);
   const listeners = [];
 
   (function loadCache() {
@@ -221,6 +232,13 @@
     return (t && t.meta) || null;
   }
 
+  // The song open on the founder's phone, { s, t }, or null before the first.
+  function now() {
+    const t = view();
+    const n = t && t.now;
+    return n && typeof n.s === 'string' && SL.bySlug(n.s) ? n : null;
+  }
+
   function role() {
     if (!joined) return 'local';
     const m = meta();
@@ -230,13 +248,17 @@
 
   // ---- writes ------------------------------------------------------------
 
-  function send(method, path, body, kind) {
-    const op = { id: joined.id, method, path, body: body === undefined ? null : body };
-    if (kind) op.kind = kind;
+  function queue(op) {
     pending.push(op);
     writeJSON(PENDING_KEY, pending);
     emit();
     flush();
+  }
+
+  function send(method, path, body, kind) {
+    const op = { id: joined.id, method, path, body: body === undefined ? null : body };
+    if (kind) op.kind = kind;
+    queue(op);
   }
 
   function withUid(v, uid) {
@@ -252,6 +274,7 @@
   const REFUSED = {
     items: 'Tohle může jen ten, kdo večer založil, nebo parta.',
     grant: 'Odkaz pro partu už neplatí, jsi tu jako host: přidáváš a odebíráš svoje písně.',
+    request: 'Návrh písně se nepodařilo odeslat.',
   };
 
   let flushing = false;
@@ -309,8 +332,10 @@
           acked.push(op);
           setTimeout(() => { acked = acked.filter(a => a !== op); emit(); }, 4000);
         } else if (op.kind !== 'grant') {
+          // What the founder's page writes on its own ('quiet') is nobody's
+          // tap, so a refusal there has nobody to tell.
           console.warn('Evening write refused', res.status, op.path);
-          refusal = REFUSED.items;
+          if (op.kind !== 'quiet') refusal = REFUSED[op.kind] || REFUSED.items;
         }
         emit();
       }
@@ -412,7 +437,7 @@
 
     items() {
       if (!joined) return SL.setlist.list().map((s, i) => ({ key: s, s, o: i, mine: true }));
-      return items().map(it => Object.assign(it, { mine: isMe(it.u) }));
+      return items().map(it => Object.assign(it, { mine: isMe(it.u), played: !!it.p }));
     },
     list() { return api.items().map(it => it.s); },
     has(slug) { return api.list().indexOf(slug) !== -1; },
@@ -546,10 +571,74 @@
       return l ? api.join(l.id, l.k) : false;
     },
 
+    // ---- playing from the founder's phone ------------------------------
+
+    // The song open on the founder's phone ({ s, t }), or null.
+    now() { return joined ? now() : null; },
+
+    // The founder's song page says which song it shows. Nobody else's would
+    // count (the rules refuse it), so nobody else writes.
+    showing(slug) {
+      if (!joined || role() !== 'owner') return;
+      const n = now();
+      if (n && n.s === slug) return;
+      send('PUT', `evenings/${joined.id}/now`, { s: slug, t: { '.sv': 'timestamp' } }, 'quiet');
+    },
+
+    // A queued song the founder had open for a while has been played.
+    markPlayed(slug) {
+      if (!joined || role() !== 'owner') return;
+      items().filter(it => it.s === slug && !it.p)
+        .forEach(it => send('PUT', `evenings/${joined.id}/items/${it.key}/p`, { '.sv': 'timestamp' }, 'quiet'));
+    },
+
+    get following() { return !!(joined && follow && follow.id === joined.id) && role() !== 'owner'; },
+
+    setFollowing(on) {
+      follow = on && joined ? { id: joined.id, seen: '' } : null;
+      writeJSON(FOLLOW_KEY, follow);
+      emit();
+    },
+
+    // While following: the founder's song, once each time it changes - and
+    // once right after following starts. A song opened by hand in between
+    // stays open until the founder moves on. Otherwise ''.
+    takeMove() {
+      if (!api.following || !gotServer) return '';
+      const n = now();
+      if (!n) return '';
+      const mark = n.s + '@' + n.t;
+      if (follow.seen === mark) return '';
+      follow.seen = mark;
+      writeJSON(FOLLOW_KEY, follow);
+      return n.s;
+    },
+
+    // ---- song requests ---------------------------------------------------
+
+    // A song somebody misses in the songbook. Goes out when there's signal,
+    // like everything else here. False when this browser already asked.
+    request(title, artist, q) {
+      const t = String(title || '').trim().slice(0, 120);
+      if (!t) return false;
+      const a = String(artist || '').trim().slice(0, 120);
+      const id = SL.norm(t + ' / ' + a);
+      const sent = readJSON(REQUESTS_KEY, []);
+      if (Array.isArray(sent) && sent.indexOf(id) !== -1) return false;
+      writeJSON(REQUESTS_KEY, (Array.isArray(sent) ? sent : []).concat(id).slice(-50));
+      const body = { title: t, t: { '.sv': 'timestamp' } };
+      if (a) body.artist = a;
+      if (q && String(q).trim()) body.q = String(q).trim().slice(0, 200);
+      queue({ id: '', method: 'PUT', path: `requests/${ME}/${itemKey()}`, body, kind: 'request' });
+      return true;
+    },
+
     leave() {
       disconnect();
       if (joined) writeJSON(LAST_KEY, { id: joined.id, k: joined.k || '' });
       joined = null;
+      follow = null;
+      writeJSON(FOLLOW_KEY, null);
       server = null;
       gotServer = false;
       problem = '';
@@ -578,6 +667,15 @@
     if (document.visibilityState === 'visible' && joined && (!stream || stream.readyState === 2)) connect();
   });
   window.addEventListener('pageshow', (e) => { if (e.persisted && joined) connect(); });
+  // Following switched on or off in another tab of the site.
+  window.addEventListener('storage', (e) => {
+    if (e.key !== FOLLOW_KEY) return;
+    follow = readJSON(FOLLOW_KEY, null);
+    emit();
+  });
 
   if (joined) SL.load().then(() => { connect(); emit(); });
+  // A request written offline on an earlier visit, with no evening stream
+  // around to send it.
+  else if (pending.some(op => op.kind === 'request')) flush();
 })();

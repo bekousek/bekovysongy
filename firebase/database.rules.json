@@ -35,11 +35,36 @@
             "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
             "u": { ".validate": "newData.isString()" },
             "by": { ".validate": "newData.isString() && newData.val().length <= 30" },
+            "p": { ".validate": "newData.isNumber() && newData.val() <= now" },
             "$other": { ".validate": false }
           }
         },
 
+        "now": {
+          ".write": "auth != null && root.child('evenings').child($id).child('meta').child('owner').val() === auth.uid",
+          ".validate": "newData.hasChildren(['s', 't'])",
+          "s": { ".validate": "newData.isString() && newData.val().matches(/^[a-z0-9-]{1,80}$/)" },
+          "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
+          "$other": { ".validate": false }
+        },
+
         "$other": { ".validate": false }
+      }
+    },
+
+    "requests": {
+      ".read": "auth != null && auth.token.email === 'ondrejbek8@gmail.com' && auth.token.email_verified === true",
+      ".write": "auth != null && auth.token.email === 'ondrejbek8@gmail.com' && auth.token.email_verified === true",
+      "$uid": {
+        "$key": {
+          ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.exists()",
+          ".validate": "$key.matches(/^[a-z0-9]{8,14}[A-Za-z0-9]{6}$/) && newData.hasChildren(['title', 't'])",
+          "title": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 120" },
+          "artist": { ".validate": "newData.isString() && newData.val().length <= 120" },
+          "q": { ".validate": "newData.isString() && newData.val().length <= 200" },
+          "t": { ".validate": "newData.isNumber() && newData.val() <= now" },
+          "$other": { ".validate": false }
+        }
       }
     },
 

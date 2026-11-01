@@ -28,9 +28,9 @@ a otevřít `http://localhost:8137/`.
 | `na-kytaru/` | jen přesměrování na kořen, pro staré odkazy a `?q=` |
 | `songs/*.html` | jednotlivé písně (statické HTML, generované/editované) |
 | `songs.json` | metadata a akordy všech písní (čte je `js/song-list-core.js`, `admin/`) |
-| `js/` | `song-list-core.js` (data, hledání, filtry, náhodná píseň, oblíbené), `app.js` (úvodní stránka), `vecer.js` (dnešní večer, i společný přes Firebase), `player.js` (stránka písně: lišty, transpozice, rolování, metronom), `tuner.js` (ladička), `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `editor.js` (admin), `song-preview.js` (náhledy při triage, jen admin) |
+| `js/` | `song-list-core.js` (data, hledání, filtry, náhodná píseň, oblíbené), `app.js` (úvodní stránka), `vecer.js` (dnešní večer, i společný přes Firebase; návrhy písní z prázdného hledání), `player.js` (stránka písně: lišty, transpozice, rolování, metronom), `tuner.js` (ladička), `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `editor.js` (admin), `admin-requests.js` (přání návštěvníků v adminu), `song-preview.js` (náhledy při triage, jen admin) |
 | `css/` | `app.css` (úvodní stránka), `style.css` (stránky písní), `admin-base.css` + `editor.css` (jen admin) |
-| `firebase/database.rules.json` | pravidla databáze společného večera (vkládají se ručně v konzoli Firebase, projekt `bekovysongy`) |
+| `firebase/database.rules.json` | pravidla databáze společného večera a návrhů písní (vkládají se ručně v konzoli Firebase, projekt `bekovysongy`; návrhy čte jen admin přihlášený Googlem, takže ve Firebase musí být zapnuté přihlášení Googlem) |
 | `song-previews.json` | 30s ukázky k návrhům pro triage v `/admin` (viz níže) |
 | `navrhy-zamitnute.json` | odmítnuté návrhy písní — paměť pro generování dalších (viz níže) |
 | `admin/` | in-browser editor, viz níže |

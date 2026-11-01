@@ -324,7 +324,15 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 }
 .state strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
 .state-quiet { background: transparent; padding: 6px 2px; margin: 10px 0; }
-.state-action { margin-top: 12px; }
+.state-action { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.state-action .btn .icon { width: 18px; height: 18px; }
+
+/* The song open on the founder's phone, and the ones it has been through. */
+.row-now { margin: 0 6px; padding-left: calc(var(--pad) - 6px); border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.row-now::before, .row-now + .row::before { display: none; }
+.tag-now { font-weight: 600; }
+.row-played .row-title, .row-played .chords, .row-played .artist-btn, .row-played .by { color: var(--faint); }
+.row-played .row-title { font-weight: 500; }
 
 /* ===== Buttons ===== */
 
@@ -399,12 +407,32 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
   padding: 22px 20px 20px;
   margin-top: 2px;
 }
-.draw-title { display: block; font-size: 26px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; }
-.draw-artist { margin-top: 6px; color: var(--muted); font-size: var(--fs-title); }
-.draw-chords { font-size: var(--fs-title); margin-top: 12px; }
-.draw-tags:empty { display: none; }
-.draw-tags { margin-top: 10px; }
-.draw-tags .tag { margin: 0 6px 0 0; }
+/* Every drawn song gets the same room - two lines of title, one of artists,
+   two of chords, one of tags - so "Jinou" stays under the thumb however
+   long the next title is. What a short one leaves over sits above the
+   buttons. */
+.draw-body {
+  --title-size: 26px;
+  min-height: calc(2 * 1.15 * var(--title-size) + 6px + 1.45 * 17px + 12px + 2 * 1.45 * 17px + 10px + 22px);
+}
+.draw-title {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  font-size: var(--title-size); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em;
+}
+.draw-artist {
+  margin-top: 6px; color: var(--muted); font-size: var(--fs-title);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.draw-artist .artist-btn {
+  font-size: inherit;
+  text-decoration: underline; text-decoration-color: var(--control); text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.draw-chords {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  font-size: var(--fs-title); margin-top: 12px;
+}
+.draw-tags { display: flex; align-items: center; gap: 6px; height: 22px; margin-top: 10px; }
+.draw-tags .tag { margin: 0; }
 .draw-actions { display: flex; gap: 10px; margin-top: 20px; }
 .draw-actions .btn { flex: 1; }
 .draw-note { margin-top: 12px; color: var(--faint); font-size: var(--fs-small); }
@@ -603,9 +631,9 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 
   .draw { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 32px; padding: 28px; }
   .draw > * { grid-column: 1; }
-  .draw-actions { grid-column: 2; grid-row: 1 / span 4; flex-direction: column; margin: 0; align-self: center; min-width: 200px; }
+  .draw-actions { grid-column: 2; grid-row: 1 / span 2; flex-direction: column; margin: 0; align-self: center; min-width: 200px; }
   .draw-actions .btn-icon { width: auto; }
-  .draw-title { font-size: 32px; }
+  .draw-body { --title-size: 32px; }
 
   .sheet {
     inset: 0; margin: auto; max-width: 520px; max-height: 80vh; border-radius: 24px; height: fit-content;
@@ -632,17 +660,27 @@ h1 { font-size: var(--fs-h1); line-height: 1.15; font-weight: 600; letter-spacin
 .party-status[data-state="error"] .dot { background: var(--danger); }
 .party-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
 .party-row .btn { height: 44px; padding: 0 16px; font-size: 15px; }
-.name-field { display: block; margin-top: 14px; }
+.name-field, .field { display: block; margin-top: 14px; }
 .name-line { margin-top: 10px; color: var(--muted); }
 .name-line strong { color: var(--text); font-weight: 600; }
 .name-line .text-btn { margin-left: 4px; }
-.name-field span { display: block; color: var(--faint); font-size: var(--fs-small); margin-bottom: 6px; }
-.name-field input {
+.name-field span, .field span { display: block; color: var(--faint); font-size: var(--fs-small); margin-bottom: 6px; }
+.name-field input, .field input {
   width: 100%; height: 46px; padding: 0 14px; border-radius: 12px;
   border: 1px solid var(--control); background: var(--ground); color: var(--text); font-size: 16px;
 }
-.name-field input::placeholder { color: var(--faint); }
-.name-field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.name-field input::placeholder, .field input::placeholder { color: var(--faint); }
+.name-field input:focus, .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+.follow { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.follow-btn { height: 44px; padding: 0 16px; font-size: 15px; }
+.follow-btn .icon { width: 18px; height: 18px; }
+.follow-btn[aria-pressed="true"] { background: var(--text); color: var(--ground); }
+.follow-text { margin-top: 8px; color: var(--muted); font-size: 14px; }
+
+.request-intro { color: var(--muted); }
+.request-form .field:first-child { margin-top: 12px; }
+.sheet[data-kind="request"] .sheet-foot .btn .icon { width: 18px; height: 18px; }
 
 .merge { margin: 0 0 16px; padding: 16px; border-radius: var(--radius-card); border: 1.5px solid var(--accent); background: var(--surface); }
 .merge-actions { display: flex; gap: 10px; margin-top: 12px; }
