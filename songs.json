@@ -2942,6 +2942,28 @@
       "added": "2026-07-15"
     },
     {
+      "title": "Can you feel my heart",
+      "slug": "can-you-feel-my-heart",
+      "author": "Bring Me The Horizon",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/bring-me-the-horizon/can-you-feel-my-heart-chords-2115487",
+          "chords": [
+            "C",
+            "Ami",
+            "E",
+            "G"
+          ]
+        }
+      ]
+    },
+    {
       "title": "Can't help falling in love",
       "slug": "cant-help-falling-in-love",
       "author": "Elvis Presley",
