@@ -449,6 +449,13 @@
       "artist": "Red Hot Chili Peppers",
       "match": "exact"
     },
+    "can-you-feel-my-heart": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f3/3c/97/f33c97f1-4584-5a21-9b4c-c2933eb9b7af/mzaf_3218103432528516373.plus.aac.p.m4a",
+      "track": "Can You Feel My Heart (feat. Andrew Zink)",
+      "artist": "Varien",
+      "match": "exact",
+      "locked": true
+    },
     "cant-help-falling-in-love": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/cd/8b/b0/cd8bb0f9-d255-c6b9-e55b-3403d135c638/mzaf_11483484905380371632.plus.aac.p.m4a",
       "track": "Can't Help Falling In Love",
