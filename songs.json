@@ -8387,12 +8387,15 @@
       "title": "Holka modrooká",
       "slug": "holka-modrooka",
       "author": "lidová",
-      "chords": [],
+      "chords": [
+        "A",
+        "D",
+        "E"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "note": "lidová",
       "sources": [
         {
@@ -8403,7 +8406,22 @@
             "E"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "A",
+          "D",
+          "A",
+          "E"
+        ],
+        [
+          "E",
+          "A",
+          "E",
+          "A"
+        ]
+      ],
+      "added": "2026-11-08"
     },
     {
       "title": "Holka s lebkou",
@@ -9127,12 +9145,19 @@
       "title": "Hříšná těla, křídla motýlí",
       "slug": "hrisna-tela-kridla-motyli",
       "author": "Aneta Langerová",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "Emi",
+        "C",
+        "E",
+        "Ami",
+        "A"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/hrisna-tela-kridla-motyli",
@@ -9160,7 +9185,38 @@
             "A"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "Emi",
+          "C"
+        ],
+        [
+          "D",
+          "Emi",
+          "E",
+          "Ami",
+          "C",
+          "G",
+          "D",
+          "Emi",
+          "C",
+          "G",
+          "D"
+        ],
+        [
+          "A",
+          "C",
+          "G",
+          "D",
+          "A",
+          "C",
+          "D"
+        ]
+      ],
+      "added": "2026-11-08"
     },
     {
       "title": "I bet my life",
