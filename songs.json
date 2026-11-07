@@ -7028,16 +7028,35 @@
       "title": "Grónská písnička",
       "slug": "gronska-pisnicka",
       "author": "Zdeněk Svěrák, Jaroslav Uhlíř",
-      "chords": [],
+      "chords": [
+        "D",
+        "Emi",
+        "A",
+        "G"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "authors": [
         "Zdeněk Svěrák",
         "Jaroslav Uhlíř"
-      ]
+      ],
+      "progression": [
+        [
+          "D",
+          "Emi",
+          "A",
+          "D"
+        ],
+        [
+          "D",
+          "Emi",
+          "G",
+          "D"
+        ]
+      ],
+      "added": "2026-11-07"
     },
     {
       "title": "Habits (Stay High)",
