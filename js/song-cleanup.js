@@ -134,8 +134,10 @@
   // === Public: permanently transpose all chords by N semitones ===
   function transposeSong(html, semitones) {
     var model = parse(html);
+    // One spelling for the whole song: B Eb F, not B D# F.
+    var flats = ChordTheory.preferFlats(model.chords, semitones);
     model.chords = model.chords.map(function (c) {
-      return transposeChordFull(c, semitones);
+      return transposeChordFull(c, semitones, flats);
     });
     return render(model);
   }

@@ -17,11 +17,10 @@
 (function () {
   'use strict';
 
-  // Pitch classes, C = 0. Czech: B is B-flat, H is B (as in chord-theory.js).
-  const NOTE_PC = {
-    C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, Fb: 4, F: 5, 'F#': 6, Gb: 6,
-    G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, B: 10, Bb: 10, H: 11, Cb: 11,
-  };
+  // Names are read by js/chord-theory.js, like everywhere else on the site.
+  // On a song page it loads after this file, so it's looked up when needed.
+  const Theory = typeof require !== 'undefined' ? require('./chord-theory.js') : null;
+  const theory = () => Theory || window.ChordTheory;
   // Standard tuning as MIDI notes, low E first (the order of every frets array).
   const STRINGS = [40, 45, 50, 55, 59, 64];
 
@@ -380,25 +379,11 @@
   // isn't a chord. A slash before something that isn't a note belongs to
   // the suffix ("E7/4").
   function parseName(name) {
-    const parts = String(name).trim().split('/').map(p => p.trim());
-    let main = parts[0];
-    let bass = null;
-    for (let i = 1; i < parts.length; i++) {
-      if (i === parts.length - 1 && NOTE_PC[parts[i]] !== undefined) bass = NOTE_PC[parts[i]];
-      else main += '/' + parts[i];
-    }
-    const m = /^([A-H])([#b]?)(.*)$/.exec(main);
-    if (!m) return null;
-    let root = NOTE_PC[m[1] + m[2]];
-    let suffix = m[3];
-    if (root === undefined) {   // "Hb..." - not a note name here
-      root = NOTE_PC[m[1]];
-      suffix = m[2] + suffix;
-    }
-    const quality = SUFFIXES[suffix];
+    const p = theory().parse(name);
+    if (!p) return null;
+    const quality = SUFFIXES[p.suffix];
     if (!quality) return null;
-    if (bass === root) bass = null;
-    return { root, quality, bass };
+    return { root: p.root, quality, bass: p.bass === p.root ? null : p.bass };
   }
 
   function pitches(frets) {
@@ -512,7 +497,9 @@
 
   // ---- drawing -------------------------------------------------------------
 
-  // The song page's palette (css/style.css): grid, nut, labels, dots.
+  // Fallback colours for a diagram drawn outside the song page. On the page
+  // the dg-* classes take the theme's tokens instead (css/style.css), so the
+  // light theme and print restyle them; keep these equal to the dark tokens.
   const INK = { grid: '#5d5955', nut: '#f2f2f0', label: '#b6b1aa', muted: '#98928b', open: '#f2f2f0', dot: '#e67e22' };
 
   function renderChordSVG(name) {
@@ -534,17 +521,17 @@
     let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">`;
 
     if (start === 1) {
-      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.nut}" stroke-width="3"/>`;
+      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.nut}" stroke-width="3" class="dg-nut"/>`;
     } else {
-      svg += `<text x="${padLeft - 5}" y="${y(start) + 3.5}" fill="${INK.label}" font-size="10" font-family="system-ui, sans-serif" text-anchor="end">${start}</text>`;
-      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.grid}" stroke-width="1"/>`;
+      svg += `<text x="${padLeft - 5}" y="${y(start) + 3.5}" fill="${INK.label}" class="dg-label" font-size="10" font-family="system-ui, sans-serif" text-anchor="end">${start}</text>`;
+      svg += `<line x1="${x(0)}" y1="${padTop}" x2="${x(5)}" y2="${padTop}" stroke="${INK.grid}" stroke-width="1" class="dg-grid"/>`;
     }
     for (let r = 1; r <= rows; r++) {
       const yy = padTop + r * fy;
-      svg += `<line x1="${x(0)}" y1="${yy}" x2="${x(5)}" y2="${yy}" stroke="${INK.grid}" stroke-width="1"/>`;
+      svg += `<line x1="${x(0)}" y1="${yy}" x2="${x(5)}" y2="${yy}" stroke="${INK.grid}" stroke-width="1" class="dg-grid"/>`;
     }
     for (let s = 0; s < 6; s++) {
-      svg += `<line x1="${x(s)}" y1="${padTop}" x2="${x(s)}" y2="${padTop + rows * fy}" stroke="${INK.grid}" stroke-width="1"/>`;
+      svg += `<line x1="${x(s)}" y1="${padTop}" x2="${x(s)}" y2="${padTop + rows * fy}" stroke="${INK.grid}" stroke-width="1" class="dg-grid"/>`;
     }
 
     const underBarre = new Set();
@@ -553,18 +540,18 @@
       if (!span) return;
       const [lo, hi] = span;
       for (let i = lo; i <= hi; i++) if (frets[i] === b) underBarre.add(i);
-      svg += `<line x1="${x(lo)}" y1="${y(b)}" x2="${x(hi)}" y2="${y(b)}" stroke="${INK.dot}" stroke-width="7" stroke-linecap="round"/>`;
+      svg += `<line x1="${x(lo)}" y1="${y(b)}" x2="${x(hi)}" y2="${y(b)}" stroke="${INK.dot}" stroke-width="7" stroke-linecap="round" class="dg-barre"/>`;
     });
 
     frets.forEach((f, s) => {
       const cx = x(s);
       if (f < 0) {
         const c = padTop - 7, r = 2.6;
-        svg += `<path d="M${cx - r} ${c - r}L${cx + r} ${c + r}M${cx + r} ${c - r}L${cx - r} ${c + r}" stroke="${INK.muted}" stroke-width="1.5" stroke-linecap="round"/>`;
+        svg += `<path d="M${cx - r} ${c - r}L${cx + r} ${c + r}M${cx + r} ${c - r}L${cx - r} ${c + r}" stroke="${INK.muted}" stroke-width="1.5" stroke-linecap="round" class="dg-muted"/>`;
       } else if (f === 0) {
-        svg += `<circle cx="${cx}" cy="${padTop - 7}" r="3" fill="none" stroke="${INK.open}" stroke-width="1.5"/>`;
+        svg += `<circle cx="${cx}" cy="${padTop - 7}" r="3" fill="none" stroke="${INK.open}" stroke-width="1.5" class="dg-open"/>`;
       } else if (!underBarre.has(s)) {
-        svg += `<circle cx="${cx}" cy="${y(f)}" r="4.5" fill="${INK.dot}"/>`;
+        svg += `<circle cx="${cx}" cy="${y(f)}" r="4.5" fill="${INK.dot}" class="dg-dot"/>`;
       }
     });
 
@@ -572,7 +559,7 @@
   }
 
   const api = {
-    NOTE_PC, STRINGS, QUALITIES, SUFFIXES, VOICINGS, SLASH,
+    STRINGS, QUALITIES, SUFFIXES, VOICINGS, SLASH,
     decode, encode, parseName, pitches, verify, barreSpan, barresOf, playable, effort, rebarre, withBass,
     resolve, renderChordSVG,
   };

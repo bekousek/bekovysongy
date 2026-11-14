@@ -5,9 +5,9 @@
  *
  * The ~600 song pages are static HTML from js/song-template.js and are never
  * edited for looks: this script takes the page as it is (h1, .song-author,
- * .song-capo, pre.song-text), removes the old nav and player bar, and builds
- * the new chrome around it. It reuses the site's song logic - js/sections.js
- * for refrén/bridge and folded repeats, js/chord-theory.js for transposition,
+ * .song-capo, pre.song-text) and builds the new chrome around it. It reuses
+ * the site's song logic - js/sections.js for refrén/bridge, folded repeats
+ * and the one-block-per-line layout, js/chord-theory.js for transposition,
  * js/chords.js for fingering diagrams - and loads js/song-list-core.js,
  * js/vecer.js and js/tuner.js itself, so the pages don't have to list them.
  *
@@ -16,11 +16,96 @@
  *   - the screen stays on while the song is open,
  *   - ?vecer=1 walks through tonight's setlist (shared or not), ?nahodne=1
  *     (opened from Objevit) offers the next random song,
- *   - a tap on the text stops autoscroll; Space and page-turner pedals
- *     (PageDown / arrows) work on a keyboard.
+ *   - a tap on the text stops autoscroll (and, once it has run, starts it
+ *     again); Space and page-turner pedals (PageDown / arrows) work on a
+ *     keyboard, and at the end of the song the pedal turns to the next one,
+ *   - each song remembers its own key and scrolling speed,
+ *   - a light theme for the sun and the projector, and a print layout.
+ *
+ * The arithmetic that went wrong before (the scroll step after a pause, the
+ * pedal's page, the transposition range, the settings) is pure and exported
+ * to Node for test/player.test.js; the rest needs a page.
  */
 (function () {
   'use strict';
+
+  // ---- pure helpers: no DOM, tested in test/player.test.js ---------------
+
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+
+  // Remembered numbers: localStorage key, default and range.
+  const SETTINGS = {
+    fontScale: { key: 'song_font_scale', def: 100, min: 70, max: 250 },
+    columns: { key: 'song_columns', def: 1, min: 1, max: 3 },
+    speed: { key: 'bs_scroll_speed', def: 3, min: 1, max: 10 },
+    bpm: { key: 'bs_bpm', def: 120, min: 40, max: 240 },
+  };
+
+  // Remembered switches: localStorage key, the values stored for on and off,
+  // and what an unset key means.
+  const SWITCHES = {
+    showRepeats: { key: 'show_repeats', on: 'on', off: 'off', def: false },
+    keepAwake: { key: 'bs_keep_awake', on: '1', off: '0', def: true },
+    diagrams: { key: 'bs_show_diagrams', on: '1', off: '0', def: false },
+    light: { key: 'bs_theme', on: 'light', off: 'dark', def: false },
+  };
+
+  function settingFrom(name, raw) {
+    const s = SETTINGS[name];
+    return clamp(Math.round(parseInt(raw, 10) || s.def), s.min, s.max);
+  }
+
+  function switchFrom(name, raw) {
+    const s = SWITCHES[name];
+    return raw == null ? s.def : raw === s.on;
+  }
+
+  // Transposition moves −5 … +6 semitones: the short way round.
+  function nextTranspose(t, delta) {
+    const n = (((t + delta) % 12) + 12) % 12;
+    return n > 6 ? n - 12 : n;
+  }
+
+  // One autoscroll frame. Speed 1 is 4 px/s, speed 10 is 40 px/s; what
+  // doesn't make a whole pixel yet is carried to the next frame. rAF stops
+  // while the page is hidden, and the first frame back must not carry the
+  // whole absence: 30 s away once moved the song 360 px in one frame.
+  const MAX_FRAME_MS = 100;
+
+  function scrollStep(state, t, speed) {
+    const dt = state.lastT ? clamp(t - state.lastT, 0, MAX_FRAME_MS) : 0;
+    const carry = state.carry + dt / 1000 * speed * 4;
+    const px = Math.floor(carry);
+    return { lastT: t, carry: carry - px, px };
+  }
+
+  // One screenful of lyrics between the bars, less one line kept to find
+  // your place again. (A page of 0.75 × the window skipped a line on a phone
+  // on its side, where the bars cover a third of it.)
+  function pageStep(top, bottom, line) {
+    return Math.max(line, bottom - top - line);
+  }
+
+  // Each song's own key and scrolling speed: { slug: { t, s } }. A song
+  // back at the defaults leaves the map.
+  const PREFS_KEY = 'bs_song_prefs';
+
+  function withSongPrefs(all, slug, prefs) {
+    const out = Object.assign({}, all);
+    const entry = {};
+    if (prefs.t) entry.t = prefs.t;
+    if (prefs.s) entry.s = prefs.s;
+    if (Object.keys(entry).length) out[slug] = entry;
+    else delete out[slug];
+    return out;
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { clamp, SETTINGS, SWITCHES, settingFrom, switchFrom, nextTranspose, scrollStep, MAX_FRAME_MS, pageStep, PREFS_KEY, withSongPrefs };
+    return;
+  }
+
+  // ---- the page ----------------------------------------------------------
 
   // Every song page is exactly one directory deep, so the site root is "../"
   // relative to the page and to this file alike.
@@ -34,27 +119,54 @@
   const pre = main && main.querySelector('pre.song-text');
   if (!pre) return;
 
-  // The old chrome stays hidden by css/style.css until it's gone.
-  ['.main-nav', '#player-bar'].forEach(sel => { const n = document.querySelector(sel); if (n) n.remove(); });
-  const themeMeta = document.querySelector('meta[name="theme-color"]');
-  if (themeMeta) themeMeta.content = '#0e0d0c';
+  function stored(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function store(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch (e) { /* not remembered */ }
+  }
+
+  // The theme goes on before anything else is drawn, so a light page doesn't
+  // flash dark first.
+  function applyTheme(light) {
+    if (light) document.documentElement.dataset.theme = 'light';
+    else delete document.documentElement.dataset.theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = light ? '#faf8f5' : '#0e0d0c';
+  }
+  applyTheme(switchFrom('light', stored(SWITCHES.light.key)));
 
   const rawBody = pre.innerHTML;   // before sections.js rewrites it
 
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
+  // Downloaded together, run in the order given.
+  function loadScripts(list) {
+    return Promise.all(list.map(src => new Promise((resolve, reject) => {
       const s = document.createElement('script');
       s.src = ROOT + src;
+      s.async = false;
       s.onload = resolve;
       s.onerror = () => reject(new Error(src));
       document.head.appendChild(s);
-    });
+    })));
   }
 
-  loadScript('js/song-list-core.js')
-    .then(() => loadScript('js/vecer.js'))
+  // Without its scripts the page would be bare text with no way back; the
+  // old nav is hidden by css/style.css, so a link of our own goes up instead.
+  function showFallback() {
+    if (document.getElementById('player-failed')) return;
+    const p = document.createElement('p');
+    p.className = 'player-failed';
+    p.id = 'player-failed';
+    p.innerHTML = `<a href="${ROOT}">Zpět na seznam písní</a> · Ovládání se nenačetlo, zkus stránku obnovit.`;
+    document.body.insertBefore(p, document.body.firstChild);
+  }
+
+  loadScripts(['js/song-list-core.js', 'js/vecer.js'])
     .then(init)
-    .catch(err => console.error('Song page scripts failed to load:', err));
+    .catch(err => {
+      console.error('Song page scripts failed to load:', err);
+      showFallback();
+    });
 
   // ---- the new chrome ----------------------------------------------------
 
@@ -138,8 +250,12 @@
             <button type="button" role="radio" data-cols="3">3</button>
           </div>
         </div>
-        <label class="set-row switch-row" id="wake-row" hidden>
-          <span class="set-label">Nezhasínat displej<small>Telefon na koleni nezhasne uprostřed písně.</small></span>
+        <label class="set-row switch-row">
+          <span class="set-label">Světlý vzhled<small>Na slunci a na projektoru se čte líp.</small></span>
+          <input type="checkbox" class="switch" id="light">
+        </label>
+        <label class="set-row switch-row" id="wake-row">
+          <span class="set-label">Nezhasínat displej<small id="wake-hint">Telefon na koleni nezhasne uprostřed písně.</small></span>
           <input type="checkbox" class="switch" id="wake">
         </label>
       </section>
@@ -215,8 +331,12 @@
   function init() {
     const SL = window.SongList;
     const EV = window.Evening;
-    const { transposeChord } = window.ChordTheory;
+    const { transposeChord, preferFlats } = window.ChordTheory;
     const $ = (id) => document.getElementById(id);
+
+    // The old chrome (nav, #player-bar) goes only now that the new one can
+    // be built; css/style.css keeps it hidden until then.
+    ['.main-nav', '#player-bar'].forEach(sel => { const n = document.querySelector(sel); if (n) n.remove(); });
 
     const slug = decodeURIComponent(location.pathname.split('/').pop().replace(/\.html$/, ''));
     const params = new URLSearchParams(location.search);
@@ -225,33 +345,39 @@
     const songUrl = (s, mode) => SL.href({ slug: s }) + (mode ? '?' + mode + '=1' : '');
 
     buildChrome();
-    loadScript('js/tuner.js').catch(err => console.error(err));
+    loadScripts(['js/tuner.js']).catch(err => console.error(err));
 
     // ---- remembered settings ---------------------------------------------
 
-    function read(key, fallback) {
-      try { const v = localStorage.getItem(key); return v == null ? fallback : v; } catch (e) { return fallback; }
+    const settings = {};
+    Object.keys(SETTINGS).forEach(name => { settings[name] = settingFrom(name, stored(SETTINGS[name].key)); });
+    function setSetting(name, value) {
+      const s = SETTINGS[name];
+      settings[name] = clamp(Math.round(value), s.min, s.max);
+      store(s.key, settings[name]);
+      return settings[name];
     }
-    function write(key, value) {
-      try { localStorage.setItem(key, String(value)); } catch (e) { /* not remembered */ }
+
+    const switches = {};
+    Object.keys(SWITCHES).forEach(name => { switches[name] = switchFrom(name, stored(SWITCHES[name].key)); });
+    function setSwitch(name, on) {
+      const s = SWITCHES[name];
+      switches[name] = !!on;
+      store(s.key, on ? s.on : s.off);
     }
-    function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
 
-    const FONT_KEY = 'song_font_scale';
-    const REPEATS_KEY = 'show_repeats';
-    const COLUMNS_KEY = 'song_columns';
-    const SPEED_KEY = 'bs_scroll_speed';
-    const BPM_KEY = 'bs_bpm';
-    const WAKE_KEY = 'bs_keep_awake';
-    const DIAGRAMS_KEY = 'bs_show_diagrams';
-
-    let fontScale = clamp(parseInt(read(FONT_KEY, '100'), 10) || 100, 70, 150);
-    let showRepeats = read(REPEATS_KEY, 'off') === 'on';
-    let columns = clamp(parseInt(read(COLUMNS_KEY, '1'), 10) || 1, 1, 3);
-    let speed = clamp(parseInt(read(SPEED_KEY, '3'), 10) || 3, 1, 10);
-    let bpm = clamp(parseInt(read(BPM_KEY, '120'), 10) || 120, 40, 240);
-    let keepAwake = read(WAKE_KEY, '1') !== '0';
-    let transpose = 0;
+    // This song's own key and speed: whoever plays it two semitones lower
+    // every time shouldn't have to click it down every time.
+    function allPrefs() {
+      const v = SL.readJSON(PREFS_KEY, {});
+      return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+    }
+    const mine = allPrefs()[slug] || {};
+    let transpose = nextTranspose(parseInt(mine.t, 10) || 0, 0);
+    let speed = mine.s ? clamp(parseInt(mine.s, 10) || settings.speed, SETTINGS.speed.min, SETTINGS.speed.max) : settings.speed;
+    function rememberSong() {
+      SL.writeJSON(PREFS_KEY, withSongPrefs(allPrefs(), slug, { t: transpose, s: mine.s }));
+    }
 
     // ---- helpers ---------------------------------------------------------
 
@@ -271,10 +397,7 @@
       toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
     }
 
-    function dedupe(list) {
-      const seen = new Set();
-      return list.filter(c => (seen.has(c) ? false : (seen.add(c), true)));
-    }
+    const dedupe = SL.dedupe;
 
     // ---- chord diagrams --------------------------------------------------
 
@@ -301,8 +424,9 @@
       const r = chEl.getBoundingClientRect();
       const w = pop.offsetWidth;
       const h = pop.offsetHeight;
-      const top0 = $('cbar').getBoundingClientRect().bottom + 8;
-      const bottom0 = window.innerHeight - $('toolbar').offsetHeight - 8;
+      // The chord bar may have scrolled away (a phone on its side).
+      const top0 = Math.max(0, $('cbar').getBoundingClientRect().bottom) + 8;
+      const bottom0 = Math.min(window.innerHeight, $('toolbar').getBoundingClientRect().top) - 8;
       const left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2));
       let top = r.bottom + 8;
       if (top + h > bottom0) top = r.top - h - 8;
@@ -320,33 +444,16 @@
     // ---- the song --------------------------------------------------------
 
     let song = null;
+    let loaded = false;
     const lyrics = pre;
     const raw = rawBody.replace(/class="chord"/g, 'class="ch"');
-    const html = window.SongSections ? SongSections.transform(raw) : raw;
+    // One block per line, chords glued to their words, tablature grouped
+    // (sections.js, so it is the same code the tests run).
+    const html = window.SongSections ? SongSections.transform(raw, { lines: true }) : raw;
     let groups = [];
 
     function setGroups(prog) {
       groups = (prog || []).map(dedupe).filter(g => g.length);
-    }
-
-    // Each line of the song becomes its own block (.ln), so a line too long
-    // for the phone wraps with a hanging indent instead of passing for the
-    // next line. Chord spans move along untouched.
-    function splitLines(box) {
-      const kids = Array.from(box.childNodes);
-      if (kids.some(n => n.nodeType === 1 && n.textContent.indexOf('\n') !== -1)) return;
-      const lines = [el('span', 'ln')];
-      kids.forEach(n => {
-        if (n.nodeType !== 3) { lines[lines.length - 1].appendChild(n); return; }
-        n.data.split('\n').forEach((part, i) => {
-          if (i > 0) lines.push(el('span', 'ln'));
-          if (part) lines[lines.length - 1].appendChild(document.createTextNode(part));
-        });
-      });
-      // A closing newline draws no empty line in pre-wrap; keep it that way.
-      if (lines.length > 1 && !lines[lines.length - 1].firstChild) lines.pop();
-      box.textContent = '';
-      lines.forEach(l => box.appendChild(l));
     }
 
     function renderLyrics() {
@@ -354,12 +461,10 @@
       const peeked = Array.from(lyrics.querySelectorAll('.is-repeat'))
         .map((sec, i) => (sec.classList.contains('peek') ? i : -1)).filter(i => i !== -1);
       lyrics.innerHTML = html;
-      if (lyrics.querySelector('.song-section')) lyrics.querySelectorAll('.section-plain, .section-body, .section-tail').forEach(splitLines);
-      else splitLines(lyrics);
-      lyrics.classList.toggle('show-repeats', showRepeats);
-      lyrics.classList.toggle('cols-2', columns === 2);
-      lyrics.classList.toggle('cols-3', columns === 3);
-      main.classList.toggle('wide', columns > 1);
+      lyrics.classList.toggle('show-repeats', switches.showRepeats);
+      lyrics.classList.toggle('cols-2', settings.columns === 2);
+      lyrics.classList.toggle('cols-3', settings.columns === 3);
+      main.classList.toggle('wide', settings.columns > 1);
       const reps = lyrics.querySelectorAll('.is-repeat');
       peeked.forEach(i => { if (reps[i]) reps[i].classList.add('peek'); });
       lyrics.querySelectorAll('.is-repeat .section-head').forEach(h => {
@@ -368,6 +473,7 @@
         h.setAttribute('aria-expanded', h.closest('.is-repeat').classList.contains('peek') ? 'true' : 'false');
         h.setAttribute('aria-label', 'Opakování, klepnutím rozbalíš');
       });
+      visibleLines = null;
       applyTranspose();
     }
 
@@ -381,7 +487,7 @@
           chips.appendChild(sep);
         }
         g.forEach(name => {
-          const b = el('button', 'ch', transposeChord(name, transpose));
+          const b = el('button', 'ch', shown(name));
           b.type = 'button';
           b.dataset.chord = name;
           chips.appendChild(b);
@@ -393,7 +499,7 @@
     function renderDiagrams() {
       const box = $('diagrams');
       box.innerHTML = '';
-      const names = dedupe([].concat.apply([], groups)).map(c => transposeChord(c, transpose));
+      const names = dedupe([].concat.apply([], groups)).map(shown);
       dedupe(names).forEach(name => {
         const d = el('div', 'dg');
         const svg = diagramSvg(name);
@@ -406,25 +512,44 @@
 
     // ---- transpose -------------------------------------------------------
 
+    // One spelling for the whole song (B Eb F is a key, B D# F is not), and
+    // untransposed the song shows exactly what its author wrote.
+    let flats = false;
+    const shown = (name) => (transpose ? transposeChord(name, transpose, flats) : name);
+
+    function songChords() {
+      return Array.from(lyrics.querySelectorAll('.ch'), c => c.dataset.chord).concat([].concat.apply([], groups));
+    }
+
+    // "Capo 2" goes on being true for the fingers, but the chords no longer
+    // are the ones it was written for.
+    const capoEl = main.querySelector('.song-capo');
+    const capoText = capoEl ? capoEl.textContent : '';
+    function paintCapo() {
+      if (!capoEl) return;
+      capoEl.textContent = transpose
+        ? `${capoText} (akordy posunuté o ${transpose > 0 ? '+' : '−'}${Math.abs(transpose)})`
+        : capoText;
+    }
+
     function applyTranspose() {
-      document.querySelectorAll('.ch').forEach(c => {
-        c.textContent = transposeChord(c.dataset.chord, transpose);
-      });
+      flats = preferFlats(songChords(), transpose);
+      document.querySelectorAll('.ch').forEach(c => { c.textContent = shown(c.dataset.chord); });
       const v = $('tr-val');
       v.textContent = transpose > 0 ? '+' + transpose : String(transpose).replace('-', '−');
       v.classList.toggle('shifted', transpose !== 0);
       v.setAttribute('aria-label', transpose
         ? `Transpozice ${transpose > 0 ? '+' : ''}${transpose}, klepnutím zpět do původní tóniny`
         : 'Transpozice 0, původní tónina');
+      paintCapo();
       if (!$('diagrams').hidden) renderDiagrams();
       hideDiagram();
     }
 
     function shift(delta) {
-      let t = ((transpose + delta) % 12 + 12) % 12;
-      if (t > 6) t -= 12;   // −5 … +6, the short way round
-      transpose = t;
+      transpose = nextTranspose(transpose, delta);
       applyTranspose();
+      rememberSong();
     }
 
     $('tr-up').addEventListener('click', () => shift(1));
@@ -433,40 +558,53 @@
       if (!transpose) return;
       transpose = 0;
       applyTranspose();
+      rememberSong();
       toast('Původní tónina');
     });
 
     // ---- autoscroll ------------------------------------------------------
 
-    // Same pace as before: speed 1 is 4 px/s, speed 10 is 40 px/s.
     let scrolling = false;
+    let scrollUsed = false;   // started once in this song: from then on a tap on the text starts it too
     let rafId = 0;
-    let lastT = 0;
-    let carry = 0;
+    let frame = { lastT: 0, carry: 0 };
+    let stalled = 0;          // frames that asked to move and didn't
+    let held = false;         // a finger is on the text
 
     function atEnd() {
       return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
     }
 
+    function pulseNext() {
+      const next = $('next-card');
+      if (next.hidden) return;
+      next.classList.remove('pulse');
+      void next.offsetWidth;
+      next.classList.add('pulse');
+    }
+
     function step(t) {
       if (!scrolling) return;
-      if (lastT) {
-        carry += (t - lastT) / 1000 * speed * 4;
-        const px = Math.floor(carry);
-        if (px >= 1) {
-          window.scrollBy(0, px);
-          carry -= px;
-        }
+      // While a finger moves the text, scrollBy every frame would fight it
+      // (and on iOS kill the fling); the scroll waits for the finger.
+      if (held) {
+        frame.lastT = t;
+        rafId = requestAnimationFrame(step);
+        return;
       }
-      lastT = t;
-      if (atEnd()) {
+      const f = scrollStep(frame, t, speed);
+      frame = { lastT: f.lastT, carry: f.carry };
+      if (f.px >= 1) {
+        const before = window.scrollY;
+        window.scrollBy({ top: f.px, behavior: 'instant' });
+        stalled = window.scrollY === before ? stalled + 1 : 0;
+      }
+      // atEnd() is the way out; the stall count is the safety net, so a
+      // browser where it never quite fires can't leave the loop spinning and
+      // the button showing pause.
+      if (atEnd() || stalled > 5) {
         stopScroll();
-        const next = $('next-card');
-        if (!next.hidden) {
-          next.classList.remove('pulse');
-          void next.offsetWidth;
-          next.classList.add('pulse');
-        }
+        pulseNext();
         return;
       }
       rafId = requestAnimationFrame(step);
@@ -474,9 +612,11 @@
 
     function startScroll() {
       if (atEnd()) window.scrollTo({ top: 0, behavior: 'instant' });
+      cancelAnimationFrame(rafId);
       scrolling = true;
-      lastT = 0;
-      carry = 0;
+      scrollUsed = true;
+      frame = { lastT: 0, carry: 0 };
+      stalled = 0;
       paintScroll();
       rafId = requestAnimationFrame(step);
     }
@@ -493,11 +633,15 @@
       b.setAttribute('aria-label', scrolling ? 'Zastavit rolování' : 'Spustit rolování');
       b.innerHTML = SL.icon(scrolling ? 'pause' : 'play', 24);
       $('sp-label').textContent = 'Rolování ' + speed;
+      // A phone on its side slides the bottom bar away meanwhile.
+      document.body.classList.toggle('is-scrolling', scrolling);
     }
 
     function setSpeed(n) {
-      speed = clamp(n, 1, 10);
-      write(SPEED_KEY, speed);
+      speed = clamp(n, SETTINGS.speed.min, SETTINGS.speed.max);
+      setSetting('speed', speed);      // the next new song starts here
+      mine.s = speed;                  // and this one keeps it
+      rememberSong();
       paintScroll();
       toast('Rychlost rolování ' + speed);
     }
@@ -506,26 +650,41 @@
     $('sp-up').addEventListener('click', () => setSpeed(speed + 1));
     $('sp-down').addEventListener('click', () => setSpeed(speed - 1));
 
+    lyrics.addEventListener('touchstart', () => { held = true; }, { passive: true });
+    ['touchend', 'touchcancel'].forEach(ev => lyrics.addEventListener(ev, () => { held = false; }, { passive: true }));
+
     // ---- taps on the song ------------------------------------------------
+
+    function selecting() {
+      const sel = window.getSelection && window.getSelection();
+      return !!sel && String(sel).length > 0;
+    }
 
     document.addEventListener('click', (e) => {
       const ch = e.target.closest('.ch');
       if (ch) { showDiagram(ch); return; }
+      const hadPop = !!popFor;
       if (!e.target.closest('#pop')) hideDiagram();
 
       const head = e.target.closest('.is-repeat .section-head');
-      if (head && !showRepeats) {
+      if (head && !switches.showRepeats) {
         const sec = head.closest('.is-repeat');
         const on = sec.classList.toggle('peek');
         head.setAttribute('aria-expanded', String(on));
+        visibleLines = null;
         return;
       }
 
-      // Tapping the text while it scrolls is the quickest way to stop it
-      // with a hand that just left the strings.
-      if (scrolling && e.target.closest('#lyrics')) {
+      // The text is the biggest target there is for a hand that just left
+      // the strings: a tap stops the scroll, and once it has run in this
+      // song, the next tap starts it again.
+      if (!e.target.closest('#lyrics')) return;
+      if (scrolling) {
         stopScroll();
         toast('Rolování zastaveno');
+      } else if (scrollUsed && !hadPop && !selecting()) {
+        startScroll();
+        toast('Rolování pokračuje');
       }
     });
 
@@ -537,7 +696,23 @@
       }
     });
 
-    // Keyboard and page-turner pedals.
+    function pageStepNow() {
+      const top = Math.max(0, $('cbar').getBoundingClientRect().bottom);
+      const bottom = Math.min(window.innerHeight, $('toolbar').getBoundingClientRect().top);
+      const line = parseFloat(getComputedStyle(lyrics).lineHeight) || 32;
+      return pageStep(top, bottom, line);
+    }
+
+    function go(id) {
+      const a = $(id);
+      if (a.hidden) return false;
+      location.replace(a.getAttribute('href'));
+      return true;
+    }
+
+    // Keyboard and page-turner pedals. At the end of a song the pedal turns
+    // to the next one (of the evening, or the next random one), at the top
+    // back to the one before - the only hands-free control there is.
     document.addEventListener('keydown', (e) => {
       if (e.target.closest && e.target.closest('input, textarea, dialog[open]')) return;
       if (e.key === ' ' && !(e.target.closest && e.target.closest('button, a'))) {
@@ -545,23 +720,61 @@
         if (scrolling) stopScroll(); else startScroll();
       } else if (e.key === 'PageDown' || e.key === 'ArrowRight') {
         e.preventDefault();
-        window.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+        if (atEnd() && go('next-card')) return;
+        window.scrollBy({ top: pageStepNow(), behavior: 'smooth' });
       } else if (e.key === 'PageUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        window.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
+        if (window.scrollY <= 2 && go('prev-link')) return;
+        window.scrollBy({ top: -pageStepNow(), behavior: 'smooth' });
       } else if (e.key === 'Escape') {
         hideDiagram();
       }
     });
 
-    window.addEventListener('scroll', () => { if (popFor && !scrolling) hideDiagram(); }, { passive: true });
+    // ---- the place in the song survives turning the phone ------------------
+
+    // The first line under the chord bar, kept up to date while reading, so
+    // a turned phone (where Safari loses the place) scrolls back to it.
+    let visibleLines = null;
+    let anchor = null;
+    let anchorQueued = false;
+
+    function firstVisibleLine() {
+      if (!visibleLines) visibleLines = Array.from(lyrics.querySelectorAll('.ln')).filter(ln => ln.getClientRects().length);
+      const top = Math.max(0, $('cbar').getBoundingClientRect().bottom);
+      let lo = 0;
+      let hi = visibleLines.length - 1;
+      let found = null;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (visibleLines[mid].getBoundingClientRect().bottom > top) { found = visibleLines[mid]; hi = mid - 1; } else lo = mid + 1;
+      }
+      return found;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (popFor && !scrolling) hideDiagram();
+      if (anchorQueued) return;
+      anchorQueued = true;
+      requestAnimationFrame(() => { anchorQueued = false; anchor = firstVisibleLine(); });
+    }, { passive: true });
+
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      hideDiagram();   // it is pinned where its chord was
+      if (window.innerWidth === lastWidth) return;   // just the browser's own bars
+      lastWidth = window.innerWidth;
+      visibleLines = null;
+      const keep = anchor;
+      if (keep && window.scrollY > 0) requestAnimationFrame(() => keep.scrollIntoView({ block: 'start', behavior: 'instant' }));
+    });
 
     // ---- fingerings strip ------------------------------------------------
 
     function setDiagrams(on) {
       $('diagrams').hidden = !on;
       $('diagrams-toggle').setAttribute('aria-pressed', on ? 'true' : 'false');
-      write(DIAGRAMS_KEY, on ? '1' : '0');
+      setSwitch('diagrams', on);
       if (on) renderDiagrams();
     }
     $('diagrams-toggle').addEventListener('click', () => setDiagrams($('diagrams').hidden));
@@ -569,40 +782,51 @@
     // ---- settings sheet --------------------------------------------------
 
     const more = $('more');
+    const FONT_STEP = 10;
 
     function paintSettings() {
-      $('font-val').textContent = fontScale + ' %';
-      document.querySelectorAll('[data-cols]').forEach(b => b.setAttribute('aria-checked', Number(b.dataset.cols) === columns ? 'true' : 'false'));
-      $('repeats').checked = showRepeats;
-      $('wake').checked = keepAwake;
-      $('bpm-val').textContent = bpm;
+      $('font-val').textContent = settings.fontScale + ' %';
+      document.querySelectorAll('[data-cols]').forEach(b => b.setAttribute('aria-checked', Number(b.dataset.cols) === settings.columns ? 'true' : 'false'));
+      $('repeats').checked = switches.showRepeats;
+      $('wake').checked = switches.keepAwake && hasWakeLock;
+      $('light').checked = switches.light;
+      $('bpm-val').textContent = settings.bpm;
       const mt = $('metro-toggle');
       mt.classList.toggle('running', metroRunning);
       mt.lastElementChild.textContent = metroRunning ? 'Zastavit' : 'Spustit';
     }
 
     function applyFont() {
-      document.documentElement.style.setProperty('--scale', fontScale / 100);
+      document.documentElement.style.setProperty('--scale', settings.fontScale / 100);
+      visibleLines = null;
+    }
+
+    function setFont(delta) {
+      setSetting('fontScale', settings.fontScale + delta);
+      applyFont();
+      paintSettings();
     }
 
     $('more-btn').addEventListener('click', () => { paintSettings(); more.showModal(); });
-    $('font-up').addEventListener('click', () => { fontScale = clamp(fontScale + 10, 70, 150); write(FONT_KEY, fontScale); applyFont(); paintSettings(); });
-    $('font-down').addEventListener('click', () => { fontScale = clamp(fontScale - 10, 70, 150); write(FONT_KEY, fontScale); applyFont(); paintSettings(); });
+    $('font-up').addEventListener('click', () => setFont(FONT_STEP));
+    $('font-down').addEventListener('click', () => setFont(-FONT_STEP));
     document.querySelectorAll('[data-cols]').forEach(b => b.addEventListener('click', () => {
-      columns = Number(b.dataset.cols);
-      write(COLUMNS_KEY, columns);
+      setSetting('columns', Number(b.dataset.cols));
       renderLyrics();
       paintSettings();
     }));
     $('repeats').addEventListener('change', (e) => {
-      showRepeats = e.target.checked;
-      write(REPEATS_KEY, showRepeats ? 'on' : 'off');
-      lyrics.classList.toggle('show-repeats', showRepeats);
+      setSwitch('showRepeats', e.target.checked);
+      lyrics.classList.toggle('show-repeats', switches.showRepeats);
+      visibleLines = null;
+    });
+    $('light').addEventListener('change', (e) => {
+      setSwitch('light', e.target.checked);
+      applyTheme(switches.light);
     });
     $('wake').addEventListener('change', (e) => {
-      keepAwake = e.target.checked;
-      write(WAKE_KEY, keepAwake ? '1' : '0');
-      if (keepAwake) lockScreen(); else releaseScreen();
+      setSwitch('keepAwake', e.target.checked);
+      if (switches.keepAwake) lockScreen(true); else releaseScreen();
     });
 
     document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
@@ -618,31 +842,53 @@
 
     // ---- metronome -------------------------------------------------------
 
+    // Beats are placed on the audio clock a little ahead of time; the timer
+    // only has to wake up often enough, its own jitter is never heard (it
+    // was, with setInterval playing each beat "now", and it added up).
     let metroCtx = null;
     let metroTimer = null;
     let metroRunning = false;
+    let nextBeat = 0;
+    const LOOKAHEAD = 0.12;   // s of beats scheduled ahead
+    const TICK_MS = 25;
 
-    function click() {
-      if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function beep(at) {
       const osc = metroCtx.createOscillator();
       const gain = metroCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = 880;
       osc.connect(gain);
       gain.connect(metroCtx.destination);
-      osc.frequency.value = 880;
-      osc.type = 'square';
-      gain.gain.setValueAtTime(0.3, metroCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, metroCtx.currentTime + 0.05);
-      osc.start(metroCtx.currentTime);
-      osc.stop(metroCtx.currentTime + 0.05);
-      const dot = $('metro-dot');
-      dot.classList.add('beat');
-      setTimeout(() => dot.classList.remove('beat'), 110);
+      gain.gain.setValueAtTime(0.3, at);
+      gain.gain.exponentialRampToValueAtTime(0.001, at + 0.05);
+      osc.start(at);
+      osc.stop(at + 0.06);
+      setTimeout(() => {
+        const dot = $('metro-dot');
+        dot.classList.add('beat');
+        setTimeout(() => dot.classList.remove('beat'), 110);
+      }, Math.max(0, (at - metroCtx.currentTime) * 1000));
+    }
+
+    function schedule() {
+      if (!metroCtx) return;
+      const now = metroCtx.currentTime;
+      // Back from a throttled background tab: pick the beat up afresh rather
+      // than play every missed one at once.
+      if (nextBeat < now - 0.05) nextBeat = now + 0.05;
+      while (nextBeat < now + LOOKAHEAD) {
+        beep(nextBeat);
+        nextBeat += 60 / settings.bpm;
+      }
     }
 
     function startMetro() {
-      stopMetro();
-      click();
-      metroTimer = setInterval(click, 60000 / bpm);
+      if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (metroCtx.state !== 'running') metroCtx.resume().catch(() => {});
+      clearInterval(metroTimer);
+      nextBeat = metroCtx.currentTime + 0.05;
+      schedule();
+      metroTimer = setInterval(schedule, TICK_MS);
       metroRunning = true;
       paintMetro();
     }
@@ -656,21 +902,28 @@
 
     function paintMetro() {
       $('metro-pill').hidden = !metroRunning;
-      $('metro-pill-bpm').textContent = bpm;
+      $('metro-pill-bpm').textContent = settings.bpm;
       $('more-btn').classList.toggle('busy', metroRunning);
       paintSettings();
     }
 
+    // No restart: the next beat simply lands 60/bpm after the last one.
     function setBpm(n) {
-      bpm = clamp(Math.round(n), 40, 240);
-      write(BPM_KEY, bpm);
-      if (metroRunning) startMetro(); else paintMetro();
+      setSetting('bpm', n);
+      paintMetro();
     }
+
+    // A locked phone suspends the audio; coming back wakes it up.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && metroRunning && metroCtx && metroCtx.state !== 'running') {
+        metroCtx.resume().catch(() => {});
+      }
+    });
 
     $('metro-toggle').addEventListener('click', () => (metroRunning ? stopMetro() : startMetro()));
     $('metro-pill').addEventListener('click', stopMetro);
-    $('bpm-up').addEventListener('click', () => setBpm(bpm + 5));
-    $('bpm-down').addEventListener('click', () => setBpm(bpm - 5));
+    $('bpm-up').addEventListener('click', () => setBpm(settings.bpm + 5));
+    $('bpm-down').addEventListener('click', () => setBpm(settings.bpm - 5));
 
     // Tap tempo: the average of the last few gaps between taps.
     let taps = [];
@@ -686,14 +939,28 @@
 
     // ---- keep the screen on ----------------------------------------------
 
+    const hasWakeLock = 'wakeLock' in navigator;
     let wakeLock = null;
+    let locking = false;
+    let wakeWarned = false;
 
-    async function lockScreen() {
-      if (!keepAwake || !('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
+    // A refused request (battery saver, or Safari wanting a tap first) is
+    // tried again at the next touch; refused after a touch, it's said once.
+    async function lockScreen(fromTouch) {
+      if (!switches.keepAwake || !hasWakeLock || document.visibilityState !== 'visible') return;
+      if ((wakeLock && !wakeLock.released) || locking) return;
+      locking = true;
       try {
         wakeLock = await navigator.wakeLock.request('screen');
+        wakeLock.addEventListener('release', () => { wakeLock = null; });
       } catch (e) {
-        wakeLock = null;   // battery saver or no permission: the phone just sleeps as usual
+        wakeLock = null;
+        if (fromTouch && !wakeWarned) {
+          wakeWarned = true;
+          toast('Displej může zhasnout: telefon šetří baterii.');
+        }
+      } finally {
+        locking = false;
       }
     }
 
@@ -703,9 +970,13 @@
     }
 
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') lockScreen();
+      if (document.visibilityState === 'visible') lockScreen(false);
     });
-    $('wake-row').hidden = !('wakeLock' in navigator);
+    document.addEventListener('pointerdown', () => { if (!wakeLock) lockScreen(true); }, { passive: true });
+    if (!hasWakeLock) {
+      $('wake').disabled = true;
+      $('wake-hint').textContent = 'Tenhle prohlížeč to neumí: displej zhasíná podle nastavení telefonu.';
+    }
 
     // ---- preview ---------------------------------------------------------
 
@@ -757,16 +1028,26 @@
       paintToggles();
       toast(on ? 'Uloženo do oblíbených' : 'Odebráno z oblíbených');
     });
+
+    // Waits for songs.json: before it, the setlist can't be read right (and a
+    // shared evening would get the song twice), and on a weak signal that
+    // can take a while.
+    let adding = false;
     $('add').addEventListener('click', () => {
-      if (EV.has(slug)) {
-        if (!EV.remove(slug)) { toast('Tuhle přidal někdo jiný. Odebrat ji může zakladatel večera nebo parta.'); return; }
-        toast('Odebráno z večera');
-      } else {
-        EV.add(slug);
-        toast(EV.shared ? 'Přidáno do společného večera' : 'Přidáno do dnešního večera');
-      }
-      paintToggles();
-      renderNext();
+      if (adding) return;
+      adding = true;
+      SL.load().then(() => {
+        if (EV.has(slug)) {
+          if (!EV.remove(slug)) { toast('Tuhle přidal někdo jiný. Odebrat ji může zakladatel večera nebo parta.'); return; }
+          toast('Odebráno z večera');
+        } else {
+          EV.add(slug);
+          toast(EV.shared ? 'Přidáno do společného večera' : 'Přidáno do dnešního večera');
+        }
+        paintToggles();
+        renderNext();
+      }).catch(() => toast('Seznam písní se nenačetl, zkus to za chvíli.'))
+        .then(() => { adding = false; });
     });
 
     function renderNext() {
@@ -837,7 +1118,7 @@
       card.classList.add('pulse');
     });
 
-    EV.onChange(() => { if (song) { paintToggles(); if (!fromRandom) renderNext(); } });
+    EV.onChange(() => { if (loaded) { paintToggles(); if (!fromRandom) renderNext(); } });
 
     // ---- the evening plays from the founder's phone ----------------------
 
@@ -942,6 +1223,37 @@
       location.href = `mailto:ondrejbek8@gmail.com?subject=${subject}&body=${body}`;
     });
 
+    // ---- songs.json ------------------------------------------------------
+
+    function onSongs() {
+      loaded = true;
+      song = SL.bySlug(slug) || null;
+      if (song && Array.isArray(song.progression) && song.progression.length) {
+        setGroups(song.progression);
+        renderChips();
+        applyTranspose();
+      }
+      paintToggles();
+      renderNext();
+      linkAuthors();
+      announce();
+      paintFollow();
+      SL.recent.add(slug);
+    }
+
+    // On a weak signal the first try may fail; the page keeps asking for a
+    // while, and again when the phone says it's back online.
+    let loadTries = 0;
+    function loadSongs() {
+      if (loaded) return;
+      SL.load().then(onSongs).catch(err => {
+        console.error('songs.json failed:', err);
+        loadTries++;
+        if (loadTries < 4) setTimeout(loadSongs, 5000 * loadTries);
+      });
+    }
+    window.addEventListener('online', loadSongs);
+
     // ---- go --------------------------------------------------------------
 
     document.querySelectorAll('[data-icon]').forEach(n => { n.innerHTML = SL.icon(n.dataset.icon); });
@@ -954,25 +1266,9 @@
     setGroups(window.SongSections ? SongSections.deriveProgression(raw) : []);
     renderChips();
     renderLyrics();
-    setDiagrams(read(DIAGRAMS_KEY, '0') === '1');
-    lockScreen();
+    setDiagrams(switches.diagrams);
+    lockScreen(false);
     setupPreview();
-
-    SL.load()
-      .then(() => {
-        song = SL.bySlug(slug) || null;
-        if (song && Array.isArray(song.progression) && song.progression.length) {
-          setGroups(song.progression);
-          renderChips();
-          if (!$('diagrams').hidden) renderDiagrams();
-        }
-        paintToggles();
-        renderNext();
-        linkAuthors();
-        announce();
-        paintFollow();
-        SL.recent.add(slug);
-      })
-      .catch(err => console.error('songs.json failed:', err));
+    loadSongs();
   }
 })();

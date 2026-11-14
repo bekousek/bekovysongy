@@ -25,19 +25,28 @@ function songChordNames() {
   return names;
 }
 
-test('every chord the songs use has a diagram in every key', () => {
+test('every chord the songs use has a diagram in every key, spelled either way', () => {
+  // What player.js shows: the name as written at 0, else the name moved with
+  // sharps or with flats (whichever the song takes).
   const missing = [];
   for (const name of songChordNames()) {
     for (let t = 0; t < 12; t++) {
-      const shown = transposeChord(name, t);
-      const chord = CD.parseName(shown);
-      const v = CD.resolve(shown);
-      if (!chord || !v || !CD.verify(v.frets, chord) || !CD.playable(v.frets, v.barres) || !CD.renderChordSVG(shown)) {
-        missing.push(shown);
+      for (const flats of [false, true]) {
+        const shown = t ? transposeChord(name, t, flats) : name;
+        const chord = CD.parseName(shown);
+        const v = CD.resolve(shown);
+        if (!chord || !v || !CD.verify(v.frets, chord) || !CD.playable(v.frets, v.barres) || !CD.renderChordSVG(shown)) {
+          missing.push(shown);
+        }
       }
     }
   }
   assert.deepEqual([...new Set(missing)], [], 'chords without a correct diagram');
+});
+
+test('a diagram takes the page\'s colours through its classes', () => {
+  const svg = CD.renderChordSVG('C');
+  for (const cls of ['dg-nut', 'dg-grid', 'dg-dot', 'dg-open', 'dg-muted']) assert.match(svg, new RegExp(`class="${cls}"`), cls);
 });
 
 // The shapes a Czech songbook draws, checked note by note against the

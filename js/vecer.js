@@ -57,21 +57,9 @@
   const ME = '__me';                        // stands for our uid in writes queued before we know it
   const MAX_ITEMS = 150;
 
-  function readJSON(key, fallback) {
-    try {
-      const v = JSON.parse(localStorage.getItem(key));
-      return v == null ? fallback : v;
-    } catch (e) {
-      return fallback;
-    }
-  }
-
-  function writeJSON(key, value) {
-    try {
-      if (value == null) localStorage.removeItem(key);
-      else localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) { /* not remembered */ }
-  }
+  // localStorage that forgets instead of throwing (private window, blocked
+  // storage); writeJSON(key, null) removes the key.
+  const { readJSON, writeJSON } = SL;
 
   function randomId(n) {
     const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -674,7 +662,9 @@
     emit();
   });
 
-  if (joined) SL.load().then(() => { connect(); emit(); });
+  // Without songs.json (weak signal) the stream still connects; the page
+  // repaints once its own retry of songs.json gets through.
+  if (joined) SL.load().then(() => { connect(); emit(); }, () => connect());
   // A request written offline on an earlier visit, with no evening stream
   // around to send it.
   else if (pending.some(op => op.kind === 'request')) flush();

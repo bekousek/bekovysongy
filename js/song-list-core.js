@@ -28,6 +28,7 @@
 
   // === Storage =============================================================
 
+  // Shared with js/vecer.js and js/player.js (as SongList.readJSON/writeJSON).
   function readJSON(key, fallback) {
     try {
       const v = JSON.parse(localStorage.getItem(key));
@@ -37,9 +38,11 @@
     }
   }
 
+  // null forgets the key.
   function writeJSON(key, value) {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      if (value == null) localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
       // Storage disabled: the action still happened, it just isn't remembered.
     }
@@ -130,17 +133,16 @@
 
   // Chord picker order: by root up the scale from C (Czech names, so B is
   // B-flat and H is B), then plain major, minor and seventh before the rest.
-  const ROOTS = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 10, H: 11 };
+  // Names are read by js/chord-theory.js, like everywhere else.
+  const Theory = () => (typeof window !== 'undefined' && window.ChordTheory)
+    || (typeof require === 'function' ? require('./chord-theory.js') : null);
 
   function chordKey(name) {
-    const m = /^([A-H])(#|b|is|es)?(.*)$/.exec(name);
-    if (!m) return [99, 9, name];
-    let root = ROOTS[m[1]];
-    if (m[2] === '#' || m[2] === 'is') root += 0.5;
-    if ((m[2] === 'b' || m[2] === 'es') && m[1] !== 'B') root -= 0.5;
-    const rest = m[3];
+    const p = Theory() && Theory().parse(name);
+    if (!p) return [99, 9, name];
+    const rest = name.replace(/^[A-H][#b]?/, '');
     const rank = rest === '' ? 0 : rest === 'mi' ? 1 : rest === '7' ? 2 : rest === 'mi7' ? 3 : 4;
-    return [(root + 12) % 12, rank, rest];
+    return [p.root, rank, rest];
   }
 
   function compareChords(a, b) {
@@ -247,7 +249,10 @@
         })).sort((a, b) => collator.compare(a.name, b.name));
 
         return { songs, chords: allChords, artists };
-      });
+      })
+      // A failed load (no signal yet) must not stay the answer for the rest
+      // of the visit: the next caller tries again.
+      .catch(err => { loadPromise = null; throw err; });
     return loadPromise;
   }
 
@@ -620,18 +625,25 @@
   };
 
   const setlist = {
-    list() {
+    // Everything stored, known or not. Writes start from this: before
+    // songs.json has arrived bySlug is empty, and saving the filtered view
+    // would wipe the list.
+    raw() {
       const v = readJSON(SETLIST_KEY, []);
-      return Array.isArray(v) ? v.filter(slug => bySlug.has(slug)) : [];
+      return Array.isArray(v) ? v.filter(s => typeof s === 'string') : [];
+    },
+    // What can be shown: the songs songs.json knows.
+    list() {
+      return this.raw().filter(slug => bySlug.has(slug));
     },
     save(list) {
       writeJSON(SETLIST_KEY, list);
     },
     has(slug) {
-      return this.list().indexOf(slug) !== -1;
+      return this.raw().indexOf(slug) !== -1;
     },
     toggle(slug) {
-      const list = this.list();
+      const list = this.raw();
       const i = list.indexOf(slug);
       if (i === -1) list.push(slug); else list.splice(i, 1);
       this.save(list);
@@ -744,10 +756,13 @@
     return `<svg class="mark" viewBox="0 0 32 32" width="${s}" height="${s}" aria-hidden="true" focusable="false"><rect x="18" y="6" width="2.6" height="15.5" fill="currentColor"/><path d="M20.6 6c3.6 1.6 5 4 4.4 7.4-1-2-2.6-3.2-4.4-3.8V6z" fill="currentColor"/><ellipse cx="15.8" cy="23" rx="4.2" ry="3.2" transform="rotate(-18 15.8 23)" fill="currentColor"/></svg>`;
   }
 
-  window.SongList = {
+  const api = {
     BASE,
     LYRICS_MIN_QUERY,
     collator,
+    readJSON,
+    writeJSON,
+    dedupe,
     load,
     get songs() { return songs; },
     get chords() { return allChords; },
@@ -785,4 +800,8 @@
     icon,
     mark,
   };
+
+  if (typeof window !== 'undefined') window.SongList = api;
+  // Node: the tests (test/song-list-core.test.js), with stubbed fetch and storage.
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })();

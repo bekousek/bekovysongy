@@ -31,17 +31,18 @@
   var NBSP = String.fromCharCode(0xa0);
   var TAB_WIDTH = 8;
 
+  // Note names and the strict chord grammar live in chord-theory.js, the one
+  // place that knows what a chord name is (Node: the sibling file; browser:
+  // loaded first as a <script>).
+  var ChordTheory = (typeof require !== 'undefined')
+    ? require('./chord-theory.js')
+    : global.ChordTheory;
+
   // === Chord names ===
   // root, accidental, quality, extension, sus/add/alterations, slash bass.
   // Deliberately strict: a lyric line is told apart from a chord line only by
   // every one of its words parsing here, so "Ale" or "Den" must not.
-  var CHORD_RE = new RegExp(
-    '^([A-H])(#|b)?' +
-    '(maj|Maj|M|min|mi|moll|mol|m|dim|°|aug|\\+|-)?' +
-    '(\\d{1,2})?' +
-    '((?:sus\\d?|add\\d{1,2}|[b#]\\d{1,2})*)' +
-    '(?:/([A-H])(#|b)?)?$'
-  );
+  var CHORD_RE = ChordTheory.CHORD_RE;
 
   // German/Czech note names some songbooks use (Fis = F#, As = Ab, ...).
   var GERMAN = [
@@ -100,7 +101,6 @@
 
   // English "B" is the Czech "H"; Czech "B" is B flat. Only a bare B is in
   // doubt, so decide that once for the whole paste, from what else is in it.
-  var PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, H: 11 };
 
   function pitchOf(root, acc, bIsH) {
     var base;
@@ -108,7 +108,7 @@
       if (acc === 'b') return 10;
       base = bIsH ? 11 : 10;
     } else {
-      base = PC[root];
+      base = ChordTheory.NOTE_MAP[root];
     }
     if (acc === '#') base += 1;
     else if (acc === 'b') base -= 1;
@@ -434,9 +434,6 @@
   // 'different'. `shift` is the transposition that matched, in semitones
   // (0 = same key).
   var SIMILAR = 0.6;
-  var ChordTheory = (typeof require !== 'undefined')
-    ? require('./chord-theory.js')
-    : global.ChordTheory;
 
   function triad(name) {
     var p = parseChord(name);
