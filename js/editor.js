@@ -2166,7 +2166,8 @@
   //     R//
   //
   // The copied line is left selected, so typing replaces it - which is the
-  // point, the new ending is nearly always a rewrite of the old one.
+  // point, the new ending is nearly always a rewrite of the old one. Keeping
+  // it and adding a line under it appends instead (applyTail anchors on it).
   function addChangedEnding(lines, blocks, idx) {
     const b = blocks[idx];
     const defIdx = SongSections.definitions(blocks);

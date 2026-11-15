@@ -55,8 +55,18 @@
  *
  * "..." means "the chorus as before"; the lines under it replace as many
  * lines at the END of the definition as were written (one line swaps the last
- * line, two swap the last two). "//R ... a víc už nechci nic. R//" on one
- * line means the same. The new ending is rendered twice: inside
+ * line, two swap the last two). When the first of them repeats a line of the
+ * chorus, the new ending starts at that line instead - which is how an ending
+ * is added after the chorus rather than swapped in:
+ *
+ *      //R
+ *      ...
+ *      a víc už nechci nic.      <- the chorus's own last line
+ *      a víc, a víc.             <- what comes after it
+ *      R//
+ *
+ * "//R ... a víc už nechci nic. R//" on one line means the same as a bare
+ * "..." with the ending below it. The new ending is rendered twice: inside
  * .section-body, which is the expanded chorus, and again in its own
  * .section-tail, which is what stays on screen next to the collapsed pill -
  * so a reader who has the chorus by heart still sees what changes.
@@ -418,15 +428,36 @@
     });
   }
 
-  // Definition body with its last lines swapped for the new ending - as many
-  // as were written, so a two-line ending replaces the last two lines.
+  // The words of a line, chords left out, for telling whether a line of the
+  // new ending repeats a line of the chorus ("[C] Osvobodit nás" is the same
+  // line as "[C] Osvobodit nás [D] [Emi]").
+  function lyricText(html) {
+    return plainText(html.replace(/<span[^>]*data-chord="[^"]*"[^>]*>[\s\S]*?<\/span>/gi, ' ')).toLowerCase();
+  }
+
+  // Definition body with its ending swapped for the new one. Where the new
+  // ending takes over:
+  //
+  //   - its first line repeats a line of the chorus -> from that line on (the
+  //     last such line, if the chorus has it twice). So an ending is ADDED by
+  //     copying the chorus's last line and writing the new one under it, and
+  //     "the last line three times" is that line written three times.
+  //   - otherwise -> as many lines from the end as were written, so a
+  //     one-line ending swaps the last line, a two-line one the last two.
   function applyTail(defBodyHtml, tailLines) {
     var lines = defBodyHtml.split('\n');
     while (lines.length && isBlank(lines[lines.length - 1])) lines.pop();
     var tail = tailLines.slice();
     while (tail.length && isBlank(tail[tail.length - 1])) tail.pop();
     if (!tail.length) return defBodyHtml;
-    var keep = Math.max(0, lines.length - tail.length);
+    var keep = -1;
+    var anchor = lyricText(tail[0]);
+    if (anchor !== '') {
+      for (var i = lines.length - 1; i >= 0; i--) {
+        if (lyricText(lines[i]) === anchor) { keep = i; break; }
+      }
+    }
+    if (keep === -1) keep = Math.max(0, lines.length - tail.length);
     return lines.slice(0, keep).concat(tail).join('\n');
   }
 
@@ -614,10 +645,21 @@
 
   function deriveProgression(html) {
     var blocks = parseBlocks(html);
+    var defIdx = definitions(blocks);
 
     var allGroups = [];
-    blocks.forEach(function (b) {
-      allGroups = allGroups.concat(collapseSection(blockChordSeq(b.lines)));
+    blocks.forEach(function (b, i) {
+      var lines = b.lines;
+      // A changed ending that starts by repeating a line of the chorus (to
+      // add something after it) plays nothing new on that line.
+      var key = b.type + '|' + b.id;
+      var tail = b.marker && defIdx[key] != null && defIdx[key] !== i ? matchTail(b.lines) : null;
+      if (tail && tail.length > 1) {
+        var anchor = lyricText(tail[0]);
+        var repeats = anchor !== '' && blocks[defIdx[key]].lines.some(function (l) { return lyricText(l) === anchor; });
+        if (repeats) lines = tail.slice(1);
+      }
+      allGroups = allGroups.concat(collapseSection(blockChordSeq(lines)));
     });
 
     // Global dedup: an identical group (same chords, same order) is only

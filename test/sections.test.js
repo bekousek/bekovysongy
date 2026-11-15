@@ -334,6 +334,39 @@ test('changed ending: two lines replace the last two', () => {
   assert.doesNotMatch(body.split('</div>')[0], /nic mi nechybí/);
 });
 
+test('changed ending: repeating the last line first ADDS the new ending', () => {
+  const out = SongSections.transform(CHORUS + '\n\n//R\n...\na víc už nechci nic.\na víc, a víc.\nR//');
+  const body = out.split('class="section-body"')[2];
+  assert.match(body, /Když jsi u mě,\nnic mi nechybí,\na víc už nechci nic\.\na víc, a víc\./);
+});
+
+test('changed ending: the anchor line is matched without its chords', () => {
+  const ch = (c) => '<span class="chord" data-chord="' + c + '">' + c + '</span>';
+  const def = '//R\n' + ch('C') + ' Narodí se\n' + ch('C') + ' Osvobodit nás ' + ch('D') + ' ' + ch('Emi') + '\nR//';
+  const out = SongSections.transform(def + '\n\n//R\n...\n' +
+    ch('C') + ' Osvobodit nás ' + ch('D') + '\n' +
+    ch('C') + ' Osvobodit nás ' + ch('D') + '\n' +
+    ch('C') + ' Osvobodit nás ' + ch('D') + ' ' + ch('Emi') + '\nR//');
+  const body = out.split('class="section-body"')[2].split('</div>')[0];
+  assert.match(body, /Narodí se/);
+  assert.equal((body.match(/Osvobodit nás/g) || []).length, 3);
+});
+
+test('changed ending: the copied anchor line adds nothing to the progression', () => {
+  const ch = (c) => '<span class="chord" data-chord="' + c + '">' + c + '</span>';
+  const def = '//R\n' + ch('G') + ' jedna ' + ch('D') + ' dva\n' + ch('C') + ' tři ' + ch('D') + ' čtyři\nR//';
+  const plain = def + '\n\n//R//\n\n' + ch('Emi') + ' dovětek ' + ch('A7');
+  const tailed = def + '\n\n//R\n...\n' + ch('C') + ' tři ' + ch('D') + ' čtyři\n' + ch('Emi') + ' dovětek ' + ch('A7') + '\nR//';
+  assert.deepEqual(SongSections.deriveProgression(tailed), SongSections.deriveProgression(plain));
+});
+
+test('changed ending: the anchor is the LAST matching line of the chorus', () => {
+  const def = '//R\nla la\nprostřední\nla la\nkonec\nR//';
+  const out = SongSections.transform(def + '\n\n//R\n...\nla la\njinak\nR//');
+  const body = out.split('class="section-body"')[2].split('</div>')[0];
+  assert.match(body, /la la\nprostřední\nla la\njinak/);
+});
+
 test('changed ending: the compact one-line form means the same', () => {
   const wide = SongSections.transform(CHORUS + '\n\n//R\n...\na pak už nechci nic.\nR//');
   const tight = SongSections.transform(CHORUS + '\n\n//R ... a pak už nechci nic. R//');
