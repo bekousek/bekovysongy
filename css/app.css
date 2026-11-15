@@ -1,37 +1,18 @@
 /* The home page: the songbook as a phone app at night. Warm black,
    elevation by lightness alone, and the project's own orange on the chords
-   and on the few things that act. */
+   and on the few things that act. Colours and the typeface: tokens.css. */
+
+@import url("tokens.css");
 
 :root {
-  --ground: #0e0d0c;
-  --surface: #181716;
-  --raised: #262422;
-  --rule: #211f1d;
-  --control: #4a4744;
-  --text: #f2f2f0;
-  --muted: #b6b1aa;
-  --faint: #98928b;
-  --accent: #e67e22;
-  --on-accent: #160b02;
-  --press: #312e2b;
-  --ok: #3fbf6f;
-  --warn: #e5a93b;
-  --danger: #e5566f;
-
   --radius-card: 20px;
-  --radius-pill: 999px;
   --gap: 14px;
-  --pad: 16px;
   --tabbar-h: 64px;
-  --safe-b: env(safe-area-inset-bottom, 0px);
 
-  --font: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --fs-h1: 28px;
   --fs-title: 17px;
   --fs-body: 15px;
   --fs-small: 13px;
-
-  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

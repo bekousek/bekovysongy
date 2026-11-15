@@ -7,9 +7,6 @@
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#0e0d0c">
   <meta name="color-scheme" content="dark">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
     // Addresses that used to exist go where their content went before the
     // page even draws: the old instrument pages and the redesign trials
@@ -32,8 +29,20 @@
       if (to) location.replace(to);
     })();
   </script>
-  <!-- Self-contained on purpose: a 404 can be hit from any path depth. -->
+  <!-- Self-contained on purpose: a 404 can be hit from any path depth. The
+       font is the site's own copy, by absolute path (the site sits at the
+       domain root); anywhere else the system font stands in. -->
   <style>
+    @font-face {
+      font-family: "Figtree"; font-weight: 400 700; font-display: swap;
+      src: url("/assets/fonts/Figtree-Variable-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+2000-206F;
+    }
+    @font-face {
+      font-family: "Figtree"; font-weight: 400 700; font-display: swap;
+      src: url("/assets/fonts/Figtree-Variable-latin-ext.woff2") format("woff2");
+      unicode-range: U+0100-02FF;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

@@ -76,6 +76,15 @@ jobs:
           # exact match only. Generated rather than committed so it can't drift
           # from the full file it's derived from.
           node scripts/build-public-previews.js > _site/song-previews-public.json
+          # The service worker names its shell cache after the published
+          # skeleton (JS, CSS, the pages that aren't songs, fonts and icons),
+          # so changing any of it reaches returning visitors on their next
+          # visit - no number to bump by hand. Songs and songs.json live in a
+          # cache of their own and don't count.
+          SHELL_HASH=$(cd _site && find css js admin assets na-kytaru index.html 404.html offline.html manifest.json -type f | LC_ALL=C sort | xargs sha1sum | sha1sum | cut -c1-12)
+          sed -i "s/^const SHELL_VERSION = 'dev';/const SHELL_VERSION = '${SHELL_HASH}';/" _site/sw.js
+          grep -q "^const SHELL_VERSION = '${SHELL_HASH}';" _site/sw.js || { echo "sw.js: SHELL_VERSION placeholder not found"; exit 1; }
+          echo "Shell version ${SHELL_HASH}"
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

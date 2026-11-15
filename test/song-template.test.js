@@ -125,9 +125,11 @@ test('generateSongHtml: canonical link and og:url use the slug', () => {
   assert.match(html, /<meta property="og:url" content="https:\/\/bekovysongy\.cz\/songs\/moje-pisen\.html">/);
 });
 
-test('generateSongHtml: mailto keeps a literal "Bug: " prefix with only the title encoded', () => {
+test('generateSongHtml: no old chrome - player.js builds the bars and the bug report', () => {
   const html = SongTemplate.generateSongHtml(baseOpts({ title: 'Anděl' }));
-  assert.match(html, /mailto:ondrejbek8@gmail\.com\?subject=Bug: And%C4%9Bl/);
+  assert.doesNotMatch(html, /player-bar|main-nav|mailto:/);
+  assert.match(html, /<\/main>\n\n  <script src="\.\.\/js\/chords\.js"><\/script>/);
+  assert.match(html, /<script src="\.\.\/js\/player\.js"><\/script>\n<\/body>/);
 });
 
 test('generateSongHtml: body html is inserted verbatim into the pre', () => {

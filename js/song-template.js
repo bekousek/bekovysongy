@@ -7,11 +7,12 @@
  *
  * generateSongHtml() mirrors transfer_songs.py's generate_song_html() and the
  * committed songs/andel.html template byte-for-byte, aside from the
- * interpolated title/author/capo/body/slug and two conventions where the
- * editor's existing behavior wins over the (older) Python script: capo is
- * rendered as "Capo N" (not a bare "Capo"), and the mailto subject keeps a
- * literal "Bug: " prefix with only the title percent-encoded (see andel.html
- * line 86 and js/editor.js's save path).
+ * interpolated title/author/capo/body/slug and where the editor's behavior
+ * wins over the (older) Python script: capo is rendered as "Capo N" (not a
+ * bare "Capo"). The page is only the head, the song and the scripts: the old
+ * nav and #player-bar are gone (2026-11) - js/player.js builds all the
+ * chrome, the bug-report mailto included, and scripts/strip-song-chrome.js
+ * took them out of the existing pages.
  *
  * Browser: window.SongTemplate. Node: module.exports (for tests, and for
  * js/editor.js which loads this as a plain <script> before itself).
@@ -91,7 +92,6 @@
     var by = author ? ' od ' + author : '';
     var description = escapeHtml('Akordy a text písně ' + title + by + '. Transpozice, capo, ladička a metronom na Bekovy songy.');
     var canonical = 'https://bekovysongy.cz/songs/' + slug + '.html';
-    var mailtoHref = 'mailto:ondrejbek8@gmail.com?subject=Bug: ' + encodeURIComponent(title);
 
     return '<!DOCTYPE html>\n' +
       '<html lang="cs">\n' +
@@ -122,13 +122,6 @@
       '  <script type="application/ld+json">' + songJsonLd({ title: title, author: author, slug: slug }) + '</script>\n' +
       '</head>\n' +
       '<body>\n' +
-      '  <nav class="main-nav">\n' +
-      '    <a href="../" class="nav-logo">Bekovy songy</a>\n' +
-      '    <div class="nav-links">\n' +
-      '      <a href="../">Zpěvník</a>\n' +
-      '    </div>\n' +
-      '  </nav>\n' +
-      '\n' +
       '  <main class="song-page">\n' +
       '    <div class="song-header">\n' +
       '      <h1>' + escTitle + '</h1>\n' +
@@ -137,38 +130,6 @@
       '    </div>\n' +
       '    <pre class="song-text">' + body + '</pre>\n' +
       '  </main>\n' +
-      '\n' +
-      '  <div class="player-bar" id="player-bar">\n' +
-      '    <div class="player-section player-transpose">\n' +
-      '      <span class="player-label">Transpozice</span>\n' +
-      '      <button class="btn-transpose" id="transpose-down">-1</button>\n' +
-      '      <span id="transpose-value">0</span>\n' +
-      '      <button class="btn-transpose" id="transpose-up">+1</button>\n' +
-      '    </div>\n' +
-      '    <div class="player-section player-scroll">\n' +
-      '      <button class="btn-player" id="scroll-toggle" aria-label="Automatické rolování" title="Automatické rolování">\n' +
-      '        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>\n' +
-      '      </button>\n' +
-      '      <input type="range" id="scroll-speed" min="1" max="10" value="3" class="speed-slider">\n' +
-      '    </div>\n' +
-      '    <div class="player-section player-metronome">\n' +
-      '      <button class="btn-player" id="metronome-toggle" aria-label="Metronom" title="Metronom">\n' +
-      '        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 20,22 4,22"/><line x1="12" y1="22" x2="12" y2="8"/></svg>\n' +
-      '      </button>\n' +
-      '      <input type="number" id="bpm-input" min="40" max="240" value="120" class="bpm-input">\n' +
-      '    </div>\n' +
-      '    <div class="player-section player-tuner">\n' +
-      '      <button class="btn-player" id="tuner-toggle" aria-label="Ladička" title="Ladička">\n' +
-      '        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>\n' +
-      '      </button>\n' +
-      '      <span id="tuner-display" class="tuner-display"></span>\n' +
-      '    </div>\n' +
-      '    <div class="player-section player-bug">\n' +
-      '      <a href="' + mailtoHref + '" class="btn-player" title="Nahlásit chybu" aria-label="Nahlásit chybu">\n' +
-      '        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2l1.88 1.88M14.12 3.88L16 2M9 7.13v-1a3 3 0 016 0v1M12 20c-3.87 0-7-3.13-7-7v-2h14v2c0 3.87-3.13 7-7 7zM5 11V9M19 11V9M7.13 17H2M22 17h-5.13"/></svg>\n' +
-      '      </a>\n' +
-      '    </div>\n' +
-      '  </div>\n' +
       '\n' +
       '  <script src="../js/chords.js"></script>\n' +
       '  <script src="../js/sections.js"></script>\n' +
@@ -204,7 +165,8 @@
     slugify: slugify,
     uniqueSlug: uniqueSlug,
     generateSongHtml: generateSongHtml,
-    songJsonLd: songJsonLd
+    songJsonLd: songJsonLd,
+    escapeHtml: escapeHtml
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

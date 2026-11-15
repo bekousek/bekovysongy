@@ -185,7 +185,7 @@ components:
 
 Platí pro veřejný web: seznam písní v kořeni (`index.html`, `css/app.css`, `js/app.js`), stránky písní (`css/style.css` + `js/player.js`, které staví lišty kolem statických `songs/*.html`) a `404.html` / `offline.html`. Admin (`admin/`, `css/admin-base.css`, `css/editor.css`) má vlastní starý vzhled a tenhle systém se ho netýká.
 
-Tokeny jsou ve frontmatteru výš; v kódu žijí jako CSS proměnné na `:root` ve dvou souborech, `css/app.css` a `css/style.css`, se stejnými hodnotami. Kdo změní jeden, mění i druhý. Mapa jmen: `--accent` = campfire-orange, `--on-accent` = charred-ink, `--ground` = night-black, `--surface` = soot, `--raised` = ash, `--press` = pressed-ash, `--rule` = hairline, `--control` = slate, `--text` = bone-white, `--muted` = smoke, `--faint` = dim-smoke, `--ok` / `--warn` / `--danger` = stavové barvy.
+Tokeny jsou ve frontmatteru výš; v kódu žijí jako CSS proměnné na `:root` v jediném souboru `css/tokens.css`, který si importují `css/app.css` i `css/style.css` (je v něm i `@font-face` pro Figtree). Jen stránka písně má navíc vlastní tokeny ladičky (`--tuned-*`), mřížky prstokladu (`--diagram-grid`) a světlý vzhled, všechny v `css/style.css`. Prstoklady (`js/chords.js`) barvy nenesou: jejich části mají třídy `dg-*`, které barví `style.css`. Mapa jmen: `--accent` = campfire-orange, `--on-accent` = charred-ink, `--ground` = night-black, `--surface` = soot, `--raised` = ash, `--press` = pressed-ash, `--rule` = hairline, `--control` = slate, `--text` = bone-white, `--muted` = smoke, `--faint` = dim-smoke, `--ok` / `--warn` / `--danger` = stavové barvy.
 
 ## Overview
 
@@ -227,6 +227,9 @@ Teplá noční paleta: tři stupně sazí a popela, kostěně bílý text a jedn
 ### Status
 - **Ok Green** (`--ok`), **Warn Amber** (`--warn`), **Danger Rose** (`--danger`): jen tečka stavu společného večera a stav ladičky (naladěno / chyba). Vždy s textem vedle, nikdy jako jediný nositel významu.
 
+### Světlý vzhled (jen stránka písně)
+Na projektoru v osvětlené místnosti a na slunci se tmavá stránka čte hůř, proto má stránka písně v Nastavení přepínač **Světlý vzhled** (`bs_theme`, `data-theme="light"` na `<html>`, nastaví ho `player.js` dřív, než se cokoli vykreslí). Stejné role, jiné hodnoty: papírová `--ground` #faf8f5, `--surface` #f0ece6, `--raised` #e4dfd8, text #1b1815, kouř #57514b a #6b645c. Oranžová je tmavší **#a84f00** (5.2:1 na papíře) a text na ní je bílý (5.5:1); pravidlo „nikdy bílá na oranžové“ platí pro světlou #e67e22, ne pro tuhle. Seznam písní zůstává tmavý.
+
 ### Named Rules
 **Pravidlo žhavého uhlíku.** Oranžová znamená buď akord, nebo „tohle něco udělá“. Nadpis, ozdoba ani rámeček kvůli efektu ji nedostanou.
 
@@ -234,7 +237,7 @@ Teplá noční paleta: tři stupně sazí a popela, kostěně bílý text a jedn
 
 ## Typography
 
-**Písmo:** Figtree (Google Fonts, 400/500/600/700), záloha `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`. Jedno písmo pro všechno včetně textu písní; akord se od textu liší řezem a barvou, ne fontem.
+**Písmo:** Figtree (400–700, jeden variabilní soubor na latinku a jeden na rozšířenou latinku v `assets/fonts/`, servírované z vlastního webu, ne z Google Fonts: offline a na slabém signálu ten cizí dotaz držel vykreslení), záloha `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`. Jedno písmo pro všechno včetně textu písní; akord se od textu liší řezem a barvou, ne fontem. **Jediná výjimka je tabulatura**: tu `sections.js` pozná (dlouhý řádek, víc než polovina pomlček) a stránka ji sází neproporcionálně (`--mono`, 0,72 em, bez zalamování, blok se posouvá do strany), jinak by struny nelícovaly pod sebou. Tištěný zpěvník to dělá stejně (Courier).
 
 **Character:** Přátelský geometrický grotesk s otevřenými tvary, čitelný z dálky i v malém. Tykající, neformální, bez kapitálek a bez proložení.
 
@@ -243,7 +246,7 @@ Teplá noční paleta: tři stupně sazí a popela, kostěně bílý text a jedn
 - **Song title** (700, 26 px, na ≥900 px 32 px, lh 1.15, -0.02em): `h1` na stránce písně.
 - **Headline** (600, 20 px, -0.01em): bloky (Nově přidané, Oblíbené), nadpisy sheetů a karty pozvánky.
 - **Title** (600, 17 px, lh 1.3): název písně v řádku seznamu, jméno interpreta v seznamu interpretů (500).
-- **Lyrics** (400, 19 px × `--scale`, lh 1.75): text písně. Uživatel si mění velikost 70–150 % přes `--scale`.
+- **Lyrics** (400, 19 px × `--scale`, lh 1.75): text písně. Uživatel si mění velikost 70–250 % přes `--scale`; nad 100 % roste se písmem i šířka sloupce (`--page-w` = 820 px × scale), aby 250 % na projektoru nebyl úzký pruh.
 - **Chord** (700, barva campfire-orange): akord v textu, v liště akordů 17 px, v řádku seznamu 15/500.
 - **Body** (400, 15 px, lh 1.45): běžný text seznamu, popisky, prázdné stavy.
 - **Button** (600, 16 px): popisky tlačítek, i na 404 a offline stránce. Menší tlačítka v kartách mají 15 px, „Začít hrát“ 18 px.
@@ -252,7 +255,9 @@ Teplá noční paleta: tři stupně sazí a popela, kostěně bílý text a jedn
 ### Named Rules
 **Pravidlo akordu v řádku.** Akord stojí v textu tam, kde se mění, tučně a oranžově. Nikdy nad řádkem, nikdy v jiném fontu.
 
-**Pravidlo visícího řádku.** Každý řádek písně je vlastní blok (`.ln`, staví ho `player.js`). Když se na telefonu nevejde, pokračování se odsadí o 1em, aby se zalomení nedalo splést s dalším veršem.
+**Pravidlo visícího řádku.** Každý řádek písně je vlastní blok (`.ln`, staví ho `sections.js` v `transform(html, { lines: true })`). Když se na telefonu nevejde, pokračování se odsadí o 1em, aby se zalomení nedalo splést s dalším veršem.
+
+**Pravidlo přilepeného akordu.** Mezi akordem a slovem za ním je nezlomitelná mezera, takže řádek se nikdy nezlomí mezi nimi a akord nezůstane viset na konci řádku nad cizím slovem. Řada akordů bez slova (`G D Emi C`) se lámat smí.
 
 **Pravidlo čísel v řadě.** Počty, tóniny, BPM a pořadí mají `font-variant-numeric: tabular-nums`, aby při změně neposkakovaly.
 
@@ -262,7 +267,11 @@ Mobil je výchozí (asi 90 % použití), jeden sloupec s okrajem 16 px (`--pad`)
 
 Seznam: nahoře app bar 52 px se značkou, pod ním nadpis záložky, pak lepicí pás s hledáním (52 px) a vodorovně rolovatelnými čipy filtrů. Řádky písní jdou od okraje k okraji s vlasovou čarou odsazenou o `--pad`. Spodní lišta záložek je 64 px plus `safe-area-inset-bottom`, při psaní do hledání se schová. Celý obsah roluje uvnitř `#scroller`, stránka sama ne.
 
-Stránka písně: nahoře lepicí lišta akordů 52 px (zpět, akordy písně po sekcích, prstoklady), dole pevná lišta nástrojů 70 px (tónina, rolování, Další). Text mezi nimi s dolním odsazením, aby ho lišta nikdy nepřekryla.
+Stránka písně: nahoře lepicí lišta akordů 52 px (zpět, akordy písně po sekcích, prstoklady), dole pevná lišta nástrojů 70 px (tónina, rolování, Další). Text mezi nimi s dolním odsazením, aby ho lišta nikdy nepřekryla. Refrén, bridge a pojmenované části mají štítek v levém žlábku 2,1 em, na telefonu do 480 px jen 1,5 em (aby se refrén nelámal dřív než sloka); žlábek nemá barvu ani linku.
+
+**Telefon na šířku** (landscape, výška do 480 px): lišty braly třetinu výšky. Lišta akordů tu není lepicí a odroluje s nadpisem, spodní lišta má 50 px bez popisků a během automatického rolování zajede dolů; klepnutí do textu rolování zastaví a lištu vrátí.
+
+**Tisk jedné písně** (`@media print`): černá na bílé, akordy tučně v tmavé oranžové #a04a00, žádné lišty ani tlačítka, opakované refrény rozbalené (papír nejde rozkliknout), sekce se nedělí přes stránky.
 
 Od 900 px: záložky se přesunou do hlavičky jako pilulky, řádek seznamu se rozloží do tří sloupců (název + interpret | akordy | akce), sheety se z dolního okraje změní na dialog uprostřed (520 px seznam, 480 px píseň), lišta nástrojů písně se vznáší jako zaoblený panel 560 px dole uprostřed, interpreti jdou do dvou sloupců a `--pad` je 24 px.
 
@@ -328,8 +337,9 @@ Dva tvary: pilulka pro všechno, na co se klepe (tlačítka, čipy, hledání, z
 Jeden `<dialog>` pro všechny volby. Na mobilu vyjede zespodu (soot, zaoblení 24 px nahoře, úchyt 40×4 px ve slate, max. 86–88vh), na desktopu dialog uprostřed. Nadpis 20/600, zavírací kroužek 44 px, volby jako řádky 52 px s fajfkou, patička s tlačítky vedle sebe.
 
 ### Chord bar a lišta nástrojů (stránka písně)
-- **Lišta akordů:** night-black, akordy písně jako 44px cíle v oranžové 17/700, skupiny sekcí oddělené svislou čarou ve slate. Klepnutí ukáže prstoklad; zapnutý akord dostane ash plochu.
-- **Lišta nástrojů:** tónina (− hodnota +) a rolování (− přehrát +) jako dvě skupiny s popiskem 11 px pod nimi, vpravo „Další“. Posunutá tónina svítí oranžově, běžící rolování je oranžové tlačítko s pauzou.
+- **Lišta akordů:** night-black, akordy písně jako 44px cíle v oranžové 17/700, skupiny sekcí oddělené svislou čarou ve slate. Klepnutí ukáže prstoklad; zapnutý akord dostane ash plochu. Posledních 24 px pruhu se ztrácí do průhledna, aby bylo vidět, že pokračuje.
+- **Lišta nástrojů:** tónina (− hodnota +) a rolování (− přehrát +) jako dvě skupiny s popiskem 11 px pod nimi, vpravo „Další“. Posunutá tónina svítí oranžově, běžící rolování je oranžové tlačítko s pauzou. Tlačítko přehrát je širší než sousedé (72 px, pod 380 px 60, pod 340 px 52), aby se trefa vedle nestala změnou rychlosti.
+- **Akordy po transpozici:** celá píseň jedním zápisem, křížky nebo béčky podle toho, který drží tóny blíž u sebe na kvintové řadě (B Eb F, ne B D# F); bez transpozice přesně zápis ze souboru. Štítek „Capo 2“ při posunu dopíše „(akordy posunuté o +2)“.
 - **Pilulky písně:** Ukázka / Oblíbit / Do večera (a ve společném večeru Sledovat zakladatele) pod názvem, soot 44 px se smoke textem, zapnuté oranžové.
 - **Interpret pod názvem** je odkaz na jeho písně v seznamu, podtržený tenkou čarou ve slate. Stejně tak interpret ve vylosované kartě v Objevit.
 - **Opakovaný refrén:** sbalený do pilulky se značkou „R:“ a ikonou opakování (soot, 1px slate okraj); klepnutí ho rozbalí na místě.
@@ -355,7 +365,7 @@ Ash, zaoblení 16 px, 600/15 px, max. šířka obrazovky minus 32 px, zalamuje s
 - **Do** držet každý dotykový cíl aspoň na 44 px; ovládání pro hraní patří k dolnímu okraji.
 - **Do** dělat hloubku o stupeň světlejší plochou (night-black → soot → ash → pressed-ash).
 - **Do** psát text na oranžové v charred-ink (#160b02).
-- **Do** měnit tokeny v obou souborech zároveň (`css/app.css` i `css/style.css`) a při změně CSS/JS/HTML zvednout `CACHE_NAME` v `sw.js`.
+- **Do** měnit tokeny jen v `css/tokens.css` (a světlý vzhled v `css/style.css`). Verzi service workeru už nikdo ručně nezvedá: deploy pojmenuje cache kostry podle hashe CSS/JS/HTML.
 - **Do** dělat změny vzhledu stránek písní v `js/player.js` a `css/style.css`; `songs/*.html` se kvůli vzhledu needitují.
 - **Do** dávat fokus jako 2px bone-white prstenec s odstupem 2 px.
 - **Do** psát česky, tykat a pojmenovat tlačítka akcí, kterou udělají („Začít hrát“, „Stáhnout offline“).

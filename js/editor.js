@@ -2040,8 +2040,8 @@
 
   // === Live preview ===
   // Renders the song exactly like the live page (shared SongSections
-  // transform + site CSS) and decorates it with editor-only controls:
-  // join/detach buttons that decide what still belongs to a section.
+  // transform + site CSS) and decorates it with the editor-only "jiný konec"
+  // button on a repeated chorus.
   let previewTimer = null;
 
   function togglePreview() {
@@ -2088,15 +2088,9 @@
     return base + block.id + ':';
   }
 
-  // Adds the editor-only controls onto the rendered sections:
-  //  - a plain block right after a marked section gets "⤴ do R:" (join it),
-  //  - a marked section with a merged continuation gets "⤵ odpojit konec",
-  //  - a lowercase-starting block right after a section is flagged as a
-  //    suspected chorus continuation (dashed outline, button always visible).
-  //
-  // All three are about the legacy indent convention for "what still belongs
-  // to this section". A fenced section states its own end, so it gets none
-  // of them.
+  // Adds the editor-only controls onto the rendered sections. (The "⤴ do R:"
+  // / "⤵ odpojit konec" buttons of the old indent convention went with the
+  // "R:" prefix markers: a fenced section states its own end.)
   function decoratePreview(src) {
     const blocks = SongSections.parseBlocks(src);
     const defIdx = SongSections.definitions(blocks);
@@ -2116,28 +2110,6 @@
 
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
-      const prev = blocks[i - 1];
-
-      if (!b.marker && prev && prev.marker && !prev.fenced) {
-        const lbl = sectionLabelOf(prev);
-        kids[i].appendChild(makeBtn(
-          'join', i, '⤴ do ' + lbl,
-          'Připojit tento blok k sekci ' + lbl + ' - bude se sbalovat a opakovat spolu s ní'
-        ));
-        const first = b.lines.find(l => l.trim() !== '') || '';
-        const plain = first.replace(/<[^>]*>/g, '').replace(/&nbsp;/gi, ' ').trim();
-        if (/^[a-záčďéěíňóřšťúůýž]/.test(plain)) {
-          kids[i].classList.add('sec-suspect');
-          kids[i].title = 'Blok začíná malým písmenem - nepatří ještě k ' + lbl + '?';
-        }
-      }
-
-      if (b.marker && !b.fenced && b.lines.indexOf('') > 0) {
-        kids[i].appendChild(makeBtn(
-          'detach', i, '⤵ odpojit konec',
-          'Odpojit poslední připojený blok ze sekce (stane se z něj samostatná sloka)'
-        ));
-      }
 
       // A collapsed repeat can be given a different last line without
       // spelling the whole chorus out again - the usual "and the last chorus
@@ -2177,47 +2149,13 @@
     }
   }
 
-  // Rewrites the source so a block joins/leaves the preceding marked section.
-  // "Joined" is stored as indentation - the convention old songs already use
-  // and sections.js already parses (and dedents for display).
+  // Rewrites the source for a preview button.
   function applySectionAction(act, idx) {
     const src = readBody();
     const lines = SongSections.normalizeBreaks(src).split('\n');
     const blocks = SongSections.parseBlocks(src);
-    const b = blocks[idx];
-    if (!b) return;
-
-    if (act === 'tail') {
-      addChangedEnding(lines, blocks, idx);
-      return;
-    }
-
-    if (act === 'join') {
-      for (let i = b.srcStart; i <= b.srcEnd; i++) {
-        if (lines[i].trim() !== '') lines[i] = '  ' + lines[i];
-      }
-    } else if (act === 'detach') {
-      // The last merged continuation sits after the block's last blank line.
-      let lastBlank = -1;
-      for (let i = b.srcStart; i <= b.srcEnd; i++) {
-        if (lines[i].trim() === '') lastBlank = i;
-      }
-      if (lastBlank === -1) return;
-      let min = Infinity;
-      for (let i = lastBlank + 1; i <= b.srcEnd; i++) {
-        if (lines[i].trim() === '') continue;
-        min = Math.min(min, (lines[i].match(/^[ \t]*/) || [''])[0].length);
-      }
-      if (!isFinite(min) || min === 0) return;
-      for (let i = lastBlank + 1; i <= b.srcEnd; i++) {
-        lines[i] = lines[i].slice(min);
-      }
-    }
-
-    pushHistory('');
-    setBody(lines.join('\n'));
-    syncCurrentEdits();
-    renderPreview();
+    if (!blocks[idx]) return;
+    if (act === 'tail') addChangedEnding(lines, blocks, idx);
   }
 
   // Turns a bare repeat ("//R//") into one with a changed ending:
@@ -2238,10 +2176,7 @@
     const defLast = def.lines.slice().reverse().find(l => l.trim() !== '');
     if (!defLast) return;
 
-    // "//R" for a fence, and the same spelling for a legacy "R:" repeat -
-    // a changed ending is only expressible in the fenced form.
-    const name = b.fenced ? b.name
-      : (b.type === 'refren' ? 'R' : b.type === 'bridge' ? 'B' : 'S') + b.id;
+    const name = b.name;
 
     const head = lines.slice(0, b.srcStart);
     const inserted = ['//' + name, '...', defLast, name + '//'];
@@ -2825,8 +2760,9 @@
   }
 
   // === Utilities ===
+  // The page template's own escaping, so the two can't drift apart.
   function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return SongTemplate.escapeHtml(str);
   }
 
   function setStatus(msg, type) {

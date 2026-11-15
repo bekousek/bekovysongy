@@ -7,6 +7,8 @@
  */
 const fs = require('fs');
 const path = require('path');
+const SongSections = require('../js/sections.js');
+const ChordTheory = require('../js/chord-theory.js');
 
 const ROOT = path.join(__dirname, '..');
 const SONGS_JSON = path.join(ROOT, 'songs.json');
@@ -103,7 +105,7 @@ for (const f of htmlFiles) {
 
   if (STRAY_MARKER_RE.test(content)) {
     failUnlessKnown(f, 'stray "®" character',
-      `songs/${f}: contains a stray "®" character (should be a recognized R:/S:/B: marker or removed)`);
+      `songs/${f}: contains a stray "®" character (should be a //R … R// fence or removed)`);
   }
 
   // Basic structural sanity: exactly one <h1>, one <pre class="song-text">, a <title>.
@@ -113,6 +115,51 @@ for (const f of htmlFiles) {
   if (h1Count !== 1) fail(`songs/${f}: expected exactly one <h1>, found ${h1Count}`);
   if (preCount !== 1) fail(`songs/${f}: expected exactly one <pre class="song-text">, found ${preCount}`);
   if (!hasTitleTag) fail(`songs/${f}: missing <title> tag`);
+
+  const pre = content.match(/<pre class="song-text">([\s\S]*?)<\/pre>/);
+  if (pre) checkSongBody(f, pre[1]);
+}
+
+// === Sections, repeats and chord names inside one song ===
+// An unclosed "//R" turns the whole rest of the song into the chorus, a
+// stray "://" draws a lone ":|", and a chord name nobody can play shows up
+// in the chord bar and gets "transposed" letter by letter. The page renders
+// all of that without a word, so the deploy has to catch it.
+
+// A line without the section fence around it: "//R " opening it and "R//"
+// closing it, so that "//R //: text" opens a repeat and "text :// R//"
+// closes one.
+function withoutFences(line) {
+  let l = line.replace(/^[ \t]*\/\/(?!:)[^\s\/:<>]+:?[ \t]?/, '');
+  if (!/:\/\/[ \t]*$/.test(l)) l = l.replace(/[^\s\/:<>]*\/\/[ \t]*$/, '');
+  return l;
+}
+
+function checkSongBody(f, body) {
+  const lines = SongSections.normalizeBreaks(body).split('\n');
+  SongSections.parseBlocks(body).forEach((b) => {
+    if (!b.fenced) return;
+    const last = lines[b.srcEnd];
+    if (!/\/\/[ \t]*$/.test(last) || /:\/\/[ \t]*$/.test(last)) {
+      fail(`songs/${f}: //${b.name} on line ${b.srcStart + 1} is never closed (add "${b.name}//" where it ends)`);
+    }
+  });
+
+  // Repeats may span verses ("//:" in one, "://" two verses later), so they
+  // are counted over the whole song, not per block.
+  let open = 0;
+  lines.forEach((raw, i) => {
+    const l = withoutFences(raw);
+    if (/^[ \t]*\/\/:/.test(l)) open++;
+    if (/:\/\/[ \t]*$/.test(l)) {
+      if (open) open--;
+      else fail(`songs/${f}: "://" on line ${i + 1} has no "//:" before it`);
+    }
+  });
+
+  for (const m of body.matchAll(/data-chord="([^"]*)"/g)) {
+    if (m[1] && !ChordTheory.isChord(m[1])) fail(`songs/${f}: "${m[1]}" is not a chord name`);
+  }
 }
 
 // === songs.json field sanity ===
@@ -127,6 +174,9 @@ const LATEST_DAY = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
 for (const s of songs) {
   if (!s.title || !s.title.trim()) fail(`songs.json: "${s.slug}" has an empty title`);
   if (!Array.isArray(s.chords)) fail(`songs.json: "${s.slug}" is missing a chords array`);
+  else s.chords.forEach((c) => {
+    if (!ChordTheory.isChord(c)) fail(`songs.json: "${s.slug}" chords has "${c}", which is not a chord name`);
+  });
   if (!s.tags || typeof s.tags.language !== 'string') warn(`songs.json: "${s.slug}" has no tags.language`);
   if ('checked' in s && typeof s.checked !== 'boolean') fail(`songs.json: "${s.slug}" has a non-boolean "checked" field`);
 
@@ -181,6 +231,8 @@ for (const s of songs) {
         group.forEach((chord, ci) => {
           if (typeof chord !== 'string' || !chord.trim()) {
             fail(`songs.json: "${s.slug}" progression group ${gi} chord ${ci} must be a non-empty string`);
+          } else if (!ChordTheory.isChord(chord)) {
+            fail(`songs.json: "${s.slug}" progression has "${chord}", which is not a chord name`);
           }
         });
       });

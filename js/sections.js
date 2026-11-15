@@ -1,11 +1,9 @@
 /**
- * sections.js - Render song sections (refrén / sloka / bridge) from markers.
+ * sections.js - Render song sections (refrén / sloka / bridge) from fences.
  *
- * Songs are authored as the inner HTML of <pre class="song-text">. There are
- * two ways to mark a section, and both are understood:
- *
- * 1. FENCES (preferred, explicit - the author says exactly where a section
- *    starts and ends, and the markers never show up in the rendered text):
+ * Songs are authored as the inner HTML of <pre class="song-text">. A section
+ * is FENCED - the author says exactly where it starts and ends, and the
+ * markers never show up in the rendered text:
  *
  *      //R    ...  R//     -> refrén (chorus)   [indented]
  *      //R2   ...  R2//    -> 2. refrén
@@ -14,34 +12,31 @@
  *      //Coda ...  Coda//  -> any other name    [labelled, baseline]
  *      //:    ...  ://     -> repetice, rendered inline as |: ... :|
  *
- *    "//NAME" opens and "NAME//" closes (a bare "//" closes whatever is
- *    open). NAME is any run of characters that is neither whitespace nor
- *    "/", which is why ":" is just another name and the repeat pair falls
- *    out of the very same rule. Markers are only recognized at the very
- *    start (open) or very end (close) of a line, so a "//" inside lyrics is
- *    harmless. Blank lines inside a fence do NOT end it - that is the whole
- *    point of fencing. "//R//" (or "//R 2x//") on one line is an empty
- *    section, i.e. "the chorus repeats here".
+ * "//NAME" opens and "NAME//" closes (a bare "//" closes whatever is open).
+ * NAME is any run of characters that is neither whitespace nor "/", ":",
+ * "<" or ">" - so a chord written straight after the marker ("//R<span
+ * ...>G</span>") is the body, not part of the name. Markers are only
+ * recognized at the very start (open) or very end (close) of a line, so a
+ * "//" inside lyrics is harmless. Blank lines inside a fence do NOT end it -
+ * that is the whole point of fencing. "//R//" (or "//R 2x//") on one line is
+ * an empty section, i.e. "the chorus repeats here".
  *
- *    Repeats ("//:" ... "://") are deliberately NOT structural: they are a
- *    line-level annotation that renders as |: and :| wherever it appears,
- *    including inside a section fence.
+ * Repeats ("//:" ... "://") are deliberately NOT structural: they are a
+ * line-level annotation that renders as |: and :| wherever it appears,
+ * including inside a section fence.
  *
- * 2. LEGACY PREFIX MARKERS, kept working for the ~570 songs written before
- *    fences existed. Blocks are separated by blank lines and a block may
- *    start with a marker on its first line:
+ * The older prefix markers ("R:", "Ref.", "B:" at the start of a block) are
+ * gone since 2026-11: every song is fenced, and the prefix form ate the start
+ * of real lyrics ("S. O. S. volám", "B. B. King"). Such a line is now text.
  *
- *      R:  / R1: / R2: / Ref: / Ref.   -> refrén (chorus)   [indented]
- *      B:  / B1: / Bridge:             -> bridge             [indented]
- *      S:  / S1: / Sloka:              -> sloka (verse)      [labelled, baseline]
+ * Outside fences, blocks are separated by blank lines and are plain verses
+ * (baseline, no label). Fences that share an identity (type + number)
+ * relate to the first one that carries real text (the "definition"). A later
+ * one with the same identity is a collapsible repeat only when it clearly is
+ * one:
  *
- * An unmarked block is a plain verse (baseline, no label). Blocks that share a
- * marker identity (type + number) relate to the first block of that identity
- * that carries real text (the "definition"). A later block with the same
- * identity is a collapsible repeat only when it clearly is one:
- *
- *   - empty body ("R:" alone)                 -> repeat, expands to the definition
- *   - just a play count ("R: 2x", "R: (3x)")  -> repeat, the count stays visible
+ *   - empty body ("//R//")                    -> repeat, expands to the definition
+ *   - just a play count ("//R 2x//")          -> repeat, the count stays visible
  *   - body text-identical to the definition   -> repeat, expands to its own body
  *   - body opening with "..." (or "…")        -> repeat with a CHANGED ENDING
  *
@@ -73,28 +68,32 @@
  * works both on the live song page (player.js) and in the editor preview;
  * interactivity of collapsed repeats (pill click/peek) is added by the caller.
  *
+ * transform(innerHTML, { lines: true }) is the song page's version: every line
+ * becomes its own <span class="ln"> (so a wrapped line can hang indented
+ * instead of passing for the next verse), a chord is glued to the word after
+ * it (the line never breaks between them), and consecutive tablature lines
+ * are grouped in <span class="tabs"> to be set monospaced, unwrapped. The
+ * editor preview and the PDF call it without, they know nothing of .ln.
+ *
  * parseBlocks() additionally reports srcStart/srcEnd - the block's line range
  * in normalizeBreaks(html).split('\n') - so the editor can rewrite a block in
- * the source (join it to / detach it from a section) without re-parsing HTML.
+ * the source without re-parsing HTML.
  *
  * Browser: window.SongSections. Node: module.exports (for tests).
  */
 (function (global) {
   'use strict';
 
-  // Marker at the very start of a line (longest tokens first so "Refren"/"Sloka"
-  // win over "R"/"S"). Optional number, then ":" or ".".
-  var MARKER_RE = /^[ \t]*(Refr[ée]n|Ref|R|Sloka|Slo|S|Bridge|Br|B)[ \t]*(\d*)[ \t]*[:.]/i;
-
   // Fence name reserved for repetice ("//:" ... "://"), handled as inline
   // marks rather than as a section.
   var REPEAT_NAME = ':';
 
-  // "//NAME" at the start of a line. NAME is anything but whitespace, "/"
-  // and ":" - ":" is excluded so that "//:Obzor neklesne níž" reads as a
-  // repeat opening a line of lyrics, not as a section named ":Obzor". A
+  // "//NAME" at the start of a line. NAME is anything but whitespace, "/",
+  // ":", "<" and ">" - ":" is excluded so that "//:Obzor neklesne níž" reads
+  // as a repeat opening a line of lyrics, not as a section named ":Obzor",
+  // and "<" / ">" so a chord span typed straight after "//R" stays a chord. A
   // colon typed right after the name ("//R:") is swallowed as punctuation.
-  var FENCE_OPEN_RE = /^[ \t]*\/\/([^\s\/:]+):?/;
+  var FENCE_OPEN_RE = /^[ \t]*\/\/([^\s\/:<>]+):?/;
   var REPEAT_OPEN_RE = /^[ \t]*\/\/:/;
 
   // "//" at the very end of a line, optionally preceded by an echo of the
@@ -103,7 +102,7 @@
   var REPEAT_CLOSE_RE = /:\/\/[ \t]*$/;
 
   // The known section-type tokens a fence name may use, so "//Refren" and
-  // "//R2" land on the same identity as the legacy "Refrén:" / "R2:".
+  // "//R" are the same chorus.
   var FENCE_TYPE_RE = /^(Refr[ée]n|Ref|R|Sloka|Slo|S|Bridge|Br|B)(\d*)$/i;
 
   // A bare play-count annotation: "2x", "(2x)", "2×", "x3", "3X."
@@ -126,33 +125,14 @@
     return null;
   }
 
-  // Detect a marker on a line. Tested against the tag-stripped text so a chord
-  // span inside the line doesn't interfere; markers are always plain text at
-  // the line start.
-  function matchMarker(line) {
-    var plain = stripTags(line);
-    var m = plain.match(MARKER_RE);
-    if (!m) return null;
-    var type = classifyType(m[1]);
-    if (!type) return null;
-    return { type: type, id: m[2] || '' };
-  }
-
-  // Remove the marker prefix from the raw HTML line (the marker is literal text
-  // at the start, so the same regex matches the raw line). Also drop one space
-  // that usually follows the colon.
-  function stripMarkerPrefix(line) {
-    return line.replace(MARKER_RE, '').replace(/^[ \t]/, '');
-  }
-
   function sameName(a, b) {
     return String(a).toLowerCase() === String(b).toLowerCase();
   }
 
   // Identity + label for a fence name. Known tokens (R/S/B and their long
-  // forms, with an optional number) reuse the legacy type+id identity so a
-  // song may mix "//R" and "R:" and still collapse repeats correctly; any
-  // other name becomes a custom section labelled with the name as typed.
+  // forms, with an optional number) map to a type + number, so "//R" and
+  // "//Refrén" collapse together; any other name becomes a custom section
+  // labelled with the name as typed.
   function fenceIdentity(name) {
     var m = name.match(FENCE_TYPE_RE);
     if (m) {
@@ -181,7 +161,7 @@
     var m = text.match(FENCE_END_RE);
     if (!m) return -1;
     var before = text.slice(0, m.index);
-    var echo = before.match(/([^\s\/:]+)[ \t]*$/);
+    var echo = before.match(/([^\s\/:<>]+)[ \t]*$/);
     if (echo && sameName(echo[1], name)) return echo.index;
     return m.index;
   }
@@ -208,12 +188,9 @@
       .replace(/\r\n?/g, '\n');
   }
 
-  function escAttr(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-  }
-
-  function escHtml(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // Text and attribute values alike.
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   // Tag-stripped, whitespace-collapsed text of a body chunk.
@@ -298,11 +275,7 @@
         continue;
       }
 
-      var mk = matchMarker(line);
-      if (mk) {
-        push();
-        cur = { marker: true, fenced: false, type: mk.type, id: mk.id, label: labelText(mk.type, mk.id), lines: [stripMarkerPrefix(line)], srcStart: i, srcEnd: i };
-      } else if (isBlank(line)) {
+      if (isBlank(line)) {
         push();
       } else {
         if (!cur) cur = { marker: false, fenced: false, type: null, id: '', label: '', lines: [], srcStart: i, srcEnd: i };
@@ -313,53 +286,17 @@
     push();
     if (fence) blocks.push(fence); // still being typed - render what's there
 
-    // Merge an indented unmarked block back into the preceding marker block:
-    // songs separate the two halves of a long chorus with a blank line but
-    // keep the continuation indented, so it belongs to the chorus, not a
-    // verse. (This is also what the editor's "připojit k sekci" writes.)
-    // The indent is only a join-marker - strip the continuation's own common
-    // indent so it lines up with the rest of the section body. Fenced
-    // sections are exempt: their boundaries are stated explicitly.
-    var merged = [];
+    // Dedent the body of a fenced section as a whole (the indent is a source
+    // convention; the visual indent is done in CSS).
     blocks.forEach(function (b) {
-      var prev = merged[merged.length - 1];
-      if (!b.marker && prev && prev.marker && !prev.fenced) {
-        var firstNonBlank = null;
-        var min = Infinity;
-        for (var j = 0; j < b.lines.length; j++) {
-          if (isBlank(b.lines[j])) continue;
-          if (firstNonBlank == null) firstNonBlank = b.lines[j];
-          min = Math.min(min, leadingWs(b.lines[j]));
-        }
-        if (firstNonBlank != null && leadingWs(firstNonBlank) > 0) {
-          prev.lines.push('');
-          prev.lines = prev.lines.concat(b.lines.map(function (l) {
-            return isBlank(l) || min === 0 ? l : l.slice(min);
-          }));
-          prev.srcEnd = b.srcEnd;
-          return;
-        }
-      }
-      merged.push(b);
-    });
-    blocks = merged;
-
-    // Dedent the body of marker blocks (the indent is a source convention;
-    // the visual indent is done in CSS). For a legacy block the first line
-    // already had its marker stripped and sits at column 0, so dedent is
-    // computed from the remaining lines; a fenced block has no such line and
-    // is dedented as a whole.
-    blocks.forEach(function (b) {
-      if (!b.marker) return;
-      var from = b.fenced ? 0 : 1;
-      if (b.lines.length <= from) return;
+      if (!b.fenced || !b.lines.length) return;
       var min = Infinity;
-      for (var j = from; j < b.lines.length; j++) {
+      for (var j = 0; j < b.lines.length; j++) {
         if (isBlank(b.lines[j])) continue;
         min = Math.min(min, leadingWs(b.lines[j]));
       }
       if (min === Infinity || min === 0) return;
-      for (var k = from; k < b.lines.length; k++) {
+      for (var k = 0; k < b.lines.length; k++) {
         b.lines[k] = b.lines[k].slice(min);
       }
     });
@@ -387,6 +324,71 @@
         .replace(/^([ \t]*)\/\/:/, '$1' + REPEAT_OPEN_HTML)
         .replace(/:\/\/([ \t]*)$/, REPEAT_CLOSE_HTML + '$1');
     }).join('\n');
+  }
+
+  // === One block per line (the song page: transform(html, { lines: true })) ===
+
+  // Splits rendered HTML at its newlines, but only at newlines between
+  // elements: a newline inside a tag or inside a span's text would leave a
+  // span cut in two, so then it gives up (null) and the text stays one block.
+  function splitLines(html) {
+    var out = [];
+    var start = 0;
+    var depth = 0;
+    for (var i = 0; i < html.length; i++) {
+      var c = html.charAt(i);
+      if (c === '<') {
+        var end = html.indexOf('>', i);
+        if (end === -1) return null;
+        var tag = html.slice(i, end + 1);
+        if (/^<\//.test(tag)) depth--;
+        else if (!/\/>$/.test(tag) && !/^<(br|hr|img|wbr)\b/i.test(tag)) depth++;
+        if (tag.indexOf('\n') !== -1) return null;
+        i = end;
+      } else if (c === '\n') {
+        if (depth !== 0) return null;
+        out.push(html.slice(start, i));
+        start = i + 1;
+      }
+    }
+    out.push(html.slice(start));
+    return out;
+  }
+
+  // A tablature line: long, and mostly dashes ("E |--0--2--|").
+  function isTabLine(text) {
+    return text.length >= 12 && (text.match(/-/g) || []).length / text.length > 0.5;
+  }
+
+  // A chord belongs to the word after it: the space between them must not be
+  // where the line wraps, or the chord hangs at the end of the line above. A
+  // run of chords with no word between them ("G D Emi C") stays breakable.
+  var NBSP = String.fromCharCode(0xa0);
+  var CHORD_THEN_WORD_RE = /(<span\b[^>]*\bdata-chord="[^"]*"[^>]*>[^<]*<\/span>) (?=[^\s<])/g;
+
+  function glueChords(line) {
+    return line.replace(CHORD_THEN_WORD_RE, '$1' + NBSP);
+  }
+
+  // Each line its own <span class="ln">; consecutive tablature lines go into
+  // one <span class="tabs"> that scrolls sideways as a whole, so the six
+  // strings stay under each other.
+  function renderLines(html) {
+    if (html === '') return '';
+    var lines = splitLines(html);
+    if (!lines) return html;
+    // A closing newline draws no empty line in pre-wrap; keep it that way.
+    if (lines.length > 1 && lines[lines.length - 1] === '') lines.pop();
+    var out = '';
+    var inTabs = false;
+    lines.forEach(function (line) {
+      var tab = isTabLine(stripTags(line));
+      if (tab && !inTabs) { out += '<span class="tabs">'; inTabs = true; }
+      if (!tab && inTabs) { out += '</span>'; inTabs = false; }
+      out += tab ? '<span class="ln tab">' + line + '</span>' : '<span class="ln">' + glueChords(line) + '</span>';
+    });
+    if (inTabs) out += '</span>';
+    return out;
   }
 
   function hasRepeatMarks(html) {
@@ -444,8 +446,13 @@
     return defIdx;
   }
 
-  function transform(html) {
+  function transform(html, opts) {
     var blocks = parseBlocks(html);
+    var byLine = !!(opts && opts.lines);
+    var render = function (s) {
+      var marked = renderRepeatMarks(s);
+      return byLine ? renderLines(marked) : marked;
+    };
 
     // Pass 1: find each identity's definition and remember its body.
     var defIdx = definitions(blocks);
@@ -461,7 +468,7 @@
     var out = '';
     blocks.forEach(function (b, i) {
       if (!b.marker) {
-        out += '<div class="song-section section-plain">' + renderRepeatMarks(b.lines.join('\n')) + '</div>';
+        out += '<div class="song-section section-plain">' + render(b.lines.join('\n')) + '</div>';
         return;
       }
 
@@ -507,22 +514,22 @@
         (note ? ' has-note' : '') +
         (tail ? ' has-tail' : '') +
         (!isRepeat && plainText(body) === '' ? ' is-heading' : '');
-      out += '<div class="' + cls + '" data-section="' + escAttr(key) + '">' +
+      out += '<div class="' + cls + '" data-section="' + esc(key) + '">' +
         '<span class="section-head">' +
-        '<span class="section-label">' + escHtml(b.label || labelText(b.type, b.id)) + '</span>' +
-        (note ? '<span class="section-note">' + escHtml(note) + '</span>' : '') +
+        '<span class="section-label">' + esc(b.label || labelText(b.type, b.id)) + '</span>' +
+        (note ? '<span class="section-note">' + esc(note) + '</span>' : '') +
         '</span>' +
-        (tail ? '<span class="section-tail">' + renderRepeatMarks(tail) + '</span>' : '') +
-        '<span class="section-body">' + renderRepeatMarks(body) + '</span>' +
+        (tail ? '<span class="section-tail">' + render(tail) + '</span>' : '') +
+        '<span class="section-body">' + render(body) + '</span>' +
         '</div>';
     });
 
     return out;
   }
 
-  // True if the song uses anything this module renders - section markers of
-  // either flavour, or repeat brackets - so callers can leave a genuinely
-  // plain song's <pre> untouched.
+  // True if the song uses anything this module renders - section fences or
+  // repeat brackets - so callers can leave a genuinely plain song's <pre>
+  // untouched.
   function hasSections(html) {
     return parseBlocks(html).some(function (b) { return b.marker; }) || hasRepeatMarks(html);
   }
@@ -681,8 +688,9 @@
     progressionToText: progressionToText,
     parseProgressionText: parseProgressionText,
     REPEAT_NAME: REPEAT_NAME,
-    _matchMarker: matchMarker,
     _fenceIdentity: fenceIdentity,
+    _renderLines: renderLines,
+    _isTabLine: isTabLine,
     _fenceCloseAt: fenceCloseAt,
     _compareText: compareText,
     _isMultiplier: function (s) { return MULT_RE.test(s); },

@@ -1076,9 +1076,8 @@ select.edit-meta-input {
   user-select: none;
 }
 
-/* Join/detach controls drawn on preview sections. Hidden until the section
-   is hovered; suspicious blocks (likely chorus continuations) keep theirs
-   visible and get a dashed outline. */
+/* The "jiný konec" control drawn on a repeated chorus in the preview,
+   hidden until the section is hovered. */
 .editor-preview .sec-act {
   position: absolute;
   top: -0.35em;
@@ -1104,15 +1103,6 @@ select.edit-meta-input {
 .editor-preview .sec-act:hover {
   color: var(--text);
   border-color: var(--accent);
-}
-
-.editor-preview .sec-suspect {
-  outline: 1px dashed var(--accent);
-  outline-offset: 4px;
-}
-
-.editor-preview .sec-suspect .sec-act {
-  opacity: 1;
 }
 
 /* Editor area */

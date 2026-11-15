@@ -7,38 +7,53 @@
    The pages are static HTML (js/song-template.js); js/player.js builds the
    bars around their own h1 / .song-author / .song-capo / pre.song-text, so
    those keep their class names here. The admin keeps the old look in
-   admin-base.css. */
+   admin-base.css. Colours and the typeface: tokens.css. */
 
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap");
+@import url("tokens.css");
 
 :root {
-  --ground: #0e0d0c;
-  --surface: #181716;
-  --raised: #262422;
-  --rule: #211f1d;
-  --control: #4a4744;
-  --text: #f2f2f0;
-  --muted: #b6b1aa;
-  --faint: #98928b;
-  --accent: #e67e22;
-  --on-accent: #160b02;
-  --press: #312e2b;
-  --ok: #3fbf6f;
-  --warn: #e5a93b;
-  --danger: #e5566f;
   --tuned-ground: #111a13;   /* the tuner's ground while a string is in tune */
   --tuned-surface: #142017;  /* … and its panel on wide screens */
+  --diagram-grid: #5d5955;   /* fret and string lines of a fingering */
 
-  --radius-pill: 999px;
-  --pad: 16px;
   --cbar-h: 52px;
   --toolbar-h: 70px;
-  --safe-b: env(safe-area-inset-bottom, 0px);
   --scale: 1;
-
-  --font: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color-scheme: dark;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 }
+
+/* Light, for a projector in a lit room or a phone in the sun. Song pages
+   only (Nastavení → Světlý vzhled, player.js sets data-theme on <html>).
+   Same roles as the dark tokens; the orange is darker so a chord still
+   reads at 5:1 on paper-white, and text on it turns white (5.5:1). */
+:root[data-theme="light"] {
+  --ground: #faf8f5;
+  --surface: #f0ece6;
+  --raised: #e4dfd8;
+  --rule: #e2ddd6;
+  --control: #b3aca3;
+  --text: #1b1815;
+  --muted: #57514b;
+  --faint: #6b645c;
+  --accent: #a84f00;
+  --on-accent: #ffffff;
+  --press: #d8d2ca;
+  --ok: #1d7a43;
+  --warn: #8f5a00;
+  --danger: #b42a45;
+  --tuned-ground: #e3f1e6;
+  --tuned-surface: #d8ebdc;
+  --diagram-grid: #a39b92;
+  color-scheme: light;
+}
+
+/* Fingering diagrams (js/chords.js) take the theme's colours. */
+.dg-grid { stroke: var(--diagram-grid); }
+.dg-nut, .dg-open { stroke: var(--text); }
+.dg-label { fill: var(--muted); }
+.dg-muted { stroke: var(--faint); }
+.dg-dot { fill: var(--accent); }
+.dg-barre { stroke: var(--accent); }
 
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
@@ -76,7 +91,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cbar-row {
   display: flex; align-items: center; gap: 2px;
   height: var(--cbar-h);
-  max-width: 820px; margin: 0 auto; padding: 0 4px;
+  max-width: var(--page-w); margin: 0 auto; padding: 0 4px;
 }
 .cbar-btn {
   flex: none; width: 44px; height: 44px; border-radius: 50%;
@@ -91,6 +106,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: flex; align-items: center; gap: 2px;
   overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
   padding: 0 4px;
+  /* The strip goes on past the edge (a song can have 1800 px of chips):
+     the last chips fade out so it shows. */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+          mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
 }
 .cbar-chips::-webkit-scrollbar { display: none; }
 .cbar-chips .ch {
@@ -105,7 +124,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Fingerings of every chord in the song, folded under the bar. */
 .diagrams {
   display: flex; gap: 6px;
-  max-width: 820px; margin: 0 auto;
+  max-width: var(--page-w); margin: 0 auto;
   padding: 2px 12px 10px;
   overflow-x: auto; scrollbar-width: none;
 }
@@ -117,8 +136,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ===== The song ===== */
 
+/* The column grows with the type past 100 %, so 250 % on a projector is
+   a wide page of big letters, not a narrow strip of them. */
+:root { --page-w: calc(820px * max(1, var(--scale))); }
 .song-page {
-  max-width: 820px; margin: 0 auto;
+  max-width: var(--page-w); margin: 0 auto;
   padding: 18px var(--pad) calc(var(--toolbar-h) + var(--safe-b) + 40px);
 }
 
@@ -153,6 +175,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* The lyrics: big, plain, chords in bold orange. */
 .song-text {
+  --gutter: 2.1em;   /* where refrén, bridge and named parts keep their label */
   font-family: var(--font);
   font-size: calc(19px * var(--scale));
   line-height: 1.75;
@@ -169,23 +192,33 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* One block per line (player.js): a line too long for the phone wraps
    indented under itself, so the wrap can't pass for the next line. */
-.song-text .ln { display: block; padding-left: 1em; text-indent: -1em; }
+.song-text .ln { display: block; padding-left: 1em; text-indent: -1em; scroll-margin-top: calc(var(--cbar-h) + 8px); }
 .song-text .ln:empty::before { content: "\200b"; }
+
+/* Tablature (sections.js groups it): the six strings have to stay under
+   each other, so it is the one text set monospaced, never wrapped, and the
+   block scrolls sideways as a whole. */
+.song-text .tabs { display: block; overflow-x: auto; overscroll-behavior-x: contain; margin: 0.3em 0; scrollbar-width: thin; }
+.song-text .ln.tab {
+  font-family: var(--mono); font-style: normal;
+  font-size: 0.72em; line-height: 1.25;
+  white-space: pre; padding-left: 0; text-indent: 0;
+}
 
 /* Sections (from js/sections.js): refrén, bridge and named parts carry
    their label in a left gutter; plain verses sit on the baseline. */
 .song-text .song-section { position: relative; }
 .song-text .song-section + .song-section { margin-top: 0.95em; }
 .song-text .section-body { display: block; }
-.song-text .section-refren, .song-text .section-bridge, .song-text .section-sloka, .song-text .section-custom { padding-left: 2.1em; }
+.song-text .section-refren, .song-text .section-bridge, .song-text .section-sloka, .song-text .section-custom { padding-left: var(--gutter); }
 .song-text .section-bridge { font-style: italic; }
 .song-text .section-head { position: absolute; left: 0; top: 0; font-style: normal; user-select: none; }
 .song-text .section-label { color: var(--accent); font-weight: 700; font-size: 0.85em; }
 .song-text .section-note { color: var(--faint); margin-left: 0.4em; font-size: 0.85em; }
-.song-text .section-custom > .section-head { position: static; float: left; margin-left: -2.1em; padding-right: 0.5em; }
+.song-text .section-custom > .section-head { position: static; float: left; margin-left: calc(-1 * var(--gutter)); padding-right: 0.5em; }
 .song-text .section-custom::after { content: ""; display: block; clear: both; }
 .song-text .song-section.is-heading > .section-head,
-.song-text .song-section.has-note .section-head { position: static; float: none; display: inline-block; margin-left: -2.1em; }
+.song-text .song-section.has-note .section-head { position: static; float: none; display: inline-block; margin-left: calc(-1 * var(--gutter)); }
 .song-text .song-section.is-heading > .section-body { display: none; }
 .song-text .repeat-mark { color: var(--muted); font-weight: 700; user-select: none; }
 
@@ -204,9 +237,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .song-text:not(.show-repeats) .is-repeat.peek .section-head { border-color: var(--accent); }
 .song-text:not(.show-repeats) .is-repeat .section-body { display: none; }
-.song-text:not(.show-repeats) .is-repeat.peek .section-body { display: block; padding-left: 2.1em; margin-top: 0.3em; }
+.song-text:not(.show-repeats) .is-repeat.peek .section-body { display: block; padding-left: var(--gutter); margin-top: 0.3em; }
 .song-text .section-tail { display: none; }
-.song-text:not(.show-repeats) .is-repeat.has-tail .section-tail { display: block; padding-left: 2.1em; }
+.song-text:not(.show-repeats) .is-repeat.has-tail .section-tail { display: block; padding-left: var(--gutter); }
+
+/* A phone held upright: the label gutter takes what the line needs, "R:"
+   still fits beside the first line. The gutter carries no colour of its
+   own (DESIGN.md: orange is for chords and actions, no side stripes). */
+@media (max-width: 480px) {
+  .song-text { --gutter: 1.5em; }
+}
 .song-text:not(.show-repeats) .is-repeat.has-tail.peek .section-tail { display: none; }
 
 .state { margin: 24px 0; padding: 18px; border-radius: 16px; background: var(--surface); color: var(--muted); white-space: normal; }
@@ -265,8 +305,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text);
 }
 .tval.shifted { color: var(--accent); }
+/* The one control used with a hand fresh off the strings: wider than its
+   neighbours, so a miss lands on it rather than on a speed button. */
 .tplay {
-  width: 56px; height: 46px; border-radius: 14px;
+  width: 72px; height: 46px; border-radius: 14px;
   display: grid; place-items: center;
   background: var(--raised); color: var(--text);
   transition: background-color 150ms ease-out, color 150ms ease-out;
@@ -278,6 +320,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: 52px; height: 62px; border-radius: 12px; color: var(--text);
 }
 .tmore.busy .icon { color: var(--accent); }
+
+/* Narrow phones: the bar still fits without scrolling sideways. */
+@media (max-width: 379px) {
+  .toolbar { padding-left: 8px; padding-right: 8px; }
+  .tplay { width: 60px; }
+  .tmore { width: 48px; }
+}
+@media (max-width: 340px) {
+  .tbtn { width: 38px; }
+  .tval { min-width: 40px; }
+  .tplay { width: 52px; }
+}
+
+/* A phone on its side has 360 px of height and the bars took a third of
+   it. The chord bar scrolls away with the title, the bottom bar slims down
+   and slides out of the way while the song scrolls (a tap on the text stops
+   it and brings the bar back). */
+@media (orientation: landscape) and (max-height: 480px) {
+  :root { --toolbar-h: 50px; }
+  .cbar { position: static; }
+  .tlabel { display: none; }
+  .tbtn, .tval, .tplay { height: 40px; }
+  .tmore { height: 44px; }
+  .toolbar { transition: transform 200ms ease-out; }
+  body.is-scrolling .toolbar { transform: translateY(100%); }
+}
 
 .metro-pill {
   position: fixed; right: 12px; z-index: 31;
@@ -403,9 +471,40 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .sheet { inset: 0; margin: auto; max-width: 480px; height: fit-content; max-height: 84vh; border-radius: 24px; }
   .sheet-grip { display: none; }
 }
+/* A wide but short window: the floating bar slides down out of view. */
+@media (orientation: landscape) and (max-height: 480px) and (min-width: 900px) {
+  body.is-scrolling .toolbar { transform: translate(-50%, calc(100% + 20px)); }
+}
+
+/* The fallback when player.js couldn't load its scripts: a way back. */
+.player-failed { max-width: var(--page-w); margin: 0 auto; padding: 12px var(--pad); color: var(--muted); }
+.player-failed a { color: var(--accent); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
+
+/* ===== One song on paper =====
+   Browsers don't print backgrounds, so the dark page would come out as pale
+   text on white: print takes black on white, keeps the chords bold in a
+   dark orange, drops every control and opens folded repeats - paper can't
+   be tapped. */
+@media print {
+  :root, :root[data-theme="light"] {
+    --ground: #fff; --surface: #fff; --raised: #eee; --text: #000; --muted: #333; --faint: #555;
+    --accent: #a04a00; --control: #999; --diagram-grid: #999;
+    color-scheme: light;
+  }
+  .cbar, .toolbar, .song-actions, .after, .toast, .metro-pill, .diagram-pop, .setlist-pos, .sheet, .tuner { display: none !important; }
+  .song-page { max-width: none; padding: 0; }
+  .song-text { font-size: 12pt; line-height: 1.5; }
+  .song-text:not(.show-repeats) .is-repeat .section-body { display: block !important; padding-left: var(--gutter); }
+  .song-text:not(.show-repeats) .is-repeat .section-head { border: 0; background: none; padding: 0; min-height: 0; }
+  .song-text:not(.show-repeats) .is-repeat .section-head::after { display: none; }
+  .song-text:not(.show-repeats) .is-repeat.has-tail .section-tail { display: none; }
+  .song-text .song-section { break-inside: avoid; }
+  .song-text .tabs { overflow: visible; }
+  .song-author a { text-decoration: none; }
 }
 
 /* ===== Tuner (js/tuner.js) =====

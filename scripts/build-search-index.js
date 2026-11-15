@@ -49,8 +49,9 @@ function lyricsOf(html) {
   const m = html.match(/<pre class="song-text">([\s\S]*?)<\/pre>/);
   if (!m) return '';
 
-  // parseBlocks already drops "//R"/"R//" fences and legacy "R:" prefixes,
-  // so the same rules the renderer uses decide what counts as lyrics.
+  // parseBlocks already drops the "//R"/"R//" fences, so the same rules the
+  // renderer uses decide what counts as lyrics. ("R:" at a line start is
+  // lyrics now, like on the page: "S. O. S. volám".)
   const lines = [];
   for (const block of SongSections.parseBlocks(m[1])) {
     for (const line of block.lines) lines.push(line);
@@ -72,7 +73,6 @@ function lyricsOf(html) {
       .replace(/\/\/:|:\/\//g, ' ')        // |: and :| anywhere
       .replace(/^\s*\/\/[^\s\/]+/, ' ')    // //R opening the line
       .replace(/[^\s\/]+\/\/\s*$/, ' ')    // R// closing it
-      .replace(/^\s*(?:Refr[ée]n|Ref|R|Sloka|Slo|S|Bridge|Br|B)\s*\d*\s*[:.]\s*/i, '')
       .replace(/[   ]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();

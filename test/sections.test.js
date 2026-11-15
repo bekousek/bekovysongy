@@ -3,66 +3,55 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const SongSections = require('../js/sections.js');
 
+const bodiesOf = (out) => [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
+
 test('hasSections: false for plain unmarked text', () => {
   assert.equal(SongSections.hasSections('1. Verse one\n\n2. Verse two'), false);
 });
 
-test('hasSections: true when a marker is present', () => {
-  assert.equal(SongSections.hasSections('Verse\n\nR: Chorus text'), true);
+test('hasSections: true when a fence is present', () => {
+  assert.equal(SongSections.hasSections('Verse\n\n//R Chorus text R//'), true);
 });
 
-test('marker aliases are all recognized (case-insensitive, with number)', () => {
-  const cases = ['R:', 'r:', 'R1:', 'Ref:', 'Refrén:', 'Refren:', 'S:', 'Sloka:', 'B:', 'Bridge:', 'R.'];
-  for (const marker of cases) {
-    const blocks = SongSections.parseBlocks(`${marker} body text`);
-    assert.equal(blocks.length, 1, `expected one block for "${marker}"`);
-    assert.equal(blocks[0].marker, true, `expected "${marker}" to be recognized as a marker`);
+test('the old prefix markers are plain text now', () => {
+  // "S. O. S. volám" used to become a sloka "O. S. volám", "B. B. King" a bridge.
+  for (const line of ['R: Chorus', 'Ref. text', 'S. O. S. volám', 'B. B. King', 'Bridge: x', 'R:']) {
+    const blocks = SongSections.parseBlocks(line);
+    assert.equal(blocks.length, 1, line);
+    assert.equal(blocks[0].marker, false, `"${line}" must not be a section`);
+    assert.deepEqual(blocks[0].lines, [line]);
   }
-});
-
-test('marker classification: R/S/B map to refren/sloka/bridge', () => {
-  assert.equal(SongSections._matchMarker('R: x').type, 'refren');
-  assert.equal(SongSections._matchMarker('S: x').type, 'sloka');
-  assert.equal(SongSections._matchMarker('B: x').type, 'bridge');
-  assert.equal(SongSections._matchMarker('Plain line'), null);
+  assert.equal(SongSections.hasSections('Verse\n\nR: Chorus text'), false);
 });
 
 test('transform: first refrén occurrence is not marked as repeat', () => {
-  const out = SongSections.transform('R: Chorus line one\n\nSecond verse');
+  const out = SongSections.transform('//R Chorus line one R//\n\nSecond verse');
   assert.match(out, /class="song-section section-refren"[^>]*>/);
   assert.doesNotMatch(out.split('section-plain')[0], /is-repeat/);
 });
 
 test('transform: empty repeat reference collapses and is filled from the definition', () => {
-  const html = 'R: Chorus body here\n\nVerse two\n\nR:';
-  const out = SongSections.transform(html);
+  const out = SongSections.transform('//R Chorus body here R//\n\nVerse two\n\n//R//');
   const matches = out.match(/section-refren( is-repeat)?/g);
-  assert.equal(matches.length, 2);
-  assert.equal(matches[0], 'section-refren');
-  assert.equal(matches[1], 'section-refren is-repeat');
-  const bodies = [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
+  assert.deepEqual(matches, ['section-refren', 'section-refren is-repeat']);
+  const bodies = bodiesOf(out);
   assert.equal(bodies[0], 'Chorus body here');
   assert.equal(bodies[bodies.length - 1], 'Chorus body here');
 });
 
 test('transform: bare reference BEFORE the definition is still filled (two-pass)', () => {
-  const html = 'R:\n\nVerse\n\nR: Real chorus text';
-  const out = SongSections.transform(html);
-  const bodies = [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
-  assert.equal(bodies[0], 'Real chorus text');
+  const out = SongSections.transform('//R//\n\nVerse\n\n//R Real chorus text R//');
+  assert.equal(bodiesOf(out)[0], 'Real chorus text');
   // The definition itself must not be a repeat.
-  const classes = out.match(/section-refren( is-repeat)?/g);
-  assert.equal(classes[0], 'section-refren is-repeat');
-  assert.equal(classes[1], 'section-refren');
+  assert.deepEqual(out.match(/section-refren( is-repeat)?/g), ['section-refren is-repeat', 'section-refren']);
 });
 
-test('transform: play-count body ("R: 2x") is a repeat with a visible note', () => {
-  const html = 'R: Chorus body\n\nVerse\n\nR: 2x';
-  const out = SongSections.transform(html);
+test('transform: play-count body ("//R 2x//") is a repeat with a visible note', () => {
+  const out = SongSections.transform('//R Chorus body R//\n\nVerse\n\n//R 2x//');
   assert.match(out, /is-repeat has-note/);
   assert.match(out, /<span class="section-note">2x<\/span>/);
   // Expanded body comes from the definition, not the "2x" text.
-  const bodies = [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
+  const bodies = bodiesOf(out);
   assert.equal(bodies[bodies.length - 1], 'Chorus body');
 });
 
@@ -76,23 +65,16 @@ test('multiplier detection accepts common forms and rejects text/chords', () => 
 });
 
 test('transform: same-identity block with DIFFERENT text stays visible (not a repeat)', () => {
-  // Amazonka case: the final chorus reuses "R:" but has its own lyrics.
-  const html = 'R: Chorus body\n\nVerse\n\nR: Completely different final chorus';
-  const out = SongSections.transform(html);
-  const classes = out.match(/section-refren( is-repeat)?/g);
-  assert.equal(classes.length, 2);
-  assert.equal(classes[0], 'section-refren');
-  assert.equal(classes[1], 'section-refren');
-  const bodies = [...out.matchAll(/<span class="section-body">([\s\S]*?)<\/span>/g)].map(m => m[1]);
+  // Amazonka case: the final chorus reuses the name but has its own lyrics.
+  const out = SongSections.transform('//R Chorus body R//\n\nVerse\n\n//R Completely different final chorus R//');
+  assert.deepEqual(out.match(/section-refren( is-repeat)?/g), ['section-refren', 'section-refren']);
+  const bodies = bodiesOf(out);
   assert.equal(bodies[bodies.length - 1], 'Completely different final chorus');
 });
 
 test('transform: written-out repeat with identical text collapses', () => {
-  const html = 'R: Chorus body\n\nVerse two\n\nR: Chorus body';
-  const out = SongSections.transform(html);
-  const matches = out.match(/section-refren( is-repeat)?/g);
-  assert.equal(matches.length, 2);
-  assert.equal(matches[1], 'section-refren is-repeat');
+  const out = SongSections.transform('//R Chorus body R//\n\nVerse two\n\n//R Chorus body R//');
+  assert.deepEqual(out.match(/section-refren( is-repeat)?/g), ['section-refren', 'section-refren is-repeat']);
 });
 
 test('compareText: chords matter, case/whitespace do not', () => {
@@ -103,9 +85,8 @@ test('compareText: chords matter, case/whitespace do not', () => {
   assert.notEqual(SongSections._compareText(a), SongSections._compareText(otherChord));
 });
 
-test('transform: distinct marker ids (R: vs R2:) are independent, neither is a repeat', () => {
-  const html = 'R: First hook\n\nR2: Second hook';
-  const out = SongSections.transform(html);
+test('transform: distinct ids (//R vs //R2) are independent, neither is a repeat', () => {
+  const out = SongSections.transform('//R First hook R//\n\n//R2 Second hook R2//');
   assert.doesNotMatch(out, /is-repeat/);
 });
 
@@ -115,59 +96,89 @@ test('transform: unmarked block stays a plain section', () => {
 });
 
 test('transform: section markup wraps label (and note) in .section-head', () => {
-  const out = SongSections.transform('R: Chorus');
+  const out = SongSections.transform('//R Chorus R//');
   assert.match(out, /<span class="section-head"><span class="section-label">R:<\/span><\/span><span class="section-body">Chorus<\/span>/);
 });
 
-test('parseBlocks: dedents an indented marker body', () => {
-  const blocks = SongSections.parseBlocks('R: first line\n    second line\n    third line');
-  assert.equal(blocks[0].lines[1], 'second line');
-  assert.equal(blocks[0].lines[2], 'third line');
+test('parseBlocks: dedents an indented fenced body', () => {
+  const blocks = SongSections.parseBlocks('//R\n    first line\n    second line\nR//');
+  assert.deepEqual(blocks[0].lines, ['first line', 'second line']);
 });
 
-test('parseBlocks: merges an indented unmarked continuation into the preceding marker block', () => {
-  // Old songs split a chorus across a blank line, keeping the second half
-  // indented so it's absorbed back into the chorus rather than becoming its
-  // own verse. An UNINDENTED continuation is not merged.
-  const merged = SongSections.parseBlocks('R: first half\n\n  indented second half');
-  assert.equal(merged.length, 1);
-  assert.equal(merged[0].lines.join('\n'), 'first half\n\nindented second half');
-
-  const notMerged = SongSections.parseBlocks('R: first half\n\nunindented text');
-  assert.equal(notMerged.length, 2);
-  assert.equal(notMerged[1].marker, false);
-});
-
-test('parseBlocks: merged continuation is dedented even when the section body sits at column 0', () => {
-  // The indent is only a join-marker; it must not survive into the display,
-  // otherwise a joined chorus half renders shifted by two spaces.
-  const blocks = SongSections.parseBlocks('R: line one\nline two\n\n  joined half\n  joined half two');
-  assert.equal(blocks.length, 1);
-  assert.equal(blocks[0].lines.join('\n'), 'line one\nline two\n\njoined half\njoined half two');
-});
-
-test('parseBlocks: srcStart/srcEnd give the block line range, incl. merged continuations', () => {
-  const src = 'Verse one\nverse line two\n\nR: chorus\n\n  merged half\n\nOutside';
+test('parseBlocks: srcStart/srcEnd give the block line range', () => {
+  const src = 'Verse one\nverse line two\n\n//R\nchorus\n\nsecond half\nR//\n\nOutside';
   const blocks = SongSections.parseBlocks(src);
   assert.equal(blocks.length, 3);
   assert.deepEqual([blocks[0].srcStart, blocks[0].srcEnd], [0, 1]);
-  assert.deepEqual([blocks[1].srcStart, blocks[1].srcEnd], [3, 5]); // R: through merged half
-  assert.deepEqual([blocks[2].srcStart, blocks[2].srcEnd], [7, 7]);
+  assert.deepEqual([blocks[1].srcStart, blocks[1].srcEnd], [3, 7]);
+  assert.deepEqual([blocks[2].srcStart, blocks[2].srcEnd], [9, 9]);
   // Ranges index into normalizeBreaks(src).split('\n'):
   const lines = SongSections.normalizeBreaks(src).split('\n');
-  assert.equal(lines[blocks[1].srcEnd], '  merged half');
+  assert.equal(lines[blocks[1].srcEnd], 'R//');
 });
 
-test('transform: chord spans inside a marked line are preserved verbatim', () => {
-  const html = 'R: <span class="chord" data-chord="Ami">Ami</span>text';
-  const out = SongSections.transform(html);
+test('transform: chord spans inside a fenced line are preserved verbatim', () => {
+  const out = SongSections.transform('//R <span class="chord" data-chord="Ami">Ami</span>text R//');
   assert.match(out, /<span class="chord" data-chord="Ami">Ami<\/span>text/);
 });
 
 test('normalizeBreaks (via hasSections) treats <br>/<div> as line breaks', () => {
-  // A marker only counts if it starts its own line - <br> must act as a real newline.
-  assert.equal(SongSections.hasSections('Verse one<br>R: Chorus'), true);
-  assert.equal(SongSections.hasSections('<div>Verse one</div><div>R: Chorus</div>'), true);
+  // A fence only counts if it starts its own line - <br> must act as a real newline.
+  assert.equal(SongSections.hasSections('Verse one<br>//R Chorus R//'), true);
+  assert.equal(SongSections.hasSections('<div>Verse one</div><div>//R Chorus R//</div>'), true);
+});
+
+// === A chord right at the marker: "//R<span ...>" ===
+
+const G = '<span class="chord" data-chord="G">G</span>';
+
+test('fence: a chord typed straight after "//R" is the body, not the name', () => {
+  const out = SongSections.transform('//R' + G + ' text\nmore R//');
+  assert.match(out, /section-refren/);
+  assert.match(out, /<span class="section-label">R:<\/span>/);
+  assert.match(out, /<span class="section-body"><span class="chord" data-chord="G">G<\/span> text\nmore<\/span>/);
+  assert.match(out, /data-section="refren\|"/);
+});
+
+test('fence: a chord right before "R//" closes the fence and leaves no stray "R"', () => {
+  const out = SongSections.transform('//R text ' + G + 'R//');
+  assert.match(out, /<span class="section-body">text <span class="chord" data-chord="G">G<\/span><\/span>/);
+});
+
+// === transform(html, { lines: true }) - the song page ===
+
+test('lines: every line is its own .ln, a closing newline adds none', () => {
+  const out = SongSections._renderLines('one\ntwo\n\nfour\n');
+  assert.equal(out, '<span class="ln">one</span><span class="ln">two</span><span class="ln"></span><span class="ln">four</span>');
+  assert.equal(SongSections._renderLines(''), '');
+});
+
+test('lines: a newline inside a span leaves the text as one block', () => {
+  const odd = '<span class="chord" data-chord="G">G\n</span> text';
+  assert.equal(SongSections._renderLines(odd), odd);
+});
+
+test('lines: a chord is glued to the word after it, a run of chords is not', () => {
+  const D = '<span class="chord" data-chord="D">D</span>';
+  const out = SongSections._renderLines(G + ' Jednou ' + G + ' ' + D + ' slovo');
+  assert.equal(out, '<span class="ln">' + G + ' Jednou ' + G + ' ' + D + ' slovo</span>');
+});
+
+test('lines: transform without the option is unchanged (editor preview, PDF)', () => {
+  const src = '//R ' + G + ' text R//\n\nverse\nline two';
+  assert.doesNotMatch(SongSections.transform(src), /class="ln/);
+  const out = SongSections.transform(src, { lines: true });
+  assert.match(out, /<span class="section-body"><span class="ln">/);
+  assert.match(out, /<div class="song-section section-plain"><span class="ln">verse<\/span><span class="ln">line two<\/span><\/div>/);
+});
+
+test('lines: consecutive tablature lines are grouped, unglued, and the rest is not', () => {
+  const tab = 'E |----0----2----|\nH |----1--------3-|';
+  const out = SongSections.transform('Intro:\n' + tab + '\nzpěv ' + G + ' dál', { lines: true });
+  assert.match(out, /<span class="ln">Intro:<\/span><span class="tabs"><span class="ln tab">E \|----0----2----\|<\/span><span class="ln tab">H \|----1--------3-\|<\/span><\/span><span class="ln">zpěv /);
+  assert.equal(SongSections._isTabLine('E |----0----2----|'), true);
+  assert.equal(SongSections._isTabLine('- a - b -'), false, 'too short');
+  assert.equal(SongSections._isTabLine('Jednou štěstí dohoní i ty jezdce'), false);
 });
 
 // === Fenced sections: //R ... R// ===
@@ -190,7 +201,7 @@ test('fence: a blank line inside the fence does NOT end the section', () => {
   assert.equal(blocks[0].lines.join('\n'), 'first half\n\nsecond half');
 });
 
-test('fence: name decides the type, R/S/B share identity with the legacy markers', () => {
+test('fence: name decides the type, R/S/B with an optional number', () => {
   assert.deepEqual(SongSections._fenceIdentity('R'), { type: 'refren', id: '', label: 'R:' });
   assert.deepEqual(SongSections._fenceIdentity('R2'), { type: 'refren', id: '2', label: 'R2:' });
   assert.deepEqual(SongSections._fenceIdentity('S1'), { type: 'sloka', id: '1', label: 'S1:' });
@@ -219,8 +230,8 @@ test('fence: "//R 2x//" keeps the play count as a visible note', () => {
   assert.match(out, /<span class="section-note">2x<\/span>/);
 });
 
-test('fence: a legacy R: block and a //R fence are the same identity', () => {
-  const out = SongSections.transform('//R\nChorus body\nR//\n\nVerse\n\nR:');
+test('fence: //Refrén and //R are the same identity', () => {
+  const out = SongSections.transform('//Refrén\nChorus body\nRefrén//\n\nVerse\n\n//R//');
   const classes = out.match(/section-refren( is-repeat)?/g);
   assert.deepEqual(classes, ['section-refren', 'section-refren is-repeat']);
 });
@@ -357,9 +368,9 @@ test('changed ending: never counts as the definition of the chorus', () => {
   assert.equal(blocks[1], 'section-refren');
 });
 
-test('changed ending: legacy R: definition works too', () => {
+test('changed ending: an indented definition works too', () => {
   const out = SongSections.transform(
-    'R: první řádek\n   poslední řádek\n\n//R ... jiný konec R//'
+    '//R první řádek\n   poslední řádek R//\n\n//R ... jiný konec R//'
   );
   assert.match(out, /is-repeat has-tail/);
   assert.match(out, /první řádek\njiný konec/);
