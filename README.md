@@ -28,14 +28,14 @@ a otevřít `http://localhost:8137/`.
 | `na-kytaru/` | jen přesměrování na kořen, pro staré odkazy a `?q=` |
 | `songs/*.html` | jednotlivé písně (statické HTML, generované/editované) |
 | `songs.json` | metadata a akordy všech písní (čte je `js/song-list-core.js`, `admin/`) |
-| `js/` | `song-list-core.js` (data, hledání, filtry, náhodná píseň, oblíbené), `app.js` (úvodní stránka), `vecer.js` (dnešní večer, i společný přes Firebase; návrhy písní z prázdného hledání), `player.js` (stránka písně: lišty, transpozice, rolování, metronom), `tuner.js` (ladička), `chords.js` (diagramy), `sections.js` (refrén/sloka/bridge), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `editor.js` (admin), `admin-requests.js` (přání návštěvníků v adminu), `song-preview.js` (náhledy při triage, jen admin) |
-| `css/` | `app.css` (úvodní stránka), `style.css` (stránky písní), `admin-base.css` + `editor.css` (jen admin) |
+| `js/` | `song-list-core.js` (data, hledání, filtry, náhodná píseň, oblíbené), `app.js` (úvodní stránka), `vecer.js` (dnešní večer, i společný přes Firebase; návrhy písní z prázdného hledání), `player.js` (stránka písně: lišty, transpozice, rolování, metronom), `tuner.js` (ladička), `chords.js` (diagramy), `chord-theory.js` (jediný parser názvů akordů, transpozice s křížky/béčky), `sections.js` (refrén/sloka/bridge, řádky, tabulatura), `song-cleanup.js` (editor helpery), `song-edit.js` (model psaní v editoru), `editor.js` (admin), `admin-requests.js` (přání návštěvníků v adminu), `song-preview.js` (náhledy při triage, jen admin) |
+| `css/` | `tokens.css` (barvy a písmo pro obě), `app.css` (úvodní stránka), `style.css` (stránky písní, světlý vzhled, tisk), `admin-base.css` + `editor.css` (jen admin) |
 | `firebase/database.rules.json` | pravidla databáze společného večera a návrhů písní (vkládají se ručně v konzoli Firebase, projekt `bekovysongy`; návrhy čte jen admin přihlášený Googlem, takže ve Firebase musí být zapnuté přihlášení Googlem) |
 | `song-previews.json` | 30s ukázky k návrhům pro triage v `/admin` (viz níže) |
 | `navrhy-zamitnute.json` | odmítnuté návrhy písní — paměť pro generování dalších (viz níže) |
 | `admin/` | in-browser editor, viz níže |
-| `test/` | `node --test` sada pro `sections.js`/`song-cleanup.js`/`chords.js` |
-| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js`, `backfill-added.js` (datum přidání, viz níže) |
+| `test/` | `node --test` sada pro `sections.js`, `chord-theory.js`, `chords.js`, `song-cleanup.js`, `song-list-core.js` a čisté funkce `player.js` |
+| `scripts/` | `validate-data.js` (kontrola `songs.json` vs. `songs/`), `generate-sitemap.js`, `build-previews.js`, `backfill-added.js` (datum přidání, viz níže), `strip-song-chrome.js` (jednorázově vyřízl ze stránek písní starý nav a `#player-bar`) |
 | `tools/` | přeformátování textů písní: `scan.cjs` (najde kandidáty), `skel.cjs` (kostra písně bez textu), `fmt.cjs` (apply), `verify.cjs` (dokáže, že se hnul jen layout), `run.sh` (apply+verify) — postup v [CLAUDE.md](CLAUDE.md) |
 | `.fmt-specs/` | specifikace přeformátování jednotlivých písní — čísla řádků, ne text |
 | `transfer_songs.py`, `verify_songs.py`, `staging_server.py` | pipeline pro import písní (níže) |
@@ -45,7 +45,8 @@ a otevřít `http://localhost:8137/`.
 
 ```bash
 npm test        # node --test nad test/ (sections.js, song-cleanup.js, chords.js, transpozice)
-npm run validate # cross-check songs.json vs. songs/*.html, hledá poškozená data
+npm run validate # cross-check songs.json vs. songs/*.html, hledá poškozená data,
+                 # neuzavřené //R, osiřelé :// a názvy, které nejsou akord
 ```
 
 Obojí běží v CI před každým deployem (viz `deploy-pages.yml`) — pushnutá
