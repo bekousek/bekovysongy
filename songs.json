@@ -22498,12 +22498,18 @@
       "title": "Stačí věřit",
       "slug": "staci-verit",
       "author": "Marek Ztracený",
-      "chords": [],
+      "chords": [
+        "D",
+        "G",
+        "Hmi",
+        "Asus4",
+        "A",
+        "D/F#"
+      ],
       "tags": {
         "capo": false,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/staci-verit",
@@ -22515,7 +22521,23 @@
             "A"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "D",
+          "G",
+          "Hmi",
+          "Asus4",
+          "A"
+        ],
+        [
+          "D",
+          "D/F#",
+          "G",
+          "Asus4"
+        ]
+      ],
+      "added": "2026-11-17"
     },
     {
       "title": "Stejně jako já",

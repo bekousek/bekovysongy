@@ -2148,6 +2148,13 @@
       "artist": "Support Lesbiens",
       "match": "exact"
     },
+    "little-snowflake": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/00/bd/98/00bd987e-3daa-c885-96b5-ca70efae940d/mzaf_16367231990163446030.plus.aac.p.m4a",
+      "track": "Little Snowflake",
+      "artist": "Super Simple Songs",
+      "match": "exact",
+      "locked": true
+    },
     "little-talks": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2d/47/ed/2d47edef-3854-096a-c49b-f6299c83e7b1/mzaf_67984575308519465.plus.aac.p.m4a",
       "track": "Little Talks",
@@ -3746,6 +3753,13 @@
       "track": "Srouby Do Hlavy",
       "artist": "Lucie",
       "match": "exact"
+    },
+    "staci-verit": {
+      "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f3/89/ac/f389acfb-b197-4927-06f6-88f8afc98911/mzaf_12949831324891449661.plus.aac.p.m4a",
+      "track": "Stačí věřit",
+      "artist": "Marek Ztracený",
+      "match": "exact",
+      "locked": true
     },
     "stand-by-me": {
       "url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/46/14/8f/46148f62-501a-836c-0d4a-5e40f2eba863/mzaf_7530977539762518106.plus.aac.p.m4a",
