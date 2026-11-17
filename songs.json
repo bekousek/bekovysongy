@@ -13453,6 +13453,29 @@
       "added": "2023-08-01"
     },
     {
+      "title": "Little snowflake",
+      "slug": "little-snowflake",
+      "author": "Super Simple Songs",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/misc-children/little-snowflake-chords-2723961",
+          "chords": [
+            "G",
+            "F#mi",
+            "Emi",
+            "A",
+            "D"
+          ]
+        }
+      ]
+    },
+    {
       "title": "Little Talks",
       "slug": "little-talks",
       "author": "Of Monsters And Men",
@@ -21863,29 +21886,6 @@
             "G",
             "D",
             "Ami"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Snowflake",
-      "slug": "snowflake",
-      "author": "Sia",
-      "chords": [],
-      "tags": {
-        "capo": false,
-        "language": "EN"
-      },
-      "status": "k-vytvoreni",
-      "sources": [
-        {
-          "url": "https://tabs.ultimate-guitar.com/tab/sia/snowflake-chords-2236637",
-          "chords": [
-            "Eb",
-            "B",
-            "Ab",
-            "Cmi",
-            "F"
           ]
         }
       ]
