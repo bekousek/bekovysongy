@@ -9056,12 +9056,18 @@
       "title": "Hvězdy nad hlavou",
       "slug": "hvezdy-nad-hlavou",
       "author": "Chinaski",
-      "chords": [],
+      "chords": [
+        "G",
+        "D",
+        "C",
+        "F",
+        "D#",
+        "G#"
+      ],
       "tags": {
-        "capo": false,
+        "capo": 1,
         "language": "CZ"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/hvezdy-nad-hlavou",
@@ -9087,7 +9093,37 @@
             "G#"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "G",
+          "D",
+          "C",
+          "G",
+          "D"
+        ],
+        [
+          "F",
+          "C",
+          "F"
+        ],
+        [
+          "G",
+          "D#"
+        ],
+        [
+          "G#",
+          "D#",
+          "G#",
+          "C",
+          "G#",
+          "D#",
+          "C",
+          "F",
+          "G"
+        ]
+      ],
+      "added": "2026-11-17"
     },
     {
       "title": "Hvězdář",
