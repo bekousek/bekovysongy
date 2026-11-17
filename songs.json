@@ -21850,6 +21850,29 @@
       ]
     },
     {
+      "title": "Snowflake",
+      "slug": "snowflake",
+      "author": "Sia",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "EN"
+      },
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/sia/snowflake-chords-2236637",
+          "chords": [
+            "Eb",
+            "B",
+            "Ab",
+            "Cmi",
+            "F"
+          ]
+        }
+      ]
+    },
+    {
       "title": "Snowman",
       "slug": "snowman",
       "author": "Sia",
@@ -22444,6 +22467,29 @@
         ]
       ],
       "added": "2026-06-18"
+    },
+    {
+      "title": "Stačí věřit",
+      "slug": "staci-verit",
+      "author": "Marek Ztracený",
+      "chords": [],
+      "tags": {
+        "capo": false,
+        "language": "CZ"
+      },
+      "status": "k-vytvoreni",
+      "sources": [
+        {
+          "url": "https://akordy.kytary.cz/song/staci-verit",
+          "chords": [
+            "D",
+            "G",
+            "Hmi",
+            "Asus4",
+            "A"
+          ]
+        }
+      ]
     },
     {
       "title": "Stejně jako já",
