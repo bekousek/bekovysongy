@@ -13456,12 +13456,17 @@
       "title": "Little snowflake",
       "slug": "little-snowflake",
       "author": "Super Simple Songs",
-      "chords": [],
+      "chords": [
+        "D",
+        "F#mi",
+        "G",
+        "Emi",
+        "A"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://tabs.ultimate-guitar.com/tab/misc-children/little-snowflake-chords-2723961",
@@ -13473,7 +13478,28 @@
             "D"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "D",
+          "F#mi",
+          "G",
+          "D"
+        ],
+        [
+          "G",
+          "D",
+          "Emi",
+          "A"
+        ],
+        [
+          "D",
+          "F#mi",
+          "G",
+          "D"
+        ]
+      ],
+      "added": "2026-11-17"
     },
     {
       "title": "Little Talks",
