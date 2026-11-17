@@ -3263,12 +3263,16 @@
       "title": "Chasing cars",
       "slug": "chasing-cars",
       "author": "Snow Patrol",
-      "chords": [],
+      "chords": [
+        "A",
+        "E",
+        "D",
+        "Dmaj7"
+      ],
       "tags": {
         "capo": false,
         "language": "EN"
       },
-      "status": "k-vytvoreni",
       "sources": [
         {
           "url": "https://akordy.kytary.cz/song/chasing-cars",
@@ -3289,7 +3293,21 @@
             "Dmaj7"
           ]
         }
-      ]
+      ],
+      "progression": [
+        [
+          "A",
+          "E",
+          "D"
+        ],
+        [
+          "A",
+          "E",
+          "Dmaj7",
+          "A"
+        ]
+      ],
+      "added": "2026-11-17"
     },
     {
       "title": "Chci ti říct",
