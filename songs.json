@@ -21895,9 +21895,9 @@
       "slug": "snowman",
       "author": "Sia",
       "chords": [
-        "C",
         "Dmi",
         "G",
+        "C",
         "Ami",
         "E7",
         "F"
@@ -21908,35 +21908,17 @@
       },
       "progression": [
         [
-          "C",
           "Dmi",
           "G",
           "C",
-          "Ami",
-          "Dmi",
+          "Ami"
+        ],
+        [
+          "E7",
+          "Ami"
+        ],
+        [
           "G",
-          "C",
-          "Ami",
-          "E7",
-          "Ami",
-          "G",
-          "C",
-          "E7",
-          "Ami",
-          "F",
-          "G",
-          "C",
-          "E7",
-          "Ami",
-          "F",
-          "C",
-          "E7",
-          "Ami",
-          "F",
-          "C",
-          "E7",
-          "Ami",
-          "F",
           "C",
           "E7",
           "Ami",
